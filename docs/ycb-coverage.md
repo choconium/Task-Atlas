@@ -22,7 +22,7 @@ Examples include matching a lid to its container, grouping fasteners, preparing 
 The second round adds another distinct goal for every catalog object: 77 additional
 tasks, plans, and sets of four claims in the `*_round2.json` bundles. Across both
 rounds this is 154 new proposed tasks; together with the 68 existing mustard tasks,
-the atlas contains 222 task definitions. These are collection proposals, not
+the first two rounds brought the atlas to 222 task definitions. These are collection proposals, not
 demonstrations or measured successes.
 
 The second round emphasizes inspection, alignment, assembly preparation, and
@@ -30,6 +30,20 @@ object-specific interactions: seating screwdriver tips, fitting a peg into a
 checked hole, routing a rope, reading a timer, connecting compatible Duplo pieces,
 and checking kitchen surfaces or packaging. Repeated goals across rounds are
 rejected by the coverage test.
+
+The third round adds 77 tasks in `*_round3.json`, bringing the catalog-wide
+expansion to 231 proposals and the atlas to 299 task definitions, 299 planning
+records, and 1,197 claim records. It focuses on multi-object preparation,
+interrupted-work recovery, and closeout. Examples include recovering a bolt and
+nut from an assembly fixture, preparing a pitcher-and-mug transfer, securing a
+rope with a clamp, and clearing a place setting into separate destinations.
+
+Every third-round task declares at least one other catalog object as an actual
+required resource. Those links supplement shared scenes, intents, templates, and
+skills; they do not impose a task order. Packing tasks require collection-time
+fit checks, and catalog identity alone never establishes container capacity or
+functional compatibility. Unconfirmed prerequisites keep tasks out of the
+fully declared ready state.
 
 The generation brief assigns disjoint object groups to `gpt-5.6-luna` workers with `max` reasoning effort. Each worker reads the historical handoff and current foundation contract, then proposes an object-specific goal with observable initial and success conditions. Records include English and Japanese names, required objects and capabilities, setup, reset, quality checks, failure modes, and unmeasured time estimates. A later round must introduce a different goal or context for the object, not merely paraphrase its first task.
 

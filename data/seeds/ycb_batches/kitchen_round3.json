@@ -1,0 +1,3843 @@
+{
+  "templates": [
+    {
+      "id": "template_ycb_prepare_pitcher_set",
+      "node_type": "TaskTemplate",
+      "name_en": "Prepare a matched pitcher serving set",
+      "name_ja": "対応するピッチャー一式を配膳用に準備する",
+      "verb": "prepare",
+      "roles": {
+        "theme": "pitcher_base",
+        "companion": "matching_lid",
+        "destination": "serving_surface"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen",
+        "scene_dining_table",
+        "scene_restaurant_kitchen",
+        "scene_restaurant_table"
+      ],
+      "preconditions": [
+        "empty(theme)",
+        "detached(companion, theme)",
+        "reachable(theme)",
+        "reachable(companion)",
+        "clear(destination)"
+      ],
+      "goals": [
+        "paired_for_serving(theme, companion)",
+        "on_top_of(theme, destination)",
+        "on_top_of(companion, destination)",
+        "stable(theme)",
+        "stable(companion)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "wrong_matching_part",
+        "drop_object",
+        "unstable_pair",
+        "blocked_destination"
+      ],
+      "safety_tags": [
+        "serving_setup",
+        "rigid_pairing"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_closeout_pitcher_lid",
+      "node_type": "TaskTemplate",
+      "name_en": "Clear a detached pitcher lid to a safe rest",
+      "name_ja": "外れたピッチャーふたを安全な置き場所へ片付ける",
+      "verb": "closeout",
+      "roles": {
+        "theme": "lid",
+        "container": "vessel",
+        "destination": "safe_rest"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen",
+        "scene_dining_table",
+        "scene_restaurant_kitchen"
+      ],
+      "preconditions": [
+        "detached(theme, container)",
+        "reachable(theme)",
+        "empty(container)",
+        "clear(destination)"
+      ],
+      "goals": [
+        "on_top_of(theme, destination)",
+        "stable(theme)",
+        "clear(container)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "drop_lid",
+        "place_on_hot_surface",
+        "block_container",
+        "wrong_rest"
+      ],
+      "safety_tags": [
+        "closeout",
+        "rigid_part_handling"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_stage_cleaning_pair",
+      "node_type": "TaskTemplate",
+      "name_en": "Stage two cleaning resources in separated caddy slots",
+      "name_ja": "二つの清掃用品を分離した収納区画へ準備する",
+      "verb": "stage",
+      "roles": {
+        "theme": "cleaning_resource",
+        "companion": "paired_resource",
+        "destination": "cleaning_caddy"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen",
+        "scene_kitchen_counter",
+        "scene_trash_sorting_area"
+      ],
+      "preconditions": [
+        "reachable(theme)",
+        "reachable(companion)",
+        "separated_slots_available(destination)"
+      ],
+      "goals": [
+        "inside(theme, destination)",
+        "inside(companion, destination)",
+        "separated_in_slots(theme, companion)",
+        "stable(theme)",
+        "stable(companion)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "wrong_slot",
+        "container_collision",
+        "chemical_contact",
+        "unstable_placement"
+      ],
+      "safety_tags": [
+        "cleaning_closeout",
+        "separation",
+        "sealed_containers"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_prepare_place_setting",
+      "node_type": "TaskTemplate",
+      "name_en": "Prepare a place setting around a vessel",
+      "name_ja": "器を中心に食卓の一式を準備する",
+      "verb": "prepare",
+      "roles": {
+        "theme": "vessel",
+        "support": "plate",
+        "utensil": "utensil",
+        "destination": "place_setting"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen",
+        "scene_restaurant_table"
+      ],
+      "preconditions": [
+        "empty(theme)",
+        "clean(theme)",
+        "reachable(theme)",
+        "reachable(support)",
+        "reachable(utensil)",
+        "clear(destination)"
+      ],
+      "goals": [
+        "on_top_of(theme, destination)",
+        "centered_with(theme, support)",
+        "aligned_with(utensil, support)",
+        "stable(theme)",
+        "stable(support)",
+        "stable(utensil)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "wrong_alignment",
+        "knock_adjacent_item",
+        "unstable_glass",
+        "blocked_rim"
+      ],
+      "safety_tags": [
+        "table_setting",
+        "fragile_handling"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_transfer_contents",
+      "node_type": "TaskTemplate",
+      "name_en": "Transfer a cool payload between vessels",
+      "name_ja": "冷たい試験用内容物を容器間で移す",
+      "verb": "transfer",
+      "roles": {
+        "source": "source_vessel",
+        "destination": "receiving_vessel",
+        "tool": "transfer_aid"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen",
+        "scene_kitchen_counter",
+        "scene_dining_table",
+        "scene_restaurant_kitchen"
+      ],
+      "preconditions": [
+        "contains(source, payload)",
+        "empty(destination)",
+        "reachable(source)",
+        "reachable(destination)"
+      ],
+      "goals": [
+        "contents_transferred(source, destination)",
+        "source_empty",
+        "contains(destination, payload)",
+        "no_spill"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "spill_payload",
+        "miss_destination",
+        "tip_vessel",
+        "unverified_contents"
+      ],
+      "safety_tags": [
+        "material_flow",
+        "cool_payload"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_rinse_deformable_tool",
+      "node_type": "TaskTemplate",
+      "name_en": "Rinse and stage a deformable cleaning tool",
+      "name_ja": "変形する清掃用具をすすいで配置する",
+      "verb": "rinse",
+      "roles": {
+        "theme": "deformable_tool",
+        "basin": "rinse_basin",
+        "destination": "drying_surface",
+        "rinse_medium": "rinse_water",
+        "drain": "drain_receptacle"
+      },
+      "compatible_scenes": [
+        "scene_kitchen_counter",
+        "scene_home_kitchen",
+        "scene_trash_sorting_area"
+      ],
+      "preconditions": [
+        "dirty(theme)",
+        "empty(basin)",
+        "reachable(theme)",
+        "basin_ready",
+        "available(rinse_medium)",
+        "available(drain)",
+        "compatible_rinse(theme, rinse_medium)",
+        "drain_reachable(drain)"
+      ],
+      "goals": [
+        "rinsed(theme)",
+        "wrung_without_tearing(theme)",
+        "on_top_of(theme, destination)",
+        "stable(theme)",
+        "drained_to(basin, drain)",
+        "basin_empty(basin)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_squeeze",
+        "skill_orient",
+        "skill_inspect",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "tear_tool",
+        "drop_tool",
+        "spread_residue",
+        "leave_dripping_tool"
+      ],
+      "safety_tags": [
+        "deformable_asset",
+        "water_handling",
+        "closeout"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_closeout_cookware_set",
+      "node_type": "TaskTemplate",
+      "name_en": "Close out a cool cookware set",
+      "name_ja": "冷めた調理器具一式を片付ける",
+      "verb": "closeout",
+      "roles": {
+        "theme": "cookware",
+        "companion": "cooking_utensil",
+        "destination": "wash_station"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen",
+        "scene_kitchen_counter",
+        "scene_restaurant_kitchen"
+      ],
+      "preconditions": [
+        "empty(theme)",
+        "cool(theme)",
+        "reachable(theme)",
+        "reachable(companion)",
+        "clear(destination)"
+      ],
+      "goals": [
+        "on_top_of(theme, destination)",
+        "on_top_of(companion, destination)",
+        "handles_accessible",
+        "stable(theme)",
+        "stable(companion)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "move_hot_cookware",
+        "drop_utensil",
+        "blocked_wash_station",
+        "unstable_placement"
+      ],
+      "safety_tags": [
+        "cooldown",
+        "cleaning_closeout"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_recover_cookware_part",
+      "node_type": "TaskTemplate",
+      "name_en": "Recover a cookware part from an edge",
+      "name_ja": "調理器具の部品を端から安全に回収する",
+      "verb": "recover",
+      "roles": {
+        "theme": "cookware_part",
+        "container": "cookware",
+        "destination": "safe_rest"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen",
+        "scene_kitchen_counter",
+        "scene_restaurant_kitchen"
+      ],
+      "preconditions": [
+        "tilted(theme)",
+        "reachable(theme)",
+        "stable(container)",
+        "clear(destination)"
+      ],
+      "goals": [
+        "on_top_of(theme, destination)",
+        "stable(theme)",
+        "clear_edge(theme)",
+        "stable(container)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_recover",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "push_part_off_edge",
+        "grasp_hot_part",
+        "tip_container",
+        "drop_part"
+      ],
+      "safety_tags": [
+        "recovery",
+        "cooldown",
+        "edge_clearance"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_clear_place_setting",
+      "node_type": "TaskTemplate",
+      "name_en": "Clear a place setting into separate destinations",
+      "name_ja": "食卓の一式を分けて片付ける",
+      "verb": "clear",
+      "roles": {
+        "theme": "plate",
+        "utensil_a": "first_utensil",
+        "utensil_b": "second_utensil",
+        "plate_destination": "dish_basin",
+        "utensil_destination": "utensil_caddy"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen",
+        "scene_restaurant_table"
+      ],
+      "preconditions": [
+        "empty(theme)",
+        "reachable(theme)",
+        "reachable(utensil_a)",
+        "reachable(utensil_b)",
+        "open(plate_destination)",
+        "open(utensil_destination)"
+      ],
+      "goals": [
+        "inside(theme, plate_destination)",
+        "inside(utensil_a, utensil_destination)",
+        "inside(utensil_b, utensil_destination)",
+        "table_clear"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_sort",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "mix_destinations",
+        "drop_dish",
+        "tip_stack",
+        "leave_table_blocked"
+      ],
+      "safety_tags": [
+        "closeout",
+        "sorting"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_clear_utensil",
+      "node_type": "TaskTemplate",
+      "name_en": "Clear a utensil from a supporting plate",
+      "name_ja": "皿からカトラリーを取り出して片付ける",
+      "verb": "clear",
+      "roles": {
+        "theme": "utensil",
+        "support": "plate",
+        "destination": "utensil_caddy"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen",
+        "scene_restaurant_table"
+      ],
+      "preconditions": [
+        "on_top_of(theme, support)",
+        "reachable(theme)",
+        "stable(support)",
+        "open(destination)"
+      ],
+      "goals": [
+        "inside(theme, destination)",
+        "clear(support, theme)",
+        "stable(support)",
+        "handle_visible(theme)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "drag_plate",
+        "drop_utensil",
+        "contact_wrong_area",
+        "wrong_receptacle"
+      ],
+      "safety_tags": [
+        "closeout",
+        "utensil_handling"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_prepare_serving_pair",
+      "node_type": "TaskTemplate",
+      "name_en": "Prepare a serving vessel and utensil pair",
+      "name_ja": "配膳用の器とカトラリーを組み合わせる",
+      "verb": "prepare",
+      "roles": {
+        "theme": "serving_utensil",
+        "vessel": "serving_vessel",
+        "destination": "dining_surface"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen",
+        "scene_restaurant_table"
+      ],
+      "preconditions": [
+        "clean(theme)",
+        "empty(vessel)",
+        "reachable(theme)",
+        "reachable(vessel)",
+        "clear(destination)"
+      ],
+      "goals": [
+        "on_top_of(theme, destination)",
+        "on_top_of(vessel, destination)",
+        "near(theme, vessel)",
+        "serving_ready(theme, vessel)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "wrong_vessel",
+        "misplace_utensil",
+        "unstable_bowl",
+        "blocked_access"
+      ],
+      "safety_tags": [
+        "serving_setup",
+        "table_setting"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_safe_clear_sharp_item",
+      "node_type": "TaskTemplate",
+      "name_en": "Safely clear a sharp utensil with a dish",
+      "name_ja": "鋭利なカトラリーと皿を安全に片付ける",
+      "verb": "clear",
+      "roles": {
+        "theme": "sharp_utensil",
+        "companion": "dish",
+        "destination": "guarded_storage"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen",
+        "scene_restaurant_table"
+      ],
+      "preconditions": [
+        "reachable(theme)",
+        "reachable(companion)",
+        "blade_controlled(theme)",
+        "available(destination)"
+      ],
+      "goals": [
+        "inside(theme, destination)",
+        "blade_guarded(theme)",
+        "inside(companion, wash_area)",
+        "table_clear"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "expose_blade",
+        "drop_knife",
+        "contact_person",
+        "wrong_storage"
+      ],
+      "safety_tags": [
+        "sharp_edge",
+        "human_clearance",
+        "closeout"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_prepare_cooking_pair",
+      "node_type": "TaskTemplate",
+      "name_en": "Prepare a cooking tool with its cookware",
+      "name_ja": "調理器具と調理道具を一緒に準備する",
+      "verb": "prepare",
+      "roles": {
+        "theme": "cooking_tool",
+        "cookware": "pan",
+        "destination": "heat_surface"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen",
+        "scene_kitchen_counter",
+        "scene_restaurant_kitchen"
+      ],
+      "preconditions": [
+        "reachable(theme)",
+        "reachable(cookware)",
+        "empty(cookware)",
+        "cool(cookware)",
+        "off(destination)"
+      ],
+      "goals": [
+        "on_top_of(cookware, destination)",
+        "near(theme, cookware)",
+        "handle_accessible(theme)",
+        "stable(cookware)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "move_hot_cookware",
+        "wrong_heat_surface",
+        "block_handle",
+        "unstable_pan"
+      ],
+      "safety_tags": [
+        "cooking_setup",
+        "cooldown"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_spread_table_cloth",
+      "node_type": "TaskTemplate",
+      "name_en": "Spread a table cloth around a plate",
+      "name_ja": "皿を基準にテーブルクロスを広げる",
+      "verb": "spread",
+      "roles": {
+        "theme": "table_linen",
+        "anchor": "plate",
+        "destination": "table"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen",
+        "scene_restaurant_table"
+      ],
+      "preconditions": [
+        "pre_folded(theme)",
+        "clean(theme)",
+        "reachable(theme)",
+        "reachable(anchor)",
+        "clear_except(destination, theme, anchor)"
+      ],
+      "goals": [
+        "spread_flat(theme)",
+        "aligned_with_table_edges(theme, destination)",
+        "on_top_of(anchor, theme)",
+        "centered_on(anchor, theme)",
+        "stable(anchor)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "snag_linen",
+        "drag_plate",
+        "wrinkled_surface",
+        "overhang_edge"
+      ],
+      "safety_tags": [
+        "deformable_asset",
+        "table_setting"
+      ],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_ycb_round3_pitcher_base",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_prepare_pitcher_set",
+      "name_en": "Prepare the pitcher base and lid as a matched serving set",
+      "name_ja": "ピッチャー本体とふたを対応する配膳セットとして準備する",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_019_pitcher_base",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_019_pitcher_base",
+        "companion": "ycb_020_pitcher_lid",
+        "destination": "scene_dining_table"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_019_pitcher_base)",
+        "upright(ycb_019_pitcher_base)",
+        "detached(ycb_020_pitcher_lid, ycb_019_pitcher_base)",
+        "on_top_of(ycb_019_pitcher_base, kitchen_counter)",
+        "on_top_of(ycb_020_pitcher_lid, kitchen_counter)",
+        "reachable(ycb_019_pitcher_base)",
+        "reachable(ycb_020_pitcher_lid)",
+        "clear(dining_table)"
+      ],
+      "goal_state": [
+        "paired_for_serving(ycb_019_pitcher_base, ycb_020_pitcher_lid)",
+        "on_top_of(ycb_019_pitcher_base, dining_table)",
+        "on_top_of(ycb_020_pitcher_lid, dining_table)",
+        "upright(ycb_019_pitcher_base)",
+        "stable(ycb_019_pitcher_base)",
+        "stable(ycb_020_pitcher_lid)"
+      ],
+      "instruction_variants": [
+        "Prepare the empty pitcher base and its matching lid together on the dining table.",
+        "Stage the pitcher base and detached lid as a matched serving set.",
+        "空のピッチャー本体と対応する外れたふたを食卓にセットしてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_pitcher_lid",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_closeout_pitcher_lid",
+      "name_en": "Clear the pitcher lid to a safe rest after service",
+      "name_ja": "配膳後にピッチャーのふたを安全な置き場所へ片付ける",
+      "intent_id": "intent_store",
+      "object_id": "ycb_020_pitcher_lid",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_020_pitcher_lid",
+        "container": "ycb_019_pitcher_base",
+        "destination": "cool_lid_rest"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_open",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "detached(ycb_020_pitcher_lid, ycb_019_pitcher_base)",
+        "open(ycb_019_pitcher_base)",
+        "empty(ycb_019_pitcher_base)",
+        "on_top_of(ycb_020_pitcher_lid, serving_counter)",
+        "on_top_of(ycb_019_pitcher_base, serving_counter)",
+        "reachable(ycb_020_pitcher_lid)",
+        "reachable(ycb_019_pitcher_base)",
+        "clear(cool_lid_rest)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_020_pitcher_lid, cool_lid_rest)",
+        "stable(ycb_020_pitcher_lid)",
+        "clear(ycb_019_pitcher_base)",
+        "upright(ycb_019_pitcher_base)",
+        "no_contact_with_heat(ycb_020_pitcher_lid)"
+      ],
+      "instruction_variants": [
+        "After service, place the detached pitcher lid on the marked cool lid rest.",
+        "Clear the lid from beside the open empty pitcher without attaching it.",
+        "配膳後、外れたピッチャーのふたを指定された冷たい置き台へ移してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_bleach_cleanser",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_stage_cleaning_pair",
+      "name_en": "Stage the bleach cleanser and spray cleaner in separated caddy slots",
+      "name_ja": "漂白クリーナーとスプレークリーナーを分離した区画へ準備する",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_021_bleach_cleanser",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_021_bleach_cleanser",
+        "companion": "ycb_022_windex_bottle",
+        "destination": "cleaning_caddy"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_upright",
+        "state_not_leaking",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "closed(ycb_021_bleach_cleanser)",
+        "upright(ycb_021_bleach_cleanser)",
+        "on_top_of(ycb_021_bleach_cleanser, cleaning_station)",
+        "closed(ycb_022_windex_bottle)",
+        "upright(ycb_022_windex_bottle)",
+        "on_top_of(ycb_022_windex_bottle, cleaning_station)",
+        "reachable(ycb_021_bleach_cleanser)",
+        "reachable(ycb_022_windex_bottle)",
+        "separated_slots_available(cleaning_caddy)",
+        "labels_visible"
+      ],
+      "goal_state": [
+        "inside(ycb_021_bleach_cleanser, bleach_slot)",
+        "inside(ycb_022_windex_bottle, spray_cleaner_slot)",
+        "separated_in_slots(ycb_021_bleach_cleanser, ycb_022_windex_bottle)",
+        "upright(ycb_021_bleach_cleanser)",
+        "upright(ycb_022_windex_bottle)",
+        "stable(ycb_021_bleach_cleanser)",
+        "stable(ycb_022_windex_bottle)"
+      ],
+      "instruction_variants": [
+        "Place the sealed bleach cleanser and spray cleaner in their separate marked caddy slots.",
+        "Stage both cleaning bottles without opening or mixing them.",
+        "密閉した漂白クリーナーとスプレークリーナーを分離した収納区画へ入れてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_windex_bottle",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_stage_cleaning_pair",
+      "name_en": "Close out the spray bottle and sponge in separated caddy slots",
+      "name_ja": "スプレーボトルとスポンジを分離した区画へ片付ける",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_022_windex_bottle",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_022_windex_bottle",
+        "companion": "ycb_026_sponge",
+        "destination": "cleaning_caddy"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "closed(ycb_022_windex_bottle)",
+        "upright(ycb_022_windex_bottle)",
+        "on_top_of(ycb_022_windex_bottle, cleaning_station)",
+        "clean(ycb_026_sponge)",
+        "on_top_of(ycb_026_sponge, cleaning_station)",
+        "reachable(ycb_022_windex_bottle)",
+        "reachable(ycb_026_sponge)",
+        "separated_slots_available(cleaning_caddy)",
+        "trigger_not_activated(ycb_022_windex_bottle)"
+      ],
+      "goal_state": [
+        "inside(ycb_022_windex_bottle, spray_cleaner_slot)",
+        "inside(ycb_026_sponge, tool_slot)",
+        "separated_in_slots(ycb_022_windex_bottle, ycb_026_sponge)",
+        "upright(ycb_022_windex_bottle)",
+        "stable(ycb_022_windex_bottle)",
+        "stable(ycb_026_sponge)"
+      ],
+      "instruction_variants": [
+        "Place the closed spray bottle and clean sponge in separate marked caddy slots.",
+        "Close out the cleaning set by staging the bottle apart from the sponge.",
+        "閉じたスプレーボトルときれいなスポンジを別々の区画へ片付けてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_wine_glass",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_prepare_place_setting",
+      "name_en": "Prepare a place setting around the wine glass",
+      "name_ja": "ワイングラスを中心に食卓の一式を準備する",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_023_wine_glass",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_023_wine_glass",
+        "support": "ycb_029_plate",
+        "utensil": "ycb_030_fork",
+        "destination": "dining_place_setting"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_clean",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_023_wine_glass)",
+        "clean(ycb_023_wine_glass)",
+        "upright(ycb_023_wine_glass)",
+        "on_top_of(ycb_023_wine_glass, kitchen_counter)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "on_top_of(ycb_030_fork, dining_table)",
+        "reachable(ycb_023_wine_glass)",
+        "reachable(ycb_029_plate)",
+        "reachable(ycb_030_fork)",
+        "clear(dining_place_setting)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_023_wine_glass, dining_table)",
+        "centered_with(ycb_023_wine_glass, ycb_029_plate)",
+        "aligned_with(ycb_030_fork, ycb_029_plate)",
+        "stable(ycb_023_wine_glass)",
+        "stable(ycb_029_plate)",
+        "stable(ycb_030_fork)",
+        "rim_clear(ycb_023_wine_glass)"
+      ],
+      "instruction_variants": [
+        "Set the empty wine glass with the plate and fork at the dining table.",
+        "Prepare the place setting around the clean wine glass.",
+        "空のワイングラスを皿とフォークと一緒に食卓へ配置してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_bowl",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_transfer_contents",
+      "name_en": "Transfer a cool surrogate payload from the bowl to a plate with a spoon",
+      "name_ja": "冷たい試験用内容物をボウルからスプーンで皿へ移す",
+      "intent_id": "intent_prepare_food",
+      "object_id": "ycb_024_bowl",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "source": "ycb_024_bowl",
+        "destination": "ycb_029_plate",
+        "tool": "ycb_031_spoon"
+      },
+      "state_ids": [
+        "state_full",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "contains(ycb_024_bowl, cool_surrogate_payload)",
+        "on_top_of(ycb_024_bowl, kitchen_counter)",
+        "empty(ycb_029_plate)",
+        "on_top_of(ycb_029_plate, kitchen_counter)",
+        "clean(ycb_031_spoon)",
+        "on_top_of(ycb_031_spoon, kitchen_counter)",
+        "reachable(ycb_024_bowl)",
+        "reachable(ycb_029_plate)",
+        "reachable(ycb_031_spoon)",
+        "approved_nonfood_surrogate_payload"
+      ],
+      "goal_state": [
+        "contents_transferred(ycb_024_bowl, ycb_029_plate)",
+        "empty(ycb_024_bowl)",
+        "contains(ycb_029_plate, cool_surrogate_payload)",
+        "clear(ycb_031_spoon)",
+        "no_spill(kitchen_counter)"
+      ],
+      "instruction_variants": [
+        "Transfer the cool nonfood surrogate payload from the bowl to the empty plate using the spoon.",
+        "Move the controlled payload out of the bowl without spilling it.",
+        "冷たい非食品の試験用内容物をスプーンでボウルから空の皿へ移してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_mug",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_transfer_contents",
+      "name_en": "Pour a cool surrogate payload from the pitcher base into the mug",
+      "name_ja": "冷たい試験用内容物をピッチャー本体からマグへ移す",
+      "intent_id": "intent_prepare_food",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "source": "ycb_019_pitcher_base",
+        "destination": "ycb_025_mug",
+        "tool": "direct_pour"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "contains(ycb_019_pitcher_base, cool_surrogate_payload)",
+        "upright(ycb_019_pitcher_base)",
+        "on_top_of(ycb_019_pitcher_base, kitchen_counter)",
+        "empty(ycb_025_mug)",
+        "on_top_of(ycb_025_mug, kitchen_counter)",
+        "reachable(ycb_019_pitcher_base)",
+        "reachable(ycb_025_mug)",
+        "approved_nonfood_surrogate_payload"
+      ],
+      "goal_state": [
+        "contains(ycb_025_mug, cool_surrogate_payload)",
+        "source_level_changed(ycb_019_pitcher_base)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)",
+        "no_spill(kitchen_counter)"
+      ],
+      "instruction_variants": [
+        "Pour a cool nonfood surrogate payload from the pitcher base into the empty mug.",
+        "Transfer the controlled payload to the mug without introducing heat or spill.",
+        "冷たい非食品の試験用内容物を空のマグへこぼさず移してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_sponge",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_rinse_deformable_tool",
+      "name_en": "Rinse and stage the sponge after cleaning",
+      "name_ja": "清掃後にスポンジをすすいで配置する",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_026_sponge",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_026_sponge",
+        "basin": "ycb_024_bowl",
+        "destination": "sponge_drying_rack",
+        "rinse_medium": "nonhazardous_rinse_water",
+        "drain": "rinse_waste_container"
+      },
+      "state_ids": [
+        "state_dirty",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "dirty(ycb_026_sponge)",
+        "on_top_of(ycb_026_sponge, cleaning_station)",
+        "empty(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, cleaning_station)",
+        "reachable(ycb_026_sponge)",
+        "basin_ready",
+        "available(nonhazardous_rinse_water)",
+        "available(rinse_waste_container)",
+        "approved_rinse_medium(nonhazardous_rinse_water)",
+        "compatible_rinse(ycb_026_sponge, nonhazardous_rinse_water)",
+        "drain_reachable(rinse_waste_container)",
+        "clear(sponge_drying_rack)"
+      ],
+      "goal_state": [
+        "rinsed(ycb_026_sponge)",
+        "rinsed_with(ycb_026_sponge, nonhazardous_rinse_water)",
+        "wrung_without_tearing(ycb_026_sponge)",
+        "on_top_of(ycb_026_sponge, sponge_drying_rack)",
+        "stable(ycb_026_sponge)",
+        "drained_to(ycb_024_bowl, rinse_waste_container)",
+        "basin_empty(ycb_024_bowl)"
+      ],
+      "instruction_variants": [
+        "Rinse the sponge in the empty bowl and place it on the marked drying rack.",
+        "After cleaning, wring the sponge without tearing it and stage it to dry.",
+        "空のボウルですすいだスポンジを破らずに絞り、指定の乾燥ラックへ置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_squeeze",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_skillet",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_closeout_cookware_set",
+      "name_en": "Move the cool skillet and spatula together to the wash station",
+      "name_ja": "冷めたフライパンとへらを一緒に洗い場へ片付ける",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_027_skillet",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_027_skillet",
+        "companion": "ycb_033_spatula",
+        "destination": "wash_station"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_room_temperature",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_027_skillet)",
+        "cool(ycb_027_skillet)",
+        "on_top_of(ycb_027_skillet, kitchen_counter)",
+        "on_top_of(ycb_033_spatula, kitchen_counter)",
+        "reachable(ycb_027_skillet)",
+        "reachable(ycb_033_spatula)",
+        "clear(wash_station)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_027_skillet, wash_station)",
+        "on_top_of(ycb_033_spatula, wash_station)",
+        "handles_accessible",
+        "stable(ycb_027_skillet)",
+        "stable(ycb_033_spatula)",
+        "stovetop_clear"
+      ],
+      "instruction_variants": [
+        "Move the empty, cool skillet and spatula together to the wash station.",
+        "Close out the cooking setup by staging the skillet and spatula for washing.",
+        "空で冷めたフライパンとへらを一緒に洗い場へ片付けてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_skillet_lid",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_recover_cookware_part",
+      "name_en": "Recover the tilted skillet lid from the stovetop edge",
+      "name_ja": "コンロ端で傾いたフライパンのふたを回収する",
+      "intent_id": "intent_recover_from_error",
+      "object_id": "ycb_028_skillet_lid",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_028_skillet_lid",
+        "container": "ycb_027_skillet",
+        "destination": "cool_lid_rest"
+      },
+      "state_ids": [
+        "state_tilted",
+        "state_open",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "tilted(ycb_028_skillet_lid)",
+        "on_top_of(ycb_028_skillet_lid, stovetop_edge)",
+        "open(ycb_027_skillet)",
+        "empty(ycb_027_skillet)",
+        "cool(ycb_027_skillet)",
+        "stable(ycb_027_skillet)",
+        "reachable(ycb_028_skillet_lid)",
+        "reachable(ycb_027_skillet)",
+        "clear(cool_lid_rest)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_028_skillet_lid, cool_lid_rest)",
+        "stable(ycb_028_skillet_lid)",
+        "clear_edge(ycb_028_skillet_lid)",
+        "stable(ycb_027_skillet)",
+        "no_contact_with_heat(ycb_028_skillet_lid)"
+      ],
+      "instruction_variants": [
+        "Recover the tilted cool skillet lid from the stovetop edge and place it on the marked rest.",
+        "Clear the lid without tipping the empty skillet.",
+        "コンロ端で傾いた冷たいふたを回収し、指定の置き台へ移してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_recover",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_plate",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_clear_place_setting",
+      "name_en": "Clear the plate and separate its utensils into destinations",
+      "name_ja": "皿とカトラリーを別々の場所へ分けて片付ける",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_029_plate",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_029_plate",
+        "utensil_a": "ycb_030_fork",
+        "utensil_b": "ycb_031_spoon",
+        "plate_destination": "wash_basin",
+        "utensil_destination": "utensil_caddy"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_029_plate)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "on_top_of(ycb_030_fork, dining_table)",
+        "on_top_of(ycb_031_spoon, dining_table)",
+        "reachable(ycb_029_plate)",
+        "reachable(ycb_030_fork)",
+        "reachable(ycb_031_spoon)",
+        "open(wash_basin)",
+        "open(utensil_caddy)",
+        "place_setting_clearance"
+      ],
+      "goal_state": [
+        "inside(ycb_029_plate, wash_basin)",
+        "inside(ycb_030_fork, utensil_caddy)",
+        "inside(ycb_031_spoon, utensil_caddy)",
+        "plate_stack_stable",
+        "utensils_separated",
+        "table_clear"
+      ],
+      "instruction_variants": [
+        "Clear the empty plate and put the fork and spoon into the utensil caddy.",
+        "Separate the dish and utensils into their designated closeout destinations.",
+        "空の皿を洗い場へ、フォークとスプーンをカトラリー入れへ分けて片付けてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_sort",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_fork",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_clear_utensil",
+      "name_en": "Clear the fork from the plate into the utensil caddy",
+      "name_ja": "皿からフォークを取り出してカトラリー入れへ片付ける",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_030_fork",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_030_fork",
+        "support": "ycb_029_plate",
+        "destination": "utensil_caddy"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_030_fork, ycb_029_plate)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "empty(ycb_029_plate)",
+        "stable(ycb_029_plate)",
+        "reachable(ycb_030_fork)",
+        "reachable(ycb_029_plate)",
+        "open(utensil_caddy)",
+        "tines_away_from_hand"
+      ],
+      "goal_state": [
+        "inside(ycb_030_fork, utensil_caddy)",
+        "clear(ycb_029_plate, ycb_030_fork)",
+        "stable(ycb_029_plate)",
+        "handle_visible(ycb_030_fork)",
+        "table_clear_of_fork"
+      ],
+      "instruction_variants": [
+        "Remove the fork from the empty plate and place it in the utensil caddy.",
+        "Clear the fork for closeout while leaving the plate stable.",
+        "空の皿からフォークを取り出し、皿を安定させたままカトラリー入れへ置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_spoon",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_prepare_serving_pair",
+      "name_en": "Prepare the spoon and bowl together on the dining table",
+      "name_ja": "スプーンとボウルを一緒に食卓へ準備する",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_031_spoon",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_031_spoon",
+        "vessel": "ycb_024_bowl",
+        "destination": "dining_table"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "inside(ycb_031_spoon, utensil_caddy)",
+        "clean(ycb_031_spoon)",
+        "empty(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, kitchen_counter)",
+        "reachable(ycb_031_spoon)",
+        "reachable(ycb_024_bowl)",
+        "clear(dining_table)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_031_spoon, dining_table)",
+        "on_top_of(ycb_024_bowl, dining_table)",
+        "near(ycb_031_spoon, ycb_024_bowl)",
+        "serving_ready(ycb_031_spoon, ycb_024_bowl)",
+        "stable(ycb_031_spoon)",
+        "stable(ycb_024_bowl)"
+      ],
+      "instruction_variants": [
+        "Bring the clean spoon and empty bowl together to the dining table.",
+        "Prepare the bowl with its serving spoon on the clear table.",
+        "きれいなスプーンと空のボウルを一緒に食卓へ準備してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_knife",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_safe_clear_sharp_item",
+      "name_en": "Safely clear the knife and plate after the meal setup",
+      "name_ja": "食事の準備後にナイフと皿を安全に片付ける",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_032_knife",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_032_knife",
+        "companion": "ycb_029_plate",
+        "destination": "guarded_knife_tray"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_032_knife, dining_table)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "empty(ycb_029_plate)",
+        "blade_down_and_away(ycb_032_knife)",
+        "hands_clear_of_path",
+        "reachable(ycb_032_knife)",
+        "reachable(ycb_029_plate)",
+        "available(guarded_knife_tray)",
+        "open(wash_basin)"
+      ],
+      "goal_state": [
+        "inside(ycb_032_knife, guarded_knife_tray)",
+        "blade_guarded(ycb_032_knife)",
+        "inside(ycb_029_plate, wash_basin)",
+        "table_clear",
+        "safe(ycb_032_knife)"
+      ],
+      "instruction_variants": [
+        "Place the knife in the guarded tray and move the empty plate to the wash basin.",
+        "Safely clear the sharp utensil and its plate from the dining table.",
+        "ナイフを保護されたトレーへ、空の皿を洗い場へ安全に片付けてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_spatula",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_prepare_cooking_pair",
+      "name_en": "Prepare the spatula with the skillet at the stovetop",
+      "name_ja": "フライパンとへらをコンロで一緒に準備する",
+      "intent_id": "intent_prepare_food",
+      "object_id": "ycb_033_spatula",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_033_spatula",
+        "cookware": "ycb_027_skillet",
+        "destination": "stovetop"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_room_temperature",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "inside(ycb_033_spatula, utensil_caddy)",
+        "clean(ycb_033_spatula)",
+        "empty(ycb_027_skillet)",
+        "cool(ycb_027_skillet)",
+        "on_top_of(ycb_027_skillet, kitchen_counter)",
+        "reachable(ycb_033_spatula)",
+        "reachable(ycb_027_skillet)",
+        "off(stovetop)",
+        "clear(stovetop)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_027_skillet, stovetop)",
+        "near(ycb_033_spatula, ycb_027_skillet)",
+        "handle_accessible(ycb_033_spatula)",
+        "stable(ycb_027_skillet)",
+        "off(stovetop)",
+        "cooking_pair_ready"
+      ],
+      "instruction_variants": [
+        "Place the empty, cool skillet on the off stovetop with the clean spatula beside it.",
+        "Prepare the skillet and spatula as a cooking pair without turning on the heat.",
+        "空で冷めたフライパンを消火したコンロへ置き、きれいなへらをそばに準備してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    },
+    {
+      "id": "task_ycb_round3_table_cloth",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_spread_table_cloth",
+      "name_en": "Spread the table cloth around the plate",
+      "name_ja": "皿を基準にテーブルクロスを広げる",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_034_table_cloth",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_034_table_cloth",
+        "anchor": "ycb_029_plate",
+        "destination": "dining_table"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "pre_folded(ycb_034_table_cloth)",
+        "clean(ycb_034_table_cloth)",
+        "dry(ycb_034_table_cloth)",
+        "on_top_of(ycb_034_table_cloth, dining_table)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "empty(ycb_029_plate)",
+        "reachable(ycb_034_table_cloth)",
+        "reachable(ycb_029_plate)",
+        "clear_except(dining_table, ycb_034_table_cloth, ycb_029_plate)"
+      ],
+      "goal_state": [
+        "spread_flat(ycb_034_table_cloth)",
+        "aligned_with_table_edges(ycb_034_table_cloth, dining_table)",
+        "on_top_of(ycb_029_plate, ycb_034_table_cloth)",
+        "centered_on(ycb_029_plate, ycb_034_table_cloth)",
+        "stable(ycb_029_plate)",
+        "table_surface_covered"
+      ],
+      "instruction_variants": [
+        "Spread the clean folded table cloth flat around the empty plate.",
+        "Lay out the table cloth and use the plate as the placement anchor.",
+        "きれいに折ったテーブルクロスを空の皿の周りへ平らに広げてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_align",
+        "skill_verify"
+      ],
+      "review_status": "proposed",
+      "notes": "Proposed Round 3 coverage candidate with an object-specific preparation, recovery, or closeout goal; skills are unordered and no execution result or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round3"
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_task_ycb_round3_pitcher_base",
+      "task_id": "task_ycb_round3_pitcher_base",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The matched pitcher set is prepared from the home kitchen counter for a dining-table destination."
+        },
+        {
+          "key": "object",
+          "value": "ycb_019_pitcher_base",
+          "reason": "The YCB pitcher base is the primary serving-set object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_020_pitcher_lid",
+          "reason": "The matching YCB pitcher lid is required to establish the paired serving set."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The pitcher base must start empty so the pair can be staged without liquid handling."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_pitcher_base",
+          "reason": "The base starts empty and dry before the pair is moved."
+        },
+        {
+          "key": "condition",
+          "value": "initial_detached_pitcher_lid",
+          "reason": "The matching lid starts detached so pairing is observable without forcing closure."
+        },
+        {
+          "key": "condition",
+          "value": "initial_both_reachable",
+          "reason": "Both pitcher parts must be reachable for coordinated preparation."
+        },
+        {
+          "key": "condition",
+          "value": "dining_table_clear",
+          "reason": "The serving destination must be clear and fully support both parts."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires grasping, carrying, aligning, and placing rigid pitcher parts."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as a household serving-preparation activity."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The empty pitcher base and its matching detached lid are visibly staged together on the dining table.",
+          "Both parts are fully supported, stable, and remain identifiable as the same serving set."
+        ],
+        "setup": [
+          "Use an empty, dry, room-temperature pitcher base with its matching lid detached on a clear counter.",
+          "Mark a clear dining-table destination and keep the route free of people, liquid, and unrelated objects."
+        ],
+        "reset": [
+          "Return the base and lid to their marked separated counter poses.",
+          "Verify both parts are empty, dry, undamaged, and ready for another setup."
+        ],
+        "quality_checks": [
+          "Confirm the lid matches the base and is not accidentally attached.",
+          "Check that both footprints are supported and that the table route and destination stayed clear."
+        ],
+        "failure_modes": [
+          "Wrong lid paired with the base.",
+          "A part is dropped, tipped, or placed at the table edge.",
+          "Liquid or heat is introduced despite the controlled setup."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_pitcher_lid",
+      "task_id": "task_ycb_round3_pitcher_lid",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The lid closeout uses a controlled home-kitchen counter and a marked cool rest."
+        },
+        {
+          "key": "object",
+          "value": "ycb_020_pitcher_lid",
+          "reason": "The YCB pitcher lid is the primary closeout object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_019_pitcher_base",
+          "reason": "The matching pitcher base is required to keep the lid closeout relation explicit."
+        },
+        {
+          "key": "condition",
+          "value": "initial_detached_pitcher_lid",
+          "reason": "The lid starts detached from the open base."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_cool_pitcher_base",
+          "reason": "The matching base is empty and cool while the lid is cleared."
+        },
+        {
+          "key": "condition",
+          "value": "initial_both_reachable",
+          "reason": "The lid and base must both be reachable for safe separation."
+        },
+        {
+          "key": "condition",
+          "value": "cool_lid_rest_clear",
+          "reason": "The marked lid rest must be clear and away from heat."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires controlled grasping and placement of a rigid lid."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as a household serving closeout activity."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The detached pitcher lid is visibly on the marked cool lid rest.",
+          "The empty base remains upright and unobstructed without the lid being forced onto it."
+        ],
+        "setup": [
+          "Use an empty, cool pitcher base and detached lid on a clear counter.",
+          "Mark a cool lid rest away from heat and keep both parts reachable."
+        ],
+        "reset": [
+          "Return the lid beside the open base in the same marked counter pose.",
+          "Inspect the lid rest and base for heat, damage, or newly introduced obstruction."
+        ],
+        "quality_checks": [
+          "Confirm the lid is fully supported on the cool rest and the base remains stable.",
+          "Confirm no closure force, spill, heat contact, or edge placement occurred."
+        ],
+        "failure_modes": [
+          "Lid is attached unintentionally or placed on a hot surface.",
+          "Lid or base is dropped, tipped, or occluded.",
+          "The cool-rest condition is not verified."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_bleach_cleanser",
+      "task_id": "task_ycb_round3_bleach_cleanser",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The sealed-cleaner staging task uses a controlled home-kitchen cleaning station."
+        },
+        {
+          "key": "object",
+          "value": "ycb_021_bleach_cleanser",
+          "reason": "The YCB bleach cleanser is the primary cleaning resource."
+        },
+        {
+          "key": "object",
+          "value": "ycb_022_windex_bottle",
+          "reason": "The spray cleaner is required as the paired resource whose slot must remain separate."
+        },
+        {
+          "key": "condition",
+          "value": "initial_bleach_closed_upright",
+          "reason": "The bleach cleanser starts closed and upright."
+        },
+        {
+          "key": "condition",
+          "value": "initial_spray_closed_upright",
+          "reason": "The paired spray cleaner starts closed and upright."
+        },
+        {
+          "key": "condition",
+          "value": "cleaning_caddy_separated_slots",
+          "reason": "The caddy must provide visibly separated, labeled slots."
+        },
+        {
+          "key": "condition",
+          "value": "labels_visible",
+          "reason": "Labels and slot identities must remain observable during placement."
+        },
+        {
+          "key": "condition",
+          "value": "no_opening_or_mixing",
+          "reason": "The collection setup excludes opening, dispensing, or mixing cleaning products."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires moving and aligning two rigid sealed bottles."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household cleaning-resource organization."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The sealed bleach cleanser and spray cleaner are upright in separate labeled caddy slots.",
+          "Neither bottle is opened, mixed, leaking, or blocking the other resource."
+        ],
+        "setup": [
+          "Use two sealed, upright cleaning bottles at a marked cleaning station with no dispensing or chemical transfer.",
+          "Provide a caddy with visibly separated slots and keep labels facing the recording view."
+        ],
+        "reset": [
+          "Return both sealed bottles to their marked counter start poses.",
+          "Check that the caddy slots are empty and no residue or cross-contact was introduced."
+        ],
+        "quality_checks": [
+          "Verify the bottle identities, slot separation, upright support, and closed closures.",
+          "Record only placement and separation; do not infer chemical compatibility from YCB catalog identity."
+        ],
+        "failure_modes": [
+          "Bottles are swapped, touching, or placed in the wrong slot.",
+          "A bottle is opened, tipped, dropped, or leaks.",
+          "Labels or slot boundaries are occluded."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_windex_bottle",
+      "task_id": "task_ycb_round3_windex_bottle",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The spray-bottle closeout uses a controlled home-kitchen cleaning station."
+        },
+        {
+          "key": "object",
+          "value": "ycb_022_windex_bottle",
+          "reason": "The YCB spray bottle is the primary closeout object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_026_sponge",
+          "reason": "The sponge is required as the paired cleaning tool for the closeout caddy."
+        },
+        {
+          "key": "condition",
+          "value": "initial_spray_closed_upright",
+          "reason": "The spray bottle starts closed and upright with its trigger inactive."
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_sponge",
+          "reason": "The paired sponge starts clean and free of unverified chemical residue."
+        },
+        {
+          "key": "condition",
+          "value": "cleaning_caddy_separated_slots",
+          "reason": "The caddy must provide visibly separated, labeled slots."
+        },
+        {
+          "key": "condition",
+          "value": "no_chemical_contact",
+          "reason": "The setup keeps the spray bottle and sponge separate without claiming material compatibility."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires moving and aligning a rigid bottle and a tool."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household cleaning closeout."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The closed spray bottle and clean sponge are upright or fully supported in separate labeled caddy slots.",
+          "The spray trigger remains inactive and the sponge is not in chemical contact."
+        ],
+        "setup": [
+          "Use a closed, upright spray bottle and a clean, dry sponge at a marked cleaning station.",
+          "Provide separate caddy slots and prohibit spraying, squeezing with cleaner, or chemical contact during setup."
+        ],
+        "reset": [
+          "Return the bottle and sponge to their marked separate counter poses.",
+          "Verify the trigger is inactive and the sponge has no unverified residue before repeating."
+        ],
+        "quality_checks": [
+          "Confirm separate slots, closed bottle, inactive trigger, and full sponge support.",
+          "Record staging only; do not infer functional or material compatibility from catalog assets."
+        ],
+        "failure_modes": [
+          "Bottle and sponge are placed together or in the wrong slots.",
+          "The trigger is activated or the bottle is dropped.",
+          "The sponge is contaminated, torn, or left unsupported."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_wine_glass",
+      "task_id": "task_ycb_round3_wine_glass",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The place-setting task is scoped to the dining table."
+        },
+        {
+          "key": "object",
+          "value": "ycb_023_wine_glass",
+          "reason": "The YCB wine glass is the primary place-setting object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "The plate is the support reference for the place setting."
+        },
+        {
+          "key": "object",
+          "value": "ycb_030_fork",
+          "reason": "The fork is required to complete the coordinated setting."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The glass starts empty so the task does not require liquid or food handling."
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_empty_glass",
+          "reason": "The glass starts clean, empty, upright, and visibly intact."
+        },
+        {
+          "key": "condition",
+          "value": "plate_and_fork_available",
+          "reason": "The plate and fork must be present and reachable at the dining table."
+        },
+        {
+          "key": "condition",
+          "value": "place_setting_zone_clear",
+          "reason": "The destination zone must have room for the glass, plate, and fork."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires careful rigid-object placement around a fragile vessel."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household table-setting preparation."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The empty wine glass is fully supported at the dining table with the plate and fork.",
+          "The glass rim, plate, and fork remain visibly clear, stable, and aligned as one place setting."
+        ],
+        "setup": [
+          "Use a clean, empty, room-temperature wine glass, clean plate, and clean fork.",
+          "Clear a dining-table place-setting zone and keep the glass rim free of payload or contact."
+        ],
+        "reset": [
+          "Return the wine glass to its marked counter pose and return the plate and fork to their table marks.",
+          "Inspect the glass, rim, stem, and base before another trial."
+        ],
+        "quality_checks": [
+          "Verify the glass is upright and supported without rim contact or occlusion.",
+          "Confirm the plate and fork are identifiable and aligned without collisions or food-contact claims."
+        ],
+        "failure_modes": [
+          "Glass tips, is struck by another object, or is placed at the edge.",
+          "Rim or stem is occluded, contacted, or damaged.",
+          "The place-setting zone is not clear."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_bowl",
+      "task_id": "task_ycb_round3_bowl",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The controlled payload transfer uses a home-kitchen preparation counter."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "The YCB bowl is the primary source vessel."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "The plate is the receiving vessel and is required for the transfer goal."
+        },
+        {
+          "key": "object",
+          "value": "ycb_031_spoon",
+          "reason": "The spoon is the actual transfer aid required by this task."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The bowl starts with a controlled payload for an observable transfer."
+        },
+        {
+          "key": "condition",
+          "value": "approved_nonfood_surrogate_payload",
+          "reason": "Use a cool, nonhazardous, nonfood surrogate rather than inferring food suitability from the catalog asset."
+        },
+        {
+          "key": "condition",
+          "value": "initial_plate_empty",
+          "reason": "The receiving plate starts empty and stable."
+        },
+        {
+          "key": "condition",
+          "value": "initial_spoon_clean",
+          "reason": "The transfer spoon starts clean and reachable."
+        },
+        {
+          "key": "condition",
+          "value": "all_transfer_objects_reachable",
+          "reason": "The bowl, plate, and spoon must all be reachable in the transfer area."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires handling the bowl, plate, and spoon."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed design includes observable payload flow between vessels."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as a controlled household preparation task."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The controlled cool surrogate payload is visibly transferred from the bowl into the plate.",
+          "The bowl is empty, the spoon is clear, and no payload is visible outside the two vessels."
+        ],
+        "setup": [
+        "Use a cool, nonhazardous, nonfood surrogate payload in the bowl, with the empty plate and clean spoon beside it."
+        ],
+        "reset": [
+          "Return the surrogate payload to the bowl and restore the plate and spoon to their marked counter poses.",
+          "Clean and dry the three objects using the approved collection protocol."
+        ],
+        "quality_checks": [
+          "Verify source-empty and destination-containing states without estimating volume or duration.",
+          "Check for spill, residue, utensil contact errors, and any assumption of food suitability."
+        ],
+        "failure_modes": [
+          "Payload spills, remains in the bowl, or misses the plate.",
+          "Spoon or vessel is dropped, tipped, or contaminated.",
+          "A food-safety or functional claim is inferred from the catalog asset."
+        ],
+        "consumables": [
+          "cool_nonfood_surrogate_payload"
+        ],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_mug",
+      "task_id": "task_ycb_round3_mug",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The controlled pour uses a home-kitchen counter."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "The YCB mug is the primary receiving vessel."
+        },
+        {
+          "key": "object",
+          "value": "ycb_019_pitcher_base",
+          "reason": "The pitcher base is the actual source vessel required for the pour."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The mug starts empty so the receiving state is observable."
+        },
+        {
+          "key": "condition",
+          "value": "approved_nonfood_surrogate_payload",
+          "reason": "Use a cool, nonhazardous, nonfood surrogate rather than inferring food or liquid-contact suitability from the catalog asset."
+        },
+        {
+          "key": "condition",
+          "value": "initial_pitcher_payload_cool",
+          "reason": "The source pitcher base contains only the controlled cool surrogate payload."
+        },
+        {
+          "key": "condition",
+          "value": "initial_mug_empty_stable",
+          "reason": "The mug starts empty, upright, and fully supported."
+        },
+        {
+          "key": "condition",
+          "value": "both_vessels_reachable",
+          "reason": "The source pitcher base and mug must both be reachable."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires grasping and orienting rigid vessels."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed design includes observable payload flow into the mug."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as a controlled household preparation task."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The cool surrogate payload is visibly transferred into the upright mug.",
+          "The mug is stable and no payload is visible on the counter or outside the receiving vessel."
+        ],
+        "setup": [
+          "Use a cool, nonhazardous, nonfood surrogate payload in an empty pitcher base and an empty mug.",
+          "Keep both vessels stable and reachable; use direct controlled pouring without estimating a target volume or duration."
+        ],
+        "reset": [
+          "Return the surrogate payload to the pitcher base and return the empty mug to its marked counter pose.",
+          "Clean and dry both vessels under the approved collection protocol."
+        ],
+        "quality_checks": [
+          "Verify the source and receiving containment states and inspect the counter for spill.",
+          "Record transfer behavior only; do not infer food-contact or liquid-function suitability from catalog identity."
+        ],
+        "failure_modes": [
+          "Mug tips, payload spills, or the source is not controlled.",
+          "The receiving state is occluded or unverified.",
+          "A functional or food-safety claim is made without evidence."
+        ],
+        "consumables": [
+          "cool_nonfood_surrogate_payload"
+        ],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_sponge",
+      "task_id": "task_ycb_round3_sponge",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The sponge rinse and drying task is scoped to the kitchen counter cleaning station."
+        },
+        {
+          "key": "object",
+          "value": "ycb_026_sponge",
+          "reason": "The YCB sponge is the primary deformable cleaning tool."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "The empty bowl is the actual rinse basin required by the setup."
+        },
+        {
+          "key": "condition",
+          "value": "initial_sponge_dirty",
+          "reason": "The sponge starts with a visible nonhazardous residue for the rinse-closeout goal."
+        },
+        {
+          "key": "condition",
+          "value": "basin_empty_and_ready",
+          "reason": "The bowl starts empty and is designated as the rinse basin."
+        },
+        {
+          "key": "condition",
+          "value": "rinse_medium_resource_available",
+          "reason": "The proposed rinse requires a measured, nonhazardous water resource rather than an implied empty-basin state."
+        },
+        {
+          "key": "condition",
+          "value": "rinse_drain_container_available",
+          "reason": "A labeled drain or waste container must receive the rinse flow so basin emptying is observable."
+        },
+        {
+          "key": "condition",
+          "value": "rinse_medium_approved_for_sponge",
+          "reason": "The rinse medium must be explicitly approved for the sponge; the catalog asset does not establish chemical compatibility."
+        },
+        {
+          "key": "condition",
+          "value": "drying_rack_clear",
+          "reason": "The drying rack must be clear and fully support the sponge."
+        },
+        {
+          "key": "capability",
+          "value": "deformable_manipulation",
+          "reason": "Flexible sponge geometry must be grasped, repositioned, and placed."
+        },
+        {
+          "key": "capability",
+          "value": "deformable_squeezing",
+          "reason": "The proposed closeout includes squeezing the flexible sponge without tearing it."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed design includes observable water flow into and out of the bowl."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "Residue removal, drainage into the designated container, and an empty basin must be visibly checked."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household cleaning closeout."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The sponge is visibly rinsed, squeezed without tearing, and placed fully on the drying rack.",
+          "Approved rinse water visibly removes the marked residue and drains into the designated waste container; the basin ends empty and the sponge is not left dripping onto the counter."
+        ],
+        "setup": [
+          "Use a sponge with a visible nonhazardous residue, an empty bowl as the rinse basin, a labeled rinse waste container, and a clear drying rack.",
+          "Provide a measured nonhazardous rinse-water resource approved for the sponge and keep the basin, sponge, drain container, and rack reachable."
+        ],
+        "reset": [
+          "Return the sponge to its marked dirty start state, empty and dry the bowl through the designated drain container, and return both to the cleaning station.",
+          "Clear the drying rack, dispose of the used rinse water under the approved protocol, and replenish the rinse-water resource before another trial."
+        ],
+        "quality_checks": [
+          "Inspect the sponge for tearing and residue removal, verify that rinse flow reached the designated drain container, and confirm the sponge is fully supported.",
+          "Confirm the bowl is empty with no standing rinse water and no chemical or food-contact suitability was inferred."
+        ],
+        "failure_modes": [
+          "Sponge tears, is dropped, or residue is spread.",
+          "Bowl tips, the rinse medium is unapproved or unavailable, the drain container is missing, or the rack is blocked.",
+          "Drainage is not observed, the sponge remains dripping or unsupported, or water remains in the bowl."
+        ],
+        "consumables": [
+          "nonhazardous_rinse_water"
+        ],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_skillet",
+      "task_id": "task_ycb_round3_skillet",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The cookware closeout uses a home-kitchen counter and wash station."
+        },
+        {
+          "key": "object",
+          "value": "ycb_027_skillet",
+          "reason": "The YCB skillet is the primary cookware object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_033_spatula",
+          "reason": "The spatula is the actual companion utensil required for the closeout set."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The skillet starts empty so the closeout has no payload or spill requirement."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_cool_skillet",
+          "reason": "The skillet starts empty and cool at the counter."
+        },
+        {
+          "key": "condition",
+          "value": "initial_spatula_reachable",
+          "reason": "The companion spatula must be present and reachable."
+        },
+        {
+          "key": "condition",
+          "value": "wash_station_clear",
+          "reason": "The wash station must be clear and large enough for both objects."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires coordinated transport and placement of cookware and utensil."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household cooking closeout."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The empty, cool skillet and spatula are both fully supported at the wash station.",
+          "Handles remain accessible and the stovetop is clear after closeout."
+        ],
+        "setup": [
+          "Use an empty, room-temperature skillet and a clean spatula on a clear counter.",
+          "Mark a wash station large enough for both objects and keep the stovetop off and free of unrelated items."
+        ],
+        "reset": [
+          "Return the skillet and spatula to their marked counter poses.",
+          "Verify the skillet is empty and cool and the wash station is clear."
+        ],
+        "quality_checks": [
+          "Confirm both objects are identifiable, stable, and not stacked unsafely.",
+          "Confirm no heat, payload, spill, or unsupported carry was introduced."
+        ],
+        "failure_modes": [
+          "Hot or nonempty cookware is moved.",
+          "Skillet or spatula is dropped, tipped, or blocks the wash station.",
+          "A handle or destination is occluded."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_skillet_lid",
+      "task_id": "task_ycb_round3_skillet_lid",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The lid recovery uses a controlled home-kitchen stovetop and cool rest."
+        },
+        {
+          "key": "object",
+          "value": "ycb_028_skillet_lid",
+          "reason": "The YCB skillet lid is the primary recovery object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_027_skillet",
+          "reason": "The matching skillet is required to define the edge recovery context."
+        },
+        {
+          "key": "condition",
+          "value": "initial_lid_tilted_at_edge",
+          "reason": "The cool lid starts tilted at the stovetop edge but remains recoverable."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_cool_skillet",
+          "reason": "The matching skillet starts empty, cool, stable, and open."
+        },
+        {
+          "key": "condition",
+          "value": "cool_lid_rest_clear",
+          "reason": "The recovery destination must be clear and away from heat."
+        },
+        {
+          "key": "condition",
+          "value": "both_cookware_parts_reachable",
+          "reason": "The lid and matching skillet must both be reachable."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires controlled recovery and placement of a rigid cookware part."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household error recovery."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The tilted skillet lid is visibly on the marked cool lid rest.",
+          "The skillet remains empty, open, stable, and clear of the stovetop edge."
+        ],
+        "setup": [
+          "Use an empty, cool, stable skillet and a cool lid tilted at a controlled stovetop edge.",
+          "Mark a cool lid rest away from heat and keep both cookware parts reachable."
+        ],
+        "reset": [
+          "Return the lid to the same controlled tilted edge pose and restore the skillet to its marked open pose.",
+          "Verify the lid rest and stovetop edge are clear before repeating."
+        ],
+        "quality_checks": [
+          "Confirm the lid is fully supported on the rest and no longer contacts the edge.",
+          "Confirm the skillet did not tip and no hot-surface or sharp-edge assumption was hidden."
+        ],
+        "failure_modes": [
+          "Lid is pushed off the edge or dropped.",
+          "Skillet tips, contains unverified contents, or contacts heat.",
+          "Recovery destination is blocked or occluded."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_plate",
+      "task_id": "task_ycb_round3_plate",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The place-setting closeout is scoped to the dining table."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "The YCB plate is the primary dish being cleared."
+        },
+        {
+          "key": "object",
+          "value": "ycb_030_fork",
+          "reason": "The fork is required and must go to the utensil destination."
+        },
+        {
+          "key": "object",
+          "value": "ycb_031_spoon",
+          "reason": "The spoon is required and must go to the utensil destination."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The plate starts empty so this is a controlled clearing layout without food validation."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_place_setting",
+          "reason": "The plate, fork, and spoon start visible on the table with no payload."
+        },
+        {
+          "key": "condition",
+          "value": "wash_basin_and_caddy_open",
+          "reason": "Both designated closeout destinations must be open and reachable."
+        },
+        {
+          "key": "condition",
+          "value": "place_setting_clearance",
+          "reason": "The table area and transfer paths must be clear of people and unrelated objects."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires sorting and placing three rigid tableware objects."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household meal closeout."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The empty plate is inside the wash basin and the fork and spoon are inside the utensil caddy.",
+          "The three objects are separated into their designated destinations and the table is clear."
+        ],
+        "setup": [
+          "Use an empty plate with the fork and spoon visible on the dining table.",
+          "Open the wash basin and utensil caddy, mark each destination, and clear the transfer paths."
+        ],
+        "reset": [
+          "Return the plate, fork, and spoon to their marked table positions.",
+          "Close or clear the destinations and verify all three objects remain undamaged."
+        ],
+        "quality_checks": [
+          "Verify each object reaches the correct destination and remains fully supported.",
+          "Confirm no stacking, cross-destination sorting, food payload, or edge placement occurred."
+        ],
+        "failure_modes": [
+          "Plate, fork, or spoon is placed in the wrong destination.",
+          "A dish or utensil is dropped, tipped, or occluded.",
+          "The destination is not open or the table path is blocked."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_fork",
+      "task_id": "task_ycb_round3_fork",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The utensil clearing task is scoped to a dining-table closeout scene."
+        },
+        {
+          "key": "object",
+          "value": "ycb_030_fork",
+          "reason": "The YCB fork is the primary utensil being cleared."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "The plate is the actual support object from which the fork is recovered."
+        },
+        {
+          "key": "condition",
+          "value": "initial_fork_on_empty_plate",
+          "reason": "The fork starts on an empty, stable plate."
+        },
+        {
+          "key": "condition",
+          "value": "utensil_caddy_open",
+          "reason": "The utensil caddy must be open and reachable."
+        },
+        {
+          "key": "condition",
+          "value": "tines_away_from_hand",
+          "reason": "The fork orientation must keep the tines away from the handover and placement path."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires controlled recovery and placement of a rigid utensil."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household meal closeout."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The fork is inside the utensil caddy with its handle visible.",
+          "The empty plate remains stable and clear of the fork."
+        ],
+        "setup": [
+          "Use an empty stable plate with the fork resting on top and an open utensil caddy.",
+          "Orient the tines away from the hand path and keep the table route clear."
+        ],
+        "reset": [
+          "Return the fork to the same plate pose and leave the plate stable on the dining table.",
+          "Verify the caddy is empty and the tines remain undamaged."
+        ],
+        "quality_checks": [
+          "Confirm the fork was recovered without dragging or tipping the plate.",
+          "Verify the tines stayed away from hands and the caddy fully supports the fork."
+        ],
+        "failure_modes": [
+          "Fork is dropped, placed in the wrong receptacle, or leaves the tines exposed.",
+          "Plate slides, tips, or is contacted unsafely.",
+          "Caddy or transfer path is blocked."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_spoon",
+      "task_id": "task_ycb_round3_spoon",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The serving-pair task is scoped to the dining table."
+        },
+        {
+          "key": "object",
+          "value": "ycb_031_spoon",
+          "reason": "The YCB spoon is the primary serving utensil."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "The bowl is the actual serving vessel required for the pair."
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_spoon_in_caddy",
+          "reason": "The spoon starts clean in the utensil caddy."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_bowl_reachable",
+          "reason": "The bowl starts empty, stable, and reachable."
+        },
+        {
+          "key": "condition",
+          "value": "dining_table_clear",
+          "reason": "The destination table area must be clear and support both objects."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires retrieving and placing the spoon and bowl."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household serving preparation."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The clean spoon and empty bowl are both fully supported on the dining table.",
+          "The spoon is visibly near the bowl and the pair is ready for serving setup."
+        ],
+        "setup": [
+          "Use a clean spoon in an open utensil caddy and an empty, stable bowl on the counter.",
+          "Clear the dining-table destination and keep both objects reachable."
+        ],
+        "reset": [
+          "Return the spoon to the caddy and the bowl to its marked counter pose.",
+          "Verify the table and caddy are clear and both objects are undamaged."
+        ],
+        "quality_checks": [
+          "Confirm the spoon and bowl are stable, identifiable, and positioned as a pair.",
+          "Confirm no payload, spill, or unsupported edge placement was introduced."
+        ],
+        "failure_modes": [
+          "Wrong bowl or utensil is paired.",
+          "Spoon or bowl is dropped, tipped, or placed outside the table support.",
+          "Destination is blocked or occluded."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_knife",
+      "task_id": "task_ycb_round3_knife",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The sharp-item closeout is scoped to a dining-table scene."
+        },
+        {
+          "key": "object",
+          "value": "ycb_032_knife",
+          "reason": "The YCB knife is the primary sharp utensil being secured."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "The plate is the actual companion dish being cleared with the knife."
+        },
+        {
+          "key": "condition",
+          "value": "initial_blade_down_and_away",
+          "reason": "The knife starts blade-down and away from the hand path."
+        },
+        {
+          "key": "condition",
+          "value": "hands_clear_of_path",
+          "reason": "People must remain clear of the knife and plate transfer path."
+        },
+        {
+          "key": "condition",
+          "value": "guarded_tray_available",
+          "reason": "The guarded knife tray must be available before recovery begins."
+        },
+        {
+          "key": "condition",
+          "value": "wash_basin_open",
+          "reason": "The plate destination must be open and reachable."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires controlled handling of a sharp rigid utensil and dish."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household safety-focused closeout."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The knife is fully inside the guarded knife tray with its blade covered.",
+          "The empty plate is inside the wash basin and the dining table is clear."
+        ],
+        "setup": [
+          "Use an empty plate and a knife resting blade-down and away from the hand path.",
+          "Keep people clear, make the guarded tray available, and open the wash basin before handling the knife."
+        ],
+        "reset": [
+          "Return the knife to its marked table pose and the plate to its marked table pose.",
+          "Verify the guard and wash basin are empty and the transfer path is clear."
+        ],
+        "quality_checks": [
+          "Confirm blade coverage, tray support, plate placement, and human clearance in the recording.",
+          "Do not infer sharp-edge safety or asset compatibility beyond the controlled setup."
+        ],
+        "failure_modes": [
+          "Blade becomes exposed, knife is dropped, or the hand path is entered.",
+          "Plate is placed outside the wash basin or tips.",
+          "Guarded tray or wash basin is unavailable."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_spatula",
+      "task_id": "task_ycb_round3_spatula",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The cooking-pair task uses the home-kitchen counter and stovetop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_033_spatula",
+          "reason": "The YCB spatula is the primary cooking tool."
+        },
+        {
+          "key": "object",
+          "value": "ycb_027_skillet",
+          "reason": "The skillet is the actual cookware required to define the pair."
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_spatula_in_caddy",
+          "reason": "The spatula starts clean and retrievable from the caddy."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_cool_skillet",
+          "reason": "The skillet starts empty, cool, stable, and reachable."
+        },
+        {
+          "key": "condition",
+          "value": "stovetop_off_and_clear",
+          "reason": "The stovetop must be off and clear before placement."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed design requires coordinated placement of a rigid tool and pan."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household cooking preparation."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The empty, cool skillet is stable on the off stovetop and the clean spatula is placed beside it.",
+          "The spatula handle remains accessible and the cooking pair is visibly ready."
+        ],
+        "setup": [
+          "Use a clean spatula in an open utensil caddy and an empty, cool skillet on the counter.",
+          "Turn the stovetop off, clear its surface, and keep both objects reachable."
+        ],
+        "reset": [
+          "Return the spatula to the caddy and the skillet to its marked counter pose.",
+          "Verify the stovetop is off, clear, and cool before another setup."
+        ],
+        "quality_checks": [
+          "Confirm the skillet is stable and the spatula is near but not obstructing it.",
+          "Confirm no heat, payload, collision, or unsupported placement occurred."
+        ],
+        "failure_modes": [
+          "Hot, nonempty, or unstable cookware is moved.",
+          "Spatula blocks a handle or is placed on the wrong surface.",
+          "Stovetop is on, blocked, or not visible."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round3_table_cloth",
+      "task_id": "task_ycb_round3_table_cloth",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The cloth-spreading task is scoped to the dining table."
+        },
+        {
+          "key": "object",
+          "value": "ycb_034_table_cloth",
+          "reason": "The YCB table cloth is the primary flexible object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "The empty plate is the actual alignment anchor for the table setup."
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_folded_cloth",
+          "reason": "The cloth starts clean, dry, and pre-folded."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_anchor_plate",
+          "reason": "The plate starts empty, stable, and available as the placement anchor."
+        },
+        {
+          "key": "condition",
+          "value": "table_clear_except_declared_items",
+          "reason": "The table perimeter and spreading area must be clear while the declared cloth and plate remain available on the table."
+        },
+        {
+          "key": "capability",
+          "value": "deformable_manipulation",
+          "reason": "Flexible cloth geometry must be unfolded, positioned, and aligned."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed setup uses the rigid plate as an observable anchor."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "This is framed as household table-setting preparation."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The clean table cloth is spread flat and aligned with the table edges.",
+          "The empty plate remains stable on the cloth and visibly anchors the prepared table surface."
+        ],
+        "setup": [
+          "Use a clean, dry, pre-folded cloth and an empty stable plate on a dining table whose spreading area is clear except for those declared items.",
+          "Keep cloth edges, plate, and table perimeter visible; no food or liquid payload is needed."
+        ],
+        "reset": [
+          "Refold the cloth to its marked start state and return the plate to its original table mark.",
+          "Check the cloth for tears or new deformation and clear the table before repeating."
+        ],
+        "quality_checks": [
+          "Verify the cloth is flat, supported, and aligned, with the plate visibly on and centered on the cloth without dragging or tipping it.",
+          "Record flexible-geometry handling only; do not infer textile or food-contact suitability from catalog identity."
+        ],
+        "failure_modes": [
+          "Cloth snags, tears, bunches, or overhangs the table edge.",
+          "Plate slides or tips while the cloth is spread.",
+          "Edges or anchor relationship are occluded."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_ycb_round3_pitcher_base_task_suitability",
+      "subject_id": "task_ycb_round3_pitcher_base",
+      "claim_type": "task_suitability",
+      "statement": "Prepare the pitcher base and lid as a matched serving set is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_019_pitcher_base.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_pitcher_base_population_frequency",
+      "subject_id": "task_ycb_round3_pitcher_base",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Prepare the pitcher base and lid as a matched serving set\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_pitcher_base_robot_execution",
+      "subject_id": "task_ycb_round3_pitcher_base",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Prepare the pitcher base and lid as a matched serving set\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_pitcher_base_asset_compatibility",
+      "subject_id": "task_ycb_round3_pitcher_base",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Prepare the pitcher base and lid as a matched serving set\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_pitcher_lid_task_suitability",
+      "subject_id": "task_ycb_round3_pitcher_lid",
+      "claim_type": "task_suitability",
+      "statement": "Clear the pitcher lid to a safe rest after service is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_020_pitcher_lid.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_pitcher_lid_population_frequency",
+      "subject_id": "task_ycb_round3_pitcher_lid",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Clear the pitcher lid to a safe rest after service\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_pitcher_lid_robot_execution",
+      "subject_id": "task_ycb_round3_pitcher_lid",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Clear the pitcher lid to a safe rest after service\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_pitcher_lid_asset_compatibility",
+      "subject_id": "task_ycb_round3_pitcher_lid",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Clear the pitcher lid to a safe rest after service\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_bleach_cleanser_task_suitability",
+      "subject_id": "task_ycb_round3_bleach_cleanser",
+      "claim_type": "task_suitability",
+      "statement": "Stage the bleach cleanser and spray cleaner in separated caddy slots is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_021_bleach_cleanser.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_bleach_cleanser_population_frequency",
+      "subject_id": "task_ycb_round3_bleach_cleanser",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Stage the bleach cleanser and spray cleaner in separated caddy slots\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_bleach_cleanser_robot_execution",
+      "subject_id": "task_ycb_round3_bleach_cleanser",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Stage the bleach cleanser and spray cleaner in separated caddy slots\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_bleach_cleanser_asset_compatibility",
+      "subject_id": "task_ycb_round3_bleach_cleanser",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Stage the bleach cleanser and spray cleaner in separated caddy slots\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_windex_bottle_task_suitability",
+      "subject_id": "task_ycb_round3_windex_bottle",
+      "claim_type": "task_suitability",
+      "statement": "Close out the spray bottle and sponge in separated caddy slots is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_022_windex_bottle.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_windex_bottle_population_frequency",
+      "subject_id": "task_ycb_round3_windex_bottle",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Close out the spray bottle and sponge in separated caddy slots\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_windex_bottle_robot_execution",
+      "subject_id": "task_ycb_round3_windex_bottle",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Close out the spray bottle and sponge in separated caddy slots\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_windex_bottle_asset_compatibility",
+      "subject_id": "task_ycb_round3_windex_bottle",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Close out the spray bottle and sponge in separated caddy slots\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_wine_glass_task_suitability",
+      "subject_id": "task_ycb_round3_wine_glass",
+      "claim_type": "task_suitability",
+      "statement": "Prepare a place setting around the wine glass is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_023_wine_glass.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_wine_glass_population_frequency",
+      "subject_id": "task_ycb_round3_wine_glass",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Prepare a place setting around the wine glass\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_wine_glass_robot_execution",
+      "subject_id": "task_ycb_round3_wine_glass",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Prepare a place setting around the wine glass\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_wine_glass_asset_compatibility",
+      "subject_id": "task_ycb_round3_wine_glass",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Prepare a place setting around the wine glass\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_bowl_task_suitability",
+      "subject_id": "task_ycb_round3_bowl",
+      "claim_type": "task_suitability",
+      "statement": "Transfer a cool surrogate payload from the bowl to a plate with a spoon is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_024_bowl.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_bowl_population_frequency",
+      "subject_id": "task_ycb_round3_bowl",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Transfer a cool surrogate payload from the bowl to a plate with a spoon\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_bowl_robot_execution",
+      "subject_id": "task_ycb_round3_bowl",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Transfer a cool surrogate payload from the bowl to a plate with a spoon\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_bowl_asset_compatibility",
+      "subject_id": "task_ycb_round3_bowl",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Transfer a cool surrogate payload from the bowl to a plate with a spoon\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_mug_task_suitability",
+      "subject_id": "task_ycb_round3_mug",
+      "claim_type": "task_suitability",
+      "statement": "Pour a cool surrogate payload from the pitcher base into the mug is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_025_mug.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_mug_population_frequency",
+      "subject_id": "task_ycb_round3_mug",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Pour a cool surrogate payload from the pitcher base into the mug\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_mug_robot_execution",
+      "subject_id": "task_ycb_round3_mug",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Pour a cool surrogate payload from the pitcher base into the mug\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_mug_asset_compatibility",
+      "subject_id": "task_ycb_round3_mug",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Pour a cool surrogate payload from the pitcher base into the mug\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_sponge_task_suitability",
+      "subject_id": "task_ycb_round3_sponge",
+      "claim_type": "task_suitability",
+      "statement": "Rinse and stage the sponge after cleaning is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_026_sponge.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_sponge_population_frequency",
+      "subject_id": "task_ycb_round3_sponge",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Rinse and stage the sponge after cleaning\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_sponge_robot_execution",
+      "subject_id": "task_ycb_round3_sponge",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Rinse and stage the sponge after cleaning\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_sponge_asset_compatibility",
+      "subject_id": "task_ycb_round3_sponge",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Rinse and stage the sponge after cleaning\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_task_suitability",
+      "subject_id": "task_ycb_round3_skillet",
+      "claim_type": "task_suitability",
+      "statement": "Move the cool skillet and spatula together to the wash station is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_027_skillet.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_population_frequency",
+      "subject_id": "task_ycb_round3_skillet",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Move the cool skillet and spatula together to the wash station\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_robot_execution",
+      "subject_id": "task_ycb_round3_skillet",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Move the cool skillet and spatula together to the wash station\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_asset_compatibility",
+      "subject_id": "task_ycb_round3_skillet",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Move the cool skillet and spatula together to the wash station\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_lid_task_suitability",
+      "subject_id": "task_ycb_round3_skillet_lid",
+      "claim_type": "task_suitability",
+      "statement": "Recover the tilted skillet lid from the stovetop edge is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_028_skillet_lid.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_lid_population_frequency",
+      "subject_id": "task_ycb_round3_skillet_lid",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Recover the tilted skillet lid from the stovetop edge\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_lid_robot_execution",
+      "subject_id": "task_ycb_round3_skillet_lid",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Recover the tilted skillet lid from the stovetop edge\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_skillet_lid_asset_compatibility",
+      "subject_id": "task_ycb_round3_skillet_lid",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Recover the tilted skillet lid from the stovetop edge\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_plate_task_suitability",
+      "subject_id": "task_ycb_round3_plate",
+      "claim_type": "task_suitability",
+      "statement": "Clear the plate and separate its utensils into destinations is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_029_plate.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_plate_population_frequency",
+      "subject_id": "task_ycb_round3_plate",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Clear the plate and separate its utensils into destinations\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_plate_robot_execution",
+      "subject_id": "task_ycb_round3_plate",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Clear the plate and separate its utensils into destinations\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_plate_asset_compatibility",
+      "subject_id": "task_ycb_round3_plate",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Clear the plate and separate its utensils into destinations\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_fork_task_suitability",
+      "subject_id": "task_ycb_round3_fork",
+      "claim_type": "task_suitability",
+      "statement": "Clear the fork from the plate into the utensil caddy is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_030_fork.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_fork_population_frequency",
+      "subject_id": "task_ycb_round3_fork",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Clear the fork from the plate into the utensil caddy\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_fork_robot_execution",
+      "subject_id": "task_ycb_round3_fork",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Clear the fork from the plate into the utensil caddy\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_fork_asset_compatibility",
+      "subject_id": "task_ycb_round3_fork",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Clear the fork from the plate into the utensil caddy\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_spoon_task_suitability",
+      "subject_id": "task_ycb_round3_spoon",
+      "claim_type": "task_suitability",
+      "statement": "Prepare the spoon and bowl together on the dining table is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_031_spoon.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_spoon_population_frequency",
+      "subject_id": "task_ycb_round3_spoon",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Prepare the spoon and bowl together on the dining table\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_spoon_robot_execution",
+      "subject_id": "task_ycb_round3_spoon",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Prepare the spoon and bowl together on the dining table\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_spoon_asset_compatibility",
+      "subject_id": "task_ycb_round3_spoon",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Prepare the spoon and bowl together on the dining table\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_knife_task_suitability",
+      "subject_id": "task_ycb_round3_knife",
+      "claim_type": "task_suitability",
+      "statement": "Safely clear the knife and plate after the meal setup is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_032_knife.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_knife_population_frequency",
+      "subject_id": "task_ycb_round3_knife",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Safely clear the knife and plate after the meal setup\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_knife_robot_execution",
+      "subject_id": "task_ycb_round3_knife",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Safely clear the knife and plate after the meal setup\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_knife_asset_compatibility",
+      "subject_id": "task_ycb_round3_knife",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Safely clear the knife and plate after the meal setup\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_spatula_task_suitability",
+      "subject_id": "task_ycb_round3_spatula",
+      "claim_type": "task_suitability",
+      "statement": "Prepare the spatula with the skillet at the stovetop is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_033_spatula.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_spatula_population_frequency",
+      "subject_id": "task_ycb_round3_spatula",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Prepare the spatula with the skillet at the stovetop\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_spatula_robot_execution",
+      "subject_id": "task_ycb_round3_spatula",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Prepare the spatula with the skillet at the stovetop\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_spatula_asset_compatibility",
+      "subject_id": "task_ycb_round3_spatula",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Prepare the spatula with the skillet at the stovetop\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    },
+    {
+      "id": "claim_ycb_round3_table_cloth_task_suitability",
+      "subject_id": "task_ycb_round3_table_cloth",
+      "claim_type": "task_suitability",
+      "statement": "Spread the table cloth around the plate is a proposed object-specific collection candidate for YCB kitchen coverage Round 3.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB kitchen coverage Round 3 proposed design for ycb_034_table_cloth.",
+      "limitations": "This design source does not establish population frequency, successful robot execution, asset compatibility, or functional and food-contact suitability of the catalog asset."
+    },
+    {
+      "id": "claim_ycb_round3_table_cloth_population_frequency",
+      "subject_id": "task_ycb_round3_table_cloth",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for the specific task \"Spread the table cloth around the plate\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population, setting sample, or observation protocol for this exact task is attached.",
+      "limitations": "The YCB catalog and proposed design do not measure how often people perform this object-specific task."
+    },
+    {
+      "id": "claim_ycb_round3_table_cloth_robot_execution",
+      "subject_id": "task_ycb_round3_table_cloth",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for the specific task \"Spread the table cloth around the plate\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_ycb_round3_table_cloth_asset_compatibility",
+      "subject_id": "task_ycb_round3_table_cloth",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for the specific task \"Spread the table cloth around the plate\" is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator or physical asset configuration is attached.",
+      "limitations": "YCB catalog identity does not validate grasp, collision, closure, material-flow, deformable, chemical, or food-contact behavior for this task."
+    }
+  ]
+}
