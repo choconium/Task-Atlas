@@ -251,7 +251,8 @@
         "closed(ycb_005_tomato_soup_can)",
         "pull_tab_aligned(ycb_005_tomato_soup_can, pull_tab_opener_guide)",
         "opener_alignment_recorded(ycb_005_tomato_soup_can)",
-        "can_support_clear(kitchen_counter)"
+        "on_top_of(ycb_005_tomato_soup_can, kitchen_counter)",
+        "alignment_record_complete(can_alignment_record)"
       ],
       "instruction_variants": [
         "Align a sealed tomato soup can pull tab with an opener guide.",
@@ -360,7 +361,9 @@
         "edge_guarded(ycb_007_tuna_fish_can, tuna_edge_guard)",
         "parts_ready_for_recycling(ycb_007_tuna_fish_can)",
         "no_exposed_sharp_edge(ycb_007_tuna_fish_can)",
-        "sleeve_stable(puncture_guarded_recycling_sleeve)"
+        "sleeve_stable(puncture_guarded_recycling_sleeve)",
+        "inside(tuna_can_lid, puncture_guarded_recycling_sleeve)",
+        "no_exposed_sharp_edge(tuna_can_lid)"
       ],
       "instruction_variants": [
         "Place an empty tuna can in a puncture-guarded recycling sleeve.",
@@ -718,7 +721,8 @@
         "circumference_recorded(ycb_014_lemon, lemon_measurement_record)",
         "gauge_protocol_recorded(citrus_circumference_gauge, lemon_measurement_record)",
         "on_top_of(ycb_014_lemon, citrus_measurement_mat)",
-        "gauge_zeroed(citrus_circumference_gauge)"
+        "gauge_released(citrus_circumference_gauge)",
+        "premeasurement_zero_recorded(lemon_measurement_record)"
       ],
       "instruction_variants": [
         "Record a lemon circumference with a zeroed citrus gauge.",
@@ -728,9 +732,12 @@
       "skills": [
         "skill_locate",
         "skill_inspect",
-        "skill_verify"
+        "skill_verify",
+        "skill_grasp",
+        "skill_place",
+        "skill_release"
       ],
-      "granularity": "atomic",
+      "granularity": "compound",
       "review_status": "proposed",
       "notes": "The skills field is an unordered capability inventory. This proposed Round 5 collection design uses inert or approved replicas where food function is not required.",
       "generated_by": "llm",
@@ -776,9 +783,13 @@
       "skills": [
         "skill_locate",
         "skill_inspect",
-        "skill_verify"
+        "skill_verify",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release"
       ],
-      "granularity": "atomic",
+      "granularity": "compound",
       "review_status": "proposed",
       "notes": "The skills field is an unordered capability inventory. This proposed Round 5 collection design uses inert or approved replicas where food function is not required.",
       "generated_by": "llm",
@@ -1018,6 +1029,16 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_chips_can_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "condition",
+          "value": "round5_package_feature_verified_ycb_001_chips_can",
+          "reason": "Verify the actual readable barcode, functional flap-lock, or readable expiration panel required by this task exists on the specimen. Missing features block collection; synthetic substitutes do not establish catalog asset compatibility."
         }
       ],
       "procedures": [],
@@ -1028,11 +1049,13 @@
         ],
         "setup": [
           "Place the sealed labeled chips-can replica barcode-away on the marked inventory_scan_bay.",
-          "Make inventory_scanner ready and provide an empty inventory_record; use inert packaging if the catalog asset has no readable barcode."
+          "Make inventory_scanner ready and provide an empty inventory_record; use inert packaging if the catalog asset has no readable barcode.",
+          "Prepare task_ycb_round5_chips_can_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: sealed(ycb_001_chips_can); closed(ycb_001_chips_can); on_shelf(ycb_001_chips_can, inventory_scan_bay); barcode_away_from_scanner(ycb_001_chips_can); scanner_ready(inventory_scanner); inventory_scan_bay_stable.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify YCB identity, full bay support, barcode orientation, scan-record identity, and scanner visibility.",
@@ -1127,21 +1150,28 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_master_chef_can_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
           "The sealed can is fully inside the padded shipping sleeve, upright, and supported without contact with the sleeve opening.",
-          "The sleeve fit check records that the can is retained and the packing surface remains clear."
+          "Record the sleeve fit and retention check; the packing surface remains stable with free clearance around the supported sleeve."
         ],
         "setup": [
           "Open the padded_shipping_sleeve on a stable packing_surface and place its declared padding in position.",
-          "Stage the sealed labeled can fully supported on packing_surface; use an inert replica and do not infer shipping performance from the catalog model."
+          "Stage the sealed labeled can fully supported on packing_surface; use an inert replica and do not infer shipping performance from the catalog model.",
+          "Prepare task_ycb_round5_master_chef_can_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: sealed(ycb_002_master_chef_can); closed(ycb_002_master_chef_can); on_top_of(ycb_002_master_chef_can, packing_surface); shipping_sleeve_open(padded_shipping_sleeve); padding_in_place(padded_shipping_sleeve); packing_surface_stable.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify can identity, upright pose, complete insertion, retained fit, and no package damage.",
@@ -1236,6 +1266,16 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_cracker_box_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "condition",
+          "value": "round5_package_feature_verified_ycb_003_cracker_box",
+          "reason": "Verify the actual readable barcode, functional flap-lock, or readable expiration panel required by this task exists on the specimen. Missing features block collection; synthetic substitutes do not establish catalog asset compatibility."
         }
       ],
       "procedures": [],
@@ -1246,11 +1286,13 @@
         ],
         "setup": [
           "Place the partly opened labeled box upright on the marked pantry_close_surface with its flap-lock feature accessible.",
-          "Use a dry inert package replica when food contents are not required; keep the surface clear for the closure observation."
+          "Use a dry inert package replica when food contents are not required; keep the surface clear for the closure observation.",
+          "Prepare task_ycb_round5_cracker_box_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: open(ycb_003_cracker_box); on_top_of(ycb_003_cracker_box, pantry_close_surface); flap_lock_available(cracker_box_flap); contents_protected(ycb_003_cracker_box); pantry_close_surface_stable.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify YCB identity, flap engagement, closed state, upright support, and aligned seal line.",
@@ -1343,6 +1385,16 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_sugar_box_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "object",
+          "value": "package_dimension_gauge",
+          "reason": "Calibrated measuring device; package_measurement is the written measurement record."
         }
       ],
       "procedures": [],
@@ -1353,11 +1405,14 @@
         ],
         "setup": [
           "Place the sealed labeled box on pantry_work_surface beside a non-contact sugar_pantry_slot gauge.",
-          "Declare the measurement protocol and zero or verify package_measurement before observation; catalog geometry alone does not establish fit."
+          "Declare the measurement protocol and zero or verify package_measurement before observation; catalog geometry alone does not establish fit.",
+          "Prepare task_ycb_round5_sugar_box_acceptance_record with acceptance fields and thresholds before collection; record only observed results.",
+          "Verify package_dimension_gauge calibration and declare units, measurement axes and slot-clearance tolerance; enter readings into package_measurement."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: sealed(ycb_004_sugar_box); closed(ycb_004_sugar_box); on_top_of(ycb_004_sugar_box, pantry_work_surface); label_front(ycb_004_sugar_box); slot_gauge_clear(sugar_pantry_slot); dimension_protocol_declared(package_measurement).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, closure, label orientation, protocol identifier, measured dimensions, and clearance record.",
@@ -1450,6 +1505,21 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "round5_pull_tab_feature_verified",
+          "reason": "Verify the actual catalog-compatible specimen has an intact pull tab and fits the non-cutting guide; absence blocks this task. Catalog identity alone does not establish this feature."
+        },
+        {
+          "key": "object",
+          "value": "can_alignment_record",
+          "reason": "Stores specimen identity, guide reference and measured alignment result."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_tomato_soup_can_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
@@ -1460,11 +1530,14 @@
         ],
         "setup": [
           "Place the sealed can pull-tab-away or misaligned on a clear kitchen_counter and mark the guide contact zone.",
-          "Use a non-cutting guide fixture; no opening, forceful pull, or food exposure is part of this proposal."
+          "Use a non-cutting guide fixture; no opening, forceful pull, or food exposure is part of this proposal.",
+          "Verify the pull-tab prerequisite and declare the alignment tolerance in can_alignment_record before the trial. The clear support means free surrounding clearance, not an empty counter.",
+          "Prepare task_ycb_round5_tomato_soup_can_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: sealed(ycb_005_tomato_soup_can); closed(ycb_005_tomato_soup_can); on_top_of(ycb_005_tomato_soup_can, kitchen_counter); pull_tab_misaligned(ycb_005_tomato_soup_can); opener_guide_ready(pull_tab_opener_guide); can_support_clear(kitchen_counter).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify YCB identity, sealed and closed states, stable support, pull-tab orientation, and an untouched opener guide.",
@@ -1557,6 +1630,11 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_mustard_bottle_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
@@ -1567,11 +1645,14 @@
         ],
         "setup": [
           "Open the marked condiment_caddy slot on a stable restaurant_service_surface and place the closed bottle within reach.",
-          "Use approved inert or food-safe handling materials; do not claim that the YCB asset itself demonstrates mustard flow or leak resistance."
+          "Use approved inert or food-safe handling materials; do not claim that the YCB asset itself demonstrates mustard flow or leak resistance.",
+          "Prepare task_ycb_round5_mustard_bottle_acceptance_record with acceptance fields and thresholds before collection; record only observed results.",
+          "The spill tray is an integral part of condiment_caddy; verify capacity and bottle fit against a predeclared containment protocol without inferring leak resistance from geometry."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: closed(ycb_006_mustard_bottle); on_top_of(ycb_006_mustard_bottle, restaurant_service_surface); caddy_slot_open(condiment_caddy_slot); caddy_stable(condiment_caddy); spill_tray_present(condiment_caddy).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify bottle identity, closed and upright states, full slot seating, caddy stability, and spill-tray coverage.",
@@ -1671,21 +1752,35 @@
           "key": "contents",
           "value": "empty",
           "reason": "The declared contents empty state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_tuna_fish_can_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "object",
+          "value": "tuna_can_lid",
+          "reason": "Detached lid from the selected empty can; contained together with the can, never left exposed."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
           "The empty can is fully contained in the puncture-guarded recycling sleeve and no exposed sharp edge is visible.",
-          "The edge-guard and recycling-readiness checks are recorded while the sleeve stays stable."
+          "The edge-guard and recycling-readiness checks are recorded while the sleeve stays stable.",
+          "Contain the detached lid inside the same sleeve with its edge guarded."
         ],
         "setup": [
           "Place the empty can and its detached lid on a clear sorting_surface with the puncture_guarded_recycling_sleeve open.",
-          "Provide the declared tuna_edge_guard and use cut-resistant handling controls; catalog geometry does not establish sharp-edge behavior."
+          "Provide the declared tuna_edge_guard and use cut-resistant handling controls; catalog geometry does not establish sharp-edge behavior.",
+          "Prepare task_ycb_round5_tuna_fish_can_acceptance_record with acceptance fields and thresholds before collection; record only observed results.",
+          "Verify the edge-guard assembly covers both can and detached lid and that the sleeve fits both. Clear means free handling clearance around staged resources."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: empty(ycb_007_tuna_fish_can); detached(tuna_can_lid, ycb_007_tuna_fish_can); on_top_of(ycb_007_tuna_fish_can, sorting_surface); recycling_sleeve_open(puncture_guarded_recycling_sleeve); edge_guard_available(tuna_edge_guard); sorting_surface_clear.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify can identity, empty state, detached lid, complete sleeve containment, edge guarding, and sleeve stability.",
@@ -1780,6 +1875,16 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_pudding_box_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "condition",
+          "value": "round5_package_feature_verified_ycb_008_pudding_box",
+          "reason": "Verify the actual readable barcode, functional flap-lock, or readable expiration panel required by this task exists on the specimen. Missing features block collection; synthetic substitutes do not establish catalog asset compatibility."
         }
       ],
       "procedures": [],
@@ -1790,11 +1895,13 @@
         ],
         "setup": [
           "Place the sealed labeled box with its expiration panel visible on kitchen_counter and aim the declared package_inspection_light.",
-          "Define the date transcription protocol before observation; do not open the package or infer date quality from the YCB mesh."
+          "Define the date transcription protocol before observation; do not open the package or infer date quality from the YCB mesh.",
+          "Prepare task_ycb_round5_pudding_box_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: sealed(ycb_008_pudding_box); closed(ycb_008_pudding_box); on_top_of(ycb_008_pudding_box, kitchen_counter); expiration_panel_visible(ycb_008_pudding_box); inspection_light_ready(package_inspection_light); expiration_record_blank(pudding_expiration_record).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify YCB identity, panel visibility, transcription protocol, recorded value, and unchanged sealed state.",
@@ -1882,6 +1989,16 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared contents full state is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "round5_tear_strip_feature_verified",
+          "reason": "Confirm an actual intact tear strip exists on the selected catalog-compatible specimen; if absent this task is blocked, not assumed supported by the mesh."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_gelatin_box_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
@@ -1892,11 +2009,14 @@
         ],
         "setup": [
           "Place the sealed labeled carton with the tear strip visible on a stable receiving_bench.",
-          "Declare the receiving-record fields before inspection and use an inert package replica if edible contents are not needed."
+          "Declare the receiving-record fields before inspection and use an inert package replica if edible contents are not needed.",
+          "Verify the tear-strip feature prerequisite before staging; do not add an invented strip to claim catalog compatibility.",
+          "Prepare task_ycb_round5_gelatin_box_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: sealed(ycb_009_gelatin_box); closed(ycb_009_gelatin_box); on_top_of(ycb_009_gelatin_box, receiving_bench); tear_strip_visible(ycb_009_gelatin_box); tear_strip_intact(ycb_009_gelatin_box); receiving_record_blank(gelatin_receiving_record).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, strip visibility and condition, record completeness, stable support, and unchanged closure.",
@@ -1994,6 +2114,11 @@
           "key": "contents",
           "value": "empty",
           "reason": "The declared contents empty state is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_potted_meat_can_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
@@ -2004,11 +2129,13 @@
         ],
         "setup": [
           "Open the labeled waste_audit_pouch on a clear sorting_surface and stage the empty closed can within reach.",
-          "Use a leak-resistant approved pouch and safe handling controls; no claim is made about real waste-containment performance."
+          "Use a leak-resistant approved pouch and safe handling controls; no claim is made about real waste-containment performance.",
+          "Prepare task_ycb_round5_potted_meat_can_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: empty(ycb_010_potted_meat_can); closed(ycb_010_potted_meat_can); on_top_of(ycb_010_potted_meat_can, sorting_surface); audit_pouch_open(waste_audit_pouch); waste_label_present(waste_audit_label); sorting_surface_clear.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify can identity, empty and closed states, complete pouch containment, seal, label linkage, and surface clearance.",
@@ -2098,6 +2225,16 @@
           "key": "role",
           "value": "home_user",
           "reason": "The declared role home_user is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_banana_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "condition",
+          "value": "round5_material_verified_ycb_011_banana",
+          "reason": "Verify the actual specimen or asset has the declared compliant behavior and compatible handling limits; catalog identity alone is insufficient."
         }
       ],
       "procedures": [],
@@ -2108,11 +2245,13 @@
         ],
         "setup": [
           "Open and pad the produce cradle on a stable kitchen_counter, leaving its hanging support fixed.",
-          "Use a deformable or approved banana replica and define a no-pressure observation protocol; catalog geometry alone does not establish softness."
+          "Use a deformable or approved banana replica and define a no-pressure observation protocol; catalog geometry alone does not establish softness.",
+          "Prepare task_ycb_round5_banana_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_011_banana, kitchen_counter); cradle_open(padded_produce_cradle); padding_present(padded_produce_cradle); no_stack_pressure(ycb_011_banana); cradle_stable(padded_produce_cradle).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, complete cradle support, stem clearance, no-stack-pressure condition, and stable fixture.",
@@ -2202,6 +2341,16 @@
           "key": "role",
           "value": "staff",
           "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_strawberry_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "condition",
+          "value": "round5_material_verified_ycb_012_strawberry",
+          "reason": "Verify the actual specimen or asset has the declared compliant behavior and compatible handling limits; catalog identity alone is insufficient."
         }
       ],
       "procedures": [],
@@ -2212,11 +2361,13 @@
         ],
         "setup": [
           "Place an open single-item grading recess on a stable restaurant_prep_counter and mark the stem-up orientation.",
-          "Use an approved soft-food replica or food-safe handling method; the YCB mesh does not establish freshness or bruise resistance."
+          "Use an approved soft-food replica or food-safe handling method; the YCB mesh does not establish freshness or bruise resistance.",
+          "Prepare task_ycb_round5_strawberry_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_012_strawberry, restaurant_prep_counter); grading_recess_open(strawberry_grading_recess); stem_accessible(ycb_012_strawberry); grading_tray_stable(strawberry_grading_tray).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, recess seating, stem orientation, support, tray stability, and no visible handling damage.",
@@ -2301,6 +2452,11 @@
           "key": "role",
           "value": "home_user",
           "reason": "The declared role home_user is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_apple_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
@@ -2311,11 +2467,13 @@
         ],
         "setup": [
           "Place the apple stem-side visible on the marked produce_inspection_mat beside a non-contact stem_inspection_ring.",
-          "Define the visible-condition recording protocol; the catalog asset does not establish freshness or bruise resistance."
+          "Define the visible-condition recording protocol; the catalog asset does not establish freshness or bruise resistance.",
+          "Prepare task_ycb_round5_apple_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_013_apple, produce_inspection_mat); stem_side_visible(ycb_013_apple); inspection_ring_ready(stem_inspection_ring); apple_support_stable.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, stem-side visibility, support, record linkage, and an unobstructed inspection view.",
@@ -2393,21 +2551,34 @@
           "key": "role",
           "value": "staff",
           "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Position and release the non-cutting gauge without compressing the specimen."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_lemon_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
           "The lemon stays on citrus_measurement_mat while its circumference and gauge protocol are entered in lemon_measurement_record.",
-          "The citrus gauge remains zeroed after the observation and the record identifies the lemon."
+          "Record the premeasurement zero check, measurement plane, units and circumference, then release the gauge without changing the saved reading."
         ],
         "setup": [
           "Place the lemon on the marked citrus_measurement_mat and verify the non-cutting citrus_circumference_gauge is zeroed.",
-          "Declare the circumference protocol and use an approved replica if actual fruit measurement is not required."
+          "Declare the circumference protocol and use an approved replica if actual fruit measurement is not required.",
+          "Declare the measurement plane, units, repeatability tolerance and non-compressing contact protocol; verify the gauge can measure the selected specimen.",
+          "Prepare task_ycb_round5_lemon_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_014_lemon, citrus_measurement_mat); circumference_gauge_ready(citrus_circumference_gauge); gauge_zeroed(citrus_circumference_gauge); measurement_record_blank(lemon_measurement_record).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, gauge zero, protocol identifier, recorded circumference, and unchanged support.",
@@ -2500,21 +2671,45 @@
           "key": "role",
           "value": "home_user",
           "reason": "The declared role home_user is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "round5_pressure_sensor_and_material_verified",
+          "reason": "Verify actual compliant specimen behavior and calibrated contact-pressure sensor compatibility. A load-cell force reading alone is not pressure; a validated contact-area method is required if deriving pressure from force."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Transfer the specimen into the cradle and return it to the counter."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_peach_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "condition",
+          "value": "round5_material_verified_ycb_015_peach",
+          "reason": "Verify the actual specimen or asset has the declared compliant behavior and compatible handling limits; catalog identity alone is insufficient."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
           "The peach replica remains supported while the declared cradle support pressure is recorded in peach_pressure_record.",
-          "The tare is verified and no visible contact damage or stack pressure is present."
+          "The tare is verified and no visible contact damage or stack pressure is present.",
+          "After recording the bounded cradle measurement, return the peach to kitchen_counter and retain the measured pressure and premeasurement tare record."
         ],
         "setup": [
           "Open the padded peach_pressure_test_cradle beside a stable kitchen_counter and tare peach_pressure_gauge.",
-          "Use a soft approved replica and a bounded low-pressure protocol; the YCB mesh does not establish fruit softness or safe pressure."
+          "Use a soft approved replica and a bounded low-pressure protocol; the YCB mesh does not establish fruit softness or safe pressure.",
+          "Declare calibrated sensor range, pressure units, contact area or pressure-map method, maximum load and dwell time before collection. Record specimen material; do not infer it from YCB identity.",
+          "Prepare task_ycb_round5_peach_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_015_peach, kitchen_counter); pressure_cradle_open(peach_pressure_test_cradle); pressure_gauge_tared(peach_pressure_gauge); no_stack_pressure(ycb_015_peach); counter_support_stable.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, gauge tare, pressure protocol, record linkage, support, and no visible damage.",
@@ -2599,6 +2794,11 @@
           "key": "role",
           "value": "staff",
           "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_pear_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
@@ -2609,11 +2809,13 @@
         ],
         "setup": [
           "Open pear_size_gauge over a clear pear_quality_entry_surface and mark an empty pear_quality_pass_bin.",
-          "Declare the clearance protocol and use an approved replica when quality judgments are not part of the physical trial."
+          "Declare the clearance protocol and use an approved replica when quality judgments are not part of the physical trial.",
+          "Prepare task_ycb_round5_pear_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_016_pear, pear_quality_entry_surface); size_gauge_open(pear_size_gauge); pass_bin_empty(pear_quality_pass_bin); pear_surface_clear(ycb_016_pear).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, gauge path, no bruising, complete bin containment, record linkage, and bin stability.",
@@ -2696,21 +2898,30 @@
           "key": "role",
           "value": "staff",
           "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_orange_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
           "The orange is fully supported upright in citrus_stability_cup and the bounded rolling check is recorded.",
-          "The cup and rolling_test_mat remain stable and the record identifies the orange."
+          "The cup and rolling_test_mat remain stable and the record identifies the orange.",
+          "Record applied perturbation and measured displacement against the predeclared acceptance bounds; restore stable upright seating before the final observation."
         ],
         "setup": [
           "Open the stability cup on a stable rolling_test_mat and declare the bounded rolling protocol.",
-          "Stage the orange within reach; use an approved replica if fruit stability is not physically required."
+          "Stage the orange within reach; use an approved replica if fruit stability is not physically required.",
+          "Declare the cup-relative upright reference, observation interval, bounded perturbation magnitude and direction, allowed displacement and stop threshold in orange_rolling_record. Verify the actual specimen and cup fit before collection; use observed geometry rather than assumed fruit properties.",
+          "Prepare task_ycb_round5_orange_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_017_orange, rolling_test_mat); stability_cup_open(citrus_stability_cup); rolling_protocol_declared(orange_rolling_record); rolling_test_mat_stable.",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, complete cup seating, upright pose, protocol record, and stable fixture.",
@@ -2798,6 +3009,16 @@
           "key": "role",
           "value": "staff",
           "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "task_ycb_round5_plum_acceptance_record",
+          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+        },
+        {
+          "key": "condition",
+          "value": "round5_material_verified_ycb_018_plum",
+          "reason": "Verify the actual specimen or asset has the declared compliant behavior and compatible handling limits; catalog identity alone is insufficient."
         }
       ],
       "procedures": [],
@@ -2808,11 +3029,13 @@
         ],
         "setup": [
           "Open the foam courier cavity inside a stable dispatch_tote and place its cushioning in the marked position.",
-          "Stage the plum on dispatch_surface; use an approved soft replica and do not infer courier protection from catalog geometry."
+          "Stage the plum on dispatch_surface; use an approved soft replica and do not infer courier protection from catalog geometry.",
+          "Prepare task_ycb_round5_plum_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
           "Restore the recorded initial predicates exactly: on_top_of(ycb_018_plum, dispatch_surface); foam_cavity_open(foam_courier_cavity); cushioning_present(foam_courier_cavity); dispatch_tote_stable(dispatch_tote).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial."
+          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
+          "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
           "Verify identity, complete cavity seating, cushioning presence, protected-contact record, no visible damage, and tote stability.",
