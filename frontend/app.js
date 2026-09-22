@@ -13,6 +13,7 @@
       noCandidates: "No candidates are available.",
       noObjects: "No matching objects.",
       noNode: "No matching node.",
+      requestError: "Could not load this content. Please try again.",
       graphHint:
         "Explore this node’s typed relationships with the active graph lens.",
       taskHint: "Open for assessment details",
@@ -65,6 +66,7 @@
       noCandidates: "利用できる候補はありません。",
       noObjects: "一致する物体はありません。",
       noNode: "一致するノードはありません。",
+      requestError: "内容を読み込めませんでした。もう一度お試しください。",
       graphHint: "現在のグラフレンズで、このノードの型付き関係を探索します。",
       taskHint: "評価詳細を開く",
       source: "出典",
@@ -110,10 +112,13 @@
     language: localStorage.getItem("atlas-lang") || "en",
     objects: [],
     selectedObjectId: null,
+    objectDetail: null,
     selectedTaskId: null,
     selectedProcedureId: null,
     selectedNodeId: null,
     taskDetail: null,
+    inspectorNode: null,
+    inspectorError: null,
     tasks: [],
     graph: null,
     history: [],
@@ -170,8 +175,18 @@
   };
 
   const text = (key) => UI[state.language][key] || UI.en[key] || key;
+  const containsJapanese = (value) =>
+    /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(
+      String(value ?? ""),
+    );
+  const displayText = (value, fallback = "") => {
+    const displayed = String(value ?? "");
+    return state.language === "en" && containsJapanese(displayed)
+      ? fallback
+      : displayed;
+  };
   const escapeHtml = (value) =>
-    String(value ?? "").replace(
+    displayText(value).replace(
       /[&<>'"]/g,
       (character) =>
         ({
@@ -191,14 +206,21 @@
     }
   };
   const readable = (value) => String(value || "unknown").replace(/_/g, " ");
-  const label = (item) =>
-    state.language === "ja"
-      ? item?.name_ja ||
+  const label = (item) => {
+    if (state.language === "ja")
+      return (
+        item?.name_ja ||
         item?.label_ja ||
         item?.label ||
         item?.name_en ||
         item?.id
-      : item?.name_en || item?.label || item?.name_ja || item?.id;
+      );
+    return (
+      [item?.name_en, item?.label_en, item?.label, item?.id].find(
+        (value) => value && !containsJapanese(value),
+      ) || ""
+    );
+  };
   const granularityOf = (item) =>
     item?.granularity ||
     item?.granularity_label ||
@@ -244,12 +266,18 @@
   }
 
   function renderError(target, reason) {
-    target.innerHTML = `<div class="message">${escapeHtml(reason.message || reason)}</div>`;
+    if (target === elements.inspector) state.inspectorError = reason;
+    const message =
+      state.language === "en"
+        ? text("requestError")
+        : reason.message || reason;
+    target.innerHTML = `<div class="message">${escapeHtml(message)}</div>`;
   }
 
   function setStaticLanguage() {
     document.documentElement.lang = state.language;
-    elements.language.textContent = state.language === "en" ? "日本語" : "EN";
+    elements.language.textContent =
+      state.language === "en" ? "Japanese" : "English";
     document.querySelectorAll("[data-copy]").forEach((node) => {
       const key = node.dataset.copy;
       const value =
@@ -266,10 +294,14 @@
 
   function renderLanguage() {
     setStaticLanguage();
+    if (state.objectDetail) renderHero(state.objectDetail);
     renderContextOptions(state.contextOptions);
     renderObjects();
     renderTasks(state.tasks);
-    if (state.taskDetail) renderTaskInspector(state.taskDetail);
+    if (state.inspectorError) renderError(elements.inspector, state.inspectorError);
+    else if (state.inspectorNode) renderGraphNodeInspector(state.inspectorNode);
+    else if (state.taskDetail) renderTaskInspector(state.taskDetail);
+    else if (state.objectDetail) renderObjectInspector(state.objectDetail);
     if (state.graph) renderGraph();
     renderExpansionLoops();
   }
@@ -414,7 +446,7 @@
               object,
             ) => `<button class="object ${object.id === state.selectedObjectId ? "selected" : ""}" data-object-id="${escapeHtml(object.id)}">
       <b>${escapeHtml(object.ycb_id?.slice(0, 3) || "—")}</b>
-      <span>${escapeHtml(label(object))}<small>${escapeHtml(state.language === "ja" ? object.name_en : object.name_ja || object.category || "")}</small></span>
+      <span>${escapeHtml(label(object))}<small>${escapeHtml(state.language === "ja" ? object.name_en || object.category || "" : object.category || "")}</small></span>
     </button>`,
           )
           .join("")
@@ -429,8 +461,14 @@
   function renderHero(detail) {
     const object = detail.object;
     elements.heroTitle.textContent = label(object);
-    elements.heroSubtitle.textContent = `${object.ycb_id || object.id} · ${state.language === "ja" ? object.name_en : object.name_ja || object.category || ""}`;
-    elements.heroDescription.textContent = object.description || "";
+    const subtitleName =
+      state.language === "ja"
+        ? object.name_ja || object.name_en || ""
+        : object.name_en || object.category || "";
+    elements.heroSubtitle.textContent = `${object.ycb_id || object.id} · ${displayText(subtitleName)}`;
+    elements.heroDescription.textContent = displayText(
+      object.description_en || object.description,
+    );
     elements.heroTags.innerHTML = [
       object.category,
       ...(object.tags || []),
@@ -508,6 +546,8 @@
 
   function renderObjectInspector(detail) {
     const object = detail.object;
+    state.inspectorError = null;
+    state.inspectorNode = null;
     elements.inspectorType.textContent = "OBJECT";
     elements.inspector.innerHTML = `<h2>${escapeHtml(label(object))}</h2>
       <small>${escapeHtml(object.ycb_id || object.id)}</small>
@@ -564,6 +604,8 @@
 
   function renderTaskInspector(detail) {
     const task = detail.task;
+    state.inspectorError = null;
+    state.inspectorNode = null;
     const assessment = detail.assessment || assessmentFor(task);
     const planning = detail.planning || {};
     const collection = planning.collection || detail.collection || {};
@@ -847,6 +889,16 @@
     }
   }
 
+  function renderGraphNodeInspector(node) {
+    state.inspectorError = null;
+    state.inspectorNode = node;
+    elements.inspectorType.textContent = displayText(
+      readable(node?.node_type || "node").toUpperCase(),
+      "NODE",
+    );
+    elements.inspector.innerHTML = `<h2>${escapeHtml(label(node || { id: node?.id }))}</h2>${granularitySection(node)}<p>${escapeHtml(text("graphHint"))}</p>`;
+  }
+
   async function navigateNode(id, knownNode = null) {
     const node =
       knownNode || state.graph?.nodes?.find((candidate) => candidate.id === id);
@@ -855,10 +907,7 @@
     const version = state.graphVersion + 1;
     await loadGraph(id);
     if (version !== state.graphVersion) return;
-    elements.inspectorType.textContent = readable(
-      node?.node_type || "node",
-    ).toUpperCase();
-    elements.inspector.innerHTML = `<h2>${escapeHtml(label(node || { id }))}</h2>${granularitySection(node)}<p>${escapeHtml(text("graphHint"))}</p>`;
+    renderGraphNodeInspector(node || { id });
   }
 
   async function selectObject(id, { preserveTask = false } = {}) {
@@ -880,6 +929,7 @@
         api(`/api/tasks?object_id=${encodeURIComponent(id)}&${query}`),
       ]);
       if (version !== state.requestVersion) return;
+      state.objectDetail = detail;
       renderHero(detail);
       state.tasks = tasks;
       renderTasks(tasks);
@@ -975,6 +1025,7 @@
       if (["task", "taskinstance"].includes(hit?.result_type))
         return selectTask(hit.id);
       if (hit) return navigateNode(hit.id);
+      state.inspectorError = null;
       elements.inspector.innerHTML = `<div class="message">${escapeHtml(text("noNode"))}</div>`;
     } catch (reason) {
       renderError(elements.inspector, reason);
