@@ -188,79 +188,80 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
-      "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
+      "notes": "Proposed Round 5 collection design. The target features, fixture fit and material behavior are checked on the actual selected specimen; no measured outcome or robot success is asserted.",
       "review_status": "proposed",
       "id": "task_ycb_round5_038_padlock",
-      "template_id": "template_ycb_seat_padlock",
-      "name_en": "Close a padlock on a compatible lockout hasp fixture",
-      "name_ja": "適合するロックアウト掛け金治具で南京錠を閉じる",
-      "intent_id": "intent_organize",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Present the closed padlock keyway to a non-contact inspection reference",
+      "name_ja": "閉じた南京錠の鍵穴を非接触の点検基準に向ける",
+      "intent_id": "intent_inspect",
       "object_id": "ycb_038_padlock",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_038_padlock",
-        "fixture": "lockout_hasp_fixture"
+        "property": "keyway_profile",
+        "fixture": "padlock_keyway_inspection_cradle"
       },
       "state_ids": [
-        "state_open",
+        "state_closed",
         "state_on_surface"
       ],
       "initial_state": [
         "visible(ycb_038_padlock)",
-        "open(ycb_038_padlock)",
+        "closed(ycb_038_padlock)",
         "on_top_of(ycb_038_padlock, workshop_bench)",
         "reachable(ycb_038_padlock)",
-        "fixture_stable(lockout_hasp_fixture)",
-        "shackle_aligned(ycb_038_padlock, lockout_hasp_fixture)",
-        "hasp_material_compatible(lockout_hasp_fixture, ycb_038_padlock)",
-        "key_excluded_from_station(ycb_038_padlock)",
-        "lockout_tag_visible(lockout_tag)",
-        "clearance_mark_visible(hasp_clearance_mark)",
-        "record_ready(padlock_close_record)"
+        "stable(padlock_keyway_inspection_cradle)",
+        "reference_visible(keyway_inspection_card)",
+        "keyway_unobstructed(ycb_038_padlock)",
+        "no_key_at_station(workshop_bench)",
+        "record_ready(padlock_keyway_observation_record)"
       ],
       "goal_state": [
+        "seated_in(ycb_038_padlock, padlock_keyway_inspection_cradle)",
+        "keyway_faces_reference(ycb_038_padlock, keyway_inspection_card)",
+        "non_contact_gap_visible(ycb_038_padlock, keyway_inspection_card)",
         "closed(ycb_038_padlock)",
-        "secured_to(ycb_038_padlock, lockout_hasp_fixture)",
-        "lockout_tag_visible(lockout_tag)",
-        "key_excluded_from_station(ycb_038_padlock)",
-        "closure_recorded(ycb_038_padlock, padlock_close_record)",
-        "stable(lockout_hasp_fixture)"
+        "no_key_inserted(ycb_038_padlock)",
+        "keyway_observation_recorded(ycb_038_padlock, padlock_keyway_observation_record)"
       ],
       "instruction_variants": [
-        "Close a padlock on a compatible lockout hasp fixture.",
-        "Complete the proposed close a padlock on a compatible lockout hasp fixture setup with all declared compatibility, safety, and recording conditions.",
-        "適合するロックアウト掛け金治具で南京錠を閉じる。"
+        "Present the closed padlock keyway to a non-contact inspection reference.",
+        "Orient the closed padlock in the padded cradle so its keyway faces the reference card with a visible gap, then record the observation.",
+        "閉じた南京錠の鍵穴を非接触の点検基準に向ける。"
       ],
       "skills": [
         "skill_locate",
         "skill_approach",
         "skill_grasp",
-        "skill_close",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
         "skill_verify"
       ]
     },
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
-      "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
+      "notes": "Proposed Round 5 collection design. The target features, fixture fit and material behavior are checked on the actual selected specimen; no measured outcome or robot success is asserted.",
       "review_status": "proposed",
       "id": "task_ycb_round5_039_keys",
-      "template_id": "template_ycb_align_key_in_lock",
-      "name_en": "Insert the matched key from a key set into a reference padlock without turning it",
-      "name_ja": "鍵束の合う鍵を基準南京錠に回さず差し込む",
-      "intent_id": "intent_inspect",
+      "template_id": "template_ycb_store_tool",
+      "name_en": "Store the ringed key set in a transparent case for handover",
+      "name_ja": "リング付きの鍵束を手渡し用の透明ケースに収納する",
+      "intent_id": "intent_store",
       "object_id": "ycb_039_keys",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_039_keys",
-        "lock": "keyway_reference_padlock",
-        "keyway": "reference_lock_keyway"
+        "destination": "key_set_handover_case"
       },
       "state_ids": [
         "state_on_surface",
@@ -270,34 +271,33 @@
         "visible(ycb_039_keys)",
         "on_top_of(ycb_039_keys, workshop_bench)",
         "reachable(ycb_039_keys)",
-        "counted_set(ycb_039_keys)",
-        "matched_key_available(ycb_039_keys, keyway_reference_padlock)",
-        "keyway_visible(reference_lock_keyway)",
-        "lock_stable(keyway_reference_padlock)",
-        "key_selection_clip_ready(key_selection_clip)",
-        "key_orientation_card_visible(key_orientation_card)",
-        "functional_compatibility_verified(ycb_039_keys, keyway_reference_padlock)",
-        "record_ready(key_insertion_record)"
+        "ring_intact(ycb_039_keys)",
+        "open(key_set_handover_case)",
+        "hook_ready(key_ring_retaining_hook)",
+        "label_visible(key_set_handover_label)",
+        "record_ready(key_set_handover_record)"
       ],
       "goal_state": [
-        "matched_key_aligned(ycb_039_keys, reference_lock_keyway)",
-        "matched_key_inserted(ycb_039_keys, keyway_reference_padlock)",
-        "key_not_turned(ycb_039_keys, keyway_reference_padlock)",
-        "lock_remains_closed(keyway_reference_padlock)",
-        "key_insertion_recorded(ycb_039_keys, key_insertion_record)",
-        "key_selection_clip_retained(key_selection_clip)"
+        "inside(ycb_039_keys, key_set_handover_case)",
+        "ring_captured_by(ycb_039_keys, key_ring_retaining_hook)",
+        "ring_intact(ycb_039_keys)",
+        "closed(key_set_handover_case)",
+        "stable(key_set_handover_case)",
+        "label_visible(key_set_handover_label)",
+        "storage_recorded(ycb_039_keys, key_set_handover_record)"
       ],
       "instruction_variants": [
-        "Insert the matched key from a key set into a reference padlock without turning it.",
-        "Complete the proposed insert the matched key from a key set into a reference padlock without turning it setup with all declared compatibility, safety, and recording conditions.",
-        "鍵束の合う鍵を基準南京錠に回さず差し込む。"
+        "Store the ringed key set in a transparent case for handover.",
+        "Place the whole ringed key set in the transparent handover case, capture the ring on the retaining hook, close the case and record storage.",
+        "リング付きの鍵束を手渡し用の透明ケースに収納する。"
       ],
       "skills": [
         "skill_locate",
         "skill_approach",
         "skill_grasp",
-        "skill_orient",
+        "skill_lift",
         "skill_place",
+        "skill_release",
         "skill_inspect",
         "skill_verify"
       ]
@@ -491,18 +491,17 @@
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_043_phillips_screwdriver",
-      "template_id": "template_ycb_insert_item_in_fixture",
-      "name_en": "Seat a Phillips screwdriver in a captive cross-slot training block without turning",
-      "name_ja": "プラスドライバーを回さずに固定クロス溝訓練ブロックへ差し込む",
-      "intent_id": "intent_prepare_food",
+      "model": "gpt-6-luna",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Present the Phillips screwdriver shaft to a calibrated non-contact straightness reference",
+      "name_ja": "較正済みの非接触直線基準にプラスドライバーの軸を提示して目視点検する",
+      "intent_id": "intent_inspect",
       "object_id": "ycb_043_phillips_screwdriver",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_043_phillips_screwdriver",
-        "target": "captive_cross_slot",
-        "fixture": "cross_slot_training_block",
-        "focus_piece": "tip_guard",
-        "matching_part": "captive_cross_slot_screw"
+        "property": "shaft_alignment_visual_observation",
+        "fixture": "phillips_shaft_inspection_cradle"
       },
       "state_ids": [
         "state_on_surface"
@@ -511,28 +510,29 @@
         "visible(ycb_043_phillips_screwdriver)",
         "on_top_of(ycb_043_phillips_screwdriver, workshop_bench)",
         "reachable(ycb_043_phillips_screwdriver)",
-        "tip_guard_removed_for_setup(ycb_043_phillips_screwdriver)",
-        "fixture_stable(cross_slot_training_block)",
-        "target_aligned(captive_cross_slot)",
-        "cross_slot_functionally_compatible(captive_cross_slot, ycb_043_phillips_screwdriver)",
-        "block_material_compatible(cross_slot_training_block, ycb_043_phillips_screwdriver)",
-        "captive_screw_retained(captive_cross_slot_screw)",
-        "tip_guard_ready(tip_guard)",
-        "no_rotation_protocol_declared",
-        "record_ready(cross_slot_setup_record)"
+        "fixture_stable(phillips_shaft_inspection_cradle)",
+        "straightness_reference_visible(calibrated_straightness_grid)",
+        "calibration_label_current(grid_calibration_label)",
+        "shaft_exposed_for_inspection(ycb_043_phillips_screwdriver)",
+        "shaft_view_clear(ycb_043_phillips_screwdriver)",
+        "tip_guard_ready(phillips_tip_guard)",
+        "no_contact_protocol_declared",
+        "no_fastener_at_station(phillips_shaft_inspection_cradle)",
+        "record_ready(phillips_shaft_observation_record)"
       ],
       "goal_state": [
-        "tip_seated_in(ycb_043_phillips_screwdriver, captive_cross_slot)",
-        "screw_not_rotated(captive_cross_slot_screw)",
-        "shaft_aligned(ycb_043_phillips_screwdriver, captive_cross_slot)",
-        "no_rotation_applied(ycb_043_phillips_screwdriver)",
-        "tip_guard_available(tip_guard)",
-        "cross_slot_setup_recorded(ycb_043_phillips_screwdriver, cross_slot_setup_record)"
+        "seated_in(ycb_043_phillips_screwdriver, phillips_shaft_inspection_cradle)",
+        "shaft_visible_alongside_reference(ycb_043_phillips_screwdriver, calibrated_straightness_grid)",
+        "non_contact_gap_maintained(ycb_043_phillips_screwdriver, calibrated_straightness_grid)",
+        "tip_clear_of_reference(ycb_043_phillips_screwdriver)",
+        "handle_outside_scan_zone(ycb_043_phillips_screwdriver)",
+        "qualitative_shaft_alignment_observation_recorded(ycb_043_phillips_screwdriver, phillips_shaft_observation_record)",
+        "stable(ycb_043_phillips_screwdriver)"
       ],
       "instruction_variants": [
-        "Seat a Phillips screwdriver in a captive cross-slot training block without turning.",
-        "Complete the proposed seat a phillips screwdriver in a captive cross-slot training block without turning setup with all declared compatibility, safety, and recording conditions.",
-        "プラスドライバーを回さずに固定クロス溝訓練ブロックへ差し込む。"
+        "Present the Phillips screwdriver shaft to a calibrated non-contact straightness reference.",
+        "Show the exposed shaft alongside the calibrated reference without contact and record only a qualitative visual observation; do not enter a numeric straightness value.",
+        "プラスドライバーの露出した軸を較正済み基準に非接触で沿わせ、定性的な目視所見だけを記録する。"
       ],
       "skills": [
         "skill_locate",
@@ -554,54 +554,53 @@
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_044_flat_screwdriver",
-      "template_id": "template_ycb_insert_item_in_fixture",
-      "name_en": "Seat a flat screwdriver in a captive slot training block without turning",
-      "name_ja": "マイナスドライバーを回さずに固定スロット訓練ブロックへ差し込む",
-      "intent_id": "intent_prepare_food",
+      "model": "gpt-6-luna",
+      "template_id": "clean_object_surface",
+      "name_en": "Remove a dry-transfer mock residue from the flat-screwdriver handle with a lint-free swab",
+      "name_ja": "乾式転写の模擬汚れを糸くずの出ないスワブでマイナスドライバーの柄から除去する",
+      "intent_id": "intent_clean",
       "object_id": "ycb_044_flat_screwdriver",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_044_flat_screwdriver",
-        "target": "captive_flat_slot",
-        "fixture": "flat_slot_training_block",
-        "focus_piece": "tip_guard",
-        "matching_part": "captive_flat_slot_screw"
+        "tool": "lint_free_dry_swab"
       },
       "state_ids": [
+        "state_dirty",
+        "state_clean",
         "state_on_surface"
       ],
       "initial_state": [
         "visible(ycb_044_flat_screwdriver)",
         "on_top_of(ycb_044_flat_screwdriver, workshop_bench)",
         "reachable(ycb_044_flat_screwdriver)",
-        "tip_guard_ready(tip_guard)",
-        "fixture_stable(flat_slot_training_block)",
-        "target_aligned(captive_flat_slot)",
-        "flat_slot_functionally_compatible(captive_flat_slot, ycb_044_flat_screwdriver)",
-        "block_material_compatible(flat_slot_training_block, ycb_044_flat_screwdriver)",
-        "captive_screw_retained(captive_flat_slot_screw)",
-        "no_rotation_protocol_declared",
-        "record_ready(flat_slot_setup_record)"
+        "mock_residue_present_on_handle(ycb_044_flat_screwdriver, removable_mock_residue)",
+        "blade_edge_guard_ready(flat_screwdriver_blade_guard)",
+        "swab_available(lint_free_dry_swab)",
+        "swab_dry_and_lint_free(lint_free_dry_swab)",
+        "swab_material_compatible(lint_free_dry_swab, ycb_044_flat_screwdriver)",
+        "dry_only_cleanup_protocol_declared",
+        "fixture_stable(workshop_bench)",
+        "record_ready(flat_screwdriver_handle_cleaning_record)"
       ],
       "goal_state": [
-        "blade_seated_in(ycb_044_flat_screwdriver, captive_flat_slot)",
-        "screw_not_rotated(captive_flat_slot_screw)",
-        "shaft_aligned(ycb_044_flat_screwdriver, captive_flat_slot)",
-        "no_rotation_applied(ycb_044_flat_screwdriver)",
-        "tip_guard_available(tip_guard)",
-        "flat_slot_setup_recorded(ycb_044_flat_screwdriver, flat_slot_setup_record)"
+        "mock_residue_removed_from_handle(ycb_044_flat_screwdriver, removable_mock_residue)",
+        "handle_surface_undamaged(ycb_044_flat_screwdriver)",
+        "blade_edge_guard_remains_in_place(flat_screwdriver_blade_guard)",
+        "no_liquid_or_solvent_used(ycb_044_flat_screwdriver)",
+        "mock_cleanup_recorded(ycb_044_flat_screwdriver, flat_screwdriver_handle_cleaning_record)",
+        "stable(ycb_044_flat_screwdriver)"
       ],
       "instruction_variants": [
-        "Seat a flat screwdriver in a captive slot training block without turning.",
-        "Complete the proposed seat a flat screwdriver in a captive slot training block without turning setup with all declared compatibility, safety, and recording conditions.",
-        "マイナスドライバーを回さずに固定スロット訓練ブロックへ差し込む。"
+        "Remove a dry-transfer mock residue from the flat-screwdriver handle with a lint-free swab.",
+        "Wipe only the designated mock mark from the handle with a compatible dry swab while the blade edge stays protected; this proposal makes no cleaning-efficacy claim.",
+        "刃先を保護したまま、適合する乾いたスワブで柄の指定された模擬汚れだけを拭き取る。"
       ],
       "skills": [
         "skill_locate",
         "skill_approach",
         "skill_grasp",
-        "skill_orient",
-        "skill_place",
+        "skill_wipe",
         "skill_release",
         "skill_inspect",
         "skill_verify"
@@ -856,15 +855,17 @@
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_049_small_clamp",
-      "template_id": "template_ycb_secure_clamp",
-      "name_en": "Secure a compatible thin sample with the small clamp",
-      "name_ja": "小型クランプで適合する薄い試験片を固定する",
-      "intent_id": "intent_prepare_food",
+      "model": "gpt-6-luna",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Open and release the unloaded small clamp to observe its return to rest",
+      "name_ja": "無負荷の小型クランプを開いて放し、静止位置への戻りを目視確認する",
+      "intent_id": "intent_inspect",
       "object_id": "ycb_049_small_clamp",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_049_small_clamp",
-        "workpiece": "thin_protected_sample"
+        "property": "spring_return_cycle",
+        "fixture": "small_clamp_return_cycle_fixture"
       },
       "state_ids": [
         "state_open",
@@ -872,35 +873,37 @@
       ],
       "initial_state": [
         "visible(ycb_049_small_clamp)",
-        "open(ycb_049_small_clamp)",
+        "closed(ycb_049_small_clamp)",
+        "unloaded(ycb_049_small_clamp)",
+        "return_spring_present(ycb_049_small_clamp)",
         "on_top_of(ycb_049_small_clamp, workshop_bench)",
         "reachable(ycb_049_small_clamp)",
-        "workpiece_positioned(thin_protected_sample, small_clamp_test_pad)",
-        "fixture_stable(small_clamp_test_pad)",
-        "jaws_aligned(ycb_049_small_clamp, thin_protected_sample)",
-        "sample_material_compatible(thin_protected_sample, ycb_049_small_clamp)",
-        "pinch_guard_ready(pinch_guard)",
-        "jaw_alignment_mark_visible(jaw_alignment_mark)",
-        "record_ready(small_clamp_load_record)"
+        "fixture_stable(small_clamp_return_cycle_fixture)",
+        "opening_stop_visible(clamp_opening_stop)",
+        "rest_position_marker_visible(clamp_rest_position_marker)",
+        "pinch_boundary_marked(clamp_pinch_boundary)",
+        "no_workpiece_in_jaws(ycb_049_small_clamp)",
+        "record_ready(small_clamp_return_cycle_record)"
       ],
       "goal_state": [
         "closed(ycb_049_small_clamp)",
-        "clamped(ycb_049_small_clamp, thin_protected_sample)",
-        "sample_stable(thin_protected_sample, small_clamp_test_pad)",
-        "pinch_guard_between(pinch_guard, ycb_049_small_clamp)",
-        "sample_undamaged(thin_protected_sample)",
-        "clamp_load_recorded(ycb_049_small_clamp, small_clamp_load_record)"
+        "unloaded(ycb_049_small_clamp)",
+        "spring_returned_to_rest_position(ycb_049_small_clamp, clamp_rest_position_marker)",
+        "pinch_zone_clear(clamp_pinch_boundary)",
+        "return_cycle_observation_recorded(ycb_049_small_clamp, small_clamp_return_cycle_record)",
+        "stable(ycb_049_small_clamp)"
       ],
       "instruction_variants": [
-        "Secure a compatible thin sample with the small clamp.",
-        "Complete the proposed secure a compatible thin sample with the small clamp setup with all declared compatibility, safety, and recording conditions.",
-        "小型クランプで適合する薄い試験片を固定する。"
+        "Open and release the unloaded small clamp to observe its return to rest.",
+        "Starting from the closed resting position, open the unloaded clamp to the marked stop and release it; record only whether it visibly returns to rest, without inferring spring force or speed.",
+        "閉じた静止位置から無負荷のクランプを印付きストッパーまで開いて放し、力や速度を推定せず静止位置への目視上の戻りだけを記録する。"
       ],
       "skills": [
         "skill_locate",
         "skill_approach",
         "skill_grasp",
-        "skill_close",
+        "skill_open",
+        "skill_release",
         "skill_inspect",
         "skill_verify"
       ]
@@ -1541,131 +1544,125 @@
         {
           "key": "scene_id",
           "value": "scene_ycb_tool_workshop",
-          "reason": "The proposed task is scoped to the controlled YCB tool workshop."
+          "reason": "Controlled collection scene."
         },
         {
           "key": "object",
           "value": "ycb_038_padlock",
-          "reason": "The YCB catalog object is the primary item for this proposed collection."
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
           "value": "workshop_bench",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
-          "value": "lockout_hasp_fixture",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "value": "padlock_keyway_inspection_cradle",
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
-          "value": "lockout_tag",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "value": "keyway_inspection_card",
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
-          "value": "hasp_clearance_mark",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
-        },
-        {
-          "key": "object",
-          "value": "padlock_close_record",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "value": "padlock_keyway_observation_record",
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "condition",
-          "value": "initial_visible_ycb_038_padlock",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_01",
+          "reason": "Confirm initial predicate: visible(ycb_038_padlock)"
         },
         {
           "key": "condition",
-          "value": "initial_open_ycb_038_padlock",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_02",
+          "reason": "Confirm initial predicate: closed(ycb_038_padlock)"
         },
         {
           "key": "condition",
-          "value": "initial_on_top_of_ycb_038_padlock_workshop_bench",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_03",
+          "reason": "Confirm initial predicate: on_top_of(ycb_038_padlock, workshop_bench)"
         },
         {
           "key": "condition",
-          "value": "initial_reachable_ycb_038_padlock",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_04",
+          "reason": "Confirm initial predicate: reachable(ycb_038_padlock)"
         },
         {
           "key": "condition",
-          "value": "fixture_stable_lockout_hasp_fixture",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_05",
+          "reason": "Confirm initial predicate: stable(padlock_keyway_inspection_cradle)"
         },
         {
           "key": "condition",
-          "value": "shackle_aligned",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_06",
+          "reason": "Confirm initial predicate: reference_visible(keyway_inspection_card)"
         },
         {
           "key": "condition",
-          "value": "hasp_material_compatible",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_07",
+          "reason": "Confirm initial predicate: keyway_unobstructed(ycb_038_padlock)"
         },
         {
           "key": "condition",
-          "value": "key_excluded_from_station",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_08",
+          "reason": "Confirm initial predicate: no_key_at_station(workshop_bench)"
         },
         {
           "key": "condition",
-          "value": "lockout_tag_visible",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_initial_09",
+          "reason": "Confirm initial predicate: record_ready(padlock_keyway_observation_record)"
         },
         {
           "key": "condition",
-          "value": "clearance_mark_visible",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_prerequisite_01",
+          "reason": "Verify the actual selected padlock fits the padded cradle and its keyway is visually accessible; catalog identity does not establish either property."
         },
         {
           "key": "condition",
-          "value": "record_ready_padlock_close_record",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_038_prerequisite_02",
+          "reason": "Declare the non-contact observation protocol; no measured dimensions, functional key fit, or lock actuation are claimed."
         },
         {
           "key": "capability",
           "value": "rigid_manipulation",
-          "reason": "The collection requires controlled rigid manipulation."
+          "reason": "Controlled positioning of the selected item."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "The collection requires visual confirmation of fit, safety, and records."
+          "reason": "Observe the bounded final condition and complete the record."
         },
         {
           "key": "role",
           "value": "home_user",
-          "reason": "The proposed activity is a supervised workshop collection design."
+          "reason": "Supervised workshop collection role."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The open padlock closes onto the compatible hasp fixture and remains stable at the marked lockout position.",
-          "The key stays outside the station, the tag remains visible, and the closure is recorded."
+          "The closed padlock remains stable in the cradle with the keyway facing the inspection card and a visible non-contact gap.",
+          "The visual observation is recorded without inserting or turning a key; no keyway dimension or compatibility result is claimed."
         ],
         "setup": [
-          "Place the open padlock at the marked, stable hasp fixture with the key excluded from the station.",
-          "Verify shackle alignment, hasp material compatibility, clearance marking, lockout tag, and record before closure."
+          "Stage the closed padlock, padded cradle, reference card and blank record on the marked bench.",
+          "Check cradle fit and keyway visibility on the selected specimen; declare observation framing and minimum visible separation before collection."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_038_padlock); open(ycb_038_padlock); on_top_of(ycb_038_padlock, workshop_bench); reachable(ycb_038_padlock); fixture_stable(lockout_hasp_fixture); shackle_aligned(ycb_038_padlock, lockout_hasp_fixture); hasp_material_compatible(lockout_hasp_fixture, ycb_038_padlock); key_excluded_from_station(ycb_038_padlock); lockout_tag_visible(lockout_tag); clearance_mark_visible(hasp_clearance_mark); record_ready(padlock_close_record).",
-          "Clear the fixture and return every reusable prop and record to its marked starting position."
+          "Restore initial predicates: visible(ycb_038_padlock); closed(ycb_038_padlock); on_top_of(ycb_038_padlock, workshop_bench); reachable(ycb_038_padlock); stable(padlock_keyway_inspection_cradle); reference_visible(keyway_inspection_card); keyway_unobstructed(ycb_038_padlock); no_key_at_station(workshop_bench); record_ready(padlock_keyway_observation_record).",
+          "Archive the completed record, prepare a blank record, and return reusable resources to their marked positions."
         ],
         "quality_checks": [
-          "Check the shackle is fully seated without forcing or shifting the fixture.",
-          "Confirm the key was not inserted and the lockout tag and closure record remain visible."
+          "Verify specimen identity, stable support, unobstructed keyway, visible gap and record linkage.",
+          "Confirm no key was present or used, and avoid interpreting the visual record as a measured dimension or key fit."
         ],
         "failure_modes": [
-          "The shackle misses the hasp, the fixture shifts, or the padlock is forced.",
-          "The key enters the station or the lockout tag is obscured.",
-          "The closure is not recorded."
+          "Keyway is obscured or the reference card touches the padlock.",
+          "Padlock shifts, opens, or the observation record is missing."
         ],
         "consumables": [],
         "time_estimates": {
@@ -1683,135 +1680,126 @@
         {
           "key": "scene_id",
           "value": "scene_ycb_tool_workshop",
-          "reason": "The proposed task is scoped to the controlled YCB tool workshop."
+          "reason": "Controlled collection scene."
         },
         {
           "key": "object",
           "value": "ycb_039_keys",
-          "reason": "The YCB catalog object is the primary item for this proposed collection."
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
           "value": "workshop_bench",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
-          "value": "keyway_reference_padlock",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "value": "key_set_handover_case",
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
-          "value": "reference_lock_keyway",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "value": "key_ring_retaining_hook",
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
-          "value": "key_selection_clip",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "value": "key_set_handover_label",
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "object",
-          "value": "key_orientation_card",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
-        },
-        {
-          "key": "object",
-          "value": "key_insertion_record",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+          "value": "key_set_handover_record",
+          "reason": "Explicit selected specimen, fixture, marked area, part, or observation record."
         },
         {
           "key": "condition",
-          "value": "initial_visible_ycb_039_keys",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_01",
+          "reason": "Confirm initial predicate: visible(ycb_039_keys)"
         },
         {
           "key": "condition",
-          "value": "initial_on_top_of_ycb_039_keys_workshop_bench",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_02",
+          "reason": "Confirm initial predicate: on_top_of(ycb_039_keys, workshop_bench)"
         },
         {
           "key": "condition",
-          "value": "initial_reachable_ycb_039_keys",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_03",
+          "reason": "Confirm initial predicate: reachable(ycb_039_keys)"
         },
         {
           "key": "condition",
-          "value": "counted_set_ycb_039_keys",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_04",
+          "reason": "Confirm initial predicate: ring_intact(ycb_039_keys)"
         },
         {
           "key": "condition",
-          "value": "matched_key_available",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_05",
+          "reason": "Confirm initial predicate: open(key_set_handover_case)"
         },
         {
           "key": "condition",
-          "value": "keyway_visible",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_06",
+          "reason": "Confirm initial predicate: hook_ready(key_ring_retaining_hook)"
         },
         {
           "key": "condition",
-          "value": "lock_stable",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_07",
+          "reason": "Confirm initial predicate: label_visible(key_set_handover_label)"
         },
         {
           "key": "condition",
-          "value": "key_selection_clip_ready",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_initial_08",
+          "reason": "Confirm initial predicate: record_ready(key_set_handover_record)"
         },
         {
           "key": "condition",
-          "value": "key_orientation_card_visible",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_prerequisite_01",
+          "reason": "Verify actual ring integrity, transparent case capacity, hook retention and material compatibility on the selected key set before collection."
         },
         {
           "key": "condition",
-          "value": "functional_compatibility_verified",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
-        },
-        {
-          "key": "condition",
-          "value": "record_ready_key_insertion_record",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "round5_039_prerequisite_02",
+          "reason": "Keep any lock absent; no numeric key count, key-to-lock match, or lock operation is asserted."
         },
         {
           "key": "capability",
           "value": "rigid_manipulation",
-          "reason": "The collection requires controlled rigid manipulation."
+          "reason": "Controlled positioning of the selected item."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "The collection requires visual confirmation of fit, safety, and records."
+          "reason": "Observe the bounded final condition and complete the record."
         },
         {
           "key": "role",
           "value": "home_user",
-          "reason": "The proposed activity is a supervised workshop collection design."
+          "reason": "Supervised workshop collection role."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The selected matched key is aligned and inserted into the stable reference padlock without turning it.",
-          "The lock remains closed, the key remains retained by its selection clip, and the insertion is recorded."
+          "The complete ringed key set is inside the closed stable transparent case, retained by the hook with the ring intact and label visible.",
+          "The storage record identifies the selected key set; no key was inserted or turned and no unobserved key count is claimed."
         ],
         "setup": [
-          "Keep the counted key set on the bench with the selection clip and orientation card visible beside the stable reference padlock.",
-          "Verify key-to-keyway functional compatibility and provide an empty insertion record before insertion."
+          "Stage the ringed key set, open transparent case with hook, visible handover label and blank record on the marked bench.",
+          "Verify selected specimen and case fit, hook retention and closure before the trial; define how complete grouping is visually checked."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_039_keys); on_top_of(ycb_039_keys, workshop_bench); reachable(ycb_039_keys); counted_set(ycb_039_keys); matched_key_available(ycb_039_keys, keyway_reference_padlock); keyway_visible(reference_lock_keyway); lock_stable(keyway_reference_padlock); key_selection_clip_ready(key_selection_clip); key_orientation_card_visible(key_orientation_card); functional_compatibility_verified(ycb_039_keys, keyway_reference_padlock); record_ready(key_insertion_record).",
-          "Clear the fixture and return every reusable prop and record to its marked starting position."
+          "Restore initial predicates: visible(ycb_039_keys); on_top_of(ycb_039_keys, workshop_bench); reachable(ycb_039_keys); ring_intact(ycb_039_keys); open(key_set_handover_case); hook_ready(key_ring_retaining_hook); label_visible(key_set_handover_label); record_ready(key_set_handover_record).",
+          "Archive the completed record, prepare a blank record, and return reusable resources to their marked positions."
         ],
         "quality_checks": [
-          "Check only the matched key enters the visible keyway and no turning or forced engagement occurs.",
-          "Verify the remaining keys stay together and the lock remains closed."
+          "Verify the whole selected key set remains grouped, captured and visible through the closed stable case.",
+          "Confirm no key was inserted or turned, label and record match the specimen, and no count is invented."
         ],
         "failure_modes": [
-          "The wrong key is selected, the keyway is occluded, or the key is forced.",
-          "The lock turns or opens, the key set separates, or the record is wrong."
+          "The ring detaches or slips from the hook.",
+          "The case does not close or retain the selected key set.",
+          "Label or storage record is missing or mismatched."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2279,27 +2267,27 @@
         },
         {
           "key": "object",
-          "value": "cross_slot_training_block",
+          "value": "phillips_shaft_inspection_cradle",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "captive_cross_slot",
+          "value": "calibrated_straightness_grid",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "captive_cross_slot_screw",
+          "value": "grid_calibration_label",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "tip_guard",
+          "value": "phillips_tip_guard",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "cross_slot_setup_record",
+          "value": "phillips_shaft_observation_record",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -2319,32 +2307,32 @@
         },
         {
           "key": "condition",
-          "value": "initial_tip_guard_removed_for_setup",
+          "value": "shaft_exposed_for_inspection_ycb_043_phillips_screwdriver",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "fixture_stable_cross_slot_training_block",
+          "value": "fixture_stable_phillips_shaft_inspection_cradle",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "target_aligned_captive_cross_slot",
+          "value": "straightness_reference_visible",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "cross_slot_functionally_compatible",
+          "value": "calibration_label_current",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "block_material_compatible",
+          "value": "shaft_view_clear",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "captive_screw_retained",
+          "value": "no_fastener_at_station",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -2354,12 +2342,12 @@
         },
         {
           "key": "condition",
-          "value": "no_rotation_protocol_declared",
+          "value": "no_contact_protocol_declared",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "record_ready_cross_slot_setup_record",
+          "value": "record_ready_phillips_shaft_observation_record",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -2381,25 +2369,25 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The compatible Phillips tip is seated in the captive cross-slot with the shaft aligned and the screw stationary.",
-          "The setup record is complete and the tip guard remains available for closeout."
+          "The exposed Phillips screwdriver shaft is visible alongside the calibrated reference with a non-contact gap and the tip clear.",
+          "Record only a qualitative visual alignment observation for the identified screwdriver; do not enter a numeric straightness, tolerance, or pass/fail value."
         ],
         "setup": [
-          "Stage the screwdriver, retained captive screw, stable training block, tip guard, and record at the marked workshop bench.",
-          "Verify functional/material compatibility and declare the no-rotation protocol before insertion."
+          "Stage the screwdriver in the stable inspection cradle beside the visible calibrated straightness grid, current calibration label, tip guard, and observation record.",
+          "Verify the shaft is exposed and unobstructed, the reference label is current, and the grid cannot contact the tool."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_043_phillips_screwdriver); on_top_of(ycb_043_phillips_screwdriver, workshop_bench); reachable(ycb_043_phillips_screwdriver); tip_guard_removed_for_setup(ycb_043_phillips_screwdriver); fixture_stable(cross_slot_training_block); target_aligned(captive_cross_slot); cross_slot_functionally_compatible(captive_cross_slot, ycb_043_phillips_screwdriver); block_material_compatible(cross_slot_training_block, ycb_043_phillips_screwdriver); captive_screw_retained(captive_cross_slot_screw); tip_guard_ready(tip_guard); no_rotation_protocol_declared; record_ready(cross_slot_setup_record).",
+          "Restore the initial predicates exactly: visible(ycb_043_phillips_screwdriver); on_top_of(ycb_043_phillips_screwdriver, workshop_bench); reachable(ycb_043_phillips_screwdriver); fixture_stable(phillips_shaft_inspection_cradle); straightness_reference_visible(calibrated_straightness_grid); calibration_label_current(grid_calibration_label); shaft_exposed_for_inspection(ycb_043_phillips_screwdriver); shaft_view_clear(ycb_043_phillips_screwdriver); tip_guard_ready(phillips_tip_guard); no_contact_protocol_declared; no_fastener_at_station(phillips_shaft_inspection_cradle); record_ready(phillips_shaft_observation_record).",
           "Clear the fixture and return every reusable prop and record to its marked starting position."
         ],
         "quality_checks": [
-          "Check the tip seats without cross-threading, impact, or rotation and the block stays stable.",
-          "Confirm the guard is available and the record identifies the correct tool."
+          "Keep the reference non-contact and confirm the shaft stays visible, the calibration label is current, and the tool identity is recorded.",
+          "Record a qualitative visual observation only; do not infer a numeric shaft deviation or acceptance threshold."
         ],
         "failure_modes": [
-          "The tip is incompatible, misaligned, or forced.",
-          "The screw rotates, the fixture shifts, or the guard is lost.",
-          "The record is incomplete."
+          "The shaft or reference is obscured, or the grid contacts the screwdriver.",
+          "The calibration label is missing or not current, or the cradle shifts.",
+          "The record contains an unmeasured numeric value or does not identify the screwdriver."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2431,27 +2419,22 @@
         },
         {
           "key": "object",
-          "value": "flat_slot_training_block",
+          "value": "removable_mock_residue",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "captive_flat_slot",
+          "value": "lint_free_dry_swab",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "captive_flat_slot_screw",
+          "value": "flat_screwdriver_blade_guard",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "tip_guard",
-          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
-        },
-        {
-          "key": "object",
-          "value": "flat_slot_setup_record",
+          "value": "flat_screwdriver_handle_cleaning_record",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -2471,42 +2454,42 @@
         },
         {
           "key": "condition",
-          "value": "tip_guard_ready",
+          "value": "mock_residue_present_on_handle",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "fixture_stable_flat_slot_training_block",
+          "value": "blade_edge_guard_ready",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "target_aligned_captive_flat_slot",
+          "value": "swab_available",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "flat_slot_functionally_compatible",
+          "value": "swab_dry_and_lint_free",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "block_material_compatible",
+          "value": "swab_material_compatible",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "captive_screw_retained",
+          "value": "dry_only_cleanup_protocol_declared",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "no_rotation_protocol_declared",
+          "value": "fixture_stable_workshop_bench",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "record_ready_flat_slot_setup_record",
+          "value": "record_ready_flat_screwdriver_handle_cleaning_record",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -2528,27 +2511,30 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The compatible flat blade is seated in the captive slot with the screw stationary and the shaft aligned.",
-          "The setup record is complete and the tip guard remains available."
+          "The designated dry-transfer mock residue is visibly removed from the marked handle area without visible handle damage.",
+          "The blade-edge guard remains in place; this proposed check does not establish cleaning efficacy beyond the visible mock mark."
         ],
         "setup": [
-          "Stage the flat screwdriver, retained captive screw, stable slot block, tip guard, and record on the marked bench.",
-          "Verify functional/material compatibility and the no-rotation protocol before insertion."
+          "Stage the screwdriver with the prepared removable mock mark on the handle only, a compatible dry lint-free swab, blade-edge guard, and cleaning record on the stable bench.",
+          "Verify swab compatibility and the dry-only protocol before wiping; keep the blade edge protected."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_044_flat_screwdriver); on_top_of(ycb_044_flat_screwdriver, workshop_bench); reachable(ycb_044_flat_screwdriver); tip_guard_ready(tip_guard); fixture_stable(flat_slot_training_block); target_aligned(captive_flat_slot); flat_slot_functionally_compatible(captive_flat_slot, ycb_044_flat_screwdriver); block_material_compatible(flat_slot_training_block, ycb_044_flat_screwdriver); captive_screw_retained(captive_flat_slot_screw); no_rotation_protocol_declared; record_ready(flat_slot_setup_record).",
-          "Clear the fixture and return every reusable prop and record to its marked starting position."
+          "Reapply only the designated removable mock mark to the handle, replace the dry swab, restore the blade-edge guard, and return the screwdriver and record to their marked bench positions.",
+          "Do not apply residue to the blade or use liquid cleaner or solvent."
         ],
         "quality_checks": [
-          "Check the blade seats without forcing, scratching, or turning the screw and the fixture stays stable.",
-          "Confirm the guard and record remain identifiable."
+          "Check only whether the visible mock mark is removed and whether the handle finish remains visibly undamaged.",
+          "Confirm the swab stayed dry, the blade guard stayed in place, and the record identifies the mock setup without an efficacy claim."
         ],
         "failure_modes": [
-          "The blade is incompatible, misaligned, or forced.",
-          "The screw rotates, the block shifts, or the guard is lost.",
-          "The record is incomplete."
+          "The mock residue spreads, the handle is visibly damaged, or the blade edge is exposed to the swab.",
+          "The swab is damp, sheds fibers, or the blade guard shifts.",
+          "A liquid/solvent is used or the record claims cleaning performance beyond the visible mock mark."
         ],
-        "consumables": [],
+        "consumables": [
+          "removable_mock_residue",
+          "lint_free_dry_swab"
+        ],
         "time_estimates": {
           "setup_minutes": null,
           "execution_minutes": null,
@@ -3161,27 +3147,27 @@
         },
         {
           "key": "object",
-          "value": "thin_protected_sample",
+          "value": "small_clamp_return_cycle_fixture",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "small_clamp_test_pad",
+          "value": "clamp_opening_stop",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "pinch_guard",
+          "value": "clamp_rest_position_marker",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "jaw_alignment_mark",
+          "value": "clamp_pinch_boundary",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "small_clamp_load_record",
+          "value": "small_clamp_return_cycle_record",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -3191,7 +3177,7 @@
         },
         {
           "key": "condition",
-          "value": "initial_open_ycb_049_small_clamp",
+          "value": "initial_closed_ycb_049_small_clamp",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -3206,37 +3192,42 @@
         },
         {
           "key": "condition",
-          "value": "workpiece_positioned",
+          "value": "initial_unloaded_ycb_049_small_clamp",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "fixture_stable_small_clamp_test_pad",
+          "value": "selected_sample_return_spring_present",
+          "reason": "Physically confirm the selected clamp has a return-spring mechanism; do not infer it from catalog identity."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_small_clamp_return_cycle_fixture",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "jaws_aligned",
+          "value": "opening_stop_visible",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "sample_material_compatible",
+          "value": "rest_position_marker_visible",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "pinch_guard_ready",
+          "value": "pinch_boundary_marked",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "jaw_alignment_mark_visible",
+          "value": "no_workpiece_in_jaws",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "record_ready_small_clamp_load_record",
+          "value": "record_ready_small_clamp_return_cycle_record",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -3258,25 +3249,26 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The small clamp closes on the compatible protected sample with the sample stable on the marked pad.",
-          "The pinch guard remains in place, the sample is undamaged, and the load record is complete."
+          "Starting from its closed resting position, the unloaded small clamp opens to the marked stop and returns visibly to the marked resting position when released.",
+          "Record only whether the visible return occurred; do not infer or record spring force, speed, or durability."
         ],
         "setup": [
-          "Place the open clamp and compatible protected sample on the stable test pad with the pinch guard and alignment mark visible.",
-          "Verify jaw alignment, sample material compatibility, and record before closure."
+          "Place the closed, unloaded small clamp in the stable return-cycle fixture with the opening stop, rest-position marker, pinch boundary, and blank record visible.",
+          "Before cycling, physically inspect the selected sample and confirm that a return-spring mechanism is present; do not infer this from YCB catalog identity. If the mechanism is absent or unclear, reject the setup and do not cycle the clamp.",
+          "Verify the jaws contain no workpiece and keep the marked pinch boundary clear before operating the handles."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_049_small_clamp); open(ycb_049_small_clamp); on_top_of(ycb_049_small_clamp, workshop_bench); reachable(ycb_049_small_clamp); workpiece_positioned(thin_protected_sample, small_clamp_test_pad); fixture_stable(small_clamp_test_pad); jaws_aligned(ycb_049_small_clamp, thin_protected_sample); sample_material_compatible(thin_protected_sample, ycb_049_small_clamp); pinch_guard_ready(pinch_guard); jaw_alignment_mark_visible(jaw_alignment_mark); record_ready(small_clamp_load_record).",
+          "Restore the initial predicates exactly: visible(ycb_049_small_clamp); closed(ycb_049_small_clamp); unloaded(ycb_049_small_clamp); return_spring_present(ycb_049_small_clamp); on_top_of(ycb_049_small_clamp, workshop_bench); reachable(ycb_049_small_clamp); fixture_stable(small_clamp_return_cycle_fixture); opening_stop_visible(clamp_opening_stop); rest_position_marker_visible(clamp_rest_position_marker); pinch_boundary_marked(clamp_pinch_boundary); no_workpiece_in_jaws(ycb_049_small_clamp); record_ready(small_clamp_return_cycle_record).",
           "Clear the fixture and return every reusable prop and record to its marked starting position."
         ],
         "quality_checks": [
-          "Check the clamp closes without trapping an unprotected contact or damaging the sample.",
-          "Confirm the pad and clamp remain stable and no force value is inferred."
+          "Observe one open-and-release cycle with the clamp unloaded; confirm the fixture stays stable and the boundary remains clear.",
+          "Record only the visible return-to-rest observation, with no spring-force, speed, or durability measurement."
         ],
         "failure_modes": [
-          "The jaws are misaligned, the sample is incompatible or damaged, or the pad shifts.",
-          "The pinch guard is absent or the clamp slips.",
-          "The record is wrong or incomplete."
+          "The clamp binds, fails to return visibly to the rest marker, or the fixture shifts.",
+          "A workpiece enters the jaws or the pinch boundary becomes obstructed.",
+          "The record contains an inferred force, speed, durability, or repeated-cycle claim."
         ],
         "consumables": [],
         "time_estimates": {
@@ -3894,100 +3886,100 @@
       "id": "claim_task_ycb_round5_038_padlock_task_suitability",
       "subject_id": "task_ycb_round5_038_padlock",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Close a padlock on a compatible lockout hasp fixture.",
+      "statement": "This proposed collection task is a design candidate: Present the closed padlock keyway to a non-contact inspection reference.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_ycb_task_design"
       ],
-      "scope": "YCB coverage round 5 proposal for ycb_038_padlock.",
+      "scope": "YCB Round 5 tool design proposal for ycb_038_padlock.",
       "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
     },
     {
       "id": "claim_task_ycb_round5_038_padlock_population_frequency",
       "subject_id": "task_ycb_round5_038_padlock",
       "claim_type": "population_frequency",
-      "statement": "Population frequency for this proposed task is unknown.",
+      "statement": "population_frequency for this Present the closed padlock keyway to a non-contact inspection reference task remains unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
       "source_ids": [],
-      "scope": "YCB coverage round 5 proposal for ycb_038_padlock.",
+      "scope": "No empirical evaluation of this specific YCB Round 5 task is attached.",
       "limitations": "No population definition or observation protocol is attached; catalog inclusion cannot quantify task prevalence."
     },
     {
       "id": "claim_task_ycb_round5_038_padlock_robot_execution",
       "subject_id": "task_ycb_round5_038_padlock",
       "claim_type": "robot_execution",
-      "statement": "Robot execution for this proposed task is unknown.",
+      "statement": "robot_execution for this Present the closed padlock keyway to a non-contact inspection reference task remains unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
       "source_ids": [],
-      "scope": "YCB coverage round 5 proposal for ycb_038_padlock.",
+      "scope": "No empirical evaluation of this specific YCB Round 5 task is attached.",
       "limitations": "The task definition and unordered skill inventory do not establish successful execution or performance."
     },
     {
       "id": "claim_task_ycb_round5_038_padlock_asset_compatibility",
       "subject_id": "task_ycb_round5_038_padlock",
       "claim_type": "asset_compatibility",
-      "statement": "Asset compatibility for this proposed task is unknown.",
+      "statement": "asset_compatibility for this Present the closed padlock keyway to a non-contact inspection reference task remains unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
       "source_ids": [],
-      "scope": "YCB coverage round 5 proposal for ycb_038_padlock.",
+      "scope": "No empirical evaluation of this specific YCB Round 5 task is attached.",
       "limitations": "Catalog identity does not establish the functional, material, safety, or simulator capabilities required by this interaction."
     },
     {
       "id": "claim_task_ycb_round5_039_keys_task_suitability",
       "subject_id": "task_ycb_round5_039_keys",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Insert the matched key from a key set into a reference padlock without turning it.",
+      "statement": "This proposed collection task is a design candidate: Store the ringed key set in a transparent case for handover.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_ycb_task_design"
       ],
-      "scope": "YCB coverage round 5 proposal for ycb_039_keys.",
+      "scope": "YCB Round 5 tool design proposal for ycb_039_keys.",
       "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
     },
     {
       "id": "claim_task_ycb_round5_039_keys_population_frequency",
       "subject_id": "task_ycb_round5_039_keys",
       "claim_type": "population_frequency",
-      "statement": "Population frequency for this proposed task is unknown.",
+      "statement": "population_frequency for this Store the ringed key set in a transparent case for handover task remains unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
       "source_ids": [],
-      "scope": "YCB coverage round 5 proposal for ycb_039_keys.",
+      "scope": "No empirical evaluation of this specific YCB Round 5 task is attached.",
       "limitations": "No population definition or observation protocol is attached; catalog inclusion cannot quantify task prevalence."
     },
     {
       "id": "claim_task_ycb_round5_039_keys_robot_execution",
       "subject_id": "task_ycb_round5_039_keys",
       "claim_type": "robot_execution",
-      "statement": "Robot execution for this proposed task is unknown.",
+      "statement": "robot_execution for this Store the ringed key set in a transparent case for handover task remains unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
       "source_ids": [],
-      "scope": "YCB coverage round 5 proposal for ycb_039_keys.",
+      "scope": "No empirical evaluation of this specific YCB Round 5 task is attached.",
       "limitations": "The task definition and unordered skill inventory do not establish successful execution or performance."
     },
     {
       "id": "claim_task_ycb_round5_039_keys_asset_compatibility",
       "subject_id": "task_ycb_round5_039_keys",
       "claim_type": "asset_compatibility",
-      "statement": "Asset compatibility for this proposed task is unknown.",
+      "statement": "asset_compatibility for this Store the ringed key set in a transparent case for handover task remains unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
       "source_ids": [],
-      "scope": "YCB coverage round 5 proposal for ycb_039_keys.",
+      "scope": "No empirical evaluation of this specific YCB Round 5 task is attached.",
       "limitations": "Catalog identity does not establish the functional, material, safety, or simulator capabilities required by this interaction."
     },
     {
@@ -4144,7 +4136,7 @@
       "id": "claim_task_ycb_round5_043_phillips_screwdriver_task_suitability",
       "subject_id": "task_ycb_round5_043_phillips_screwdriver",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Seat a Phillips screwdriver in a captive cross-slot training block without turning.",
+      "statement": "This is a proposed candidate for collection design review: Present the Phillips screwdriver shaft to a calibrated non-contact straightness reference.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -4194,7 +4186,7 @@
       "id": "claim_task_ycb_round5_044_flat_screwdriver_task_suitability",
       "subject_id": "task_ycb_round5_044_flat_screwdriver",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Seat a flat screwdriver in a captive slot training block without turning.",
+      "statement": "This is a proposed candidate for collection design review: Remove a dry-transfer mock residue from the flat-screwdriver handle with a lint-free swab.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -4444,7 +4436,7 @@
       "id": "claim_task_ycb_round5_049_small_clamp_task_suitability",
       "subject_id": "task_ycb_round5_049_small_clamp",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Secure a compatible thin sample with the small clamp.",
+      "statement": "This is a proposed candidate for collection design review: Open and release the unloaded small clamp to observe its return to rest.",
       "status": "proposed",
       "value": null,
       "unit": null,
