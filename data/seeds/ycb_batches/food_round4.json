@@ -1,0 +1,4127 @@
+{
+  "tasks": [
+    {
+      "id": "task_ycb_round4_chips_can",
+      "node_type": "TaskInstance",
+      "template_id": "transfer_to_checkout",
+      "name_en": "Present a chips can with a soup can at checkout",
+      "name_ja": "レジでチップス缶をスープ缶と一緒に提示する",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_001_chips_can",
+      "scene_id": "scene_checkout_counter",
+      "bindings": {
+        "theme": "ycb_001_chips_can",
+        "destination": "checkout_counter"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_full",
+        "state_upright",
+        "state_inside_receptacle"
+      ],
+      "initial_state": [
+        "inside(ycb_001_chips_can, shopping_cart)",
+        "inside(ycb_005_tomato_soup_can, shopping_cart)",
+        "reachable(ycb_001_chips_can)",
+        "destination_available(checkout_counter)",
+        "shopping_cart_open"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_001_chips_can, checkout_counter)",
+        "on_top_of(ycb_005_tomato_soup_can, checkout_counter)",
+        "visible_to_cashier(ycb_001_chips_can)",
+        "visible_to_cashier(ycb_005_tomato_soup_can)",
+        "co_located_with(ycb_001_chips_can, ycb_005_tomato_soup_can)",
+        "stable(checkout_counter)"
+      ],
+      "instruction_variants": [
+        "Present a chips can with a soup can at checkout",
+        "Complete the marked present a chips can with a soup can at checkout setup with all declared partner and acceptance conditions.",
+        "レジでチップス缶をスープ缶と一緒に提示する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_master_chef_can",
+      "node_type": "TaskInstance",
+      "template_id": "transport_object",
+      "name_en": "Carry a Master Chef can and sugar box to a prep counter",
+      "name_ja": "マスターシェフ缶と砂糖箱を調理台へ運ぶ",
+      "intent_id": "intent_prepare_food",
+      "object_id": "ycb_002_master_chef_can",
+      "scene_id": "scene_restaurant_kitchen",
+      "bindings": {
+        "theme": "ycb_002_master_chef_can",
+        "source": "pantry_stock_surface",
+        "destination": "restaurant_prep_counter"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_full",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_002_master_chef_can, pantry_stock_surface)",
+        "on_top_of(ycb_004_sugar_box, pantry_stock_surface)",
+        "adjacent(ycb_002_master_chef_can, ycb_004_sugar_box)",
+        "closed(ycb_002_master_chef_can)",
+        "reachable(ycb_002_master_chef_can)",
+        "reachable(restaurant_prep_counter)",
+        "destination_clear(restaurant_prep_counter)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_002_master_chef_can, restaurant_prep_counter)",
+        "on_top_of(ycb_004_sugar_box, restaurant_prep_counter)",
+        "near(ycb_002_master_chef_can, ycb_004_sugar_box)",
+        "upright(ycb_002_master_chef_can)",
+        "stable(restaurant_prep_counter)",
+        "prep_pair_recorded(ycb_002_master_chef_can)"
+      ],
+      "instruction_variants": [
+        "Carry a Master Chef can and sugar box to a prep counter",
+        "Complete the marked carry a master chef can and sugar box to a prep counter setup with all declared partner and acceptance conditions.",
+        "マスターシェフ缶と砂糖箱を調理台へ運ぶ"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_cracker_box",
+      "node_type": "TaskInstance",
+      "template_id": "recover_dropped_object",
+      "name_en": "Recover a fallen cracker box beside a pudding box on a shelf",
+      "name_ja": "棚で倒れたクラッカーボックスをプリン箱の隣へ戻す",
+      "intent_id": "intent_recover_from_error",
+      "object_id": "ycb_003_cracker_box",
+      "scene_id": "scene_supermarket_shelf",
+      "bindings": {
+        "theme": "ycb_003_cracker_box",
+        "destination": "supermarket_shelf"
+      },
+      "state_ids": [
+        "state_fallen",
+        "state_label_back",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "fallen(ycb_003_cracker_box)",
+        "on_top_of(ycb_003_cracker_box, controlled_recovery_surface)",
+        "on_shelf(ycb_008_pudding_box, supermarket_shelf)",
+        "label_back(ycb_003_cracker_box)",
+        "visible(ycb_003_cracker_box)",
+        "reachable(ycb_003_cracker_box)",
+        "shelf_recovery_slot_available(supermarket_shelf)"
+      ],
+      "goal_state": [
+        "on_shelf(ycb_003_cracker_box, supermarket_shelf)",
+        "label_front(ycb_003_cracker_box)",
+        "adjacent(ycb_003_cracker_box, ycb_008_pudding_box)",
+        "stable(ycb_003_cracker_box)",
+        "stable(supermarket_shelf)"
+      ],
+      "instruction_variants": [
+        "Recover a fallen cracker box beside a pudding box on a shelf",
+        "Complete the marked recover a fallen cracker box beside a pudding box on a shelf setup with all declared partner and acceptance conditions.",
+        "棚で倒れたクラッカーボックスをプリン箱の隣へ戻す"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_recover",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_sugar_box",
+      "node_type": "TaskInstance",
+      "template_id": "clean_spill",
+      "name_en": "Clean a staged sugar spill while securing the sugar box",
+      "name_ja": "砂糖箱を安全に戻しながらこぼれた砂糖を清掃する",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_004_sugar_box",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_004_sugar_box",
+        "tool": "ycb_026_sponge",
+        "surface": "kitchen_counter"
+      },
+      "state_ids": [
+        "state_open",
+        "state_dirty",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "open(ycb_004_sugar_box)",
+        "dirty(ycb_004_sugar_box)",
+        "on_top_of(ycb_004_sugar_box, kitchen_counter)",
+        "sugar_spill_present(ycb_004_sugar_box, kitchen_counter)",
+        "tool_available(ycb_026_sponge)",
+        "surface_reachable(kitchen_counter)",
+        "spill_bounded(sugar_spill_area)"
+      ],
+      "goal_state": [
+        "closed(ycb_004_sugar_box)",
+        "upright(ycb_004_sugar_box)",
+        "spill_removed(ycb_004_sugar_box)",
+        "surface_clean(kitchen_counter)",
+        "tool_contained(ycb_026_sponge)",
+        "sugar_spill_recorded(sugar_spill_area)"
+      ],
+      "instruction_variants": [
+        "Clean a staged sugar spill while securing the sugar box",
+        "Complete the marked clean a staged sugar spill while securing the sugar box setup with all declared partner and acceptance conditions.",
+        "砂糖箱を安全に戻しながらこぼれた砂糖を清掃する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_wipe",
+        "skill_discard",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_tomato_soup_can",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_round4_label_select_can",
+      "name_en": "Select the tomato soup can by label into an order tray while leaving the chips can unchanged",
+      "name_ja": "ラベルでトマトスープ缶を選び、チップス缶を動かさず注文トレーへ入れる",
+      "intent_id": "intent_prepare_food",
+      "object_id": "ycb_005_tomato_soup_can",
+      "scene_id": "scene_restaurant_kitchen",
+      "bindings": {
+        "theme": "ycb_005_tomato_soup_can",
+        "candidate_set": "restaurant_can_selection_rack",
+        "destination": "restaurant_order_tray",
+        "distractor": "ycb_001_chips_can"
+      },
+      "state_ids": [
+        "state_sealed",
+        "state_closed",
+        "state_full",
+        "state_upright",
+        "state_on_surface",
+        "state_label_front"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_005_tomato_soup_can, restaurant_can_selection_rack)",
+        "on_top_of(ycb_001_chips_can, restaurant_can_selection_rack)",
+        "label_front(ycb_005_tomato_soup_can)",
+        "label_front(ycb_001_chips_can)",
+        "sealed(ycb_005_tomato_soup_can)",
+        "closed(ycb_005_tomato_soup_can)",
+        "restaurant_can_selection_rack_stable",
+        "restaurant_order_tray_empty",
+        "order_ticket_visible",
+        "reachable(ycb_005_tomato_soup_can)",
+        "reachable(ycb_001_chips_can)",
+        "reachable(restaurant_order_tray)"
+      ],
+      "goal_state": [
+        "inside(ycb_005_tomato_soup_can, restaurant_order_tray)",
+        "on_top_of(ycb_001_chips_can, restaurant_can_selection_rack)",
+        "candidate_set_unchanged(ycb_001_chips_can)",
+        "label_match_recorded(ycb_005_tomato_soup_can, order_ticket)",
+        "label_front(ycb_005_tomato_soup_can)",
+        "sealed(ycb_005_tomato_soup_can)",
+        "stable(restaurant_order_tray)",
+        "restaurant_can_selection_rack_stable"
+      ],
+      "instruction_variants": [
+        "Select the tomato soup can by label into an order tray while leaving the chips can unchanged.",
+        "Read the order ticket, move only the matching labeled soup-can replica to the tray, and leave the chips-can distractor on the rack.",
+        "ラベルでトマトスープ缶を選び、チップス缶を動かさず注文トレーへ入れてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This proposed Round 4 task tests label-based selection and distractor preservation; package catalog identity does not establish contents, label readability, or food safety.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_mustard_bottle",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Weigh a closed mustard bottle on a tared kitchen scale",
+      "name_ja": "風袋引きしたキッチンスケールで閉じたマスタードボトルを量る",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_006_mustard_bottle",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_006_mustard_bottle",
+        "property": "gross_mass"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "closed(ycb_006_mustard_bottle)",
+        "on_top_of(ycb_006_mustard_bottle, kitchen_counter)",
+        "scale_available(kitchen_scale)",
+        "scale_tared(kitchen_scale)",
+        "scale_surface_clear(kitchen_scale)",
+        "reachable(ycb_006_mustard_bottle)",
+        "visible(ycb_006_mustard_bottle)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_006_mustard_bottle, kitchen_counter)",
+        "stable(ycb_006_mustard_bottle)",
+        "stable_gross_mass_reading_recorded(ycb_006_mustard_bottle, mass_record)",
+        "closed(ycb_006_mustard_bottle)",
+        "clear(kitchen_scale)"
+      ],
+      "instruction_variants": [
+        "Weigh a closed mustard bottle on a tared kitchen scale",
+        "Place the closed bottle on the tared scale, record the stable gross-mass reading, and remove it after the check.",
+        "閉じたボトルを風袋引きしたスケールに置き、安定した総重量を記録してから取り除いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This proposed Round 4 task records a stable gross-mass reading and returns a closed bottle to the counter; YCB catalog identity does not establish contents, mass, scale compatibility, or food safety.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_tuna_fish_can",
+      "node_type": "TaskInstance",
+      "template_id": "clean_object_surface",
+      "name_en": "Wipe residual oil from an empty tuna can before sorting",
+      "name_ja": "分別前に空のツナ缶の残留油を拭き取る",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_007_tuna_fish_can",
+      "scene_id": "scene_trash_sorting_area",
+      "bindings": {
+        "theme": "ycb_007_tuna_fish_can",
+        "tool": "ycb_026_sponge"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_dirty",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_007_tuna_fish_can)",
+        "dirty(ycb_007_tuna_fish_can)",
+        "on_top_of(ycb_007_tuna_fish_can, sorting_surface)",
+        "detached(tuna_can_lid, ycb_007_tuna_fish_can)",
+        "inside(tuna_can_lid, tuna_lid_guard)",
+        "tool_available(ycb_026_sponge)",
+        "reachable(ycb_007_tuna_fish_can)",
+        "no_exposed_sharp_edge(ycb_007_tuna_fish_can)"
+      ],
+      "goal_state": [
+        "clean(ycb_007_tuna_fish_can)",
+        "residue_removed(ycb_007_tuna_fish_can)",
+        "inside(tuna_can_lid, tuna_lid_guard)",
+        "detached(tuna_can_lid, ycb_007_tuna_fish_can)",
+        "wipe_complete(ycb_007_tuna_fish_can)",
+        "parts_ready_for_sorting(ycb_007_tuna_fish_can)",
+        "no_exposed_sharp_edge(ycb_007_tuna_fish_can)"
+      ],
+      "instruction_variants": [
+        "Wipe residual oil from an empty tuna can before sorting",
+        "Complete the marked wipe residual oil from an empty tuna can before sorting setup with all declared partner and acceptance conditions.",
+        "分別前に空のツナ缶の残留油を拭き取る"
+      ],
+      "skills": [
+        "skill_grasp",
+        "skill_wipe",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_pudding_box",
+      "node_type": "TaskInstance",
+      "template_id": "separate_container_parts",
+      "name_en": "Remove a price sticker from a sealed pudding box without harming its label",
+      "name_ja": "印刷ラベルを傷めず封印されたプリン箱から値札シールを外す",
+      "intent_id": "intent_discard",
+      "object_id": "ycb_008_pudding_box",
+      "scene_id": "scene_trash_sorting_area",
+      "bindings": {
+        "theme": "ycb_008_pudding_box",
+        "part": "pudding_price_sticker"
+      },
+      "state_ids": [
+        "state_sealed",
+        "state_closed",
+        "state_full",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "sealed(ycb_008_pudding_box)",
+        "closed(ycb_008_pudding_box)",
+        "on_top_of(ycb_008_pudding_box, sorting_surface)",
+        "removable(pudding_price_sticker, ycb_008_pudding_box)",
+        "printed_label_visible(ycb_008_pudding_box)",
+        "reachable(ycb_008_pudding_box)",
+        "sticker_waste_container_available"
+      ],
+      "goal_state": [
+        "separated(ycb_008_pudding_box, pudding_price_sticker)",
+        "sealed(ycb_008_pudding_box)",
+        "printed_label_intact(ycb_008_pudding_box)",
+        "inside(pudding_price_sticker, sticker_waste_container)",
+        "stable(ycb_008_pudding_box)",
+        "parts_ready_for_disposal(ycb_008_pudding_box)"
+      ],
+      "instruction_variants": [
+        "Remove a price sticker from a sealed pudding box without harming its label",
+        "Separate the removable sticker, preserve the printed package label, and place the removed sticker in its marked waste container.",
+        "印刷ラベルを傷めず値札シールを外し、指定容器へ入れてください。"
+      ],
+      "skills": [
+        "skill_grasp",
+        "skill_open",
+        "skill_separate",
+        "skill_sort",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_gelatin_box",
+      "node_type": "TaskInstance",
+      "template_id": "place_in_receptacle",
+      "name_en": "Insert a gelatin carton into a close-fitting pantry shelf slot",
+      "name_ja": "ゼラチン箱を食品庫のぴったり合う棚スロットへ差し込む",
+      "intent_id": "intent_store",
+      "object_id": "ycb_009_gelatin_box",
+      "scene_id": "scene_pantry",
+      "bindings": {
+        "theme": "ycb_009_gelatin_box",
+        "destination": "gelatin_shelf_slot"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_full",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "closed(ycb_009_gelatin_box)",
+        "sealed(ycb_009_gelatin_box)",
+        "on_top_of(ycb_009_gelatin_box, pantry_shelf_surface)",
+        "shelf_slot_open(gelatin_shelf_slot)",
+        "close_fit_verified(gelatin_shelf_slot, ycb_009_gelatin_box)",
+        "label_front(ycb_009_gelatin_box)",
+        "reachable(ycb_009_gelatin_box)"
+      ],
+      "goal_state": [
+        "inside(ycb_009_gelatin_box, gelatin_shelf_slot)",
+        "upright(ycb_009_gelatin_box)",
+        "label_front(ycb_009_gelatin_box)",
+        "slot_fit_verified(gelatin_shelf_slot, ycb_009_gelatin_box)",
+        "carton_undamaged(ycb_009_gelatin_box)",
+        "stable(gelatin_shelf_slot)"
+      ],
+      "instruction_variants": [
+        "Insert a gelatin carton into a close-fitting pantry shelf slot",
+        "Place the sealed carton fully into the verified slot without deforming it or hiding its printed label.",
+        "封印されたゼラチン箱を印刷ラベルが見えるまま指定スロットへ差し込んでください。"
+      ],
+      "skills": [
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_potted_meat_can",
+      "node_type": "TaskInstance",
+      "template_id": "handover_object",
+      "name_en": "Hand two empty cans to a recycling worker",
+      "name_ja": "空の缶二つをリサイクル担当者へ手渡す",
+      "intent_id": "intent_handover",
+      "object_id": "ycb_010_potted_meat_can",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_010_potted_meat_can",
+        "recipient": "recycling_staff"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_closed",
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_010_potted_meat_can)",
+        "closed(ycb_010_potted_meat_can)",
+        "empty(ycb_007_tuna_fish_can)",
+        "closed(ycb_007_tuna_fish_can)",
+        "on_top_of(ycb_010_potted_meat_can, handoff_counter)",
+        "on_top_of(ycb_007_tuna_fish_can, handoff_counter)",
+        "recipient_present",
+        "reachable(ycb_010_potted_meat_can)",
+        "no_exposed_sharp_edge(ycb_010_potted_meat_can)",
+        "no_exposed_sharp_edge(ycb_007_tuna_fish_can)",
+        "paired_for_handoff(ycb_010_potted_meat_can, ycb_007_tuna_fish_can)"
+      ],
+      "goal_state": [
+        "held_by(ycb_010_potted_meat_can, recycling_staff)",
+        "held_by(ycb_007_tuna_fish_can, recycling_staff)",
+        "theme_released_by(robot)",
+        "paired_for_handoff(ycb_010_potted_meat_can, ycb_007_tuna_fish_can)",
+        "handoff_counter_clear"
+      ],
+      "instruction_variants": [
+        "Hand two empty cans to a recycling worker",
+        "Complete the marked hand two empty cans to a recycling worker setup with all declared partner and acceptance conditions.",
+        "空の缶二つをリサイクル担当者へ手渡す"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_handover",
+        "skill_release"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_banana",
+      "node_type": "TaskInstance",
+      "template_id": "handover_object",
+      "name_en": "Hand a banana from a fruit plate to a diner",
+      "name_ja": "フルーツ皿からバナナを食事者へ手渡す",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_011_banana",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_011_banana",
+        "recipient": "adult_diner"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_011_banana, dining_table)",
+        "inside(ycb_012_strawberry, fruit_serving_plate)",
+        "recipient_present",
+        "reachable(ycb_011_banana)",
+        "no_stack_pressure(ycb_011_banana)",
+        "fruit_serving_plate_available",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "held_by(ycb_011_banana, adult_diner)",
+        "theme_released_by(robot)",
+        "inside(ycb_012_strawberry, fruit_serving_plate)",
+        "separated_from(ycb_011_banana, ycb_012_strawberry)",
+        "uncrushed(ycb_011_banana)"
+      ],
+      "instruction_variants": [
+        "Hand a banana from a fruit plate to a diner",
+        "Complete the marked hand a banana from a fruit plate to a diner setup with all declared partner and acceptance conditions.",
+        "フルーツ皿からバナナを食事者へ手渡す"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_handover",
+        "skill_release"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_strawberry",
+      "node_type": "TaskInstance",
+      "template_id": "place_in_receptacle",
+      "name_en": "Place a strawberry garnish on a dessert plate beside a mug",
+      "name_ja": "マグカップの隣のデザート皿にイチゴを添える",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_012_strawberry",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_012_strawberry",
+        "destination": "dessert_plate"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_012_strawberry, kitchen_counter)",
+        "open(dessert_plate)",
+        "on_top_of(ycb_025_mug, kitchen_counter)",
+        "reachable(ycb_012_strawberry)",
+        "destination_clear(dessert_plate)",
+        "mug_service_zone_marked",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "inside(ycb_012_strawberry, dessert_plate)",
+        "near(ycb_012_strawberry, ycb_025_mug)",
+        "on_top_of(ycb_025_mug, kitchen_counter)",
+        "stable(ycb_012_strawberry)",
+        "undamaged(ycb_012_strawberry)",
+        "accessible(dessert_plate)"
+      ],
+      "instruction_variants": [
+        "Place a strawberry garnish on a dessert plate beside a mug",
+        "Complete the marked place a strawberry garnish on a dessert plate beside a mug setup with all declared partner and acceptance conditions.",
+        "マグカップの隣のデザート皿にイチゴを添える"
+      ],
+      "skills": [
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_apple",
+      "node_type": "TaskInstance",
+      "template_id": "store_in_cold_storage",
+      "name_en": "Store an apple in the refrigerator produce drawer beside a pear",
+      "name_ja": "リンゴを洋ナシの隣で冷蔵庫の野菜室に収納する",
+      "intent_id": "intent_store",
+      "object_id": "ycb_013_apple",
+      "scene_id": "scene_refrigerator",
+      "bindings": {
+        "theme": "ycb_013_apple",
+        "destination": "refrigerator"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_room_temperature",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_013_apple, kitchen_counter)",
+        "inside(ycb_016_pear, refrigerator)",
+        "refrigerator_open",
+        "shelf_space_available(refrigerator)",
+        "reachable(ycb_013_apple)",
+        "clean(ycb_013_apple)",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "inside(ycb_013_apple, refrigerator)",
+        "inside(ycb_016_pear, refrigerator)",
+        "separated_from(ycb_013_apple, ycb_016_pear)",
+        "upright(ycb_013_apple)",
+        "closed(refrigerator)",
+        "stable(refrigerator)"
+      ],
+      "instruction_variants": [
+        "Store an apple in the refrigerator produce drawer beside a pear",
+        "Complete the marked store an apple in the refrigerator produce drawer beside a pear setup with all declared partner and acceptance conditions.",
+        "リンゴを洋ナシの隣で冷蔵庫の野菜室に収納する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_open",
+        "skill_place",
+        "skill_release",
+        "skill_close",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_lemon",
+      "node_type": "TaskInstance",
+      "template_id": "transport_object",
+      "name_en": "Carry a lemon and orange to a restaurant serving table",
+      "name_ja": "レモンとオレンジをレストランの配膳テーブルへ運ぶ",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_014_lemon",
+      "scene_id": "scene_restaurant_table",
+      "bindings": {
+        "theme": "ycb_014_lemon",
+        "source": "restaurant_prep_counter",
+        "destination": "restaurant_table"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_014_lemon, restaurant_prep_counter)",
+        "on_top_of(ycb_017_orange, restaurant_table)",
+        "reachable(ycb_014_lemon)",
+        "reachable(restaurant_table)",
+        "destination_clear(restaurant_table)",
+        "service_zone_marked(citrus_service_area)",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_014_lemon, restaurant_table)",
+        "on_top_of(ycb_014_lemon, citrus_service_area)",
+        "on_top_of(ycb_017_orange, restaurant_table)",
+        "on_top_of(ycb_017_orange, citrus_service_area)",
+        "near(ycb_014_lemon, ycb_017_orange)",
+        "stable(restaurant_table)",
+        "undamaged(ycb_014_lemon)",
+        "accessible(citrus_service_area)"
+      ],
+      "instruction_variants": [
+        "Carry a lemon and orange to a restaurant serving table",
+        "Complete the marked carry a lemon and orange to a restaurant serving table setup with all declared partner and acceptance conditions.",
+        "レモンとオレンジをレストランの配膳テーブルへ運ぶ"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_peach",
+      "node_type": "TaskInstance",
+      "template_id": "transport_object",
+      "name_en": "Carry a peach and pear from a counter to the dining table",
+      "name_ja": "桃と洋ナシをカウンターから食卓へ運ぶ",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_015_peach",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_015_peach",
+        "source": "kitchen_counter",
+        "destination": "dining_table"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_015_peach, kitchen_counter)",
+        "on_top_of(ycb_016_pear, kitchen_counter)",
+        "reachable(ycb_015_peach)",
+        "destination_clear(dining_table)",
+        "no_stack_pressure(ycb_015_peach)",
+        "no_stack_pressure(ycb_016_pear)",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_015_peach, dining_table)",
+        "on_top_of(ycb_015_peach, produce_serving_area)",
+        "on_top_of(ycb_016_pear, dining_table)",
+        "on_top_of(ycb_016_pear, produce_serving_area)",
+        "near(ycb_015_peach, ycb_016_pear)",
+        "separated_from(ycb_015_peach, ycb_016_pear)",
+        "stable(dining_table)",
+        "unbruised(ycb_015_peach)"
+      ],
+      "instruction_variants": [
+        "Carry a peach and pear from a counter to the dining table",
+        "Complete the marked carry a peach and pear from a counter to the dining table setup with all declared partner and acceptance conditions.",
+        "桃と洋ナシをカウンターから食卓へ運ぶ"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_pear",
+      "node_type": "TaskInstance",
+      "template_id": "transport_object",
+      "name_en": "Bring a pear from the refrigerator to an apple serving setup",
+      "name_ja": "洋ナシを冷蔵庫からリンゴの配膳準備へ運ぶ",
+      "intent_id": "intent_serve_food",
+      "object_id": "ycb_016_pear",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_016_pear",
+        "source": "refrigerator",
+        "destination": "dining_table"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_refrigerated",
+        "state_inside_receptacle"
+      ],
+      "initial_state": [
+        "inside(ycb_016_pear, refrigerator)",
+        "closed(refrigerator)",
+        "on_top_of(ycb_013_apple, dining_table)",
+        "reachable(ycb_016_pear)",
+        "reachable(refrigerator)",
+        "destination_clear(dining_table)",
+        "produce_service_tray_available",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_016_pear, dining_table)",
+        "on_top_of(ycb_016_pear, produce_service_area)",
+        "on_top_of(ycb_013_apple, dining_table)",
+        "on_top_of(ycb_013_apple, produce_service_area)",
+        "near(ycb_016_pear, ycb_013_apple)",
+        "separated_from(ycb_016_pear, ycb_013_apple)",
+        "closed(refrigerator)",
+        "stable(dining_table)",
+        "unbruised(ycb_016_pear)"
+      ],
+      "instruction_variants": [
+        "Bring a pear from the refrigerator to an apple serving setup",
+        "Complete the marked bring a pear from the refrigerator to an apple serving setup setup with all declared partner and acceptance conditions.",
+        "洋ナシを冷蔵庫からリンゴの配膳準備へ運ぶ"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_orange",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_round4_surface_mark_orientation",
+      "name_en": "Orient an orange surface mark toward a fixed pantry camera while leaving a lemon unchanged",
+      "name_ja": "レモンを動かさずオレンジの表面マークを食品庫の固定カメラへ向ける",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_017_orange",
+      "scene_id": "scene_pantry",
+      "bindings": {
+        "theme": "ycb_017_orange",
+        "surface": "pantry_camera_surface",
+        "camera": "pantry_camera",
+        "distractor": "ycb_014_lemon"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_room_temperature",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_017_orange, pantry_camera_surface)",
+        "on_top_of(ycb_014_lemon, pantry_camera_surface)",
+        "surface_mark_present(ycb_017_orange)",
+        "surface_mark_away_from_camera(ycb_017_orange)",
+        "camera_pose_fixed(pantry_camera)",
+        "camera_view_clear(pantry_camera)",
+        "pantry_camera_surface_stable",
+        "reachable(ycb_017_orange)",
+        "reachable(pantry_camera_surface)",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_017_orange, pantry_camera_surface)",
+        "surface_mark_aligned(ycb_017_orange, pantry_camera_surface)",
+        "surface_mark_facing(ycb_017_orange, pantry_camera)",
+        "camera_view_clear(pantry_camera)",
+        "distractor_unchanged(ycb_014_lemon)",
+        "stable(pantry_camera_surface)",
+        "orange_unobscured(ycb_017_orange)"
+      ],
+      "instruction_variants": [
+        "Orient an orange surface mark toward a fixed pantry camera while leaving a lemon unchanged.",
+        "Rotate the marked orange replica until the surface mark faces the fixed camera, without moving the lemon.",
+        "レモンを動かさずオレンジの表面マークを食品庫の固定カメラへ向けてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This proposed Round 4 task tests marked-surface camera orientation rather than storage; use a verified rigid orange replica with an inspection mark and do not infer softness, edibility, or produce-storage policy from YCB geometry. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    },
+    {
+      "id": "task_ycb_round4_plum",
+      "node_type": "TaskInstance",
+      "template_id": "retrieve_from_storage",
+      "name_en": "Retrieve a plum for a prepared peach serving tray",
+      "name_ja": "準備済みの桃の配膳トレイ用にプラムを収納から取り出す",
+      "intent_id": "intent_retrieve",
+      "object_id": "ycb_018_plum",
+      "scene_id": "scene_pantry",
+      "bindings": {
+        "theme": "ycb_018_plum",
+        "source": "pantry"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_upright",
+        "state_inside_receptacle"
+      ],
+      "initial_state": [
+        "inside(ycb_018_plum, pantry)",
+        "upright(ycb_018_plum)",
+        "closed(pantry)",
+        "reachable(pantry)",
+        "visible(ycb_018_plum)",
+        "on_top_of(ycb_015_peach, shallow_serving_plate)",
+        "shallow_serving_plate_available",
+        "verified_rigid_ycb_replica_variant"
+      ],
+      "goal_state": [
+        "held_by(ycb_018_plum, robot)",
+        "outside(ycb_018_plum, pantry)",
+        "closed(pantry)",
+        "paired_for_service(ycb_018_plum, ycb_015_peach)",
+        "peach_remains_on_top_of(ycb_015_peach, shallow_serving_plate)"
+      ],
+      "instruction_variants": [
+        "Retrieve a plum for a prepared peach serving tray",
+        "Complete the marked retrieve a plum for a prepared peach serving tray setup with all declared partner and acceptance conditions.",
+        "準備済みの桃の配膳トレイ用にプラムを収納から取り出す"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_open",
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_close",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "The skills field is an unordered capability inventory. This is a proposed Round 4 collection design; YCB catalog identity does not establish functional, material-flow, or asset behavior. Fruit handling uses a verified rigid YCB replica variant or an approved food-safe specimen; catalog geometry does not establish softness, bruising, or edibility.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4"
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_ycb_round4_chips_can",
+      "task_id": "task_ycb_round4_chips_can",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_checkout_counter",
+          "reason": "The declared scene_id scene_checkout_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_001_chips_can",
+          "reason": "The declared object ycb_001_chips_can is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_005_tomato_soup_can",
+          "reason": "The declared object ycb_005_tomato_soup_can is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "shopping_cart",
+          "reason": "The declared object shopping_cart is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "checkout_counter",
+          "reason": "The declared object checkout_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_inside_ycb_001_chips_can_shopping_cart",
+          "reason": "The declared condition initial_inside_ycb_001_chips_can_shopping_cart is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_inside_ycb_005_tomato_soup_can_shopping_cart",
+          "reason": "The declared condition initial_inside_ycb_005_tomato_soup_can_shopping_cart is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "shopping_cart_open",
+          "reason": "The declared condition shopping_cart_open is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "checkout_counter_available",
+          "reason": "The declared condition checkout_counter_available is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "cashier_visibility_zone_marked",
+          "reason": "The declared condition cashier_visibility_zone_marked is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "customer",
+          "reason": "The declared role customer is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "Both labeled package replicas are fully supported on checkout_counter and visible in the cashier zone.",
+          "The chips can and soup can remain co-located as the selected pair, with neither package left in the cart or overhanging the counter."
+        ],
+        "setup": [
+          "Place labeled ycb_001_chips_can and ycb_005_tomato_soup_can fully inside the open shopping cart and mark the cashier visibility zone.",
+          "Use inert or approved package replicas; catalog geometry does not establish edible contents or cashier interaction."
+        ],
+        "reset": [
+          "Return both packages from checkout_counter to their marked positions inside shopping_cart.",
+          "Clear the cashier visibility zone and confirm the cart is open for the next trial."
+        ],
+        "quality_checks": [
+          "Verify both YCB identities, full counter support, cashier visibility, co-location, and absence of either package in shopping_cart.",
+          "Record any counter collision, occlusion, or package displacement before accepting the trial."
+        ],
+        "failure_modes": [
+          "one package remains in the cart",
+          "a package is outside the marked counter zone",
+          "packages are occluded or unstable"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_master_chef_can",
+      "task_id": "task_ycb_round4_master_chef_can",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_restaurant_kitchen",
+          "reason": "The declared scene_id scene_restaurant_kitchen is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_002_master_chef_can",
+          "reason": "The declared object ycb_002_master_chef_can is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_004_sugar_box",
+          "reason": "The declared object ycb_004_sugar_box is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pantry_stock_surface",
+          "reason": "The declared object pantry_stock_surface is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "restaurant_prep_counter",
+          "reason": "The declared object restaurant_prep_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_002_master_chef_can_pantry_stock_surface",
+          "reason": "The declared condition initial_on_top_of_ycb_002_master_chef_can_pantry_stock_surface is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_004_sugar_box_pantry_stock_surface",
+          "reason": "The declared condition initial_on_top_of_ycb_004_sugar_box_pantry_stock_surface is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_adjacent_ycb_002_master_chef_can_ycb_004_sugar_box",
+          "reason": "The declared condition initial_adjacent_ycb_002_master_chef_can_ycb_004_sugar_box is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "restaurant_prep_counter_clear",
+          "reason": "The declared condition restaurant_prep_counter_clear is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "staff",
+          "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared contents full is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "Both labeled package replicas are fully supported upright on restaurant_prep_counter within the marked pairing area.",
+          "The record identifies the can and sugar box, and neither package contacts the counter edge or an unrelated object."
+        ],
+        "setup": [
+          "Stage the labeled can and sugar-box replicas adjacent on pantry_stock_surface and mark a clear restaurant_prep_counter pairing zone.",
+          "Use inert or approved replicas and keep knives, chemicals, and loose food material outside the collection area."
+        ],
+        "reset": [
+          "Return both packages from restaurant_prep_counter to their adjacent marked positions on pantry_stock_surface.",
+          "Clear the pairing zone and inspect both support surfaces before the next trial."
+        ],
+        "quality_checks": [
+          "Verify both identities, full support, upright can pose, adjacency, and a clear counter edge.",
+          "Do not interpret paired placement as evidence that either catalog asset contains food or supports cooking."
+        ],
+        "failure_modes": [
+          "one package is omitted or left on the source",
+          "a package is unstable or overhangs the counter",
+          "the pair is placed among unrelated objects"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_cracker_box",
+      "task_id": "task_ycb_round4_cracker_box",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_supermarket_shelf",
+          "reason": "The declared scene_id scene_supermarket_shelf is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_003_cracker_box",
+          "reason": "The declared object ycb_003_cracker_box is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_008_pudding_box",
+          "reason": "The declared object ycb_008_pudding_box is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "controlled_recovery_surface",
+          "reason": "The declared object controlled_recovery_surface is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "supermarket_shelf",
+          "reason": "The declared object supermarket_shelf is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_fallen_ycb_003_cracker_box",
+          "reason": "The declared condition initial_fallen_ycb_003_cracker_box is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_shelf_ycb_008_pudding_box_supermarket_shelf",
+          "reason": "The declared condition initial_on_shelf_ycb_008_pudding_box_supermarket_shelf is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_label_back_ycb_003_cracker_box",
+          "reason": "The declared condition initial_label_back_ycb_003_cracker_box is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "shelf_recovery_slot_available",
+          "reason": "The declared condition shelf_recovery_slot_available is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The declared condition verified_rigid_ycb_replica_variant is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "staff",
+          "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared contents full is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The cracker-box replica is fully supported in the marked shelf slot, stable, and label_front beside the pudding box.",
+          "The final record verifies both package identities, adjacency, and no fallen or overhanging package."
+        ],
+        "setup": [
+          "Stage the rigid cracker-box replica fallen on controlled_recovery_surface and the labeled pudding box in the target shelf row.",
+          "Mark the recovery slot and use inert package replicas; do not infer cardboard strength or edible contents from YCB geometry."
+        ],
+        "reset": [
+          "Remove the cracker box from the shelf and restage it fallen on controlled_recovery_surface with label_back.",
+          "Return the pudding box to its shelf mark and clear the recovery slot."
+        ],
+        "quality_checks": [
+          "Verify cracker-box identity, shelf support, label_front orientation, adjacency to ycb_008_pudding_box, and shelf stability.",
+          "Reject a trial if the box is torn, crushed, occluded, or recorded without a visible orientation check."
+        ],
+        "failure_modes": [
+          "the box remains fallen or is outside the shelf slot",
+          "the label is not visible or faces backward",
+          "the box contacts the shelf edge or loses partner adjacency"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_sugar_box",
+      "task_id": "task_ycb_round4_sugar_box",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_004_sugar_box",
+          "reason": "The declared object ycb_004_sugar_box is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_026_sponge",
+          "reason": "The declared object ycb_026_sponge is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "kitchen_counter",
+          "reason": "The declared object kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "sugar_spill_area",
+          "reason": "The declared object sugar_spill_area is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "sponge_containment_bin",
+          "reason": "The declared object sponge_containment_bin is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_open_ycb_004_sugar_box",
+          "reason": "The declared condition initial_open_ycb_004_sugar_box is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_sugar_spill_present_ycb_004_sugar_box",
+          "reason": "The declared condition initial_sugar_spill_present_ycb_004_sugar_box is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "sponge_available",
+          "reason": "The declared condition sponge_available is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "spill_boundary_marked",
+          "reason": "The declared condition spill_boundary_marked is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "wiping",
+          "reason": "The declared capability wiping is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The sugar box is upright and closed, the marked counter area has no visible staged residue, and the sponge is inside sponge_containment_bin.",
+          "The record identifies the original spill boundary and confirms that no residue was spread beyond it or left on the counter."
+        ],
+        "setup": [
+          "Place the open labeled sugar-box replica on a marked counter and stage an inert bounded sugar-like residue inside sugar_spill_area.",
+          "Use a clean food-safe sponge and marked containment bin; do not use chemicals or infer real package contents."
+        ],
+        "reset": [
+          "Remove the sponge from sponge_containment_bin, reopen and restage the sugar box, and restore the bounded inert residue.",
+          "Clean the counter and containment bin with a food-safe method before restoring the marked spill area."
+        ],
+        "quality_checks": [
+          "Verify box identity, closure, upright support, spill boundary, visible counter cleanliness, and sponge containment.",
+          "Confirm that wiping did not spread residue to an unmarked surface or contact chemicals."
+        ],
+        "failure_modes": [
+          "the box remains open or falls",
+          "residue remains or spreads outside the marked area",
+          "the sponge is missing or the counter is contaminated"
+        ],
+        "consumables": [
+          "inert_sugar_spill_material"
+        ],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_tomato_soup_can",
+      "task_id": "task_ycb_round4_tomato_soup_can",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_restaurant_kitchen",
+          "reason": "The label-selection trial is scoped to the controlled restaurant-kitchen scene."
+        },
+        {
+          "key": "object",
+          "value": "ycb_005_tomato_soup_can",
+          "reason": "The sealed soup-can replica is the labeled target."
+        },
+        {
+          "key": "object",
+          "value": "ycb_001_chips_can",
+          "reason": "The chips can is the unchanged distractor."
+        },
+        {
+          "key": "object",
+          "value": "restaurant_can_selection_rack",
+          "reason": "The rack is the actual candidate-set fixture."
+        },
+        {
+          "key": "object",
+          "value": "restaurant_order_tray",
+          "reason": "The empty tray is the actual destination fixture."
+        },
+        {
+          "key": "object",
+          "value": "order_ticket",
+          "reason": "The ticket supplies the fixed label criterion."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_005_tomato_soup_can_restaurant_can_selection_rack",
+          "reason": "The target starts on the marked rack."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_001_chips_can_restaurant_can_selection_rack",
+          "reason": "The distractor starts beside the target."
+        },
+        {
+          "key": "condition",
+          "value": "target_and_distractor_labels_visible",
+          "reason": "Both labels must be readable."
+        },
+        {
+          "key": "condition",
+          "value": "restaurant_can_selection_rack_stable",
+          "reason": "The rack must stay fixed."
+        },
+        {
+          "key": "condition",
+          "value": "restaurant_order_tray_empty",
+          "reason": "The tray must start empty."
+        },
+        {
+          "key": "condition",
+          "value": "order_ticket_visible",
+          "reason": "The criterion must be visible."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The handling area must be food-safe."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "Use a verified rigid package replica or approved sealed specimen."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Rigid manipulation moves only the selected can."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "Visual inspection reads the label and verifies the distractor."
+        },
+        {
+          "key": "role",
+          "value": "staff",
+          "reason": "The proposed selection context is scoped to restaurant staff."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "Full is a setup context, not evidence about asset contents."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "Only the labeled soup-can replica is fully supported inside restaurant_order_tray with its match recorded.",
+          "The chips distractor remains on the rack in its original mark and both fixtures are stable."
+        ],
+        "setup": [
+          "Place labeled soup-can and chips-can replicas on separate marks of restaurant_can_selection_rack with labels visible.",
+          "Place a fixed order ticket and empty restaurant_order_tray within reach; use inert or approved sealed replicas."
+        ],
+        "reset": [
+          "Return the soup can to its rack mark without moving the chips can.",
+          "Empty and inspect the order tray, restore the ticket, and verify both rack positions."
+        ],
+        "quality_checks": [
+          "Verify identity, label-ticket match, full tray support, sealed state, distractor position, and fixture stability.",
+          "Reject the trial if the distractor moves, the label is unreadable, or a can is outside its mark."
+        ],
+        "failure_modes": [
+          "wrong can selected",
+          "chips distractor moved or exchanged",
+          "label-ticket match not recorded",
+          "selected can or tray unstable"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_mustard_bottle",
+      "task_id": "task_ycb_round4_mustard_bottle",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The weighing and return task takes place in the home kitchen."
+        },
+        {
+          "key": "object",
+          "value": "ycb_006_mustard_bottle",
+          "reason": "The declared object ycb_006_mustard_bottle is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "kitchen_counter",
+          "reason": "The marked kitchen counter supports the bottle before and after weighing."
+        },
+        {
+          "key": "object",
+          "value": "kitchen_scale",
+          "reason": "A calibrated kitchen scale is required to measure gross mass."
+        },
+        {
+          "key": "object",
+          "value": "scale_readout",
+          "reason": "A visible readout is required to record the stable measurement."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_006_mustard_bottle",
+          "reason": "The bottle must begin closed so weighing does not require opening or dispensing."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_006_mustard_bottle_kitchen_counter",
+          "reason": "The bottle must begin on the marked counter beside the scale."
+        },
+        {
+          "key": "condition",
+          "value": "scale_available",
+          "reason": "The designated kitchen scale must be available and reachable."
+        },
+        {
+          "key": "condition",
+          "value": "scale_tared",
+          "reason": "The scale must be tared before the bottle is placed."
+        },
+        {
+          "key": "condition",
+          "value": "scale_surface_clear",
+          "reason": "The scale platform must be clear and stable before weighing."
+        },
+        {
+          "key": "condition",
+          "value": "gross_mass_recording_protocol",
+          "reason": "The collection must declare gross-mass units and a stable-reading rule before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "scale_capacity_verified_for_bottle",
+          "reason": "The scale capacity must be verified for the bottle before placement."
+        },
+        {
+          "key": "condition",
+          "value": "stable_reading_rule_recorded",
+          "reason": "The collection must record the stable-reading rule before weighing."
+        },
+        {
+          "key": "object",
+          "value": "mass_record",
+          "reason": "The record preserves the bottle identity, measured gross mass, units, and stable-reading check after removal."
+        },
+        {
+          "key": "condition",
+          "value": "scale_capacity_and_resolution_verified",
+          "reason": "Before collection, confirm that the bottle fits fully on the platform, is within the scale rated load, and the scale resolution supports the declared stable-reading rule."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "After the stable gross-mass reading has been recorded with the closed bottle fully supported on the tared scale, mass_record contains the bottle identity, gross mass, and units.",
+          "At completion the closed bottle is stable at its marked counter position and the scale platform is clear; contents and volume are not inferred."
+        ],
+        "setup": [
+          "Stage the closed labeled mustard bottle on its marked kitchen_counter position beside a reachable kitchen_scale; tare the scale before the trial.",
+          "Verify scale capacity, declare gross-mass units and a stable-reading rule, and use an inert or approved replica without inferring contents or volume.",
+          "Confirm platform fit, rated load, and scale resolution; define the stable-reading observation interval and tolerance before collection and prepare an empty mass_record."
+        ],
+        "reset": [
+          "Return the closed bottle to its marked kitchen_counter position and leave kitchen_scale clear after recording the reading.",
+          "Retare and inspect the scale, restore the readout and measurement record, and verify the counter mark for the next trial."
+        ],
+        "quality_checks": [
+          "Verify bottle identity, closed state, scale tare and capacity, stable readout, declared units, recorded measurement, final counter support, and clear scale.",
+          "Reject a trial if the scale is not tared, the reading is unstable, or the record infers contents, volume, or food safety."
+        ],
+        "failure_modes": [
+          "the bottle is open, unsupported, or moving during the reading",
+          "scale capacity, tare, or units are not verified",
+          "gross-mass reading is unstable or not recorded",
+          "bottle is not returned closed to the counter or scale remains occupied"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_tuna_fish_can",
+      "task_id": "task_ycb_round4_tuna_fish_can",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_trash_sorting_area",
+          "reason": "The declared scene_id scene_trash_sorting_area is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_007_tuna_fish_can",
+          "reason": "The declared object ycb_007_tuna_fish_can is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_026_sponge",
+          "reason": "The declared object ycb_026_sponge is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "sorting_surface",
+          "reason": "The declared object sorting_surface is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "tuna_lid_guard",
+          "reason": "The declared object tuna_lid_guard is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "tuna_can_lid",
+          "reason": "The detached tuna_can_lid is a physical partner that must remain isolated from the can during and after wiping."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_ycb_007_tuna_fish_can",
+          "reason": "The declared condition initial_empty_ycb_007_tuna_fish_can is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_dirty_ycb_007_tuna_fish_can",
+          "reason": "The declared condition initial_dirty_ycb_007_tuna_fish_can is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_detached_tuna_can_lid",
+          "reason": "The declared condition initial_detached_tuna_can_lid is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "sponge_available",
+          "reason": "The declared condition sponge_available is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_sharp_hazard",
+          "reason": "The declared condition no_sharp_hazard is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "wiping",
+          "reason": "The declared capability wiping is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared contents empty is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The empty tuna-can replica has no visible staged residue, the wipe is recorded complete, and the detached lid remains isolated in tuna_lid_guard.",
+          "The can and lid are ready for the declared sorting stream with no exposed sharp edge or contaminated area left on sorting_surface."
+        ],
+        "setup": [
+          "Stage an empty labeled tuna-can replica with bounded inert residue on sorting_surface and place its detached lid inside tuna_lid_guard.",
+          "Use a clean sponge and protected rigid replicas; catalog identity does not establish residue, edge, or material safety."
+        ],
+        "reset": [
+          "Return the can to its marked sorting_surface pose, restore the bounded residue, and return the detached tuna_can_lid to tuna_lid_guard.",
+          "Clean or replace the sponge as appropriate and restore the marked sorting layout."
+        ],
+        "quality_checks": [
+          "Verify can identity, empty state, detached-lid separation, visible residue removal, wipe completion, and protected edges.",
+          "Confirm the sponge did not spread residue outside the bounded sorting area and no food or chemical claim was made."
+        ],
+        "failure_modes": [
+          "residue remains or spreads beyond the marked area",
+          "the detached lid or sharp edge is exposed",
+          "the can identity or empty state is not verified"
+        ],
+        "consumables": [
+          "inert_oil_residue"
+        ],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_pudding_box",
+      "task_id": "task_ycb_round4_pudding_box",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_trash_sorting_area",
+          "reason": "The declared scene_id scene_trash_sorting_area is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_008_pudding_box",
+          "reason": "The declared object ycb_008_pudding_box is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "sorting_surface",
+          "reason": "The sorting surface supports the sealed box during sticker removal."
+        },
+        {
+          "key": "object",
+          "value": "pudding_price_sticker",
+          "reason": "The removable price sticker is the declared package part to separate."
+        },
+        {
+          "key": "object",
+          "value": "sticker_waste_container",
+          "reason": "The waste container is required to receive the removed sticker."
+        },
+        {
+          "key": "condition",
+          "value": "initial_sealed_ycb_008_pudding_box",
+          "reason": "The pudding box must remain sealed during sticker removal."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_008_pudding_box_sorting_surface",
+          "reason": "The box must begin fully supported on the marked sorting surface."
+        },
+        {
+          "key": "condition",
+          "value": "removable_pudding_price_sticker",
+          "reason": "The sticker must have a declared removable edge before separation."
+        },
+        {
+          "key": "condition",
+          "value": "printed_label_visible",
+          "reason": "The printed package label must be visible before and after removal."
+        },
+        {
+          "key": "condition",
+          "value": "sticker_waste_container_available",
+          "reason": "The marked sticker waste container must be empty and reachable."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "staff",
+          "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared contents full is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The pudding box remains sealed with its printed label intact, while pudding_price_sticker is fully separated and inside sticker_waste_container.",
+          "The final record verifies the box support, sticker removal, label preservation, and no torn package surface."
+        ],
+        "setup": [
+          "Place the sealed labeled pudding-box replica on sorting_surface with a removable inert price sticker and an empty sticker_waste_container.",
+          "Use a controlled sticker surrogate and rigid package replica; do not open the package or infer contents from the label."
+        ],
+        "reset": [
+          "Remove the sticker surrogate from sticker_waste_container, restore it to the marked box position, and return the sealed box to sorting_surface.",
+          "Inspect the package label and surface, then clear the waste container before the next trial."
+        ],
+        "quality_checks": [
+          "Verify pudding-box identity, sealed state, full sorting-surface support, complete sticker separation, waste containment, and printed-label integrity.",
+          "Reject a trial if the package opens, the printed label is damaged or occluded, or removal is recorded without visible evidence."
+        ],
+        "failure_modes": [
+          "the sticker remains attached or is outside sticker_waste_container",
+          "the printed label is torn, covered, or not visible",
+          "the sealed package is opened, crushed, or displaced"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_gelatin_box",
+      "task_id": "task_ycb_round4_gelatin_box",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_pantry",
+          "reason": "The declared scene_id scene_pantry is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_009_gelatin_box",
+          "reason": "The declared object ycb_009_gelatin_box is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pantry_shelf_surface",
+          "reason": "The pantry shelf surface is the initial support for the carton."
+        },
+        {
+          "key": "object",
+          "value": "gelatin_shelf_slot",
+          "reason": "The close-fitting shelf slot is the declared destination receptacle."
+        },
+        {
+          "key": "object",
+          "value": "shelf_divider",
+          "reason": "The shelf divider defines the verified slot boundaries."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_009_gelatin_box",
+          "reason": "The carton must begin closed for a slot-fit placement task."
+        },
+        {
+          "key": "condition",
+          "value": "initial_sealed_ycb_009_gelatin_box",
+          "reason": "The carton must remain sealed during insertion."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_009_gelatin_box_pantry_shelf_surface",
+          "reason": "The carton must begin fully supported on the marked shelf surface."
+        },
+        {
+          "key": "condition",
+          "value": "shelf_slot_open",
+          "reason": "The destination slot must be open and accessible before placement."
+        },
+        {
+          "key": "condition",
+          "value": "close_fit_verified",
+          "reason": "The slot fit must be verified before insertion so pressure is observable as a failure."
+        },
+        {
+          "key": "condition",
+          "value": "ambient_storage_policy_confirmed_pantry",
+          "reason": "The collection context must explicitly authorize this ambient shelf placement."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The sealed gelatin carton is fully inside gelatin_shelf_slot, upright, label_front, and supported without deformation.",
+          "The final record verifies slot_fit_verified, carton_undamaged, shelf stability, and no carton overhang or forced insertion."
+        ],
+        "setup": [
+          "Stage the closed, sealed labeled gelatin-carton replica on pantry_shelf_surface and mark an empty close-fitting gelatin_shelf_slot with shelf_divider.",
+          "Verify the slot fit using the rigid replica before collection; do not infer carton flexibility, powder flow, or contents from catalog geometry."
+        ],
+        "reset": [
+          "Withdraw the carton from gelatin_shelf_slot and return it to its pantry_shelf_surface mark without changing the divider.",
+          "Inspect the carton and slot for marks or deformation, then restore the open slot for the next trial."
+        ],
+        "quality_checks": [
+          "Verify carton identity, sealed and closed state, full slot containment, upright pose, label_front visibility, fit, and shelf stability.",
+          "Reject a trial if the carton is forced, crushed, hidden, or recorded as flexible or deformable without evidence."
+        ],
+        "failure_modes": [
+          "the carton cannot enter the verified slot without force",
+          "the carton is tilted, overhanging, or label is hidden",
+          "the carton or shelf divider is damaged"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_potted_meat_can",
+      "task_id": "task_ycb_round4_potted_meat_can",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_010_potted_meat_can",
+          "reason": "The declared object ycb_010_potted_meat_can is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_007_tuna_fish_can",
+          "reason": "The declared object ycb_007_tuna_fish_can is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "handoff_counter",
+          "reason": "The declared object handoff_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "recycling_staff",
+          "reason": "The declared object recycling_staff is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_closed_ycb_010_potted_meat_can",
+          "reason": "The declared condition initial_empty_closed_ycb_010_potted_meat_can is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_closed_ycb_007_tuna_fish_can",
+          "reason": "The declared condition initial_empty_closed_ycb_007_tuna_fish_can is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "recipient_present_and_ready",
+          "reason": "The declared condition recipient_present_and_ready is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_sharp_hazard",
+          "reason": "The declared condition no_sharp_hazard is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "paired_recycling_handoff",
+          "reason": "The declared condition paired_recycling_handoff is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "human_handover",
+          "reason": "The declared capability human_handover is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "staff",
+          "reason": "The declared role staff is required for this proposed collection."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared contents empty is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The recycling worker visibly holds both assigned empty cans after a coordinated release, with handoff_counter clear.",
+          "Both can identities, paired handoff state, and protected edges are verified without a drop or collision."
+        ],
+        "setup": [
+          "Place two labeled empty can replicas side by side on handoff_counter with protected edges and a ready recycling worker.",
+          "Use inert replicas and keep the receiving area clear; catalog identity does not establish sharp-edge or human-safety behavior."
+        ],
+        "reset": [
+          "Recover both cans from the worker, confirm they are empty and closed, and return them to handoff_counter marks.",
+          "Restore the receiving area and protected-edge setup before the next trial."
+        ],
+        "quality_checks": [
+          "Verify both identities, empty and closed states, recipient readiness, coordinated release, protected edges, and clear counter.",
+          "Record any premature release, grip collision, dropped can, or mismatch between the two-can set."
+        ],
+        "failure_modes": [
+          "one can is handed without its partner",
+          "the worker is not ready at release",
+          "a can drops or exposes a sharp edge"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_banana",
+      "task_id": "task_ycb_round4_banana",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The declared scene_id scene_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_011_banana",
+          "reason": "The declared object ycb_011_banana is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_012_strawberry",
+          "reason": "The declared object ycb_012_strawberry is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "fruit_serving_plate",
+          "reason": "The declared object fruit_serving_plate is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "dining_table",
+          "reason": "The declared object dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "adult_diner",
+          "reason": "The declared object adult_diner is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_011_banana_dining_table",
+          "reason": "The declared condition initial_on_top_of_ycb_011_banana_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_inside_ycb_012_strawberry_fruit_serving_plate",
+          "reason": "The declared condition initial_inside_ycb_012_strawberry_fruit_serving_plate is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "recipient_present_and_ready",
+          "reason": "The declared condition recipient_present_and_ready is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_stack_pressure_ycb_011_banana",
+          "reason": "The declared condition no_stack_pressure_ycb_011_banana is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The collection must identify the rigid fruit-replica variant or approved specimen used."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "human_handover",
+          "reason": "The declared capability human_handover is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The diner visibly holds the banana after release, while the strawberry remains fully supported on fruit_serving_plate.",
+          "The banana is uncrushed, fruits are separated, and both identities plus a clear handover path are verified."
+        ],
+        "setup": [
+          "Stage the labeled banana on dining_table and the labeled strawberry inside fruit_serving_plate, with a ready adult diner.",
+          "Use verified rigid fruit replicas or approved food-safe specimens; do not infer softness or edibility from catalog geometry."
+        ],
+        "reset": [
+          "Recover the banana from the diner, return it to its table mark, and restore the strawberry inside fruit_serving_plate.",
+          "Check the plate and handover area for displacement before the next trial."
+        ],
+        "quality_checks": [
+          "Verify banana identity, diner-held state, release, partner support, fruit separation, and no visible crush or drop.",
+          "Reject a trial if the strawberry moves, diner is not ready, or the handover lacks a clear release."
+        ],
+        "failure_modes": [
+          "banana is dropped or crushed",
+          "strawberry leaves the plate",
+          "release occurs before the diner is ready"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_strawberry",
+      "task_id": "task_ycb_round4_strawberry",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "The declared scene_id scene_home_kitchen is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_012_strawberry",
+          "reason": "The declared object ycb_012_strawberry is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "The declared object ycb_025_mug is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "dessert_plate",
+          "reason": "The declared object dessert_plate is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "kitchen_counter",
+          "reason": "The declared object kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_012_strawberry_kitchen_counter",
+          "reason": "The declared condition initial_on_top_of_ycb_012_strawberry_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "dessert_plate_open",
+          "reason": "The declared condition dessert_plate_open is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_025_mug_kitchen_counter",
+          "reason": "The declared condition initial_on_top_of_ycb_025_mug_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "dessert_plate_destination_clear",
+          "reason": "The declared condition dessert_plate_destination_clear is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "mug_service_zone_marked",
+          "reason": "The declared condition mug_service_zone_marked is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The collection must identify the rigid fruit-replica variant or approved specimen used."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The strawberry is fully supported inside dessert_plate, undamaged, and visibly near the mug in the marked service zone.",
+          "The mug remains on its counter mark and the record verifies plate access, support, and both identities."
+        ],
+        "setup": [
+          "Stage the labeled strawberry and mug on marked counter positions beside an empty open dessert_plate.",
+          "Use verified rigid replicas or approved food-safe specimens and keep liquids and cleaners outside the setup."
+        ],
+        "reset": [
+          "Remove the strawberry from dessert_plate and return it to its counter mark without moving the mug.",
+          "Empty and inspect the plate and restore the mug service zone."
+        ],
+        "quality_checks": [
+          "Verify strawberry identity, full plate support, no visible damage, mug position, proximity, and plate accessibility.",
+          "Reject a trial if the strawberry overlaps the mug, contacts an unmarked surface, or the plate is not open."
+        ],
+        "failure_modes": [
+          "strawberry is outside or overhanging the plate",
+          "mug is displaced",
+          "strawberry is crushed or service zone is blocked"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_apple",
+      "task_id": "task_ycb_round4_apple",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_refrigerator",
+          "reason": "The declared scene_id scene_refrigerator is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_013_apple",
+          "reason": "The declared object ycb_013_apple is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_016_pear",
+          "reason": "The declared object ycb_016_pear is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "refrigerator",
+          "reason": "The declared object refrigerator is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "kitchen_counter",
+          "reason": "The declared object kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_013_apple_kitchen_counter",
+          "reason": "The declared condition initial_on_top_of_ycb_013_apple_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_inside_ycb_016_pear_refrigerator",
+          "reason": "The declared condition initial_inside_ycb_016_pear_refrigerator is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "refrigerator_open_for_placement",
+          "reason": "The declared condition refrigerator_open_for_placement is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "produce_drawer_space_available",
+          "reason": "The declared condition produce_drawer_space_available is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_storage",
+          "reason": "The declared condition food_safe_storage is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The collection must identify the rigid fruit-replica variant or approved specimen used."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "articulated_closure",
+          "reason": "The declared capability articulated_closure is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The apple is upright and fully supported in the marked refrigerator position, the pear remains in its separate position, and the refrigerator is closed.",
+          "The record verifies both identities, visible separation, stable drawer support, and no item blocking the door."
+        ],
+        "setup": [
+          "Stage the labeled apple on kitchen_counter and the labeled pear in the marked refrigerator produce position.",
+          "Use verified rigid fruit replicas or approved specimens and keep the drawer free of liquids and chemicals."
+        ],
+        "reset": [
+          "Open the refrigerator, remove the apple, and return it to its counter mark without moving the pear.",
+          "Restore the pear position, clear the apple slot, and close the refrigerator."
+        ],
+        "quality_checks": [
+          "Verify apple identity, upright support, pear identity, separation, drawer clearance, and refrigerator closure.",
+          "Do not interpret this placement as evidence of storage-life, food safety, or refrigeration performance."
+        ],
+        "failure_modes": [
+          "apple is horizontal, unsupported, or outside the drawer",
+          "apple contacts or overlaps pear",
+          "refrigerator remains open or door is blocked"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_lemon",
+      "task_id": "task_ycb_round4_lemon",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_restaurant_table",
+          "reason": "The declared scene_id scene_restaurant_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_014_lemon",
+          "reason": "The declared object ycb_014_lemon is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_017_orange",
+          "reason": "The declared object ycb_017_orange is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "restaurant_prep_counter",
+          "reason": "The declared object restaurant_prep_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "restaurant_table",
+          "reason": "The declared object restaurant_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "citrus_service_area",
+          "reason": "citrus_service_area is a marked area of restaurant_table, not a separate physical object."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_014_lemon_restaurant_prep_counter",
+          "reason": "The declared condition initial_on_top_of_ycb_014_lemon_restaurant_prep_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_017_orange_restaurant_table",
+          "reason": "The declared condition initial_on_top_of_ycb_017_orange_restaurant_table is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "restaurant_table_clear",
+          "reason": "The declared condition restaurant_table_clear is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "citrus_service_zone_marked",
+          "reason": "The declared condition citrus_service_zone_marked is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The collection must identify the rigid fruit-replica variant or approved specimen used."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "staff",
+          "reason": "The declared role staff is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The lemon is fully supported in citrus_service_area beside the orange, the table is stable, and the lemon shows no staged damage.",
+          "The record verifies both citrus identities, source-to-destination transfer, proximity, and service-area access."
+        ],
+        "setup": [
+          "Stage the labeled lemon on restaurant_prep_counter and the labeled orange on the marked restaurant_table service zone.",
+          "Use verified rigid replicas or approved specimens and keep knives, liquids, and cleaners outside the scene."
+        ],
+        "reset": [
+          "Return the lemon to its prep-counter mark while leaving the orange on its table mark.",
+          "Clear and inspect citrus_service_area before restoring the destination layout."
+        ],
+        "quality_checks": [
+          "Verify lemon identity, full table support, orange identity and stability, final proximity, lemon condition, and service-zone access.",
+          "Reject a trial if the orange moves, the lemon contacts an unmarked area, or a source/destination pose is not visible."
+        ],
+        "failure_modes": [
+          "lemon is outside service area",
+          "orange is displaced or contacted",
+          "lemon is unstable or visibly damaged"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_peach",
+      "task_id": "task_ycb_round4_peach",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The declared scene_id scene_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_015_peach",
+          "reason": "The declared object ycb_015_peach is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_016_pear",
+          "reason": "The declared object ycb_016_pear is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "kitchen_counter",
+          "reason": "The declared object kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "dining_table",
+          "reason": "The declared object dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "produce_serving_area",
+          "reason": "produce_serving_area is a marked area of dining_table, not a separate physical object."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_015_peach_kitchen_counter",
+          "reason": "The declared condition initial_on_top_of_ycb_015_peach_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_016_pear_kitchen_counter",
+          "reason": "The declared condition initial_on_top_of_ycb_016_pear_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "dining_table_clear",
+          "reason": "The declared condition dining_table_clear is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_stack_pressure_ycb_015_peach",
+          "reason": "The declared condition no_stack_pressure_ycb_015_peach is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_stack_pressure_ycb_016_pear",
+          "reason": "The declared condition no_stack_pressure_ycb_016_pear is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The collection must identify the rigid fruit-replica variant or approved specimen used."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "Both labeled fruit replicas are fully supported in produce_serving_area on dining_table, visibly separated, with the peach unbruised.",
+          "The record verifies source-to-destination transfer, both identities, stable support, and no stack pressure."
+        ],
+        "setup": [
+          "Stage labeled peach and pear replicas on separate marked kitchen-counter positions and clear produce_serving_area on dining_table.",
+          "Use verified rigid replicas or approved specimens; do not infer softness, bruise mechanics, or edibility from catalog geometry."
+        ],
+        "reset": [
+          "Return both fruits to their separate counter marks and clear produce_serving_area.",
+          "Inspect counter and table and restore the no-stack-pressure setup before the next trial."
+        ],
+        "quality_checks": [
+          "Verify both identities, full table support, final separation, no stacking, stable destination, and visible peach condition.",
+          "Reject a trial if either fruit is dropped, overlapped, crushed, or left outside the marked area."
+        ],
+        "failure_modes": [
+          "fruit is dropped or outside table area",
+          "peach and pear overlap or stack",
+          "peach condition cannot be checked"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_pear",
+      "task_id": "task_ycb_round4_pear",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The declared scene_id scene_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_016_pear",
+          "reason": "The declared object ycb_016_pear is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_013_apple",
+          "reason": "The declared object ycb_013_apple is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "refrigerator",
+          "reason": "The declared object refrigerator is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "dining_table",
+          "reason": "The declared object dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "produce_service_area",
+          "reason": "produce_service_area is a marked area of dining_table, not a separate physical object."
+        },
+        {
+          "key": "condition",
+          "value": "initial_inside_ycb_016_pear_refrigerator",
+          "reason": "The declared condition initial_inside_ycb_016_pear_refrigerator is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_refrigerator",
+          "reason": "The declared condition initial_closed_refrigerator is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_013_apple_dining_table",
+          "reason": "The declared condition initial_on_top_of_ycb_013_apple_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "dining_table_clear",
+          "reason": "The declared condition dining_table_clear is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "produce_service_tray_available",
+          "reason": "The declared condition produce_service_tray_available is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The collection must identify the rigid fruit-replica variant or approved specimen used."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "articulated_closure",
+          "reason": "The declared capability articulated_closure is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The pear is fully supported in produce_service_area beside but separated from the apple, its condition is visible, and the refrigerator is closed.",
+          "The record verifies pear retrieval, apple preservation, table stability, and no object blocking the refrigerator."
+        ],
+        "setup": [
+          "Stage the labeled pear in a marked refrigerator position and the labeled apple on dining_table, leaving produce_service_area clear.",
+          "Use verified rigid fruit replicas or approved specimens and keep liquids and chemicals outside both scenes."
+        ],
+        "reset": [
+          "Return the pear to the marked refrigerator position, close the refrigerator, and return the apple to its table mark if displaced.",
+          "Clear produce_service_area and inspect the door path before the next trial."
+        ],
+        "quality_checks": [
+          "Verify pear identity, refrigerator removal, closed door, apple stability, final separation, table support, and pear condition.",
+          "Reject a trial if pear contacts apple, remains in refrigerator, or door is left open."
+        ],
+        "failure_modes": [
+          "pear remains inside or is dropped",
+          "pear contacts or overlaps apple",
+          "refrigerator remains open or table placement is unstable"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_orange",
+      "task_id": "task_ycb_round4_orange",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_pantry",
+          "reason": "The camera-orientation trial is scoped to the controlled pantry scene."
+        },
+        {
+          "key": "object",
+          "value": "ycb_017_orange",
+          "reason": "The marked orange replica is the primary object."
+        },
+        {
+          "key": "object",
+          "value": "ycb_014_lemon",
+          "reason": "The lemon is the unchanged distractor."
+        },
+        {
+          "key": "object",
+          "value": "pantry_camera_surface",
+          "reason": "The marked surface is the actual support fixture."
+        },
+        {
+          "key": "object",
+          "value": "pantry_camera",
+          "reason": "The fixed camera supplies orientation."
+        },
+        {
+          "key": "object",
+          "value": "camera_tripod",
+          "reason": "The tripod fixes camera pose."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_017_orange_pantry_camera_surface",
+          "reason": "Orange starts on the camera surface."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_014_lemon_pantry_camera_surface",
+          "reason": "Lemon starts on its own mark."
+        },
+        {
+          "key": "condition",
+          "value": "surface_mark_present_ycb_017_orange",
+          "reason": "The replica carries a visible orientation mark."
+        },
+        {
+          "key": "condition",
+          "value": "surface_mark_away_from_camera",
+          "reason": "Initial orientation requires reorientation."
+        },
+        {
+          "key": "condition",
+          "value": "camera_pose_fixed",
+          "reason": "Camera pose remains fixed."
+        },
+        {
+          "key": "condition",
+          "value": "camera_view_clear",
+          "reason": "Capture view is clear."
+        },
+        {
+          "key": "condition",
+          "value": "pantry_camera_surface_stable",
+          "reason": "The support fixture remains fixed."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "Use a verified rigid orange replica with a non-food mark."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The prop handling area is approved."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Rigid manipulation rotates and places the replica."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "Inspection aligns the mark with the camera."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed camera-calibration context uses a home-user pantry scene."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The orange replica remains fully supported on pantry_camera_surface with its marked face toward pantry_camera.",
+          "The lemon remains in its original position, the view is unobstructed, and the surface is stable."
+        ],
+        "setup": [
+          "Place labeled rigid orange and lemon replicas on separate marks of pantry_camera_surface with the orange mark initially away.",
+          "Fix pantry_camera on camera_tripod, confirm the view is clear, and keep liquids, chemicals, and unapproved food outside."
+        ],
+        "reset": [
+          "Rotate the orange back to its initial orientation and restore both fruit replicas to their marks.",
+          "Confirm camera pose, clear the view, and inspect pantry_camera_surface for displacement."
+        ],
+        "quality_checks": [
+          "Verify orange identity, mark-facing direction, support, camera pose, clear view, lemon immobility, and surface stability.",
+          "Do not interpret orientation as evidence of storage practice, softness, or edible contents."
+        ],
+        "failure_modes": [
+          "orange mark faces away",
+          "lemon distractor displaced",
+          "camera view occluded",
+          "replica rolls or mark unreadable"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round4_plum",
+      "task_id": "task_ycb_round4_plum",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_pantry",
+          "reason": "The declared scene_id scene_pantry is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_018_plum",
+          "reason": "The declared object ycb_018_plum is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_015_peach",
+          "reason": "The declared object ycb_015_peach is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pantry",
+          "reason": "The declared object pantry is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "shallow_serving_plate",
+          "reason": "The declared object shallow_serving_plate is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_inside_ycb_018_plum_pantry",
+          "reason": "The declared condition initial_inside_ycb_018_plum_pantry is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_pantry",
+          "reason": "The declared condition initial_closed_pantry is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_018_plum",
+          "reason": "The declared condition initial_visible_ycb_018_plum is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_015_peach_shallow_serving_plate",
+          "reason": "The declared condition initial_on_top_of_ycb_015_peach_shallow_serving_plate is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "shallow_serving_plate_available",
+          "reason": "The declared condition shallow_serving_plate_available is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "food_safe_setup",
+          "reason": "The declared condition food_safe_setup is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "verified_rigid_ycb_replica_variant",
+          "reason": "The collection must identify the rigid fruit-replica variant or approved specimen used."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "articulated_closure",
+          "reason": "The declared capability articulated_closure is required for this proposed collection."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The declared capability visual_inspection is required for this proposed collection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The declared role home_user is required for this proposed collection."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The robot visibly holds the plum outside the closed pantry while the peach remains fully supported on shallow_serving_plate.",
+          "The record verifies the plum-peach service pairing, pantry closure, and no displacement of the prepared plate."
+        ],
+        "setup": [
+          "Stage the labeled plum upright and visible inside pantry and the labeled peach on shallow_serving_plate.",
+          "Use verified rigid fruit replicas or approved specimens and keep the pantry path and plate area free of chemicals and clutter."
+        ],
+        "reset": [
+          "Return the plum to its marked pantry position, close the pantry, and restore the peach on shallow_serving_plate.",
+          "Inspect the plate and pantry access path before the next retrieval trial."
+        ],
+        "quality_checks": [
+          "Verify plum identity, pantry removal, robot-held state, pantry closure, peach support, and paired-service record.",
+          "Reject a trial if peach moves, plum is not visible in hand, or pantry remains open."
+        ],
+        "failure_modes": [
+          "plum is not retrieved or is dropped",
+          "pantry remains open",
+          "peach leaves or becomes unstable on the serving plate"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_task_ycb_round4_chips_can_task_suitability",
+      "subject_id": "task_ycb_round4_chips_can",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Present a chips can with a soup can at checkout is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Present a chips can with a soup can at checkout.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_chips_can_population_frequency",
+      "subject_id": "task_ycb_round4_chips_can",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Present a chips can with a soup can at checkout task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_chips_can_robot_execution",
+      "subject_id": "task_ycb_round4_chips_can",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Present a chips can with a soup can at checkout task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_chips_can_asset_compatibility",
+      "subject_id": "task_ycb_round4_chips_can",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_001_chips_can asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_master_chef_can_task_suitability",
+      "subject_id": "task_ycb_round4_master_chef_can",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Carry a Master Chef can and sugar box to a prep counter is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Carry a Master Chef can and sugar box to a prep counter.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_master_chef_can_population_frequency",
+      "subject_id": "task_ycb_round4_master_chef_can",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Carry a Master Chef can and sugar box to a prep counter task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_master_chef_can_robot_execution",
+      "subject_id": "task_ycb_round4_master_chef_can",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Carry a Master Chef can and sugar box to a prep counter task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_master_chef_can_asset_compatibility",
+      "subject_id": "task_ycb_round4_master_chef_can",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_002_master_chef_can asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_cracker_box_task_suitability",
+      "subject_id": "task_ycb_round4_cracker_box",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Recover a fallen cracker box beside a pudding box on a shelf is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Recover a fallen cracker box beside a pudding box on a shelf.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_cracker_box_population_frequency",
+      "subject_id": "task_ycb_round4_cracker_box",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Recover a fallen cracker box beside a pudding box on a shelf task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_cracker_box_robot_execution",
+      "subject_id": "task_ycb_round4_cracker_box",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Recover a fallen cracker box beside a pudding box on a shelf task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_cracker_box_asset_compatibility",
+      "subject_id": "task_ycb_round4_cracker_box",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_003_cracker_box asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_sugar_box_task_suitability",
+      "subject_id": "task_ycb_round4_sugar_box",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Clean a staged sugar spill while securing the sugar box is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Clean a staged sugar spill while securing the sugar box.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_sugar_box_population_frequency",
+      "subject_id": "task_ycb_round4_sugar_box",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Clean a staged sugar spill while securing the sugar box task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_sugar_box_robot_execution",
+      "subject_id": "task_ycb_round4_sugar_box",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Clean a staged sugar spill while securing the sugar box task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_sugar_box_asset_compatibility",
+      "subject_id": "task_ycb_round4_sugar_box",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_004_sugar_box asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_tomato_soup_can_task_suitability",
+      "subject_id": "task_ycb_round4_tomato_soup_can",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Select the tomato soup can by label into an order tray while leaving the chips can unchanged is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Select the tomato soup can by label into an order tray while leaving the chips can unchanged.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_tomato_soup_can_population_frequency",
+      "subject_id": "task_ycb_round4_tomato_soup_can",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Select the tomato soup can by label into an order tray while leaving the chips can unchanged task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_tomato_soup_can_robot_execution",
+      "subject_id": "task_ycb_round4_tomato_soup_can",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Select the tomato soup can by label into an order tray while leaving the chips can unchanged task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_tomato_soup_can_asset_compatibility",
+      "subject_id": "task_ycb_round4_tomato_soup_can",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_005_tomato_soup_can asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_mustard_bottle_task_suitability",
+      "subject_id": "task_ycb_round4_mustard_bottle",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Weigh a closed mustard bottle on a tared kitchen scale is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Weigh a closed mustard bottle on a tared kitchen scale.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_mustard_bottle_population_frequency",
+      "subject_id": "task_ycb_round4_mustard_bottle",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Weigh a closed mustard bottle on a tared kitchen scale task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_mustard_bottle_robot_execution",
+      "subject_id": "task_ycb_round4_mustard_bottle",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Weigh a closed mustard bottle on a tared kitchen scale task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_mustard_bottle_asset_compatibility",
+      "subject_id": "task_ycb_round4_mustard_bottle",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_006_mustard_bottle asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_tuna_fish_can_task_suitability",
+      "subject_id": "task_ycb_round4_tuna_fish_can",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Wipe residual oil from an empty tuna can before sorting is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Wipe residual oil from an empty tuna can before sorting.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_tuna_fish_can_population_frequency",
+      "subject_id": "task_ycb_round4_tuna_fish_can",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Wipe residual oil from an empty tuna can before sorting task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_tuna_fish_can_robot_execution",
+      "subject_id": "task_ycb_round4_tuna_fish_can",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Wipe residual oil from an empty tuna can before sorting task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_tuna_fish_can_asset_compatibility",
+      "subject_id": "task_ycb_round4_tuna_fish_can",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_007_tuna_fish_can asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_pudding_box_task_suitability",
+      "subject_id": "task_ycb_round4_pudding_box",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Remove a price sticker from a sealed pudding box without harming its label is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Remove a price sticker from a sealed pudding box without harming its label.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_pudding_box_population_frequency",
+      "subject_id": "task_ycb_round4_pudding_box",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Remove a price sticker from a sealed pudding box without harming its label task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_pudding_box_robot_execution",
+      "subject_id": "task_ycb_round4_pudding_box",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Remove a price sticker from a sealed pudding box without harming its label task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_pudding_box_asset_compatibility",
+      "subject_id": "task_ycb_round4_pudding_box",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_008_pudding_box asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_gelatin_box_task_suitability",
+      "subject_id": "task_ycb_round4_gelatin_box",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Insert a gelatin carton into a close-fitting pantry shelf slot is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Insert a gelatin carton into a close-fitting pantry shelf slot.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_gelatin_box_population_frequency",
+      "subject_id": "task_ycb_round4_gelatin_box",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Insert a gelatin carton into a close-fitting pantry shelf slot task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_gelatin_box_robot_execution",
+      "subject_id": "task_ycb_round4_gelatin_box",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Insert a gelatin carton into a close-fitting pantry shelf slot task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_gelatin_box_asset_compatibility",
+      "subject_id": "task_ycb_round4_gelatin_box",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_009_gelatin_box asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_potted_meat_can_task_suitability",
+      "subject_id": "task_ycb_round4_potted_meat_can",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Hand two empty cans to a recycling worker is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Hand two empty cans to a recycling worker.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_potted_meat_can_population_frequency",
+      "subject_id": "task_ycb_round4_potted_meat_can",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Hand two empty cans to a recycling worker task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_potted_meat_can_robot_execution",
+      "subject_id": "task_ycb_round4_potted_meat_can",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Hand two empty cans to a recycling worker task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_potted_meat_can_asset_compatibility",
+      "subject_id": "task_ycb_round4_potted_meat_can",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_010_potted_meat_can asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_banana_task_suitability",
+      "subject_id": "task_ycb_round4_banana",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Hand a banana from a fruit plate to a diner is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Hand a banana from a fruit plate to a diner.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_banana_population_frequency",
+      "subject_id": "task_ycb_round4_banana",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Hand a banana from a fruit plate to a diner task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_banana_robot_execution",
+      "subject_id": "task_ycb_round4_banana",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Hand a banana from a fruit plate to a diner task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_banana_asset_compatibility",
+      "subject_id": "task_ycb_round4_banana",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_011_banana asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_strawberry_task_suitability",
+      "subject_id": "task_ycb_round4_strawberry",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Place a strawberry garnish on a dessert plate beside a mug is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Place a strawberry garnish on a dessert plate beside a mug.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_strawberry_population_frequency",
+      "subject_id": "task_ycb_round4_strawberry",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Place a strawberry garnish on a dessert plate beside a mug task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_strawberry_robot_execution",
+      "subject_id": "task_ycb_round4_strawberry",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Place a strawberry garnish on a dessert plate beside a mug task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_strawberry_asset_compatibility",
+      "subject_id": "task_ycb_round4_strawberry",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_012_strawberry asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_apple_task_suitability",
+      "subject_id": "task_ycb_round4_apple",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Store an apple in the refrigerator produce drawer beside a pear is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Store an apple in the refrigerator produce drawer beside a pear.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_apple_population_frequency",
+      "subject_id": "task_ycb_round4_apple",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Store an apple in the refrigerator produce drawer beside a pear task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_apple_robot_execution",
+      "subject_id": "task_ycb_round4_apple",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Store an apple in the refrigerator produce drawer beside a pear task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_apple_asset_compatibility",
+      "subject_id": "task_ycb_round4_apple",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_013_apple asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_lemon_task_suitability",
+      "subject_id": "task_ycb_round4_lemon",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Carry a lemon and orange to a restaurant serving table is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Carry a lemon and orange to a restaurant serving table.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_lemon_population_frequency",
+      "subject_id": "task_ycb_round4_lemon",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Carry a lemon and orange to a restaurant serving table task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_lemon_robot_execution",
+      "subject_id": "task_ycb_round4_lemon",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Carry a lemon and orange to a restaurant serving table task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_lemon_asset_compatibility",
+      "subject_id": "task_ycb_round4_lemon",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_014_lemon asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_peach_task_suitability",
+      "subject_id": "task_ycb_round4_peach",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Carry a peach and pear from a counter to the dining table is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Carry a peach and pear from a counter to the dining table.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_peach_population_frequency",
+      "subject_id": "task_ycb_round4_peach",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Carry a peach and pear from a counter to the dining table task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_peach_robot_execution",
+      "subject_id": "task_ycb_round4_peach",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Carry a peach and pear from a counter to the dining table task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_peach_asset_compatibility",
+      "subject_id": "task_ycb_round4_peach",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_015_peach asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_pear_task_suitability",
+      "subject_id": "task_ycb_round4_pear",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Bring a pear from the refrigerator to an apple serving setup is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Bring a pear from the refrigerator to an apple serving setup.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_pear_population_frequency",
+      "subject_id": "task_ycb_round4_pear",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Bring a pear from the refrigerator to an apple serving setup task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_pear_robot_execution",
+      "subject_id": "task_ycb_round4_pear",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Bring a pear from the refrigerator to an apple serving setup task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_pear_asset_compatibility",
+      "subject_id": "task_ycb_round4_pear",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_016_pear asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_orange_task_suitability",
+      "subject_id": "task_ycb_round4_orange",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Orient an orange surface mark toward a fixed pantry camera while leaving a lemon unchanged is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Orient an orange surface mark toward a fixed pantry camera while leaving a lemon unchanged.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_orange_population_frequency",
+      "subject_id": "task_ycb_round4_orange",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Orient an orange surface mark toward a fixed pantry camera while leaving a lemon unchanged task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_orange_robot_execution",
+      "subject_id": "task_ycb_round4_orange",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Orient an orange surface mark toward a fixed pantry camera while leaving a lemon unchanged task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_orange_asset_compatibility",
+      "subject_id": "task_ycb_round4_orange",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_017_orange asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round4_plum_task_suitability",
+      "subject_id": "task_ycb_round4_plum",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 4 task for Retrieve a plum for a prepared peach serving tray is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 4 coverage proposal for Retrieve a plum for a prepared peach serving tray.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round4_plum_population_frequency",
+      "subject_id": "task_ycb_round4_plum",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Retrieve a plum for a prepared peach serving tray task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round4_plum_robot_execution",
+      "subject_id": "task_ycb_round4_plum",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Retrieve a plum for a prepared peach serving tray task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round4_plum_asset_compatibility",
+      "subject_id": "task_ycb_round4_plum",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_018_plum asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    }
+  ],
+  "templates": [
+    {
+      "id": "template_ycb_round4_label_select_can",
+      "node_type": "TaskTemplate",
+      "name_en": "Select a labeled can into an order tray while preserving a distractor",
+      "name_ja": "誤選択缶を残したままラベル付き缶を注文トレーへ選ぶ",
+      "verb": "select",
+      "roles": {
+        "theme": "target_can",
+        "candidate_set": "candidate_can_set",
+        "destination": "order_tray",
+        "distractor": "distractor_can"
+      },
+      "compatible_scenes": [
+        "scene_restaurant_kitchen"
+      ],
+      "preconditions": [
+        "target and distractor labels are visible",
+        "candidate set is stable and reachable",
+        "order tray is empty and reachable"
+      ],
+      "goals": [
+        "inside(theme, destination)",
+        "distractor remains in candidate set",
+        "target label match is recorded",
+        "destination and candidate set remain stable"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "wrong can selected",
+        "distractor moved with target",
+        "label is occluded",
+        "tray or can is unstable"
+      ],
+      "safety_tags": [
+        "food_package_handling",
+        "selection",
+        "catalog_asset_only"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ycb_round4_surface_mark_orientation",
+      "node_type": "TaskTemplate",
+      "name_en": "Orient a marked object surface toward a fixed camera",
+      "name_ja": "表面マークを固定カメラへ向ける",
+      "verb": "orient",
+      "roles": {
+        "theme": "marked_object",
+        "surface": "marked_surface",
+        "camera": "fixed_camera",
+        "distractor": "unchanged_distractor"
+      },
+      "compatible_scenes": [
+        "scene_pantry"
+      ],
+      "preconditions": [
+        "marked object and distractor are visible and reachable",
+        "surface mark and camera pose are fixed",
+        "camera view is clear",
+        "surface is stable"
+      ],
+      "goals": [
+        "surface mark faces the fixed camera",
+        "camera view is unobstructed",
+        "distractor remains unchanged",
+        "marked object and surface remain stable"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "mark faces away",
+        "distractor is displaced",
+        "camera view is occluded",
+        "replica rolls or overhangs"
+      ],
+      "safety_tags": [
+        "camera_calibration",
+        "food_replica",
+        "catalog_asset_only"
+      ],
+      "review_status": "proposed"
+    }
+  ]
+}

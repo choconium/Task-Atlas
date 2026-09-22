@@ -1,0 +1,4340 @@
+{
+  "templates": [
+    {
+      "id": "template_ycb_round4_sort_key_profiles",
+      "node_type": "TaskTemplate",
+      "name_en": "Sort keys by profile into a labeled board",
+      "name_ja": "鍵を形状ごとにラベル付きボードへ分別する",
+      "verb": "sort",
+      "roles": {
+        "theme": "key_set",
+        "destination": "key_profile_board",
+        "profile_legend": "profile_legend"
+      },
+      "compatible_scenes": [
+        "scene_ycb_tool_workshop"
+      ],
+      "preconditions": [
+        "visible(theme)",
+        "reachable(theme)",
+        "reachable(destination)",
+        "profile_legend_visible(profile_legend)"
+      ],
+      "goals": [
+        "each_item_in_matching_slot(theme,destination)",
+        "inventory_recorded(theme)",
+        "stable(destination)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_sort",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "wrong_profile_slot",
+        "lost_small_item",
+        "unstable_board",
+        "unrecorded_inventory"
+      ],
+      "safety_tags": [
+        "small_parts",
+        "sorting",
+        "tool_organization"
+      ],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_power_drill",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Prepare a de-energized power drill for a controlled bit change",
+      "name_ja": "電源を切った電動ドリルを安全なビット交換準備状態にする",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_035_power_drill",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_035_power_drill",
+        "property": "bit_change_ready_state",
+        "fixture": "drill_service_cradle"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_035_power_drill)",
+        "on_top_of(ycb_035_power_drill, workshop_bench)",
+        "reachable(ycb_035_power_drill)",
+        "fixture_stable(drill_service_cradle)",
+        "service_cradle_empty(drill_service_cradle)",
+        "power_disabled(ycb_035_power_drill)",
+        "battery_removed(ycb_035_power_drill)",
+        "trigger_locked(ycb_035_power_drill)",
+        "chuck_empty(ycb_035_power_drill)",
+        "bit_change_tag_visible(bit_change_tag)"
+      ],
+      "goal_state": [
+        "supported_in(ycb_035_power_drill, drill_service_cradle)",
+        "chuck_accessible(ycb_035_power_drill)",
+        "battery_removed(ycb_035_power_drill)",
+        "trigger_locked(ycb_035_power_drill)",
+        "bit_change_ready(ycb_035_power_drill)",
+        "inspection_recorded(ycb_035_power_drill)"
+      ],
+      "instruction_variants": [
+        "Place the de-energized power drill in the service cradle and leave it ready for a controlled bit change.",
+        "Prepare the battery-removed drill for servicing without rotating the chuck or pressing the trigger.",
+        "電池を外した電動ドリルをサービス台に置き、チャックを回さずにビット交換の準備状態にしてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_wood_block",
+      "template_id": "template_ycb_align_assembly_fixture",
+      "name_en": "Measure the wood block and fit it in an adjustable spacer gap",
+      "name_ja": "木ブロックの厚さを測り、可変スペーサーの隙間に合わせる",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_036_wood_block",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_036_wood_block",
+        "destination": "spacer_gap_fixture",
+        "target": "adjustable_gap_reference"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_036_wood_block)",
+        "on_top_of(ycb_036_wood_block, workshop_bench)",
+        "reachable(ycb_036_wood_block)",
+        "fixture_stable(spacer_gap_fixture)",
+        "gap_adjustable(spacer_gap_fixture)",
+        "gap_open(spacer_gap_fixture)",
+        "block_thickness_unmeasured(ycb_036_wood_block)",
+        "caliper_available(block_thickness_gap_caliper)",
+        "feeler_gauge_available(residual_feeler_gauge)",
+        "block_clean(ycb_036_wood_block)"
+      ],
+      "goal_state": [
+        "block_thickness_measured_with_caliper(ycb_036_wood_block)",
+        "gap_measured_with_caliper(spacer_gap_fixture)",
+        "gap_adjusted_to_block_thickness(spacer_gap_fixture, ycb_036_wood_block)",
+        "contacts_both_stops(ycb_036_wood_block, spacer_gap_fixture)",
+        "residual_gap_measured_with_feeler(spacer_gap_fixture)",
+        "residual_gap_within_tolerance(spacer_gap_fixture)",
+        "fit_measurement_recorded(ycb_036_wood_block)",
+        "stable(ycb_036_wood_block)"
+      ],
+      "instruction_variants": [
+        "Measure the wood block thickness with the caliper, adjust the fixture gap to that measured thickness, and record the fit.",
+        "Use the caliper for both the block thickness and adjustable gap, then use a feeler gauge to measure the residual gap after seating the block.",
+        "木ブロックの厚さと可変治具の隙間をノギスで測り、ブロックを合わせた後の残り隙間をすきまゲージで測定して記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_scissors",
+      "template_id": "template_ycb_align_assembly_fixture",
+      "name_en": "Align closed scissors in a blade-clearance fixture",
+      "name_ja": "閉じたはさみを刃のクリアランス治具に合わせる",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_037_scissors",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_037_scissors",
+        "destination": "blade_clearance_fixture",
+        "target": "closed_blade_axis_reference"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_037_scissors)",
+        "closed(ycb_037_scissors)",
+        "blades_guarded(ycb_037_scissors)",
+        "on_top_of(ycb_037_scissors, workshop_bench)",
+        "reachable(ycb_037_scissors)",
+        "fixture_stable(blade_clearance_fixture)",
+        "target_marked(closed_blade_axis_reference)",
+        "clearance_card_available(clearance_card_10mm)",
+        "cutting_zone_clear(blade_clearance_fixture)"
+      ],
+      "goal_state": [
+        "aligned_with(ycb_037_scissors, closed_blade_axis_reference)",
+        "closed(ycb_037_scissors)",
+        "blades_guarded(ycb_037_scissors)",
+        "blade_path_clear(ycb_037_scissors)",
+        "clearance_10_mm_within_1_mm(ycb_037_scissors)",
+        "clearance_recorded(ycb_037_scissors)",
+        "stable(ycb_037_scissors)"
+      ],
+      "instruction_variants": [
+        "Seat the closed, guarded scissors on the blade-clearance fixture and record the 10 mm check.",
+        "Align the scissors to the marked axis without opening or cutting, then verify the clearance.",
+        "閉じて保護したはさみを刃のクリアランス治具の軸に合わせ、開かずに10 mmの確認結果を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_padlock",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Check a closed padlock shackle in an open-ended gauge without unlocking it",
+      "name_ja": "閉じた南京錠のシャックルを開放端ゲージで解錠せずに確認する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_038_padlock",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_038_padlock",
+        "property": "shackle_clearance",
+        "fixture": "open_ended_shackle_gauge"
+      },
+      "state_ids": [
+        "state_closed",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_038_padlock)",
+        "closed(ycb_038_padlock)",
+        "on_top_of(ycb_038_padlock, workshop_bench)",
+        "reachable(ycb_038_padlock)",
+        "fixture_stable(open_ended_shackle_gauge)",
+        "gauge_open_ended(open_ended_shackle_gauge)",
+        "gauge_accepts_closed_loop(open_ended_shackle_gauge)",
+        "gauge_slot_clear(open_ended_shackle_gauge)",
+        "key_excluded_from_station(ycb_038_padlock)"
+      ],
+      "goal_state": [
+        "shackle_seated_in(ycb_038_padlock, open_ended_shackle_gauge)",
+        "body_resting_on_stop(ycb_038_padlock, open_ended_shackle_gauge)",
+        "clearance_reading_recorded(ycb_038_padlock)",
+        "closed(ycb_038_padlock)",
+        "key_not_inserted(ycb_038_padlock)",
+        "stable(ycb_038_padlock)"
+      ],
+      "instruction_variants": [
+        "Place the closed padlock shackle into the compatible open-ended gauge and record the clearance without unlocking it.",
+        "Use a gauge that accepts the closed shackle loop from its open end; do not use a captive hasp or insert a key.",
+        "閉じた南京錠のシャックルを閉ループ対応の開放端ゲージに通し、解錠せずに隙間を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_keys",
+      "template_id": "template_ycb_round4_sort_key_profiles",
+      "name_en": "Sort the attached-ring key set on a ring-compatible profile board",
+      "name_ja": "リングを付けた鍵セットをリング対応の形状ボードで分別する",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_039_keys",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_039_keys",
+        "destination": "attached_ring_key_board",
+        "profile_legend": "key_profile_legend"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_039_keys)",
+        "on_top_of(ycb_039_keys, workshop_bench)",
+        "reachable(ycb_039_keys)",
+        "counted_set(ycb_039_keys)",
+        "ring_present(ycb_039_keys)",
+        "fixture_stable(attached_ring_key_board)",
+        "board_compatible_with_attached_ring(attached_ring_key_board)",
+        "ring_channel_clear(attached_ring_key_board)",
+        "profile_slots_empty(attached_ring_key_board)",
+        "profile_legend_visible(key_profile_legend)",
+        "lock_absent_from_station(attached_ring_key_board)"
+      ],
+      "goal_state": [
+        "each_key_in_matching_profile_slot(ycb_039_keys, attached_ring_key_board)",
+        "ring_retained_in_channel(ycb_039_keys, attached_ring_key_board)",
+        "ring_remains_attached(ycb_039_keys)",
+        "key_heads_aligned_for_reading(ycb_039_keys)",
+        "key_inventory_recorded(ycb_039_keys)",
+        "no_key_inserted_in_lock(ycb_039_keys)",
+        "stable(attached_ring_key_board)"
+      ],
+      "instruction_variants": [
+        "Sort the counted keys by profile and length on the board while keeping their attached ring in the board's ring channel.",
+        "Use only a profile board compatible with the attached ring; record every slot assignment without separating the keys.",
+        "鍵をリングから外さず、付属リング対応ボードの溝に通したまま形状スロットへ分別して記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_sort",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_large_marker",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Orient a capped large marker in a label-scan fixture with its tip isolated",
+      "name_ja": "キャップ付き太字マーカーを先端から隔離してラベル走査治具に向ける",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_040_large_marker",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_040_large_marker",
+        "property": "label_scan_and_tip_isolation",
+        "fixture": "marker_scan_fixture"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_040_large_marker)",
+        "capped(ycb_040_large_marker)",
+        "on_top_of(ycb_040_large_marker, workshop_bench)",
+        "reachable(ycb_040_large_marker)",
+        "fixture_stable(marker_scan_fixture)",
+        "scan_aperture_clear(marker_scan_fixture)",
+        "ink_tip_shield_installed(ink_tip_shield)",
+        "camera_axis_marked(camera_axis_reference)"
+      ],
+      "goal_state": [
+        "seated_in(ycb_040_large_marker, marker_scan_fixture)",
+        "capped(ycb_040_large_marker)",
+        "label_facing_camera(ycb_040_large_marker)",
+        "tip_isolated(ycb_040_large_marker, ink_tip_shield)",
+        "orientation_within_10_degrees(ycb_040_large_marker, camera_axis_reference)",
+        "scan_recorded(ycb_040_large_marker)",
+        "stable(ycb_040_large_marker)"
+      ],
+      "instruction_variants": [
+        "Seat the capped large marker in the scan fixture with the label facing the camera and the tip isolated.",
+        "Orient the large marker within 10 degrees of the camera axis without exposing or contacting its ink tip.",
+        "キャップを付けた太字マーカーをラベルがカメラを向くよう治具に置き、先端を露出・接触させないでください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_small_marker",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Check a capped small marker in a color and cap inspection cradle",
+      "name_ja": "キャップ付き細字マーカーを色とキャップの検査台で確認する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_041_small_marker",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_041_small_marker",
+        "property": "cap_and_color_condition",
+        "fixture": "small_marker_inspection_cradle"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_041_small_marker)",
+        "capped(ycb_041_small_marker)",
+        "on_top_of(ycb_041_small_marker, workshop_bench)",
+        "reachable(ycb_041_small_marker)",
+        "fixture_stable(small_marker_inspection_cradle)",
+        "cap_seated(ycb_041_small_marker)",
+        "color_chart_visible(marker_color_chart)",
+        "tip_shield_installed(small_marker_tip_shield)"
+      ],
+      "goal_state": [
+        "seated_in(ycb_041_small_marker, small_marker_inspection_cradle)",
+        "cap_retained(ycb_041_small_marker)",
+        "color_band_matches(ycb_041_small_marker, marker_color_chart)",
+        "tip_isolated(ycb_041_small_marker, small_marker_tip_shield)",
+        "cap_check_recorded(ycb_041_small_marker)",
+        "stable(ycb_041_small_marker)"
+      ],
+      "instruction_variants": [
+        "Seat the capped small marker in the inspection cradle, compare its color band with the chart, and keep its tip shielded.",
+        "Verify cap retention and the marked barrel color without exposing or contacting the writing tip.",
+        "キャップを付けた細字マーカーを検査台に置き、色とキャップを確認しながら先端を保護してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_adjustable_wrench",
+      "template_id": "template_ycb_align_assembly_fixture",
+      "name_en": "Align the adjustable wrench on a length reference and record handle clearance",
+      "name_ja": "モンキーレンチを長さ基準に合わせ、ハンドルのクリアランスを記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_042_adjustable_wrench",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_042_adjustable_wrench",
+        "destination": "wrench_length_fixture",
+        "target": "wrench_length_reference"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_042_adjustable_wrench)",
+        "on_top_of(ycb_042_adjustable_wrench, workshop_bench)",
+        "reachable(ycb_042_adjustable_wrench)",
+        "fixture_stable(wrench_length_fixture)",
+        "jaw_neutral(ycb_042_adjustable_wrench)",
+        "jaws_unloaded(ycb_042_adjustable_wrench)",
+        "length_scale_visible(wrench_length_reference)",
+        "handle_clearance_zone_marked(wrench_length_fixture)"
+      ],
+      "goal_state": [
+        "aligned_with(ycb_042_adjustable_wrench, wrench_length_reference)",
+        "jaws_unloaded(ycb_042_adjustable_wrench)",
+        "handle_clear_of_fixture(ycb_042_adjustable_wrench)",
+        "length_reading_visible(ycb_042_adjustable_wrench, wrench_length_reference)",
+        "length_measurement_recorded(ycb_042_adjustable_wrench)",
+        "stable(ycb_042_adjustable_wrench)"
+      ],
+      "instruction_variants": [
+        "Align the unloaded adjustable wrench to the length reference and record the handle clearance without clamping a workpiece.",
+        "Keep the jaws in their neutral setting, place the wrench on the fixture, and document the visible length reading.",
+        "負荷をかけずにモンキーレンチを長さ基準へ合わせ、ハンドルの余裕と読み取り値を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_phillips_screwdriver",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Present a Phillips screwdriver tip to a non-contact profile card",
+      "name_ja": "プラスドライバーの先端を非接触プロファイルカードに向ける",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_043_phillips_screwdriver",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_043_phillips_screwdriver",
+        "property": "tip_profile",
+        "fixture": "screwdriver_profile_cradle"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_043_phillips_screwdriver)",
+        "on_top_of(ycb_043_phillips_screwdriver, workshop_bench)",
+        "reachable(ycb_043_phillips_screwdriver)",
+        "fixture_stable(screwdriver_profile_cradle)",
+        "profile_window_clear(screwdriver_profile_cradle)",
+        "tip_profile_card_available(phillips_profile_card)",
+        "tip_guard_removed_for_inspection(ycb_043_phillips_screwdriver)",
+        "no_fastener_at_station(screwdriver_profile_cradle)"
+      ],
+      "goal_state": [
+        "seated_in(ycb_043_phillips_screwdriver, screwdriver_profile_cradle)",
+        "tip_faces_profile_card(ycb_043_phillips_screwdriver, phillips_profile_card)",
+        "tip_clear_of_profile_card(ycb_043_phillips_screwdriver)",
+        "handle_outside_scan_zone(ycb_043_phillips_screwdriver)",
+        "tip_profile_recorded(ycb_043_phillips_screwdriver)",
+        "stable(ycb_043_phillips_screwdriver)"
+      ],
+      "instruction_variants": [
+        "Place the Phillips screwdriver in the profile cradle and present its tip to the card without making contact or turning a fastener.",
+        "Keep the tip clear of the profile card, align the cross profile to the viewing window, and record the inspection.",
+        "プラスドライバーをプロファイル台に置き、先端をカードに接触させず十字形状を確認して記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_flat_screwdriver",
+      "template_id": "template_ycb_align_assembly_fixture",
+      "name_en": "Orient a flat screwdriver in a non-contact blade-width comparator",
+      "name_ja": "マイナスドライバーを非接触の刃幅比較治具に向ける",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_044_flat_screwdriver",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_044_flat_screwdriver",
+        "destination": "flat_blade_comparator",
+        "target": "blade_width_reference"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_044_flat_screwdriver)",
+        "on_top_of(ycb_044_flat_screwdriver, workshop_bench)",
+        "reachable(ycb_044_flat_screwdriver)",
+        "fixture_stable(flat_blade_comparator)",
+        "blade_window_clear(flat_blade_comparator)",
+        "blade_width_reference_visible(blade_width_reference)",
+        "no_contact_load_at_comparator(flat_blade_comparator)",
+        "tip_guard_available(flat_screwdriver_tip_guard)"
+      ],
+      "goal_state": [
+        "aligned_with(ycb_044_flat_screwdriver, blade_width_reference)",
+        "blade_clear_of_contact(ycb_044_flat_screwdriver, flat_blade_comparator)",
+        "tip_guard_ready(flat_screwdriver_tip_guard)",
+        "handle_outside_comparison_zone(ycb_044_flat_screwdriver)",
+        "width_reading_recorded(ycb_044_flat_screwdriver)",
+        "stable(ycb_044_flat_screwdriver)"
+      ],
+      "instruction_variants": [
+        "Orient the flat screwdriver at the blade-width comparator without applying contact load and record the visible width.",
+        "Keep the blade clear of the comparator, align its edge to the reference, and leave the tip guard ready for reset.",
+        "マイナスドライバーの刃を比較基準へ合わせ、治具に押し付けず幅を読み取って記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_nails",
+      "template_id": "template_ycb_sort_fastener",
+      "name_en": "Count nails and stage them head-up in a protected count strip",
+      "name_ja": "くぎを数え、保護された計数ストリップに頭を上にして並べる",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_045_nails",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_045_nails",
+        "destination": "nail_count_strip",
+        "category": "head_up",
+        "matching_part": "nail_count_log"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_045_nails)",
+        "on_top_of(ycb_045_nails, workshop_bench)",
+        "reachable(ycb_045_nails)",
+        "fixture_stable(nail_count_strip)",
+        "count_pockets_empty(nail_count_strip)",
+        "nail_points_isolated(nail_count_strip)",
+        "count_card_visible(nail_count_card)",
+        "no_striking_tool_at_station(nail_count_strip)"
+      ],
+      "goal_state": [
+        "each_nail_in_count_pocket(ycb_045_nails, nail_count_strip)",
+        "nail_heads_up(ycb_045_nails)",
+        "nail_points_protected(ycb_045_nails, nail_count_strip)",
+        "nail_count_recorded(ycb_045_nails)",
+        "all_nails_contained(ycb_045_nails, nail_count_strip)",
+        "stable(nail_count_strip)"
+      ],
+      "instruction_variants": [
+        "Count the nail set, place each nail head-up in a protected count pocket, and record the total without striking anything.",
+        "Keep every point isolated in the strip and compare the final count with the pretrial count card.",
+        "くぎを数え、頭を上にして保護されたポケットへ一本ずつ置き、打撃を加えず合計を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_plastic_bolt",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Place a plastic bolt head-up in a non-mating thread inspection cradle",
+      "name_ja": "プラスチックボルトを頭を上にして非嵌合ねじ検査台へ置く",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_046_plastic_bolt",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_046_plastic_bolt",
+        "property": "thread_condition",
+        "fixture": "bolt_thread_inspection_cradle"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_046_plastic_bolt)",
+        "on_top_of(ycb_046_plastic_bolt, workshop_bench)",
+        "reachable(ycb_046_plastic_bolt)",
+        "fixture_stable(bolt_thread_inspection_cradle)",
+        "thread_view_clear(bolt_thread_inspection_cradle)",
+        "bolt_clean(ycb_046_plastic_bolt)",
+        "nut_absent_from_cradle(bolt_thread_inspection_cradle)",
+        "thread_reference_card_visible(bolt_thread_reference_card)"
+      ],
+      "goal_state": [
+        "seated_in(ycb_046_plastic_bolt, bolt_thread_inspection_cradle)",
+        "bolt_head_up(ycb_046_plastic_bolt)",
+        "threads_visible(ycb_046_plastic_bolt)",
+        "no_nut_engaged(ycb_046_plastic_bolt)",
+        "thread_condition_recorded(ycb_046_plastic_bolt)",
+        "stable(ycb_046_plastic_bolt)"
+      ],
+      "instruction_variants": [
+        "Seat the plastic bolt head-up in the inspection cradle and record the exposed thread condition without mating a nut.",
+        "Keep the thread view clear and inspect the bolt without torque, insertion, or forced contact.",
+        "プラスチックボルトを頭を上にして検査台へ置き、ナットをかみ合わせずねじ山の状態を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_plastic_nut",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Place a plastic nut on an open thread gauge without forcing engagement",
+      "name_ja": "プラスチックナットを開放ねじゲージに無理なく載せる",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_047_plastic_nut",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_047_plastic_nut",
+        "property": "thread_profile",
+        "fixture": "nut_thread_gauge"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_047_plastic_nut)",
+        "on_top_of(ycb_047_plastic_nut, workshop_bench)",
+        "reachable(ycb_047_plastic_nut)",
+        "fixture_stable(nut_thread_gauge)",
+        "gauge_thread_compatible_with_plastic_nut(nut_thread_gauge)",
+        "gauge_open(nut_thread_gauge)",
+        "bolt_absent_from_station(nut_thread_gauge)",
+        "thread_profile_card_visible(nut_thread_profile_card)"
+      ],
+      "goal_state": [
+        "seated_on(ycb_047_plastic_nut, nut_thread_gauge)",
+        "thread_profile_visible(ycb_047_plastic_nut, nut_thread_profile_card)",
+        "bolt_not_present(ycb_047_plastic_nut)",
+        "no_forced_engagement(ycb_047_plastic_nut)",
+        "thread_profile_recorded(ycb_047_plastic_nut)",
+        "stable(ycb_047_plastic_nut)"
+      ],
+      "instruction_variants": [
+        "Seat the plastic nut on the open thread gauge, inspect its profile, and stop if it does not fit without force.",
+        "Keep the matching bolt away from the station; do not turn, cross-thread, or force the nut.",
+        "プラスチックナットを開放ねじゲージに載せ、無理な回転やボルトとの嵌合をせず形状を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_hammer",
+      "template_id": "template_ycb_align_assembly_fixture",
+      "name_en": "Balance a hammer on a marked center-of-gravity cradle",
+      "name_ja": "ハンマーを重心マーク付きクレードルでバランスさせる",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_048_hammer",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_048_hammer",
+        "destination": "hammer_balance_cradle",
+        "target": "hammer_balance_reference"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_048_hammer)",
+        "on_top_of(ycb_048_hammer, workshop_bench)",
+        "reachable(ycb_048_hammer)",
+        "fixture_stable(hammer_balance_cradle)",
+        "balance_reference_marked(hammer_balance_reference)",
+        "head_guard_installed(hammer_balance_cradle)",
+        "handle_clearance_zone_clear(hammer_balance_cradle)",
+        "no_striking_activity_at_station(hammer_balance_cradle)"
+      ],
+      "goal_state": [
+        "supported_at_balance_point(ycb_048_hammer, hammer_balance_cradle)",
+        "handle_clear_of_fixture(ycb_048_hammer)",
+        "head_within_guard(ycb_048_hammer, hammer_balance_cradle)",
+        "balance_mark_recorded(ycb_048_hammer, hammer_balance_reference)",
+        "no_strike_occurred(ycb_048_hammer)",
+        "stable(ycb_048_hammer)"
+      ],
+      "instruction_variants": [
+        "Place the hammer on the marked balance cradle, keep the head within its guard, and record the observed balance point without striking.",
+        "Use the handle clearance zone to verify a stable, load-free orientation.",
+        "ハンマーを重心基準付きクレードルに載せ、打撃を加えず安定したバランス位置を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_small_clamp",
+      "template_id": "template_ycb_secure_clamp",
+      "name_en": "Stage an unloaded small clamp open on a pinch-zone fixture",
+      "name_ja": "負荷をかけない小型クランプを開いた状態で挟み込み防止治具に置く",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_049_small_clamp",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_049_small_clamp",
+        "workpiece": "pinch_zone_fixture"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_049_small_clamp)",
+        "closed(ycb_049_small_clamp)",
+        "unloaded(ycb_049_small_clamp)",
+        "on_top_of(ycb_049_small_clamp, workshop_bench)",
+        "reachable(ycb_049_small_clamp)",
+        "fixture_stable(pinch_zone_fixture)",
+        "open_position_stop_available(pinch_zone_fixture)",
+        "pinch_boundary_marked(pinch_zone_fixture)",
+        "spring_intact(ycb_049_small_clamp)"
+      ],
+      "goal_state": [
+        "open(ycb_049_small_clamp)",
+        "handles_outside_pinched_zone(ycb_049_small_clamp, pinch_zone_fixture)",
+        "jaws_clear_of_fixture(ycb_049_small_clamp)",
+        "unloaded(ycb_049_small_clamp)",
+        "pinch_zone_marked(pinch_zone_fixture)",
+        "stable(ycb_049_small_clamp)"
+      ],
+      "instruction_variants": [
+        "Open the unloaded small clamp on the pinch-zone fixture and leave its handles outside the marked pinch boundary.",
+        "Use the opening stop without clamping a workpiece, then verify the jaws and spring remain clear.",
+        "負荷のない小型クランプを開き、ハンドルを挟み込み境界の外に置いて確認してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_open",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_medium_clamp",
+      "template_id": "template_ycb_align_assembly_fixture",
+      "name_en": "Set an unloaded medium clamp to a marked jaw-opening stop",
+      "name_ja": "負荷をかけない中型クランプを指定開口ストッパーに合わせる",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_050_medium_clamp",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_050_medium_clamp",
+        "destination": "medium_clamp_opening_fixture",
+        "target": "jaw_opening_stop"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_050_medium_clamp)",
+        "closed(ycb_050_medium_clamp)",
+        "unloaded(ycb_050_medium_clamp)",
+        "on_top_of(ycb_050_medium_clamp, workshop_bench)",
+        "reachable(ycb_050_medium_clamp)",
+        "fixture_stable(medium_clamp_opening_fixture)",
+        "jaw_opening_stop_available(jaw_opening_stop)",
+        "workpiece_absent(medium_clamp_opening_fixture)",
+        "pinch_zone_marked(medium_clamp_opening_fixture)"
+      ],
+      "goal_state": [
+        "open(ycb_050_medium_clamp)",
+        "jaws_touch_opening_stop(ycb_050_medium_clamp, jaw_opening_stop)",
+        "jaw_gap_recorded(ycb_050_medium_clamp)",
+        "workpiece_absent(medium_clamp_opening_fixture)",
+        "unloaded(ycb_050_medium_clamp)",
+        "stable(ycb_050_medium_clamp)"
+      ],
+      "instruction_variants": [
+        "Open the unloaded medium clamp to the marked jaw-opening stop and record the gap without touching a workpiece.",
+        "Keep the pinch zone clear and leave the clamp resting at the declared stop.",
+        "負荷のない中型クランプを開口ストッパーまで開き、ワークに触れず隙間を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_open",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_large_clamp",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Inspect large clamp jaw-pad symmetry in a non-contact comparison fixture",
+      "name_ja": "非接触比較治具で大型クランプのジョーパッド対称性を確認する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_051_large_clamp",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_051_large_clamp",
+        "property": "jaw_pad_symmetry",
+        "fixture": "large_clamp_pad_comparator"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_051_large_clamp)",
+        "closed(ycb_051_large_clamp)",
+        "unloaded(ycb_051_large_clamp)",
+        "on_top_of(ycb_051_large_clamp, workshop_bench)",
+        "reachable(ycb_051_large_clamp)",
+        "fixture_stable(large_clamp_pad_comparator)",
+        "comparison_card_visible(clamp_pad_comparison_card)",
+        "pads_clean(ycb_051_large_clamp)",
+        "no_workpiece_at_station(large_clamp_pad_comparator)"
+      ],
+      "goal_state": [
+        "seated_in(ycb_051_large_clamp, large_clamp_pad_comparator)",
+        "pads_face_each_other(ycb_051_large_clamp)",
+        "pads_clear_of_comparison_card(ycb_051_large_clamp, clamp_pad_comparison_card)",
+        "unloaded(ycb_051_large_clamp)",
+        "pad_symmetry_recorded(ycb_051_large_clamp)",
+        "stable(ycb_051_large_clamp)"
+      ],
+      "instruction_variants": [
+        "Place the unloaded large clamp in the comparison fixture and record jaw-pad symmetry without closing on a workpiece.",
+        "Keep both pads clear of the comparison card while the fixture shows their opposing alignment.",
+        "負荷のない大型クランプを比較治具に置き、ワークを挟まずジョーパッドの対称性を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    },
+    {
+      "node_type": "TaskInstance",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round4",
+      "notes": "Proposed design only; task-specific claims are carried in this bundle.",
+      "review_status": "proposed",
+      "id": "task_ycb_round4_extra_large_clamp",
+      "template_id": "template_ycb_align_assembly_fixture",
+      "name_en": "Align an extra-large clamp in a transport-clearance cradle",
+      "name_ja": "特大クランプを搬送クリアランス用クレードルに合わせる",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_052_extra_large_clamp",
+      "scene_id": "scene_ycb_tool_workshop",
+      "bindings": {
+        "theme": "ycb_052_extra_large_clamp",
+        "destination": "extra_large_clamp_transport_cradle",
+        "target": "transport_clearance_reference"
+      },
+      "state_ids": [
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "visible(ycb_052_extra_large_clamp)",
+        "closed(ycb_052_extra_large_clamp)",
+        "unloaded(ycb_052_extra_large_clamp)",
+        "on_top_of(ycb_052_extra_large_clamp, workshop_bench)",
+        "reachable(ycb_052_extra_large_clamp)",
+        "fixture_stable(extra_large_clamp_transport_cradle)",
+        "cradle_clear(extra_large_clamp_transport_cradle)",
+        "transport_clearance_marked(transport_clearance_reference)",
+        "pinch_zone_marked(extra_large_clamp_transport_cradle)"
+      ],
+      "goal_state": [
+        "seated_in(ycb_052_extra_large_clamp, extra_large_clamp_transport_cradle)",
+        "handles_within_clearance(ycb_052_extra_large_clamp, transport_clearance_reference)",
+        "jaws_resting_on_support(ycb_052_extra_large_clamp, extra_large_clamp_transport_cradle)",
+        "unloaded(ycb_052_extra_large_clamp)",
+        "transport_clearance_recorded(ycb_052_extra_large_clamp)",
+        "stable(ycb_052_extra_large_clamp)"
+      ],
+      "instruction_variants": [
+        "Seat the unloaded extra-large clamp in the transport-clearance cradle and record the handle and jaw clearance.",
+        "Keep the pinch zone marked and leave the clamp supported without clamping a workpiece.",
+        "負荷のない特大クランプを搬送クリアランスクレードルに置き、ハンドルとジョーの余裕を記録してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ]
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_task_ycb_round4_power_drill",
+      "task_id": "task_ycb_round4_power_drill",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_035_power_drill",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "The bench is the declared starting support."
+        },
+        {
+          "key": "object",
+          "value": "drill_service_cradle",
+          "reason": "The cradle physically supports the drill during service preparation."
+        },
+        {
+          "key": "object",
+          "value": "bit_change_tag",
+          "reason": "The tag marks the service-only state."
+        },
+        {
+          "key": "object",
+          "value": "bit_change_checklist",
+          "reason": "The checklist records the observable preparation result."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_035_power_drill",
+          "reason": "Confirm the drill is visible before handling."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_035_power_drill_workshop_bench",
+          "reason": "Confirm the drill starts on the marked bench."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_035_power_drill",
+          "reason": "Confirm the drill can be reached without entering a hazard zone."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_drill_service_cradle",
+          "reason": "Confirm the service cradle cannot slide or tip."
+        },
+        {
+          "key": "condition",
+          "value": "initial_power_disabled_ycb_035_power_drill",
+          "reason": "The powered tool must be de-energized."
+        },
+        {
+          "key": "condition",
+          "value": "initial_battery_removed_ycb_035_power_drill",
+          "reason": "The battery or energy source must be physically absent."
+        },
+        {
+          "key": "condition",
+          "value": "initial_trigger_locked_ycb_035_power_drill",
+          "reason": "The trigger must remain locked or covered."
+        },
+        {
+          "key": "condition",
+          "value": "initial_chuck_empty_ycb_035_power_drill",
+          "reason": "The chuck must be empty before service preparation."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Moving and seating the drill requires controlled rigid manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The cradle support, chuck access, and safety state require visual checks."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The drill rests fully in the service cradle with its chuck accessible and the cradle stable.",
+          "The battery is physically absent, the trigger remains locked, and the bit-change checklist records the ready state."
+        ],
+        "setup": [
+          "Use an intact training drill with the battery removed, an empty chuck, and a locked or covered trigger.",
+          "Place the empty service cradle and bit-change tag on the stable bench; keep the cradle nose stop visible."
+        ],
+        "reset": [
+          "Return the drill to the marked bench position with the battery still separated.",
+          "Clear the cradle and retain the completed checklist with the service tag at the station."
+        ],
+        "quality_checks": [
+          "Verify no part of the drill overhangs the cradle and the chuck is reachable without moving the drill.",
+          "Verify there was no trigger press, chuck rotation, or battery installation."
+        ],
+        "failure_modes": [
+          "The battery is present or the trigger becomes activatable.",
+          "The drill is unstable, the chuck is blocked, or the service cradle shifts.",
+          "The checklist is marked complete without observing the required safety states."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_scissors",
+      "task_id": "task_ycb_round4_scissors",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_037_scissors",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "The bench is the declared starting support."
+        },
+        {
+          "key": "object",
+          "value": "blade_clearance_fixture",
+          "reason": "The fixture holds the closed scissors on a marked axis."
+        },
+        {
+          "key": "object",
+          "value": "closed_blade_axis_reference",
+          "reason": "The reference defines the safe orientation."
+        },
+        {
+          "key": "object",
+          "value": "clearance_card_10mm",
+          "reason": "The card is the declared 10 mm clearance gauge."
+        },
+        {
+          "key": "object",
+          "value": "blade_clearance_log",
+          "reason": "The log records the clearance result."
+        },
+        {
+          "key": "object",
+          "value": "safety_mat",
+          "reason": "The mat protects the work area beneath the sharp tool."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_037_scissors",
+          "reason": "Confirm the scissors are visible before handling."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_037_scissors",
+          "reason": "The blades must remain closed throughout the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_blades_guarded_ycb_037_scissors",
+          "reason": "The sharp blades must be guarded."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_037_scissors_workshop_bench",
+          "reason": "Confirm the scissors start on the marked bench."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_037_scissors",
+          "reason": "Confirm the scissors are reachable."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_blade_clearance_fixture",
+          "reason": "Confirm the clearance fixture is stable."
+        },
+        {
+          "key": "condition",
+          "value": "target_marked_closed_blade_axis_reference",
+          "reason": "The safe axis must be marked before collection."
+        },
+        {
+          "key": "condition",
+          "value": "clearance_card_available_clearance_card_10mm",
+          "reason": "A real 10 mm clearance card must be available."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Orienting and seating the closed scissors requires controlled rigid manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "Blade guarding, axis alignment, and clearance require visual checks."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The closed scissors sit on the marked axis with the blade path clear and the fixture stable.",
+          "The clearance card records 10 mm ±1 mm at the declared checkpoint without opening or cutting."
+        ],
+        "setup": [
+          "Use closed, guarded scissors and a stable fixture over the safety mat.",
+          "Mark the axis and the 10 mm checkpoint; keep the cutting zone clear of people and loose material."
+        ],
+        "reset": [
+          "Return the closed, guarded scissors to the marked bench position.",
+          "Clear the fixture and store the clearance card and log at the station."
+        ],
+        "quality_checks": [
+          "Check that the blades remain closed and guarded after release.",
+          "Verify the scissors align with the axis and the card reading is between 9 and 11 mm.",
+          "Confirm no cut, blade snap, or contact with a person occurred."
+        ],
+        "failure_modes": [
+          "The scissors open, cut, or expose a blade during handling.",
+          "The fixture shifts, the axis is misaligned, or the 10 mm check cannot be read.",
+          "The scissors are placed on an unprotected surface."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_large_marker",
+      "task_id": "task_ycb_round4_large_marker",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_040_large_marker",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "The bench is the declared starting support."
+        },
+        {
+          "key": "object",
+          "value": "marker_scan_fixture",
+          "reason": "The fixture supports the capped marker during label capture."
+        },
+        {
+          "key": "object",
+          "value": "ink_tip_shield",
+          "reason": "The shield isolates the marker tip from the work surface."
+        },
+        {
+          "key": "object",
+          "value": "camera_axis_reference",
+          "reason": "The reference defines the scan orientation."
+        },
+        {
+          "key": "object",
+          "value": "marker_scan_log",
+          "reason": "The log records the orientation and label check."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_040_large_marker",
+          "reason": "Confirm the marker is visible before handling."
+        },
+        {
+          "key": "condition",
+          "value": "initial_capped_ycb_040_large_marker",
+          "reason": "The cap must stay on throughout the scan setup."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_040_large_marker_workshop_bench",
+          "reason": "Confirm the marker starts on the marked bench."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_040_large_marker",
+          "reason": "Confirm the marker is reachable."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_marker_scan_fixture",
+          "reason": "Confirm the scan fixture is stable."
+        },
+        {
+          "key": "condition",
+          "value": "scan_aperture_clear_marker_scan_fixture",
+          "reason": "The scan aperture must be clear."
+        },
+        {
+          "key": "condition",
+          "value": "ink_tip_shield_installed_ink_tip_shield",
+          "reason": "A physical tip shield must be installed before handling."
+        },
+        {
+          "key": "condition",
+          "value": "camera_axis_marked_camera_axis_reference",
+          "reason": "The camera axis must be marked for the 10 degree check."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Seating and orienting the capped marker requires controlled manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The cap, tip isolation, label, and orientation require visual checks."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        },
+        {
+          "key": "object",
+          "value": "marker_scan_camera",
+          "reason": "The label scan uses this fixed camera aligned to the declared camera-axis reference."
+        },
+        {
+          "key": "condition",
+          "value": "marker_scan_camera_alignment_verified",
+          "reason": "Confirm the fixed camera pose and its axis reference before evaluating marker orientation."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The capped large marker rests in the scan fixture with its tip fully behind the shield and its label visible.",
+          "The orientation is within 10 degrees of the camera-axis reference and the scan log records the observed result."
+        ],
+        "setup": [
+          "Use the capped YCB marker, a stable scan fixture, a physical ink-tip shield, and a marked camera axis.",
+          "Clear the scan aperture and keep the exposed tip away from hands, surfaces, and writing material."
+        ],
+        "reset": [
+          "Return the capped marker to the marked bench position.",
+          "Clear the fixture, leave the tip shield installed, and archive or reset the scan log."
+        ],
+        "quality_checks": [
+          "Verify the cap remains seated and the tip does not contact the fixture or bench.",
+          "Check the barrel label is readable and the orientation is within the declared 10 degree tolerance.",
+          "Confirm no ink mark was made during the trial."
+        ],
+        "failure_modes": [
+          "The cap comes off, the tip touches the fixture, or the marker writes.",
+          "The fixture shifts or the label is outside the 10 degree orientation tolerance.",
+          "The scan result is recorded without observing the physical setup."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_wood_block",
+      "task_id": "task_ycb_round4_wood_block",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_036_wood_block",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "spacer_gap_fixture",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "block_thickness_gap_caliper",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "residual_feeler_gauge",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "gap_measurement_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_036_wood_block",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_036_wood_block_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_036_wood_block",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_spacer_gap_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "gap_adjustable_spacer_gap_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "gap_open_spacer_gap_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "block_thickness_unmeasured_ycb_036_wood_block",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "caliper_zeroed_block_thickness_gap_caliper",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "feeler_gauge_available_residual_feeler_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "block_clean_ycb_036_wood_block",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        },
+        {
+          "key": "object",
+          "value": "adjustable_gap_reference",
+          "reason": "Use the marked gap reference belonging to the adjustable spacer fixture."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The caliper records the wood block thickness and the adjustable fixture gap is set to that measured value, with the block contacting both stops.",
+          "A feeler gauge records the residual gap at the declared checkpoint, and the log stores both caliper readings and the residual result."
+        ],
+        "setup": [
+          "Use an adjustable spacer fixture, a zeroed caliper that can measure the block thickness and fixture gap, and a residual feeler gauge.",
+          "Start with the fixture open and the block unmeasured; choose the gap from the measured block thickness instead of a nominal dimension."
+        ],
+        "reset": [
+          "Remove the block and return it to the marked bench position.",
+          "Open the adjustable fixture, clear the gauges, and archive or reset the fit log."
+        ],
+        "quality_checks": [
+          "Measure the block thickness and fixture gap with the caliper as separate readings; do not use a ruler or assumed size.",
+          "Use the feeler gauge only for the residual gap after seating the block, and reject any forced fit or rocking block."
+        ],
+        "failure_modes": [
+          "A fixed or preselected nominal gap is used instead of measuring the actual block thickness.",
+          "The caliper is not zeroed, the fixture cannot adjust, or the feeler gauge is used for the primary thickness measurement.",
+          "The block contacts only one stop, is forced into place, or the residual reading is not recorded."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_padlock",
+      "task_id": "task_ycb_round4_padlock",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_038_padlock",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "open_ended_shackle_gauge",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "shackle_clearance_reference",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "padlock_clearance_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_038_padlock",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_038_padlock",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_038_padlock_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_038_padlock",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_open_ended_shackle_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "gauge_open_ended_open_ended_shackle_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "gauge_accepts_closed_loop_open_ended_shackle_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "gauge_slot_clear_open_ended_shackle_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "key_excluded_from_station_ycb_038_padlock",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The closed padlock body rests on the open-ended gauge stop while the shackle loop is seated through the gauge opening without force.",
+          "The clearance reading is recorded with the padlock still closed and with no key inserted."
+        ],
+        "setup": [
+          "Use an open-ended gauge whose opening accepts the closed padlock shackle loop and whose stop supports the lock body.",
+          "Keep the key away from the station; do not substitute a closed hasp, captive loop gauge, or any fixture that requires unlocking."
+        ],
+        "reset": [
+          "Lift the closed padlock out through the open end of the compatible gauge.",
+          "Return the padlock to the marked bench position, leave the gauge opening clear, and archive or reset the clearance log."
+        ],
+        "quality_checks": [
+          "Verify the gauge is open-ended and physically compatible with the closed shackle loop before seating the padlock.",
+          "Check that the body rests on the stop, the lock remains closed, and the clearance value is read from the gauge.",
+          "Confirm no key entered the station and that no shackle was forced or pried."
+        ],
+        "failure_modes": [
+          "A closed hasp or captive-loop gauge is used, so the closed shackle cannot be seated without opening the lock.",
+          "The shackle or body is forced, the lock opens, or a key is inserted.",
+          "The clearance is guessed or recorded without a gauge reading."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_keys",
+      "task_id": "task_ycb_round4_keys",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_039_keys",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "attached_ring_key_board",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "key_profile_legend",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "key_inventory_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_039_keys",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_039_keys_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_039_keys",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "counted_set_ycb_039_keys",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "ring_present_ycb_039_keys",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_attached_ring_key_board",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "board_compatible_with_attached_ring_attached_ring_key_board",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "ring_channel_clear_attached_ring_key_board",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "profile_slots_empty_attached_ring_key_board",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "profile_legend_visible_key_profile_legend",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "lock_absent_from_station_attached_ring_key_board",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "Every counted key rests in the slot whose profile and length match the legend while the attached ring remains in the board's ring channel.",
+          "The inventory log records one assignment for each key, no key is separated from the ring, and no key enters a lock."
+        ],
+        "setup": [
+          "Use a stable profile board with a declared channel compatible with the attached key ring, a readable legend, and an inventory log.",
+          "Count the keys before the trial and keep locks away; stop if the board cannot accommodate the attached ring without separation."
+        ],
+        "reset": [
+          "Return every key to the original bench staging area while keeping the ring attached.",
+          "Empty the board, clear the ring channel, and reset or archive the inventory log."
+        ],
+        "quality_checks": [
+          "Recount the board and compare it with the pretrial count.",
+          "Verify each key lies fully in its labeled slot and the attached ring remains retained in the compatible channel.",
+          "Confirm no key was detached, inserted in a lock, or left loose on the bench."
+        ],
+        "failure_modes": [
+          "The board is not compatible with the attached ring or a key is forced into a slot.",
+          "A key is placed in a profile-mismatched slot, two keys share one slot, or the ring is detached.",
+          "A key is lost, inserted into a lock, or omitted from the inventory log."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_small_marker",
+      "task_id": "task_ycb_round4_small_marker",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_041_small_marker",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "small_marker_inspection_cradle",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "marker_color_chart",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "small_marker_tip_shield",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "marker_inspection_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_041_small_marker",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_capped_ycb_041_small_marker",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_041_small_marker_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_041_small_marker",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_small_marker_inspection_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "cap_seated_ycb_041_small_marker",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "color_chart_visible_marker_color_chart",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "tip_shield_installed_small_marker_tip_shield",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The capped small marker rests in the cradle with its cap retained, color band matched to the chart, and tip isolated by the shield.",
+          "The cap and color inspection is recorded against the marker identity."
+        ],
+        "setup": [
+          "Use the capped YCB small marker, a stable inspection cradle, a readable color chart, and a physical tip shield.",
+          "Keep the writing tip shielded and clear of the cradle and bench throughout the inspection."
+        ],
+        "reset": [
+          "Return the capped marker to the marked bench position.",
+          "Clear the cradle, leave the tip shield installed, and reset or archive the inspection log."
+        ],
+        "quality_checks": [
+          "Verify the cap remains seated and no ink tip contacts the fixture.",
+          "Check the color comparison was made with the chart visible and the marker stable.",
+          "Confirm the recorded result refers to the handled marker."
+        ],
+        "failure_modes": [
+          "The cap loosens, the tip is exposed or contacts a surface, or the cradle shifts.",
+          "The color chart is missing or unreadable, or the marker is not seated.",
+          "The inspection is recorded without observing the physical setup."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_adjustable_wrench",
+      "task_id": "task_ycb_round4_adjustable_wrench",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_042_adjustable_wrench",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "wrench_length_fixture",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "wrench_length_reference",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "wrench_measurement_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_042_adjustable_wrench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_042_adjustable_wrench_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_042_adjustable_wrench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_wrench_length_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "jaw_neutral_ycb_042_adjustable_wrench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "jaws_unloaded_ycb_042_adjustable_wrench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "length_scale_visible_wrench_length_reference",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "handle_clearance_zone_marked_wrench_length_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The unloaded adjustable wrench is aligned to the length reference with its handle clear of the fixture.",
+          "The visible length reading and clearance observation are recorded."
+        ],
+        "setup": [
+          "Use a stable length fixture, a marked length reference, and an unloaded wrench with its jaw at the neutral setting.",
+          "Keep the fixture free of a workpiece so the handle and jaws remain visible."
+        ],
+        "reset": [
+          "Return the wrench to the marked bench position.",
+          "Clear the fixture and reset or archive the length measurement log."
+        ],
+        "quality_checks": [
+          "Verify the jaws are unloaded and the reference scale is readable.",
+          "Check the handle remains within the declared clearance zone without contacting the fixture.",
+          "Confirm the recorded length corresponds to the aligned wrench."
+        ],
+        "failure_modes": [
+          "A workpiece is clamped, the jaws are loaded, or the handle contacts the fixture.",
+          "The length reference is unreadable or the fixture shifts.",
+          "The reading is recorded without aligning the wrench to the reference."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_phillips_screwdriver",
+      "task_id": "task_ycb_round4_phillips_screwdriver",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_043_phillips_screwdriver",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "screwdriver_profile_cradle",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "phillips_profile_card",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "screwdriver_profile_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_043_phillips_screwdriver",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_043_phillips_screwdriver_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_043_phillips_screwdriver",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_screwdriver_profile_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "profile_window_clear_screwdriver_profile_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "tip_profile_card_available_phillips_profile_card",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "tip_guard_removed_for_inspection_ycb_043_phillips_screwdriver",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "no_fastener_at_station_screwdriver_profile_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The Phillips tip faces the profile card in the cradle with a clear non-contact gap and the handle outside the scan zone.",
+          "The observed tip profile is recorded for the identified screwdriver."
+        ],
+        "setup": [
+          "Use a stable profile cradle, a readable Phillips profile card, and a screwdriver with its tip exposed only for the non-contact view.",
+          "Clear all fasteners from the station and keep the tip away from the card and hands."
+        ],
+        "reset": [
+          "Return the screwdriver to the marked bench position.",
+          "Restore the tip guard if available, clear the cradle, and reset or archive the profile log."
+        ],
+        "quality_checks": [
+          "Verify the tip never contacts or turns a fastener and the profile window remains clear.",
+          "Check the handle is outside the scan zone and the card is readable.",
+          "Confirm the recorded profile belongs to the handled screwdriver."
+        ],
+        "failure_modes": [
+          "The tip contacts the card, a fastener is present, or the screwdriver is rotated under load.",
+          "The guard is missing or the profile window is obstructed.",
+          "The profile is recorded without a stable non-contact view."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_flat_screwdriver",
+      "task_id": "task_ycb_round4_flat_screwdriver",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_044_flat_screwdriver",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "flat_blade_comparator",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "blade_width_reference",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "flat_screwdriver_tip_guard",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "flat_screwdriver_measurement_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_044_flat_screwdriver",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_044_flat_screwdriver_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_044_flat_screwdriver",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_flat_blade_comparator",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "blade_window_clear_flat_blade_comparator",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "blade_width_reference_visible_blade_width_reference",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "no_contact_load_at_comparator_flat_blade_comparator",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "tip_guard_available_flat_screwdriver_tip_guard",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The flat blade is aligned to the width reference without contact load, and the handle stays outside the comparison zone.",
+          "The visible blade-width reading and guard state are recorded."
+        ],
+        "setup": [
+          "Use a stable non-contact blade comparator, a readable width reference, and a tip guard for reset.",
+          "Keep the comparator unloaded and clear of screws or other contact targets."
+        ],
+        "reset": [
+          "Return the flat screwdriver to the marked bench position.",
+          "Clear the comparator, restore the tip guard if used, and reset or archive the measurement log."
+        ],
+        "quality_checks": [
+          "Verify the blade does not press against the comparator and the reference is readable.",
+          "Check the handle is outside the comparison zone and the guard is available.",
+          "Confirm the recorded width belongs to the aligned screwdriver."
+        ],
+        "failure_modes": [
+          "The blade is forced into the comparator or a contact load is applied.",
+          "The reference is hidden, the fixture shifts, or the handle enters the comparison zone.",
+          "The width is guessed or recorded without an aligned view."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_nails",
+      "task_id": "task_ycb_round4_nails",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_045_nails",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "nail_count_strip",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "nail_count_card",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "nail_count_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_045_nails",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_045_nails_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_045_nails",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_nail_count_strip",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "count_pockets_empty_nail_count_strip",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "nail_points_isolated_nail_count_strip",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "count_card_visible_nail_count_card",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "no_striking_tool_at_station_nail_count_strip",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "Every nail is contained head-up in a protected count pocket with its point isolated.",
+          "The final count matches the pretrial count and is recorded in the count log."
+        ],
+        "setup": [
+          "Use the complete YCB nail set, an empty protected count strip, a readable count card, and a count log.",
+          "Keep striking tools away from the station and count the set before moving any nail."
+        ],
+        "reset": [
+          "Return all nails to the marked storage container on the bench.",
+          "Empty the count strip and reset or archive the count log."
+        ],
+        "quality_checks": [
+          "Recount the pockets and compare with the pretrial count.",
+          "Verify every point is isolated and every head is visible above its pocket.",
+          "Confirm no nail was struck, lost, or left loose."
+        ],
+        "failure_modes": [
+          "A point is exposed, two nails share a pocket, or a nail is left loose.",
+          "The count card or strip is missing, unstable, or unreadable.",
+          "A striking tool enters the station or the final count is recorded without a recount."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_plastic_bolt",
+      "task_id": "task_ycb_round4_plastic_bolt",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_046_plastic_bolt",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "bolt_thread_inspection_cradle",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "bolt_thread_reference_card",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "bolt_thread_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_046_plastic_bolt",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_046_plastic_bolt_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_046_plastic_bolt",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_bolt_thread_inspection_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "thread_view_clear_bolt_thread_inspection_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "bolt_clean_ycb_046_plastic_bolt",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "nut_absent_from_cradle_bolt_thread_inspection_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "thread_reference_card_visible_bolt_thread_reference_card",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The plastic bolt rests head-up in the cradle with its threads visible and no nut engaged.",
+          "The observed thread condition is recorded against the bolt identity."
+        ],
+        "setup": [
+          "Use a stable bolt-thread cradle, a readable thread reference card, and a clean plastic bolt.",
+          "Keep nuts and other mating parts away from the cradle so this is a non-mating inspection."
+        ],
+        "reset": [
+          "Return the bolt to the marked bench position.",
+          "Clear the cradle, remove the reference card, and reset or archive the thread log."
+        ],
+        "quality_checks": [
+          "Verify the bolt is head-up, supported, and visible from the reference-card view.",
+          "Check that no nut is engaged and no torque or forced contact was applied.",
+          "Confirm the recorded condition refers to the handled bolt."
+        ],
+        "failure_modes": [
+          "A nut is engaged, the bolt is forced into the cradle, or torque is applied.",
+          "The thread view or reference card is blocked, or the cradle shifts.",
+          "The thread condition is recorded without observing the exposed threads."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_plastic_nut",
+      "task_id": "task_ycb_round4_plastic_nut",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_047_plastic_nut",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "nut_thread_gauge",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "nut_thread_profile_card",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "nut_thread_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_047_plastic_nut",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_047_plastic_nut_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_047_plastic_nut",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_nut_thread_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "gauge_thread_compatible_with_plastic_nut_nut_thread_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "gauge_open_nut_thread_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "bolt_absent_from_station_nut_thread_gauge",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "thread_profile_card_visible_nut_thread_profile_card",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The plastic nut rests on the open gauge without forced engagement and its thread profile is visible against the card.",
+          "The profile observation is recorded while the matching bolt remains absent."
+        ],
+        "setup": [
+          "Use an open thread gauge declared compatible with the plastic nut, a readable profile card, and no matching bolt at the station.",
+          "Stop the trial if the gauge does not accept the nut freely; do not cross-thread or apply torque."
+        ],
+        "reset": [
+          "Lift the nut off the gauge and return it to the marked bench position.",
+          "Clear the gauge and reset or archive the thread-profile log."
+        ],
+        "quality_checks": [
+          "Verify the gauge is compatible, open, and stable before the nut is placed.",
+          "Check that the nut is not forced, turned under load, or mated with a bolt.",
+          "Confirm the profile card and recorded observation are readable."
+        ],
+        "failure_modes": [
+          "The gauge is incompatible, the nut is forced, or cross-threading occurs.",
+          "A bolt enters the station, the gauge shifts, or the profile card is hidden.",
+          "The profile is recorded without a free, stable fit."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_hammer",
+      "task_id": "task_ycb_round4_hammer",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_048_hammer",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "hammer_balance_cradle",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "hammer_balance_reference",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "hammer_balance_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_048_hammer",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_048_hammer_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_048_hammer",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_hammer_balance_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "balance_reference_marked_hammer_balance_reference",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "head_guard_installed_hammer_balance_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "handle_clearance_zone_clear_hammer_balance_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "no_striking_activity_at_station_hammer_balance_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The hammer is supported at the marked balance point with its head within the guard and its handle clear of the fixture.",
+          "The observed balance position is recorded without any striking activity."
+        ],
+        "setup": [
+          "Use a stable padded balance cradle, a marked balance reference, and a head guard sized for the hammer.",
+          "Clear the station of striking targets and keep the handle path free before handling."
+        ],
+        "reset": [
+          "Return the hammer to the marked bench position.",
+          "Clear the cradle and reset or archive the balance log."
+        ],
+        "quality_checks": [
+          "Verify the head remains inside the guard and the handle does not contact the fixture.",
+          "Check the cradle is stable and the balance reference is visible.",
+          "Confirm no strike or swing occurred during the trial."
+        ],
+        "failure_modes": [
+          "The hammer head leaves the guard, the handle contacts the fixture, or the hammer tips.",
+          "A striking target enters the station or the balance reference is unreadable.",
+          "The balance result is recorded without a stable supported position."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_small_clamp",
+      "task_id": "task_ycb_round4_small_clamp",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_049_small_clamp",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "pinch_zone_fixture",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "open_position_stop",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "pinch_zone_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_049_small_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_049_small_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_unloaded_ycb_049_small_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_049_small_clamp_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_049_small_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_pinch_zone_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "open_position_stop_available_pinch_zone_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "pinch_boundary_marked_pinch_zone_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "spring_intact_ycb_049_small_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "articulated_closure",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The unloaded small clamp is open at the stop, with its handles outside the marked pinch boundary and its jaws clear.",
+          "The clamp remains stable and the pinch-zone placement is recorded."
+        ],
+        "setup": [
+          "Use an unloaded small clamp, a stable fixture with an opening stop, and a clearly marked pinch boundary.",
+          "Keep all workpieces away so the clamp can be staged open without clamping anything."
+        ],
+        "reset": [
+          "Close the clamp without loading it and return it to the marked bench position.",
+          "Clear the pinch-zone fixture and reset or archive the placement log."
+        ],
+        "quality_checks": [
+          "Verify the clamp is unloaded, the spring is intact, and the handles stay outside the boundary.",
+          "Check the jaws remain clear of the fixture and the opening stop is stable.",
+          "Confirm no fingers or workpieces entered the pinch zone during setup."
+        ],
+        "failure_modes": [
+          "The clamp closes on a workpiece, the handles enter the pinch boundary, or the jaws contact the fixture.",
+          "The opening stop or fixture shifts, or the spring is damaged.",
+          "The open position is recorded without a stable unloaded placement."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_medium_clamp",
+      "task_id": "task_ycb_round4_medium_clamp",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_050_medium_clamp",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "medium_clamp_opening_fixture",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "jaw_opening_stop",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "medium_clamp_gap_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_050_medium_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_050_medium_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_unloaded_ycb_050_medium_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_050_medium_clamp_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_050_medium_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_medium_clamp_opening_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "jaw_opening_stop_available_jaw_opening_stop",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "workpiece_absent_medium_clamp_opening_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "pinch_zone_marked_medium_clamp_opening_fixture",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "articulated_closure",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The unloaded medium clamp is open with both jaws touching the marked opening stop and the workpiece area clear.",
+          "The jaw gap is read and recorded at the stop."
+        ],
+        "setup": [
+          "Use a stable opening fixture with a marked stop and no workpiece, plus an unloaded medium clamp.",
+          "Mark the pinch zone and leave the stop visible before opening the clamp."
+        ],
+        "reset": [
+          "Close the clamp without loading it and return it to the marked bench position.",
+          "Clear the opening fixture and reset or archive the gap log."
+        ],
+        "quality_checks": [
+          "Verify both jaws contact the declared stop without force and the clamp remains unloaded.",
+          "Check the fixture and pinch-zone marking are stable and readable.",
+          "Confirm the gap reading is taken at the stop rather than inferred from the task name."
+        ],
+        "failure_modes": [
+          "A workpiece is clamped, the jaws miss the stop, or the clamp is forced open.",
+          "The stop is missing, the fixture shifts, or the pinch zone is not marked.",
+          "The gap is guessed or recorded without both jaws at the stop."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_large_clamp",
+      "task_id": "task_ycb_round4_large_clamp",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_051_large_clamp",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "large_clamp_pad_comparator",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "clamp_pad_comparison_card",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "large_clamp_inspection_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_051_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_051_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_unloaded_ycb_051_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_051_large_clamp_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_051_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_large_clamp_pad_comparator",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "comparison_card_visible_clamp_pad_comparison_card",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "pads_clean_ycb_051_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "no_workpiece_at_station_large_clamp_pad_comparator",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The unloaded large clamp rests in the comparison fixture with opposing pads visible and clear of the comparison card.",
+          "The observed pad symmetry is recorded for the clamp."
+        ],
+        "setup": [
+          "Use a stable non-contact pad comparator, a readable comparison card, and an unloaded large clamp.",
+          "Clear all workpieces from the station and keep the pads clean and free of contact load."
+        ],
+        "reset": [
+          "Return the large clamp to the marked bench position.",
+          "Clear the comparator and reset or archive the pad inspection log."
+        ],
+        "quality_checks": [
+          "Verify both pads face each other and remain clear of the card.",
+          "Check the clamp is unloaded, the fixture is stable, and the card is readable.",
+          "Confirm the recorded symmetry belongs to the handled clamp."
+        ],
+        "failure_modes": [
+          "A pad contacts or damages the comparison card, or the clamp closes on a workpiece.",
+          "The comparator shifts, pads are dirty, or the opposing view is blocked.",
+          "Symmetry is recorded without a stable non-contact view."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_task_ycb_round4_extra_large_clamp",
+      "task_id": "task_ycb_round4_extra_large_clamp",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_ycb_tool_workshop",
+          "reason": "The proposed task is scoped to the controlled tool workshop."
+        },
+        {
+          "key": "object",
+          "value": "ycb_052_extra_large_clamp",
+          "reason": "The YCB catalog object is the primary item for this task."
+        },
+        {
+          "key": "object",
+          "value": "workshop_bench",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "extra_large_clamp_transport_cradle",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "transport_clearance_reference",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "object",
+          "value": "extra_large_clamp_clearance_log",
+          "reason": "This declared fixture, reference, or log is required for collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_ycb_052_extra_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_052_extra_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_unloaded_ycb_052_extra_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_052_extra_large_clamp_workshop_bench",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_052_extra_large_clamp",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "fixture_stable_extra_large_clamp_transport_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "cradle_clear_extra_large_clamp_transport_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "transport_clearance_marked_transport_clearance_reference",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "condition",
+          "value": "pinch_zone_marked_extra_large_clamp_transport_cradle",
+          "reason": "Confirm this initial state or compatibility condition before the trial."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The collection requires this declared capability."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed activity is a supervised home workshop collection design."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The unloaded extra-large clamp is supported in the transport cradle with its handles within the clearance reference and its jaws resting on the support.",
+          "Handle and jaw clearance are recorded without clamping a workpiece."
+        ],
+        "setup": [
+          "Use a stable cradle sized for the extra-large clamp, a marked clearance reference, and an unloaded clamp.",
+          "Clear the cradle and mark its pinch zone before placing the clamp."
+        ],
+        "reset": [
+          "Return the clamp to the marked bench position without loading it.",
+          "Clear the cradle and reset or archive the transport-clearance log."
+        ],
+        "quality_checks": [
+          "Verify the jaws rest on the support, the handles stay within the clearance marks, and the clamp remains unloaded.",
+          "Check the cradle is stable and the pinch-zone marking is visible.",
+          "Confirm the clearance record was made from the supported placement."
+        ],
+        "failure_modes": [
+          "The clamp tips, the handles or jaws exceed the clearance, or a workpiece is clamped.",
+          "The cradle is too small, shifts, or its pinch zone is unmarked.",
+          "Clearance is guessed or recorded before the clamp is supported."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "task_ycb_round4_power_drill_task_suitability",
+      "subject_id": "task_ycb_round4_power_drill",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Prepare a de-energized power drill for a controlled bit change.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_035_power_drill.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_power_drill_population_frequency",
+      "subject_id": "task_ycb_round4_power_drill",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_035_power_drill.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_power_drill_robot_execution",
+      "subject_id": "task_ycb_round4_power_drill",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_035_power_drill.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_power_drill_asset_compatibility",
+      "subject_id": "task_ycb_round4_power_drill",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_035_power_drill.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_wood_block_task_suitability",
+      "subject_id": "task_ycb_round4_wood_block",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Measure the wood block and fit it in an adjustable spacer gap.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_036_wood_block.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_wood_block_population_frequency",
+      "subject_id": "task_ycb_round4_wood_block",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_036_wood_block.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_wood_block_robot_execution",
+      "subject_id": "task_ycb_round4_wood_block",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_036_wood_block.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_wood_block_asset_compatibility",
+      "subject_id": "task_ycb_round4_wood_block",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_036_wood_block.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_scissors_task_suitability",
+      "subject_id": "task_ycb_round4_scissors",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Align closed scissors in a blade-clearance fixture.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_037_scissors.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_scissors_population_frequency",
+      "subject_id": "task_ycb_round4_scissors",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_037_scissors.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_scissors_robot_execution",
+      "subject_id": "task_ycb_round4_scissors",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_037_scissors.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_scissors_asset_compatibility",
+      "subject_id": "task_ycb_round4_scissors",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_037_scissors.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_padlock_task_suitability",
+      "subject_id": "task_ycb_round4_padlock",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Check a closed padlock shackle in an open-ended gauge without unlocking it.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_038_padlock.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_padlock_population_frequency",
+      "subject_id": "task_ycb_round4_padlock",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_038_padlock.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_padlock_robot_execution",
+      "subject_id": "task_ycb_round4_padlock",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_038_padlock.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_padlock_asset_compatibility",
+      "subject_id": "task_ycb_round4_padlock",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_038_padlock.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_keys_task_suitability",
+      "subject_id": "task_ycb_round4_keys",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Sort the attached-ring key set on a ring-compatible profile board.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_039_keys.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_keys_population_frequency",
+      "subject_id": "task_ycb_round4_keys",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_039_keys.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_keys_robot_execution",
+      "subject_id": "task_ycb_round4_keys",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_039_keys.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_keys_asset_compatibility",
+      "subject_id": "task_ycb_round4_keys",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_039_keys.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_large_marker_task_suitability",
+      "subject_id": "task_ycb_round4_large_marker",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Orient a capped large marker in a label-scan fixture with its tip isolated.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_040_large_marker.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_large_marker_population_frequency",
+      "subject_id": "task_ycb_round4_large_marker",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_040_large_marker.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_large_marker_robot_execution",
+      "subject_id": "task_ycb_round4_large_marker",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_040_large_marker.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_large_marker_asset_compatibility",
+      "subject_id": "task_ycb_round4_large_marker",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_040_large_marker.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_small_marker_task_suitability",
+      "subject_id": "task_ycb_round4_small_marker",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Check a capped small marker in a color and cap inspection cradle.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_041_small_marker.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_small_marker_population_frequency",
+      "subject_id": "task_ycb_round4_small_marker",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_041_small_marker.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_small_marker_robot_execution",
+      "subject_id": "task_ycb_round4_small_marker",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_041_small_marker.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_small_marker_asset_compatibility",
+      "subject_id": "task_ycb_round4_small_marker",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_041_small_marker.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_adjustable_wrench_task_suitability",
+      "subject_id": "task_ycb_round4_adjustable_wrench",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Align the adjustable wrench on a length reference and record handle clearance.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_042_adjustable_wrench.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_adjustable_wrench_population_frequency",
+      "subject_id": "task_ycb_round4_adjustable_wrench",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_042_adjustable_wrench.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_adjustable_wrench_robot_execution",
+      "subject_id": "task_ycb_round4_adjustable_wrench",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_042_adjustable_wrench.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_adjustable_wrench_asset_compatibility",
+      "subject_id": "task_ycb_round4_adjustable_wrench",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_042_adjustable_wrench.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_phillips_screwdriver_task_suitability",
+      "subject_id": "task_ycb_round4_phillips_screwdriver",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Present a Phillips screwdriver tip to a non-contact profile card.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_043_phillips_screwdriver.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_phillips_screwdriver_population_frequency",
+      "subject_id": "task_ycb_round4_phillips_screwdriver",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_043_phillips_screwdriver.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_phillips_screwdriver_robot_execution",
+      "subject_id": "task_ycb_round4_phillips_screwdriver",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_043_phillips_screwdriver.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_phillips_screwdriver_asset_compatibility",
+      "subject_id": "task_ycb_round4_phillips_screwdriver",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_043_phillips_screwdriver.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_flat_screwdriver_task_suitability",
+      "subject_id": "task_ycb_round4_flat_screwdriver",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Orient a flat screwdriver in a non-contact blade-width comparator.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_044_flat_screwdriver.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_flat_screwdriver_population_frequency",
+      "subject_id": "task_ycb_round4_flat_screwdriver",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_044_flat_screwdriver.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_flat_screwdriver_robot_execution",
+      "subject_id": "task_ycb_round4_flat_screwdriver",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_044_flat_screwdriver.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_flat_screwdriver_asset_compatibility",
+      "subject_id": "task_ycb_round4_flat_screwdriver",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_044_flat_screwdriver.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_nails_task_suitability",
+      "subject_id": "task_ycb_round4_nails",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Count nails and stage them head-up in a protected count strip.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_045_nails.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_nails_population_frequency",
+      "subject_id": "task_ycb_round4_nails",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_045_nails.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_nails_robot_execution",
+      "subject_id": "task_ycb_round4_nails",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_045_nails.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_nails_asset_compatibility",
+      "subject_id": "task_ycb_round4_nails",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_045_nails.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_plastic_bolt_task_suitability",
+      "subject_id": "task_ycb_round4_plastic_bolt",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Place a plastic bolt head-up in a non-mating thread inspection cradle.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_046_plastic_bolt.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_plastic_bolt_population_frequency",
+      "subject_id": "task_ycb_round4_plastic_bolt",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_046_plastic_bolt.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_plastic_bolt_robot_execution",
+      "subject_id": "task_ycb_round4_plastic_bolt",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_046_plastic_bolt.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_plastic_bolt_asset_compatibility",
+      "subject_id": "task_ycb_round4_plastic_bolt",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_046_plastic_bolt.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_plastic_nut_task_suitability",
+      "subject_id": "task_ycb_round4_plastic_nut",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Place a plastic nut on an open thread gauge without forcing engagement.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_047_plastic_nut.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_plastic_nut_population_frequency",
+      "subject_id": "task_ycb_round4_plastic_nut",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_047_plastic_nut.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_plastic_nut_robot_execution",
+      "subject_id": "task_ycb_round4_plastic_nut",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_047_plastic_nut.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_plastic_nut_asset_compatibility",
+      "subject_id": "task_ycb_round4_plastic_nut",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_047_plastic_nut.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_hammer_task_suitability",
+      "subject_id": "task_ycb_round4_hammer",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Balance a hammer on a marked center-of-gravity cradle.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_048_hammer.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_hammer_population_frequency",
+      "subject_id": "task_ycb_round4_hammer",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_048_hammer.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_hammer_robot_execution",
+      "subject_id": "task_ycb_round4_hammer",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_048_hammer.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_hammer_asset_compatibility",
+      "subject_id": "task_ycb_round4_hammer",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_048_hammer.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_small_clamp_task_suitability",
+      "subject_id": "task_ycb_round4_small_clamp",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Stage an unloaded small clamp open on a pinch-zone fixture.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_049_small_clamp.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_small_clamp_population_frequency",
+      "subject_id": "task_ycb_round4_small_clamp",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_049_small_clamp.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_small_clamp_robot_execution",
+      "subject_id": "task_ycb_round4_small_clamp",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_049_small_clamp.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_small_clamp_asset_compatibility",
+      "subject_id": "task_ycb_round4_small_clamp",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_049_small_clamp.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_medium_clamp_task_suitability",
+      "subject_id": "task_ycb_round4_medium_clamp",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Set an unloaded medium clamp to a marked jaw-opening stop.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_050_medium_clamp.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_medium_clamp_population_frequency",
+      "subject_id": "task_ycb_round4_medium_clamp",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_050_medium_clamp.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_medium_clamp_robot_execution",
+      "subject_id": "task_ycb_round4_medium_clamp",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_050_medium_clamp.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_medium_clamp_asset_compatibility",
+      "subject_id": "task_ycb_round4_medium_clamp",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_050_medium_clamp.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_large_clamp_task_suitability",
+      "subject_id": "task_ycb_round4_large_clamp",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Inspect large clamp jaw-pad symmetry in a non-contact comparison fixture.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_051_large_clamp.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_large_clamp_population_frequency",
+      "subject_id": "task_ycb_round4_large_clamp",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_051_large_clamp.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_large_clamp_robot_execution",
+      "subject_id": "task_ycb_round4_large_clamp",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_051_large_clamp.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_large_clamp_asset_compatibility",
+      "subject_id": "task_ycb_round4_large_clamp",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_051_large_clamp.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    },
+    {
+      "id": "task_ycb_round4_extra_large_clamp_task_suitability",
+      "subject_id": "task_ycb_round4_extra_large_clamp",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed candidate for collection design review: Align an extra-large clamp in a transport-clearance cradle.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB coverage round 4 proposal for ycb_052_extra_large_clamp.",
+      "limitations": "The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "task_ycb_round4_extra_large_clamp_population_frequency",
+      "subject_id": "task_ycb_round4_extra_large_clamp",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_052_extra_large_clamp.",
+      "limitations": "No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."
+    },
+    {
+      "id": "task_ycb_round4_extra_large_clamp_robot_execution",
+      "subject_id": "task_ycb_round4_extra_large_clamp",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_052_extra_large_clamp.",
+      "limitations": "The task definition does not establish successful execution, feasibility, or performance."
+    },
+    {
+      "id": "task_ycb_round4_extra_large_clamp_asset_compatibility",
+      "subject_id": "task_ycb_round4_extra_large_clamp",
+      "claim_type": "asset_compatibility",
+      "statement": "Asset compatibility for this proposed task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "YCB coverage round 4 proposal for ycb_052_extra_large_clamp.",
+      "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
+    }
+  ]
+}

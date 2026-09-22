@@ -51,6 +51,16 @@ Review checks object identity, reference validity, goal specificity, explicit pr
 
 All new tasks remain `proposed`. The `evidence_ycb_task_design` source supports proposed design suitability only. Population frequency, robot execution, and asset compatibility remain separate unknown claims. No success rates, frequency rankings, or collection durations are inferred.
 
+## Fourth coverage round
+
+The fourth round adds 77 proposed tasks, covering every catalog object again. The atlas now contains 376 tasks, 376 planning records, and 1,505 claims. All objects remain connected through shared graph concepts; 39 fourth-round tasks also declare other catalog objects as required resources, with 47 explicit catalog dependencies.
+
+New examples include weighing a closed mustard bottle on a tared scale, counting three cool surrogate pieces from a bowl to a plate, selecting a close-fitting cup for a baseball, and removing a price sticker from a sealed pudding box. These introduce object-specific goals and contexts for the covered records while remaining proposed collection designs.
+
+Round 4 keeps task-suitability claims proposed and population-frequency, robot-execution, and asset-compatibility claims unknown. Catalog metadata, the design source, and shared graph connections do not establish human frequency, robot success, or asset compatibility.
+
+Plans declare required catalog objects when an interaction needs them and may include collection fixtures. Those links are explicit collection prerequisites; shared scenes, intents, templates, skills, and resource edges continue to provide graph connectivity. They do not establish that every Round 4 task is a catalog-partner activity or that any such relationship was measured.
+
 ## Graph connections
 
 Tasks share scene, intent, skill, and template nodes. This supports paths such as object → task → intent → another task → another object, without imposing one hierarchy or claiming that tasks must occur in sequence. Graph neighborhoods support reverse traversal. The coverage regression checks connectivity using these concepts, excluding shared sources and claims so that provenance alone cannot make the graph appear connected.
