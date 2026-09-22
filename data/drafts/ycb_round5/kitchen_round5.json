@@ -1,0 +1,4045 @@
+{
+  "tasks": [
+    {
+      "id": "task_ycb_round5_pitcher_capacity",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Record the pitcher fill level at a marked capacity line",
+      "name_ja": "容量目盛りでピッチャーの充填量を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_019_pitcher_base",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_019_pitcher_base",
+        "property": "pitcher_capacity_record"
+      },
+      "state_ids": [
+        "state_full",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "contains(ycb_019_pitcher_base, cool_nonfood_surrogate_payload)",
+        "upright(ycb_019_pitcher_base)",
+        "on_top_of(ycb_019_pitcher_base, pitcher_capacity_station)",
+        "capacity_line_visible(pitcher_capacity_marker)",
+        "capacity_record_blank(pitcher_capacity_record)",
+        "payload_approved(cool_nonfood_surrogate_payload)",
+        "station_stable(pitcher_capacity_station)"
+      ],
+      "goal_state": [
+        "contains(ycb_019_pitcher_base, cool_nonfood_surrogate_payload)",
+        "fill_level_at_capacity_mark(ycb_019_pitcher_base, pitcher_capacity_marker)",
+        "fill_level_recorded(ycb_019_pitcher_base, pitcher_capacity_record)",
+        "upright(ycb_019_pitcher_base)",
+        "stable(ycb_019_pitcher_base)",
+        "no_spill(pitcher_capacity_station)"
+      ],
+      "instruction_variants": [
+        "Record the pitcher fill level at a marked capacity line",
+        "Complete the proposed record the pitcher fill level at a marked capacity line setup with all declared partner and acceptance conditions.",
+        "容量目盛りでピッチャーの充填量を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_pitcher_lid_leak_check",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_inspect_lid_condition",
+      "name_en": "Run a closed pitcher lid leak check with a cool surrogate",
+      "name_ja": "冷たい試験用内容物で閉じたピッチャーふたの漏れを確認する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_020_pitcher_lid",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_020_pitcher_lid",
+        "container": "ycb_019_pitcher_base",
+        "property": "pitcher_lid_leak_record"
+      },
+      "state_ids": [
+        "state_full",
+        "state_closed",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "closure_attached(ycb_020_pitcher_lid, ycb_019_pitcher_base)",
+        "closed(ycb_019_pitcher_base)",
+        "contains(ycb_019_pitcher_base, cool_nonfood_surrogate_payload)",
+        "upright(ycb_019_pitcher_base)",
+        "on_top_of(ycb_019_pitcher_base, pitcher_leak_test_station)",
+        "leak_test_fixture_ready(pitcher_leak_test_station)",
+        "leak_record_blank(pitcher_lid_leak_record)",
+        "payload_approved(cool_nonfood_surrogate_payload)",
+        "station_stable(pitcher_leak_test_station)"
+      ],
+      "goal_state": [
+        "closure_attached(ycb_020_pitcher_lid, ycb_019_pitcher_base)",
+        "closed(ycb_019_pitcher_base)",
+        "leak_test_completed(ycb_020_pitcher_lid, pitcher_leak_test_station)",
+        "no_leak_at_joint(ycb_020_pitcher_lid, ycb_019_pitcher_base)",
+        "leak_result_recorded(ycb_020_pitcher_lid, pitcher_lid_leak_record)",
+        "upright(ycb_019_pitcher_base)",
+        "stable(ycb_019_pitcher_base)"
+      ],
+      "instruction_variants": [
+        "Run a closed pitcher lid leak check with a cool surrogate",
+        "Complete the proposed run a closed pitcher lid leak check with a cool surrogate setup with all declared partner and acceptance conditions.",
+        "冷たい試験用内容物で閉じたピッチャーふたの漏れを確認する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_close",
+        "skill_orient",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_bleach_mass_audit",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Record the empty bleach cleanser mass for waste audit",
+      "name_ja": "廃棄監査のため空の漂白剤容器の質量を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_021_bleach_cleanser",
+      "scene_id": "scene_trash_sorting_area",
+      "bindings": {
+        "theme": "ycb_021_bleach_cleanser",
+        "property": "chemical_waste_audit_mass"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_closed",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_021_bleach_cleanser)",
+        "closed(ycb_021_bleach_cleanser)",
+        "on_top_of(ycb_021_bleach_cleanser, chemical_sorting_station)",
+        "no_residual_liquid(ycb_021_bleach_cleanser)",
+        "label_visible(ycb_021_bleach_cleanser)",
+        "tare_scale_ready(chemical_tare_scale)",
+        "mass_record_blank(chemical_waste_audit_record)",
+        "station_stable(chemical_sorting_station)"
+      ],
+      "goal_state": [
+        "empty(ycb_021_bleach_cleanser)",
+        "closed(ycb_021_bleach_cleanser)",
+        "mass_recorded(ycb_021_bleach_cleanser, chemical_waste_audit_record)",
+        "no_residual_liquid(ycb_021_bleach_cleanser)",
+        "label_visible(ycb_021_bleach_cleanser)",
+        "on_top_of(ycb_021_bleach_cleanser, chemical_sorting_station)",
+        "station_stable(chemical_sorting_station)"
+      ],
+      "instruction_variants": [
+        "Record the empty bleach cleanser mass for waste audit",
+        "Complete the proposed record the empty bleach cleanser mass for waste audit setup with all declared partner and acceptance conditions.",
+        "廃棄監査のため空の漂白剤容器の質量を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_windex_spray_target",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Dispense a controlled nonhazardous spray onto a marked target",
+      "name_ja": "印付き標的へ無害な試験用スプレーを規定量噴霧する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_022_windex_bottle",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_022_windex_bottle",
+        "property": "windex_spray_coverage_record"
+      },
+      "state_ids": [
+        "state_full",
+        "state_closed",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "contains(ycb_022_windex_bottle, approved_nonhazardous_spray_surrogate)",
+        "closed(ycb_022_windex_bottle)",
+        "on_top_of(ycb_022_windex_bottle, windex_spray_station)",
+        "trigger_lock_off(ycb_022_windex_bottle)",
+        "target_pad_clear(windex_spray_target)",
+        "target_mark_visible(windex_spray_target)",
+        "spray_record_blank(windex_spray_coverage_record)",
+        "station_stable(windex_spray_station)"
+      ],
+      "goal_state": [
+        "dispensed(ycb_022_windex_bottle, approved_nonhazardous_spray_surrogate)",
+        "spray_deposited_on(ycb_022_windex_bottle, windex_spray_target)",
+        "spray_coverage_recorded(ycb_022_windex_bottle, windex_spray_coverage_record)",
+        "trigger_returned(ycb_022_windex_bottle)",
+        "no_spray_outside_target(windex_spray_station)",
+        "upright(ycb_022_windex_bottle)",
+        "stable(ycb_022_windex_bottle)"
+      ],
+      "instruction_variants": [
+        "Dispense a controlled nonhazardous spray onto a marked target",
+        "Complete the proposed dispense a controlled nonhazardous spray onto a marked target setup with all declared partner and acceptance conditions.",
+        "印付き標的へ無害な試験用スプレーを規定量噴霧する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_dispense",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_wine_glass_fill_band",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Record a wine glass volume at its marked fill band",
+      "name_ja": "印付き充填帯でワイングラスの容量を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_023_wine_glass",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_023_wine_glass",
+        "property": "wine_glass_volume_record"
+      },
+      "state_ids": [
+        "state_full",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "contains(ycb_023_wine_glass, cool_nonfood_surrogate_payload)",
+        "upright(ycb_023_wine_glass)",
+        "on_top_of(ycb_023_wine_glass, wine_glass_fill_station)",
+        "fill_band_visible(wine_glass_fill_marker)",
+        "rim_clear(ycb_023_wine_glass)",
+        "volume_record_blank(wine_glass_volume_record)",
+        "payload_approved(cool_nonfood_surrogate_payload)",
+        "station_stable(wine_glass_fill_station)"
+      ],
+      "goal_state": [
+        "contains(ycb_023_wine_glass, cool_nonfood_surrogate_payload)",
+        "filled_to_marked_band(ycb_023_wine_glass, wine_glass_fill_marker)",
+        "volume_recorded(ycb_023_wine_glass, wine_glass_volume_record)",
+        "rim_clear(ycb_023_wine_glass)",
+        "upright(ycb_023_wine_glass)",
+        "stable(ycb_023_wine_glass)",
+        "no_spill(wine_glass_fill_station)"
+      ],
+      "instruction_variants": [
+        "Record a wine glass volume at its marked fill band",
+        "Complete the proposed record a wine glass volume at its marked fill band setup with all declared partner and acceptance conditions.",
+        "印付き充填帯でワイングラスの容量を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_bowl_tilt_stability",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Check loaded bowl retention at a marked tilt limit",
+      "name_ja": "印付き傾斜限界で内容物入りボウルの保持を確認する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_024_bowl",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_024_bowl",
+        "property": "bowl_tilt_stability_record"
+      },
+      "state_ids": [
+        "state_full",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "contains(ycb_024_bowl, cool_nonfood_surrogate_payload)",
+        "upright(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, bowl_stability_station)",
+        "tilt_limit_marked(bowl_tilt_limit_marker)",
+        "stability_record_blank(bowl_tilt_stability_record)",
+        "payload_approved(cool_nonfood_surrogate_payload)",
+        "station_level(bowl_stability_station)",
+        "station_stable(bowl_stability_station)"
+      ],
+      "goal_state": [
+        "tilt_test_completed(ycb_024_bowl, bowl_tilt_limit_marker)",
+        "payload_retained(ycb_024_bowl)",
+        "stability_recorded(ycb_024_bowl, bowl_tilt_stability_record)",
+        "no_spill(bowl_stability_station)",
+        "upright(ycb_024_bowl)",
+        "stable(ycb_024_bowl)"
+      ],
+      "instruction_variants": [
+        "Check loaded bowl retention at a marked tilt limit",
+        "Complete the proposed check loaded bowl retention at a marked tilt limit setup with all declared partner and acceptance conditions.",
+        "印付き傾斜限界で内容物入りボウルの保持を確認する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_mug_handle_clearance",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Record mug handle clearance through a marked gauge",
+      "name_ja": "印付きゲージでマグの取っ手の通過余裕を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_025_mug",
+        "property": "mug_handle_clearance_record"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "on_top_of(ycb_025_mug, mug_handle_gauge_station)",
+        "handle_visible(ycb_025_mug)",
+        "handle_clearance_gauge_ready(mug_handle_clearance_gauge)",
+        "gauge_no_force_protocol(mug_handle_clearance_gauge)",
+        "clearance_record_blank(mug_handle_clearance_record)",
+        "station_stable(mug_handle_gauge_station)"
+      ],
+      "goal_state": [
+        "handle_passes_gauge_without_force(ycb_025_mug, mug_handle_clearance_gauge)",
+        "handle_clearance_recorded(ycb_025_mug, mug_handle_clearance_record)",
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)",
+        "handle_visible(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "Record mug handle clearance through a marked gauge",
+        "Complete the proposed record mug handle clearance through a marked gauge setup with all declared partner and acceptance conditions.",
+        "印付きゲージでマグの取っ手の通過余裕を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_sponge_compression_recovery",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_inspect_deformable_tool",
+      "name_en": "Record sponge compression and shape recovery at a marked limit",
+      "name_ja": "印付き限界でスポンジの圧縮と形状回復を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_026_sponge",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_026_sponge",
+        "property": "sponge_compression_record"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_026_sponge, sponge_recovery_station)",
+        "clean(ycb_026_sponge)",
+        "dry(ycb_026_sponge)",
+        "uncompressed(ycb_026_sponge)",
+        "compression_limit_marked(sponge_compression_gauge)",
+        "deformable_asset_behavior_verified(ycb_026_sponge)",
+        "recovery_record_blank(sponge_compression_record)",
+        "station_stable(sponge_recovery_station)"
+      ],
+      "goal_state": [
+        "compressed_to_mark(ycb_026_sponge, sponge_compression_gauge)",
+        "recovered_shape(ycb_026_sponge)",
+        "compression_recovery_recorded(ycb_026_sponge, sponge_compression_record)",
+        "no_tearing(ycb_026_sponge)",
+        "clean(ycb_026_sponge)",
+        "dry(ycb_026_sponge)",
+        "stable(ycb_026_sponge)"
+      ],
+      "instruction_variants": [
+        "Record sponge compression and shape recovery at a marked limit",
+        "Complete the proposed record sponge compression and shape recovery at a marked limit setup with all declared partner and acceptance conditions.",
+        "印付き限界でスポンジの圧縮と形状回復を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_squeeze",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_skillet_base_contact",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Record cool skillet base contact on a flatness gauge",
+      "name_ja": "平面度ゲージで冷えたスキレット底面の接触を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_027_skillet",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_027_skillet",
+        "property": "skillet_base_contact_record"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_027_skillet)",
+        "cool(ycb_027_skillet)",
+        "on_top_of(ycb_027_skillet, skillet_base_inspection_station)",
+        "handle_accessible(ycb_027_skillet)",
+        "feeler_gauge_ready(skillet_flatness_gauge)",
+        "base_contact_record_blank(skillet_base_contact_record)",
+        "stovetop_off",
+        "station_stable(skillet_base_inspection_station)"
+      ],
+      "goal_state": [
+        "base_contact_pattern_recorded(ycb_027_skillet, skillet_base_contact_record)",
+        "flat_contact_confirmed(ycb_027_skillet)",
+        "empty(ycb_027_skillet)",
+        "cool(ycb_027_skillet)",
+        "handle_accessible(ycb_027_skillet)",
+        "stable(ycb_027_skillet)",
+        "stovetop_off"
+      ],
+      "instruction_variants": [
+        "Record cool skillet base contact on a flatness gauge",
+        "Complete the proposed record cool skillet base contact on a flatness gauge setup with all declared partner and acceptance conditions.",
+        "平面度ゲージで冷えたスキレット底面の接触を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_skillet_lid_underside_inspection",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_inspect_lid_condition",
+      "name_en": "Record the detached skillet lid underside condition",
+      "name_ja": "外したスキレットふたの裏面状態を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_028_skillet_lid",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_028_skillet_lid",
+        "container": "ycb_027_skillet",
+        "property": "skillet_lid_underside_record"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "detached(ycb_028_skillet_lid, ycb_027_skillet)",
+        "on_top_of(ycb_028_skillet_lid, skillet_lid_inspection_mat)",
+        "no_contact_with_heat(ycb_028_skillet_lid)",
+        "underside_visible(ycb_028_skillet_lid)",
+        "underside_record_blank(skillet_lid_underside_record)",
+        "inspection_light_ready(lid_underside_light)",
+        "mat_stable(skillet_lid_inspection_mat)"
+      ],
+      "goal_state": [
+        "detached(ycb_028_skillet_lid, ycb_027_skillet)",
+        "underside_residue_recorded(ycb_028_skillet_lid, skillet_lid_underside_record)",
+        "underside_clear_or_flagged(ycb_028_skillet_lid)",
+        "no_contact_with_heat(ycb_028_skillet_lid)",
+        "underside_visible(ycb_028_skillet_lid)",
+        "stable(ycb_028_skillet_lid)"
+      ],
+      "instruction_variants": [
+        "Record the detached skillet lid underside condition",
+        "Complete the proposed record the detached skillet lid underside condition setup with all declared partner and acceptance conditions.",
+        "外したスキレットふたの裏面状態を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_plate_rim_separation",
+      "node_type": "TaskInstance",
+      "template_id": "place_in_receptacle",
+      "name_en": "Verify plate rim separation in a marked rack slot",
+      "name_ja": "印付きラック区画で皿の縁の分離を確認する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_029_plate",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_029_plate",
+        "destination": "plate_rack_slot"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_029_plate)",
+        "clean(ycb_029_plate)",
+        "on_top_of(ycb_029_plate, plate_rack_staging)",
+        "rack_slot_clear(plate_rack_slot)",
+        "rim_separators_present(plate_rim_separators)",
+        "rack_stable(plate_rack)",
+        "rim_separation_record_blank(plate_rim_separation_record)"
+      ],
+      "goal_state": [
+        "inside(ycb_029_plate, plate_rack_slot)",
+        "rim_separator_clearance_recorded(ycb_029_plate, plate_rim_separators)",
+        "rack_load_stable(ycb_029_plate, plate_rack)",
+        "stack_position_recorded(ycb_029_plate, plate_rim_separation_record)",
+        "clean(ycb_029_plate)",
+        "stable(ycb_029_plate)"
+      ],
+      "instruction_variants": [
+        "Verify plate rim separation in a marked rack slot",
+        "Complete the proposed verify plate rim separation in a marked rack slot setup with all declared partner and acceptance conditions.",
+        "印付きラック区画で皿の縁の分離を確認する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_fork_orientation_sort",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_clear_utensil",
+      "name_en": "Record fork tine orientation in a marked utensil tray slot",
+      "name_ja": "印付きカトラリートレイ区画でフォークの向きを記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_030_fork",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_030_fork",
+        "support": "fork_orientation_mat",
+        "destination": "fork_orientation_tray"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_030_fork, fork_orientation_mat)",
+        "tines_away_from_hand(ycb_030_fork)",
+        "orientation_mark_visible(fork_tine_direction_mark)",
+        "tray_slot_clear(fork_orientation_tray)",
+        "orientation_record_blank(fork_orientation_record)",
+        "mat_stable(fork_orientation_mat)"
+      ],
+      "goal_state": [
+        "inside(ycb_030_fork, fork_orientation_tray)",
+        "tines_aligned_with(ycb_030_fork, fork_tine_direction_mark)",
+        "handle_aligned_with(ycb_030_fork, fork_handle_direction_mark)",
+        "orientation_recorded(ycb_030_fork, fork_orientation_record)",
+        "tines_away_from_hand(ycb_030_fork)",
+        "stable(ycb_030_fork)"
+      ],
+      "instruction_variants": [
+        "Record fork tine orientation in a marked utensil tray slot",
+        "Complete the proposed record fork tine orientation in a marked utensil tray slot setup with all declared partner and acceptance conditions.",
+        "印付きカトラリートレイ区画でフォークの向きを記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_spoon_scoop_capacity",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Record spoon scoop capacity with fixed surrogate pieces",
+      "name_ja": "固定した試験用片でスプーンのすくえる量を記録する",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_031_spoon",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_031_spoon",
+        "property": "spoon_scoop_capacity_record"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_031_spoon, spoon_scoop_station)",
+        "spoon_dry(ycb_031_spoon)",
+        "scoop_capacity_gauge_ready(spoon_scoop_capacity_gauge)",
+        "fixed_piece_set_ready(fixed_cool_surrogate_pieces)",
+        "scoop_record_blank(spoon_scoop_capacity_record)",
+        "station_stable(spoon_scoop_station)"
+      ],
+      "goal_state": [
+        "scoop_capacity_recorded(ycb_031_spoon, spoon_scoop_capacity_record)",
+        "scoop_count_supported(ycb_031_spoon, fixed_cool_surrogate_pieces)",
+        "spoon_clear(ycb_031_spoon)",
+        "spoon_dry(ycb_031_spoon)",
+        "stable(ycb_031_spoon)"
+      ],
+      "instruction_variants": [
+        "Record spoon scoop capacity with fixed surrogate pieces",
+        "Complete the proposed record spoon scoop capacity with fixed surrogate pieces setup with all declared partner and acceptance conditions.",
+        "固定した試験用片でスプーンのすくえる量を記録する"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_knife_cut_soft_strip",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Cut an approved soft test strip to a marked length",
+      "name_ja": "承認済みの柔らかい試験片を印の長さに切る",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_032_knife",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_032_knife",
+        "property": "knife_cut_test_record"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_032_knife, guarded_cut_station)",
+        "blade_clear_for_test(ycb_032_knife)",
+        "cutting_board_stable(knife_cutting_board)",
+        "soft_test_strip_marked(soft_test_strip)",
+        "cut_zone_clear(knife_cutting_board)",
+        "cut_test_record_blank(knife_cut_test_record)",
+        "station_stable(guarded_cut_station)"
+      ],
+      "goal_state": [
+        "soft_test_strip_cut_at_mark(soft_test_strip)",
+        "cut_result_recorded(ycb_032_knife, knife_cut_test_record)",
+        "blade_clear_for_test(ycb_032_knife)",
+        "cut_zone_clear(knife_cutting_board)",
+        "blade_returned_to_safe_rest(ycb_032_knife, guarded_cut_station)",
+        "stable(ycb_032_knife)"
+      ],
+      "instruction_variants": [
+        "Cut an approved soft test strip to a marked length",
+        "Complete the proposed cut an approved soft test strip to a marked length setup with all declared partner and acceptance conditions.",
+        "承認済みの柔らかい試験片を印の長さに切る"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_align",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_spatula_turn_test",
+      "node_type": "TaskInstance",
+      "template_id": "inspect_container_state",
+      "name_en": "Turn an approved soft surrogate over in a cool skillet",
+      "name_ja": "冷えたスキレット内で承認済みの柔らかい試験用片を裏返す",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_033_spatula",
+      "scene_id": "scene_restaurant_kitchen",
+      "bindings": {
+        "theme": "ycb_033_spatula",
+        "property": "spatula_turn_record"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_033_spatula, spatula_turn_station)",
+        "on_top_of(ycb_027_skillet, spatula_turn_station)",
+        "cool(ycb_027_skillet)",
+        "contains(ycb_027_skillet, soft_surrogate_patty)",
+        "surrogate_centered(soft_surrogate_patty, ycb_027_skillet)",
+        "pan_stable(ycb_027_skillet)",
+        "turn_record_blank(spatula_turn_record)",
+        "station_stable(spatula_turn_station)"
+      ],
+      "goal_state": [
+        "soft_surrogate_turned_over(soft_surrogate_patty, ycb_027_skillet)",
+        "payload_retained(ycb_027_skillet, soft_surrogate_patty)",
+        "turn_result_recorded(ycb_033_spatula, spatula_turn_record)",
+        "spatula_clear(ycb_033_spatula)",
+        "cool(ycb_027_skillet)",
+        "pan_stable(ycb_027_skillet)",
+        "no_payload_outside(ycb_027_skillet)"
+      ],
+      "instruction_variants": [
+        "Turn an approved soft surrogate over in a cool skillet",
+        "Complete the proposed turn an approved soft surrogate over in a cool skillet setup with all declared partner and acceptance conditions.",
+        "冷えたスキレット内で承認済みの柔らかい試験用片を裏返す"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_orient",
+        "skill_place",
+        "skill_release",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    },
+    {
+      "id": "task_ycb_round5_table_cloth_fold_grid",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_inspect_table_linen",
+      "name_en": "Fold the table cloth along a marked crease grid",
+      "name_ja": "印付き折り目グリッドに沿ってテーブルクロスを畳む",
+      "intent_id": "intent_inspect",
+      "object_id": "ycb_034_table_cloth",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_034_table_cloth",
+        "property": "table_cloth_fold_record"
+      },
+      "state_ids": [
+        "state_clean",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_034_table_cloth, cloth_fold_station)",
+        "spread_flat(ycb_034_table_cloth)",
+        "clean(ycb_034_table_cloth)",
+        "dry(ycb_034_table_cloth)",
+        "fold_grid_visible(cloth_fold_grid)",
+        "fold_record_blank(table_cloth_fold_record)",
+        "no_objects_on_cloth(cloth_fold_station)",
+        "station_stable(cloth_fold_station)"
+      ],
+      "goal_state": [
+        "folded_on_grid(ycb_034_table_cloth, cloth_fold_grid)",
+        "edges_aligned_with_grid(ycb_034_table_cloth, cloth_fold_grid)",
+        "footprint_recorded(ycb_034_table_cloth, table_cloth_fold_record)",
+        "clean(ycb_034_table_cloth)",
+        "dry(ycb_034_table_cloth)",
+        "stable(ycb_034_table_cloth)"
+      ],
+      "instruction_variants": [
+        "Fold the table cloth along a marked crease grid",
+        "Complete the proposed fold the table cloth along a marked crease grid setup with all declared partner and acceptance conditions.",
+        "印付き折り目グリッドに沿ってテーブルクロスを畳む"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_place",
+        "skill_align",
+        "skill_inspect",
+        "skill_verify"
+      ],
+      "granularity": "compound",
+      "review_status": "proposed",
+      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "generated_by": "llm",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "ycb_coverage_round5"
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_ycb_round5_pitcher_capacity",
+      "task_id": "task_ycb_round5_pitcher_capacity",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_019_pitcher_base",
+          "reason": "The primary YCB object ycb_019_pitcher_base is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pitcher_capacity_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource pitcher_capacity_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pitcher_capacity_marker",
+          "reason": "The declared fixture, marked area, partner object, or record resource pitcher_capacity_marker is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pitcher_capacity_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource pitcher_capacity_record is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "cool_nonfood_surrogate_payload",
+          "reason": "The declared fixture, marked area, partner object, or record resource cool_nonfood_surrogate_payload is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_contains_ycb_019_pitcher_base_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: contains(ycb_019_pitcher_base, cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_upright_ycb_019_pitcher_base",
+          "reason": "Required initial predicate: upright(ycb_019_pitcher_base)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_019_pitcher_base_pitcher_capacity_station",
+          "reason": "Required initial predicate: on_top_of(ycb_019_pitcher_base, pitcher_capacity_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_capacity_line_visible_pitcher_capacity_marker",
+          "reason": "Required initial predicate: capacity_line_visible(pitcher_capacity_marker)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_capacity_record_blank_pitcher_capacity_record",
+          "reason": "Required initial predicate: capacity_record_blank(pitcher_capacity_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_payload_approved_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: payload_approved(cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_pitcher_capacity_station",
+          "reason": "Required initial predicate: station_stable(pitcher_capacity_station)"
+        },
+        {
+          "key": "condition",
+          "value": "cool_surrogate_payload_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cool_surrogate_payload_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "liquid_flow_asset_verified_ycb_019_pitcher_base",
+          "reason": "The declared asset, material, fixture, or safety prerequisite liquid_flow_asset_verified_ycb_019_pitcher_base must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "capacity_marker_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite capacity_marker_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "record_resource_ready_pitcher_capacity_record",
+          "reason": "The declared asset, material, fixture, or safety prerequisite record_resource_ready_pitcher_capacity_record must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed interaction requires material_flow."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared full contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The cool approved surrogate reaches the marked capacity line, remains contained and upright, and the reading is entered in pitcher_capacity_record.",
+          "No payload is outside the pitcher or station."
+        ],
+        "setup": [
+          "Place the pitcher base with the measured cool nonfood surrogate payload at pitcher_capacity_station and expose pitcher_capacity_marker.",
+          "Provide a blank pitcher_capacity_record; verify the marker, payload, and liquid-flow asset are approved."
+        ],
+        "reset": [
+          "Empty and dry the pitcher into the approved recovery container, restore it upright at pitcher_capacity_station, clear pitcher_capacity_record, and verify the marked line is visible."
+        ],
+        "quality_checks": [
+          "Verify YCB identity, fill-line visibility, containment, upright stability, no spill, and record identity.",
+          "Check that the reading reflects the declared marked line rather than an unmeasured estimate."
+        ],
+        "failure_modes": [
+          "Payload spills, the pitcher tips, the marker is occluded, or the record is missing.",
+          "An asset cannot contain the surrogate or the payload is not approved."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_pitcher_lid_leak_check",
+      "task_id": "task_ycb_round5_pitcher_lid_leak_check",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_020_pitcher_lid",
+          "reason": "The primary YCB object ycb_020_pitcher_lid is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_019_pitcher_base",
+          "reason": "The declared fixture, marked area, partner object, or record resource ycb_019_pitcher_base is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pitcher_leak_test_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource pitcher_leak_test_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "pitcher_lid_leak_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource pitcher_lid_leak_record is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "cool_nonfood_surrogate_payload",
+          "reason": "The declared fixture, marked area, partner object, or record resource cool_nonfood_surrogate_payload is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "absorbent_leak_pad",
+          "reason": "The declared fixture, marked area, partner object, or record resource absorbent_leak_pad is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_closure_attached_ycb_020_pitcher_lid_ycb_019_pitcher_base",
+          "reason": "Required initial predicate: closure_attached(ycb_020_pitcher_lid, ycb_019_pitcher_base)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_019_pitcher_base",
+          "reason": "Required initial predicate: closed(ycb_019_pitcher_base)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_contains_ycb_019_pitcher_base_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: contains(ycb_019_pitcher_base, cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_upright_ycb_019_pitcher_base",
+          "reason": "Required initial predicate: upright(ycb_019_pitcher_base)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_019_pitcher_base_pitcher_leak_test_station",
+          "reason": "Required initial predicate: on_top_of(ycb_019_pitcher_base, pitcher_leak_test_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_leak_test_fixture_ready_pitcher_leak_test_station",
+          "reason": "Required initial predicate: leak_test_fixture_ready(pitcher_leak_test_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_leak_record_blank_pitcher_lid_leak_record",
+          "reason": "Required initial predicate: leak_record_blank(pitcher_lid_leak_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_payload_approved_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: payload_approved(cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_pitcher_leak_test_station",
+          "reason": "Required initial predicate: station_stable(pitcher_leak_test_station)"
+        },
+        {
+          "key": "condition",
+          "value": "cool_surrogate_payload_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cool_surrogate_payload_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "liquid_flow_asset_verified_ycb_020_pitcher_lid",
+          "reason": "The declared asset, material, fixture, or safety prerequisite liquid_flow_asset_verified_ycb_020_pitcher_lid must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "leak_test_fixture_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite leak_test_fixture_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "absorbent_pad_available",
+          "reason": "The declared asset, material, fixture, or safety prerequisite absorbent_pad_available must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "articulated_closure",
+          "reason": "The proposed interaction requires articulated_closure."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed interaction requires material_flow."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared full contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The attached lid and base complete the declared leak check with no surrogate escaping at the joint, and the result is recorded.",
+          "The pitcher remains upright and stable on the marked station."
+        ],
+        "setup": [
+          "Attach the lid to the upright pitcher base containing the approved cool surrogate and place the set on pitcher_leak_test_station over absorbent_leak_pad.",
+          "Provide a blank pitcher_lid_leak_record and verify the fixture and flow asset."
+        ],
+        "reset": [
+          "Recover the surrogate, dry the lid, base, and absorbent pad, restore the attached closed upright set, and clear pitcher_lid_leak_record.",
+          "Replace the pad if wet and verify the station is stable."
+        ],
+        "quality_checks": [
+          "Inspect the joint, pad, station, and record for leakage or ambiguity.",
+          "Confirm the test result is tied to ycb_020_pitcher_lid and not an unrelated container."
+        ],
+        "failure_modes": [
+          "A joint leaks, the lid detaches, the pitcher tips, or the pad is missing.",
+          "The surrogate, fixture, or lid material behavior is unapproved."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_bleach_mass_audit",
+      "task_id": "task_ycb_round5_bleach_mass_audit",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_trash_sorting_area",
+          "reason": "The declared scene_id scene_trash_sorting_area is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_021_bleach_cleanser",
+          "reason": "The primary YCB object ycb_021_bleach_cleanser is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "chemical_sorting_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource chemical_sorting_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "chemical_tare_scale",
+          "reason": "The declared fixture, marked area, partner object, or record resource chemical_tare_scale is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "chemical_waste_audit_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource chemical_waste_audit_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_ycb_021_bleach_cleanser",
+          "reason": "Required initial predicate: empty(ycb_021_bleach_cleanser)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_021_bleach_cleanser",
+          "reason": "Required initial predicate: closed(ycb_021_bleach_cleanser)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_021_bleach_cleanser_chemical_sorting_station",
+          "reason": "Required initial predicate: on_top_of(ycb_021_bleach_cleanser, chemical_sorting_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_no_residual_liquid_ycb_021_bleach_cleanser",
+          "reason": "Required initial predicate: no_residual_liquid(ycb_021_bleach_cleanser)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_label_visible_ycb_021_bleach_cleanser",
+          "reason": "Required initial predicate: label_visible(ycb_021_bleach_cleanser)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_tare_scale_ready_chemical_tare_scale",
+          "reason": "Required initial predicate: tare_scale_ready(chemical_tare_scale)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_mass_record_blank_chemical_waste_audit_record",
+          "reason": "Required initial predicate: mass_record_blank(chemical_waste_audit_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_chemical_sorting_station",
+          "reason": "Required initial predicate: station_stable(chemical_sorting_station)"
+        },
+        {
+          "key": "condition",
+          "value": "chemical_asset_replica_verified_ycb_021_bleach_cleanser",
+          "reason": "The declared asset, material, fixture, or safety prerequisite chemical_asset_replica_verified_ycb_021_bleach_cleanser must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "tare_scale_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite tare_scale_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_residual_liquid_confirmed",
+          "reason": "The declared asset, material, fixture, or safety prerequisite no_residual_liquid_confirmed must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "chemical_label_protocol_ready",
+          "reason": "The declared asset, material, fixture, or safety prerequisite chemical_label_protocol_ready must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The empty closed bleach cleanser remains on the marked station and its measured mass is entered in chemical_waste_audit_record.",
+          "The label and no-residual-liquid condition are confirmed."
+        ],
+        "setup": [
+          "Verify the bottle is empty, closed, labeled, and dry; place it beside the ready chemical_tare_scale at chemical_sorting_station.",
+          "Provide a blank chemical_waste_audit_record and keep the scale and bottle boundary visible."
+        ],
+        "reset": [
+          "Return the bottle to the marked station, clear the scale and chemical_waste_audit_record, and reverify empty, closed, labeled, and no-residual-liquid conditions."
+        ],
+        "quality_checks": [
+          "Confirm tare, bottle identity, scale reading, label visibility, and absence of liquid.",
+          "Do not infer chemical composition or disposal safety from the catalog name."
+        ],
+        "failure_modes": [
+          "Residual liquid is present, the bottle is misidentified, the scale is not tared, or the record is ambiguous.",
+          "The fixture is unstable or an unapproved chemical is introduced."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_windex_spray_target",
+      "task_id": "task_ycb_round5_windex_spray_target",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_022_windex_bottle",
+          "reason": "The primary YCB object ycb_022_windex_bottle is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "windex_spray_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource windex_spray_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "windex_spray_target",
+          "reason": "The declared fixture, marked area, partner object, or record resource windex_spray_target is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "windex_spray_coverage_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource windex_spray_coverage_record is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "approved_nonhazardous_spray_surrogate",
+          "reason": "The declared fixture, marked area, partner object, or record resource approved_nonhazardous_spray_surrogate is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "spray_absorbent_pad",
+          "reason": "The declared fixture, marked area, partner object, or record resource spray_absorbent_pad is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_contains_ycb_022_windex_bottle_approved_nonhazardous_spray_surrogate",
+          "reason": "Required initial predicate: contains(ycb_022_windex_bottle, approved_nonhazardous_spray_surrogate)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_closed_ycb_022_windex_bottle",
+          "reason": "Required initial predicate: closed(ycb_022_windex_bottle)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_022_windex_bottle_windex_spray_station",
+          "reason": "Required initial predicate: on_top_of(ycb_022_windex_bottle, windex_spray_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_trigger_lock_off_ycb_022_windex_bottle",
+          "reason": "Required initial predicate: trigger_lock_off(ycb_022_windex_bottle)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_target_pad_clear_windex_spray_target",
+          "reason": "Required initial predicate: target_pad_clear(windex_spray_target)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_target_mark_visible_windex_spray_target",
+          "reason": "Required initial predicate: target_mark_visible(windex_spray_target)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_spray_record_blank_windex_spray_coverage_record",
+          "reason": "Required initial predicate: spray_record_blank(windex_spray_coverage_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_windex_spray_station",
+          "reason": "Required initial predicate: station_stable(windex_spray_station)"
+        },
+        {
+          "key": "condition",
+          "value": "nonhazardous_spray_surrogate_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite nonhazardous_spray_surrogate_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "material_flow_asset_verified_ycb_022_windex_bottle",
+          "reason": "The declared asset, material, fixture, or safety prerequisite material_flow_asset_verified_ycb_022_windex_bottle must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "trigger_asset_behavior_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite trigger_asset_behavior_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "target_pad_absorbency_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite target_pad_absorbency_verified must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed interaction requires material_flow."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared full contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "A controlled amount of the approved nonhazardous surrogate lands within the marked target, the trigger returns, and coverage is recorded.",
+          "No spray reaches outside windex_spray_target."
+        ],
+        "setup": [
+          "Fill ycb_022_windex_bottle only with approved_nonhazardous_spray_surrogate and place it upright at windex_spray_station.",
+          "Clear and mark windex_spray_target, provide spray_absorbent_pad and a blank record, and verify material behavior."
+        ],
+        "reset": [
+          "Recover or dispose of the surrogate under protocol, clean and dry the target and station, restore the closed upright bottle, and clear the record.",
+          "Verify trigger return and no residue outside the target."
+        ],
+        "quality_checks": [
+          "Inspect target coverage, overspray boundary, trigger return, bottle identity, and station stability.",
+          "Record only the observed surrogate pattern."
+        ],
+        "failure_modes": [
+          "The trigger does not return, spray misses the target, overspray occurs, or the bottle tips.",
+          "The surrogate or spray asset is unapproved."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_wine_glass_fill_band",
+      "task_id": "task_ycb_round5_wine_glass_fill_band",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The declared scene_id scene_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_023_wine_glass",
+          "reason": "The primary YCB object ycb_023_wine_glass is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "wine_glass_fill_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource wine_glass_fill_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "wine_glass_fill_marker",
+          "reason": "The declared fixture, marked area, partner object, or record resource wine_glass_fill_marker is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "wine_glass_volume_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource wine_glass_volume_record is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "cool_nonfood_surrogate_payload",
+          "reason": "The declared fixture, marked area, partner object, or record resource cool_nonfood_surrogate_payload is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_contains_ycb_023_wine_glass_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: contains(ycb_023_wine_glass, cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_upright_ycb_023_wine_glass",
+          "reason": "Required initial predicate: upright(ycb_023_wine_glass)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_023_wine_glass_wine_glass_fill_station",
+          "reason": "Required initial predicate: on_top_of(ycb_023_wine_glass, wine_glass_fill_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_fill_band_visible_wine_glass_fill_marker",
+          "reason": "Required initial predicate: fill_band_visible(wine_glass_fill_marker)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_rim_clear_ycb_023_wine_glass",
+          "reason": "Required initial predicate: rim_clear(ycb_023_wine_glass)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_volume_record_blank_wine_glass_volume_record",
+          "reason": "Required initial predicate: volume_record_blank(wine_glass_volume_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_payload_approved_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: payload_approved(cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_wine_glass_fill_station",
+          "reason": "Required initial predicate: station_stable(wine_glass_fill_station)"
+        },
+        {
+          "key": "condition",
+          "value": "cool_surrogate_payload_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cool_surrogate_payload_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "glass_asset_integrity_verified_ycb_023_wine_glass",
+          "reason": "The declared asset, material, fixture, or safety prerequisite glass_asset_integrity_verified_ycb_023_wine_glass must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "volume_marker_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite volume_marker_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "fragile_contact_protocol_ready",
+          "reason": "The declared asset, material, fixture, or safety prerequisite fragile_contact_protocol_ready must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed interaction requires material_flow."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared full contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The cool approved surrogate reaches the marked fill band without contacting the rim or spilling, and the volume is recorded.",
+          "The wine glass remains upright and stable."
+        ],
+        "setup": [
+          "Place the intact wine glass upright at wine_glass_fill_station with the approved cool surrogate and expose wine_glass_fill_marker.",
+          "Provide a blank wine_glass_volume_record and verify the fragile-contact protocol."
+        ],
+        "reset": [
+          "Empty the surrogate into the approved recovery container, rinse and dry the glass under protocol, restore it upright at the station, and clear the record.",
+          "Inspect rim and stem before another trial."
+        ],
+        "quality_checks": [
+          "Verify glass identity, fill-band visibility, rim clearance, containment, upright stability, and record identity.",
+          "Do not infer drinking suitability from the YCB identity."
+        ],
+        "failure_modes": [
+          "The glass chips, tips, spills, the marker is occluded, or the record is missing.",
+          "The surrogate or fragile-contact protocol is unapproved."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_bowl_tilt_stability",
+      "task_id": "task_ycb_round5_bowl_tilt_stability",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "The primary YCB object ycb_024_bowl is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "bowl_stability_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource bowl_stability_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "bowl_tilt_limit_marker",
+          "reason": "The declared fixture, marked area, partner object, or record resource bowl_tilt_limit_marker is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "bowl_tilt_stability_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource bowl_tilt_stability_record is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "cool_nonfood_surrogate_payload",
+          "reason": "The declared fixture, marked area, partner object, or record resource cool_nonfood_surrogate_payload is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_contains_ycb_024_bowl_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: contains(ycb_024_bowl, cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_upright_ycb_024_bowl",
+          "reason": "Required initial predicate: upright(ycb_024_bowl)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_024_bowl_bowl_stability_station",
+          "reason": "Required initial predicate: on_top_of(ycb_024_bowl, bowl_stability_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_tilt_limit_marked_bowl_tilt_limit_marker",
+          "reason": "Required initial predicate: tilt_limit_marked(bowl_tilt_limit_marker)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_stability_record_blank_bowl_tilt_stability_record",
+          "reason": "Required initial predicate: stability_record_blank(bowl_tilt_stability_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_payload_approved_cool_nonfood_surrogate_payload",
+          "reason": "Required initial predicate: payload_approved(cool_nonfood_surrogate_payload)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_level_bowl_stability_station",
+          "reason": "Required initial predicate: station_level(bowl_stability_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_bowl_stability_station",
+          "reason": "Required initial predicate: station_stable(bowl_stability_station)"
+        },
+        {
+          "key": "condition",
+          "value": "cool_surrogate_payload_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cool_surrogate_payload_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_024_bowl",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_024_bowl must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "tilt_fixture_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite tilt_fixture_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "station_level_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite station_level_verified must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "material_flow",
+          "reason": "The proposed interaction requires material_flow."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "full",
+          "reason": "The declared full contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The bowl reaches the declared tilt limit, retains the approved surrogate without spill, returns upright, and the result is recorded.",
+          "The bowl and station remain stable."
+        ],
+        "setup": [
+          "Load the bowl with the approved cool surrogate and place it upright on the level bowl_stability_station beside bowl_tilt_limit_marker.",
+          "Provide a blank bowl_tilt_stability_record and keep the tilt boundary visible."
+        ],
+        "reset": [
+          "Recover the surrogate, wash and dry the bowl and station under protocol, restore the upright loaded state, and clear the record.",
+          "Recheck station level before another trial."
+        ],
+        "quality_checks": [
+          "Verify tilt mark, retained payload, spill boundary, bowl identity, upright return, and record.",
+          "Do not treat a single design trial as evidence of general stability."
+        ],
+        "failure_modes": [
+          "Payload spills, the bowl tips, the station is not level, or tilt exceeds the mark.",
+          "The bowl geometry or surrogate is unapproved."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_mug_handle_clearance",
+      "task_id": "task_ycb_round5_mug_handle_clearance",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "The primary YCB object ycb_025_mug is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "mug_handle_gauge_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource mug_handle_gauge_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "mug_handle_clearance_gauge",
+          "reason": "The declared fixture, marked area, partner object, or record resource mug_handle_clearance_gauge is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "mug_handle_clearance_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource mug_handle_clearance_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_ycb_025_mug",
+          "reason": "Required initial predicate: empty(ycb_025_mug)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_upright_ycb_025_mug",
+          "reason": "Required initial predicate: upright(ycb_025_mug)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_025_mug_mug_handle_gauge_station",
+          "reason": "Required initial predicate: on_top_of(ycb_025_mug, mug_handle_gauge_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_handle_visible_ycb_025_mug",
+          "reason": "Required initial predicate: handle_visible(ycb_025_mug)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_handle_clearance_gauge_ready_mug_handle_clearance_gauge",
+          "reason": "Required initial predicate: handle_clearance_gauge_ready(mug_handle_clearance_gauge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_gauge_no_force_protocol_mug_handle_clearance_gauge",
+          "reason": "Required initial predicate: gauge_no_force_protocol(mug_handle_clearance_gauge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_clearance_record_blank_mug_handle_clearance_record",
+          "reason": "Required initial predicate: clearance_record_blank(mug_handle_clearance_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_mug_handle_gauge_station",
+          "reason": "Required initial predicate: station_stable(mug_handle_gauge_station)"
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_025_mug",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_025_mug must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "gauge_no_force_protocol_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite gauge_no_force_protocol_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "gauge_asset_dimension_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite gauge_asset_dimension_verified must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The mug handle passes the marked gauge without force, the clearance is recorded, and the mug remains empty, upright, and stable.",
+          "The handle and gauge stay visible throughout the check."
+        ],
+        "setup": [
+          "Place the empty upright mug at mug_handle_gauge_station with mug_handle_clearance_gauge ready and its no-force protocol visible.",
+          "Provide a blank mug_handle_clearance_record and keep the handle boundary unobstructed."
+        ],
+        "reset": [
+          "Return the mug upright to its start mark, clear the gauge and record, and inspect the handle for contact damage.",
+          "Restore the no-force protocol before another trial."
+        ],
+        "quality_checks": [
+          "Verify mug identity, handle visibility, gauge dimension, no-force contact, stable return, and record identity.",
+          "Do not infer ergonomic suitability from this single clearance check."
+        ],
+        "failure_modes": [
+          "The handle is forced, gauge dimensions are unknown, the mug tips or chips, or the record is missing.",
+          "The geometry or fixture is unverified."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_sponge_compression_recovery",
+      "task_id": "task_ycb_round5_sponge_compression_recovery",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_026_sponge",
+          "reason": "The primary YCB object ycb_026_sponge is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "sponge_recovery_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource sponge_recovery_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "sponge_compression_gauge",
+          "reason": "The declared fixture, marked area, partner object, or record resource sponge_compression_gauge is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "sponge_compression_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource sponge_compression_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_026_sponge_sponge_recovery_station",
+          "reason": "Required initial predicate: on_top_of(ycb_026_sponge, sponge_recovery_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_ycb_026_sponge",
+          "reason": "Required initial predicate: clean(ycb_026_sponge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_dry_ycb_026_sponge",
+          "reason": "Required initial predicate: dry(ycb_026_sponge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_uncompressed_ycb_026_sponge",
+          "reason": "Required initial predicate: uncompressed(ycb_026_sponge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_compression_limit_marked_sponge_compression_gauge",
+          "reason": "Required initial predicate: compression_limit_marked(sponge_compression_gauge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_deformable_asset_behavior_verified_ycb_026_sponge",
+          "reason": "Required initial predicate: deformable_asset_behavior_verified(ycb_026_sponge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_recovery_record_blank_sponge_compression_record",
+          "reason": "Required initial predicate: recovery_record_blank(sponge_compression_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_sponge_recovery_station",
+          "reason": "Required initial predicate: station_stable(sponge_recovery_station)"
+        },
+        {
+          "key": "condition",
+          "value": "deformable_asset_behavior_verified_ycb_026_sponge",
+          "reason": "The declared asset, material, fixture, or safety prerequisite deformable_asset_behavior_verified_ycb_026_sponge must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "soft_contact_fixture_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite soft_contact_fixture_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "compression_limit_protocol_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite compression_limit_protocol_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "dry_clean_sponge_confirmed",
+          "reason": "The declared asset, material, fixture, or safety prerequisite dry_clean_sponge_confirmed must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "deformable_squeezing",
+          "reason": "The proposed interaction requires deformable_squeezing."
+        },
+        {
+          "key": "capability",
+          "value": "deformable_manipulation",
+          "reason": "The proposed interaction requires deformable_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The clean dry sponge reaches the marked compression limit, recovers its declared shape after release, and the observation is recorded without tearing.",
+          "The sponge remains clean and dry on the station."
+        ],
+        "setup": [
+          "Place the clean dry sponge uncompressed on sponge_recovery_station with sponge_compression_gauge and a blank sponge_compression_record visible.",
+          "Verify deformable material behavior and the soft-contact fixture before contact."
+        ],
+        "reset": [
+          "Restore the sponge to its clean dry uncompressed state, clear the gauge and record, and inspect for tearing or permanent deformation.",
+          "Leave the station stable and free of residue."
+        ],
+        "quality_checks": [
+          "Inspect compression boundary, recovery, tears, moisture, station support, and record identity.",
+          "Leave the material-verification condition unconfirmed if the selected asset has not been checked."
+        ],
+        "failure_modes": [
+          "The sponge tears, remains deformed, contacts an unapproved hard edge, or the gauge is exceeded.",
+          "Material behavior or the compression limit is unverified."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_skillet_base_contact",
+      "task_id": "task_ycb_round5_skillet_base_contact",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_027_skillet",
+          "reason": "The primary YCB object ycb_027_skillet is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "skillet_base_inspection_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource skillet_base_inspection_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "skillet_flatness_gauge",
+          "reason": "The declared fixture, marked area, partner object, or record resource skillet_flatness_gauge is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "skillet_base_contact_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource skillet_base_contact_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_ycb_027_skillet",
+          "reason": "Required initial predicate: empty(ycb_027_skillet)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_cool_ycb_027_skillet",
+          "reason": "Required initial predicate: cool(ycb_027_skillet)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_027_skillet_skillet_base_inspection_station",
+          "reason": "Required initial predicate: on_top_of(ycb_027_skillet, skillet_base_inspection_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_handle_accessible_ycb_027_skillet",
+          "reason": "Required initial predicate: handle_accessible(ycb_027_skillet)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_feeler_gauge_ready_skillet_flatness_gauge",
+          "reason": "Required initial predicate: feeler_gauge_ready(skillet_flatness_gauge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_base_contact_record_blank_skillet_base_contact_record",
+          "reason": "Required initial predicate: base_contact_record_blank(skillet_base_contact_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_stovetop_off",
+          "reason": "Required initial predicate: stovetop_off"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_skillet_base_inspection_station",
+          "reason": "Required initial predicate: station_stable(skillet_base_inspection_station)"
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_027_skillet",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_027_skillet must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "flatness_gauge_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite flatness_gauge_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "cool_surface_protocol_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cool_surface_protocol_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "stovetop_off_confirmed",
+          "reason": "The declared asset, material, fixture, or safety prerequisite stovetop_off_confirmed must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed record cool skillet base contact on a flatness gauge reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_027_skillet with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_027_skillet, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_skillet_lid_underside_inspection",
+      "task_id": "task_ycb_round5_skillet_lid_underside_inspection",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_028_skillet_lid",
+          "reason": "The primary YCB object ycb_028_skillet_lid is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_027_skillet",
+          "reason": "The declared fixture, marked area, partner object, or record resource ycb_027_skillet is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "skillet_lid_inspection_mat",
+          "reason": "The declared fixture, marked area, partner object, or record resource skillet_lid_inspection_mat is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "skillet_lid_underside_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource skillet_lid_underside_record is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "lid_underside_light",
+          "reason": "The declared fixture, marked area, partner object, or record resource lid_underside_light is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_detached_ycb_028_skillet_lid_ycb_027_skillet",
+          "reason": "Required initial predicate: detached(ycb_028_skillet_lid, ycb_027_skillet)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_028_skillet_lid_skillet_lid_inspection_mat",
+          "reason": "Required initial predicate: on_top_of(ycb_028_skillet_lid, skillet_lid_inspection_mat)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_no_contact_with_heat_ycb_028_skillet_lid",
+          "reason": "Required initial predicate: no_contact_with_heat(ycb_028_skillet_lid)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_underside_visible_ycb_028_skillet_lid",
+          "reason": "Required initial predicate: underside_visible(ycb_028_skillet_lid)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_underside_record_blank_skillet_lid_underside_record",
+          "reason": "Required initial predicate: underside_record_blank(skillet_lid_underside_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_inspection_light_ready_lid_underside_light",
+          "reason": "Required initial predicate: inspection_light_ready(lid_underside_light)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_mat_stable_skillet_lid_inspection_mat",
+          "reason": "Required initial predicate: mat_stable(skillet_lid_inspection_mat)"
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_028_skillet_lid",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_028_skillet_lid must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "inspection_light_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite inspection_light_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "cool_surface_protocol_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cool_surface_protocol_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "underside_contact_safe",
+          "reason": "The declared asset, material, fixture, or safety prerequisite underside_contact_safe must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed record the detached skillet lid underside condition reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_028_skillet_lid with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_028_skillet_lid, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_plate_rim_separation",
+      "task_id": "task_ycb_round5_plate_rim_separation",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The declared scene_id scene_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "The primary YCB object ycb_029_plate is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "plate_rack",
+          "reason": "The declared fixture, marked area, partner object, or record resource plate_rack is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "plate_rack_slot",
+          "reason": "The declared fixture, marked area, partner object, or record resource plate_rack_slot is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "plate_rack_staging",
+          "reason": "The declared fixture, marked area, partner object, or record resource plate_rack_staging is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "plate_rim_separators",
+          "reason": "The declared fixture, marked area, partner object, or record resource plate_rim_separators is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "plate_rim_separation_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource plate_rim_separation_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_ycb_029_plate",
+          "reason": "Required initial predicate: empty(ycb_029_plate)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_ycb_029_plate",
+          "reason": "Required initial predicate: clean(ycb_029_plate)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_029_plate_plate_rack_staging",
+          "reason": "Required initial predicate: on_top_of(ycb_029_plate, plate_rack_staging)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_rack_slot_clear_plate_rack_slot",
+          "reason": "Required initial predicate: rack_slot_clear(plate_rack_slot)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_rim_separators_present_plate_rim_separators",
+          "reason": "Required initial predicate: rim_separators_present(plate_rim_separators)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_rack_stable_plate_rack",
+          "reason": "Required initial predicate: rack_stable(plate_rack)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_rim_separation_record_blank_plate_rim_separation_record",
+          "reason": "Required initial predicate: rim_separation_record_blank(plate_rim_separation_record)"
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_029_plate",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_029_plate must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "rack_support_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rack_support_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "rim_separator_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rim_separator_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "clean_plate_confirmed",
+          "reason": "The declared asset, material, fixture, or safety prerequisite clean_plate_confirmed must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed verify plate rim separation in a marked rack slot reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_029_plate with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_029_plate, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_fork_orientation_sort",
+      "task_id": "task_ycb_round5_fork_orientation_sort",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_030_fork",
+          "reason": "The primary YCB object ycb_030_fork is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "fork_orientation_mat",
+          "reason": "The declared fixture, marked area, partner object, or record resource fork_orientation_mat is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "fork_orientation_tray",
+          "reason": "The declared fixture, marked area, partner object, or record resource fork_orientation_tray is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "fork_tine_direction_mark",
+          "reason": "The declared fixture, marked area, partner object, or record resource fork_tine_direction_mark is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "fork_handle_direction_mark",
+          "reason": "The declared fixture, marked area, partner object, or record resource fork_handle_direction_mark is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "fork_orientation_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource fork_orientation_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_030_fork_fork_orientation_mat",
+          "reason": "Required initial predicate: on_top_of(ycb_030_fork, fork_orientation_mat)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_tines_away_from_hand_ycb_030_fork",
+          "reason": "Required initial predicate: tines_away_from_hand(ycb_030_fork)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_orientation_mark_visible_fork_tine_direction_mark",
+          "reason": "Required initial predicate: orientation_mark_visible(fork_tine_direction_mark)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_tray_slot_clear_fork_orientation_tray",
+          "reason": "Required initial predicate: tray_slot_clear(fork_orientation_tray)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_orientation_record_blank_fork_orientation_record",
+          "reason": "Required initial predicate: orientation_record_blank(fork_orientation_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_mat_stable_fork_orientation_mat",
+          "reason": "Required initial predicate: mat_stable(fork_orientation_mat)"
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_030_fork",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_030_fork must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "tray_slot_support_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite tray_slot_support_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "orientation_mark_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite orientation_mark_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "tines_clearance_protocol_ready",
+          "reason": "The declared asset, material, fixture, or safety prerequisite tines_clearance_protocol_ready must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed record fork tine orientation in a marked utensil tray slot reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_030_fork with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_030_fork, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_spoon_scoop_capacity",
+      "task_id": "task_ycb_round5_spoon_scoop_capacity",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_031_spoon",
+          "reason": "The primary YCB object ycb_031_spoon is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "spoon_scoop_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource spoon_scoop_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "spoon_scoop_capacity_gauge",
+          "reason": "The declared fixture, marked area, partner object, or record resource spoon_scoop_capacity_gauge is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "fixed_cool_surrogate_pieces",
+          "reason": "The declared fixture, marked area, partner object, or record resource fixed_cool_surrogate_pieces is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "spoon_scoop_capacity_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource spoon_scoop_capacity_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_031_spoon_spoon_scoop_station",
+          "reason": "Required initial predicate: on_top_of(ycb_031_spoon, spoon_scoop_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_spoon_dry_ycb_031_spoon",
+          "reason": "Required initial predicate: spoon_dry(ycb_031_spoon)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_scoop_capacity_gauge_ready_spoon_scoop_capacity_gauge",
+          "reason": "Required initial predicate: scoop_capacity_gauge_ready(spoon_scoop_capacity_gauge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_fixed_piece_set_ready_fixed_cool_surrogate_pieces",
+          "reason": "Required initial predicate: fixed_piece_set_ready(fixed_cool_surrogate_pieces)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_scoop_record_blank_spoon_scoop_capacity_record",
+          "reason": "Required initial predicate: scoop_record_blank(spoon_scoop_capacity_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_spoon_scoop_station",
+          "reason": "Required initial predicate: station_stable(spoon_scoop_station)"
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_031_spoon",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_031_spoon must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "scoop_payload_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite scoop_payload_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "scoop_gauge_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite scoop_gauge_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "dry_spoon_confirmed",
+          "reason": "The declared asset, material, fixture, or safety prerequisite dry_spoon_confirmed must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed record spoon scoop capacity with fixed surrogate pieces reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_031_spoon with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_031_spoon, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_knife_cut_soft_strip",
+      "task_id": "task_ycb_round5_knife_cut_soft_strip",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "The declared scene_id scene_kitchen_counter is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_032_knife",
+          "reason": "The primary YCB object ycb_032_knife is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "guarded_cut_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource guarded_cut_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "knife_cutting_board",
+          "reason": "The declared fixture, marked area, partner object, or record resource knife_cutting_board is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "soft_test_strip",
+          "reason": "The declared fixture, marked area, partner object, or record resource soft_test_strip is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "knife_cut_test_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource knife_cut_test_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_032_knife_guarded_cut_station",
+          "reason": "Required initial predicate: on_top_of(ycb_032_knife, guarded_cut_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_blade_clear_for_test_ycb_032_knife",
+          "reason": "Required initial predicate: blade_clear_for_test(ycb_032_knife)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_cutting_board_stable_knife_cutting_board",
+          "reason": "Required initial predicate: cutting_board_stable(knife_cutting_board)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_soft_test_strip_marked_soft_test_strip",
+          "reason": "Required initial predicate: soft_test_strip_marked(soft_test_strip)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_cut_zone_clear_knife_cutting_board",
+          "reason": "Required initial predicate: cut_zone_clear(knife_cutting_board)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_cut_test_record_blank_knife_cut_test_record",
+          "reason": "Required initial predicate: cut_test_record_blank(knife_cut_test_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_guarded_cut_station",
+          "reason": "Required initial predicate: station_stable(guarded_cut_station)"
+        },
+        {
+          "key": "condition",
+          "value": "sharp_edge_asset_verified_ycb_032_knife",
+          "reason": "The declared asset, material, fixture, or safety prerequisite sharp_edge_asset_verified_ycb_032_knife must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "cutting_board_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cutting_board_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "human_clearance_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite human_clearance_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "soft_test_material_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite soft_test_material_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_sharp_hazard",
+          "reason": "The declared asset, material, fixture, or safety prerequisite no_sharp_hazard must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed cut an approved soft test strip to a marked length reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_032_knife with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_032_knife, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_spatula_turn_test",
+      "task_id": "task_ycb_round5_spatula_turn_test",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_restaurant_kitchen",
+          "reason": "The declared scene_id scene_restaurant_kitchen is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_033_spatula",
+          "reason": "The primary YCB object ycb_033_spatula is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_027_skillet",
+          "reason": "The declared fixture, marked area, partner object, or record resource ycb_027_skillet is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "spatula_turn_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource spatula_turn_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "soft_surrogate_patty",
+          "reason": "The declared fixture, marked area, partner object, or record resource soft_surrogate_patty is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "spatula_turn_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource spatula_turn_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_033_spatula_spatula_turn_station",
+          "reason": "Required initial predicate: on_top_of(ycb_033_spatula, spatula_turn_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_027_skillet_spatula_turn_station",
+          "reason": "Required initial predicate: on_top_of(ycb_027_skillet, spatula_turn_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_cool_ycb_027_skillet",
+          "reason": "Required initial predicate: cool(ycb_027_skillet)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_contains_ycb_027_skillet_soft_surrogate_patty",
+          "reason": "Required initial predicate: contains(ycb_027_skillet, soft_surrogate_patty)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_surrogate_centered_soft_surrogate_patty_ycb_027_skillet",
+          "reason": "Required initial predicate: surrogate_centered(soft_surrogate_patty, ycb_027_skillet)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_pan_stable_ycb_027_skillet",
+          "reason": "Required initial predicate: pan_stable(ycb_027_skillet)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_turn_record_blank_spatula_turn_record",
+          "reason": "Required initial predicate: turn_record_blank(spatula_turn_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_spatula_turn_station",
+          "reason": "Required initial predicate: station_stable(spatula_turn_station)"
+        },
+        {
+          "key": "condition",
+          "value": "rigid_asset_geometry_verified_ycb_033_spatula",
+          "reason": "The declared asset, material, fixture, or safety prerequisite rigid_asset_geometry_verified_ycb_033_spatula must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "soft_surrogate_contact_approved",
+          "reason": "The declared asset, material, fixture, or safety prerequisite soft_surrogate_contact_approved must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "cool_pan_surface_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cool_pan_surface_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "turn_fixture_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite turn_fixture_asset_verified must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "The proposed interaction requires rigid_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed turn an approved soft surrogate over in a cool skillet reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_033_spatula with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_033_spatula, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_ycb_round5_table_cloth_fold_grid",
+      "task_id": "task_ycb_round5_table_cloth_fold_grid",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The declared scene_id scene_dining_table is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "ycb_034_table_cloth",
+          "reason": "The primary YCB object ycb_034_table_cloth is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "cloth_fold_station",
+          "reason": "The declared fixture, marked area, partner object, or record resource cloth_fold_station is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "cloth_fold_grid",
+          "reason": "The declared fixture, marked area, partner object, or record resource cloth_fold_grid is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "table_cloth_fold_record",
+          "reason": "The declared fixture, marked area, partner object, or record resource table_cloth_fold_record is required for this proposed collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_on_top_of_ycb_034_table_cloth_cloth_fold_station",
+          "reason": "Required initial predicate: on_top_of(ycb_034_table_cloth, cloth_fold_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_spread_flat_ycb_034_table_cloth",
+          "reason": "Required initial predicate: spread_flat(ycb_034_table_cloth)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_clean_ycb_034_table_cloth",
+          "reason": "Required initial predicate: clean(ycb_034_table_cloth)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_dry_ycb_034_table_cloth",
+          "reason": "Required initial predicate: dry(ycb_034_table_cloth)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_fold_grid_visible_cloth_fold_grid",
+          "reason": "Required initial predicate: fold_grid_visible(cloth_fold_grid)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_fold_record_blank_table_cloth_fold_record",
+          "reason": "Required initial predicate: fold_record_blank(table_cloth_fold_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_no_objects_on_cloth_cloth_fold_station",
+          "reason": "Required initial predicate: no_objects_on_cloth(cloth_fold_station)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_cloth_fold_station",
+          "reason": "Required initial predicate: station_stable(cloth_fold_station)"
+        },
+        {
+          "key": "condition",
+          "value": "deformable_asset_behavior_verified_ycb_034_table_cloth",
+          "reason": "The declared asset, material, fixture, or safety prerequisite deformable_asset_behavior_verified_ycb_034_table_cloth must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "fold_grid_asset_verified",
+          "reason": "The declared asset, material, fixture, or safety prerequisite fold_grid_asset_verified must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "clean_dry_cloth_confirmed",
+          "reason": "The declared asset, material, fixture, or safety prerequisite clean_dry_cloth_confirmed must be verified before collection."
+        },
+        {
+          "key": "condition",
+          "value": "cloth_contact_surface_safe",
+          "reason": "The declared asset, material, fixture, or safety prerequisite cloth_contact_surface_safe must be verified before collection."
+        },
+        {
+          "key": "capability",
+          "value": "deformable_manipulation",
+          "reason": "The proposed interaction requires deformable_manipulation."
+        },
+        {
+          "key": "capability",
+          "value": "visual_inspection",
+          "reason": "The proposed interaction requires visual_inspection."
+        },
+        {
+          "key": "role",
+          "value": "home_user",
+          "reason": "The proposed collection is scoped to the home_user context."
+        },
+        {
+          "key": "contents",
+          "value": "empty",
+          "reason": "The declared empty contents state determines whether this activity applies."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The proposed fold the table cloth along a marked crease grid reaches its declared observable goal and the named record or safety condition is verified."
+        ],
+        "setup": [
+          "Stage ycb_034_table_cloth with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+        ],
+        "reset": [
+          "Restore the initial predicates for ycb_034_table_cloth, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+        ],
+        "quality_checks": [
+          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+        ],
+        "failure_modes": [
+          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
+          "The object is unstable, damaged, or handled outside the declared boundary."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_task_ycb_round5_pitcher_capacity_task_suitability",
+      "subject_id": "task_ycb_round5_pitcher_capacity",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record the pitcher fill level at a marked capacity line is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record the pitcher fill level at a marked capacity line.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_pitcher_capacity_population_frequency",
+      "subject_id": "task_ycb_round5_pitcher_capacity",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record the pitcher fill level at a marked capacity line task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_pitcher_capacity_robot_execution",
+      "subject_id": "task_ycb_round5_pitcher_capacity",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record the pitcher fill level at a marked capacity line task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_pitcher_capacity_asset_compatibility",
+      "subject_id": "task_ycb_round5_pitcher_capacity",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_019_pitcher_base asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_pitcher_lid_leak_check_task_suitability",
+      "subject_id": "task_ycb_round5_pitcher_lid_leak_check",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Run a closed pitcher lid leak check with a cool surrogate is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Run a closed pitcher lid leak check with a cool surrogate.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_pitcher_lid_leak_check_population_frequency",
+      "subject_id": "task_ycb_round5_pitcher_lid_leak_check",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Run a closed pitcher lid leak check with a cool surrogate task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_pitcher_lid_leak_check_robot_execution",
+      "subject_id": "task_ycb_round5_pitcher_lid_leak_check",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Run a closed pitcher lid leak check with a cool surrogate task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_pitcher_lid_leak_check_asset_compatibility",
+      "subject_id": "task_ycb_round5_pitcher_lid_leak_check",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_020_pitcher_lid asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_bleach_mass_audit_task_suitability",
+      "subject_id": "task_ycb_round5_bleach_mass_audit",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record the empty bleach cleanser mass for waste audit is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record the empty bleach cleanser mass for waste audit.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_bleach_mass_audit_population_frequency",
+      "subject_id": "task_ycb_round5_bleach_mass_audit",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record the empty bleach cleanser mass for waste audit task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_bleach_mass_audit_robot_execution",
+      "subject_id": "task_ycb_round5_bleach_mass_audit",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record the empty bleach cleanser mass for waste audit task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_bleach_mass_audit_asset_compatibility",
+      "subject_id": "task_ycb_round5_bleach_mass_audit",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_021_bleach_cleanser asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_windex_spray_target_task_suitability",
+      "subject_id": "task_ycb_round5_windex_spray_target",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Dispense a controlled nonhazardous spray onto a marked target is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Dispense a controlled nonhazardous spray onto a marked target.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_windex_spray_target_population_frequency",
+      "subject_id": "task_ycb_round5_windex_spray_target",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Dispense a controlled nonhazardous spray onto a marked target task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_windex_spray_target_robot_execution",
+      "subject_id": "task_ycb_round5_windex_spray_target",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Dispense a controlled nonhazardous spray onto a marked target task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_windex_spray_target_asset_compatibility",
+      "subject_id": "task_ycb_round5_windex_spray_target",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_022_windex_bottle asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_wine_glass_fill_band_task_suitability",
+      "subject_id": "task_ycb_round5_wine_glass_fill_band",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record a wine glass volume at its marked fill band is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record a wine glass volume at its marked fill band.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_wine_glass_fill_band_population_frequency",
+      "subject_id": "task_ycb_round5_wine_glass_fill_band",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record a wine glass volume at its marked fill band task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_wine_glass_fill_band_robot_execution",
+      "subject_id": "task_ycb_round5_wine_glass_fill_band",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record a wine glass volume at its marked fill band task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_wine_glass_fill_band_asset_compatibility",
+      "subject_id": "task_ycb_round5_wine_glass_fill_band",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_023_wine_glass asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_bowl_tilt_stability_task_suitability",
+      "subject_id": "task_ycb_round5_bowl_tilt_stability",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Check loaded bowl retention at a marked tilt limit is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Check loaded bowl retention at a marked tilt limit.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_bowl_tilt_stability_population_frequency",
+      "subject_id": "task_ycb_round5_bowl_tilt_stability",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Check loaded bowl retention at a marked tilt limit task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_bowl_tilt_stability_robot_execution",
+      "subject_id": "task_ycb_round5_bowl_tilt_stability",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Check loaded bowl retention at a marked tilt limit task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_bowl_tilt_stability_asset_compatibility",
+      "subject_id": "task_ycb_round5_bowl_tilt_stability",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_024_bowl asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_mug_handle_clearance_task_suitability",
+      "subject_id": "task_ycb_round5_mug_handle_clearance",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record mug handle clearance through a marked gauge is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record mug handle clearance through a marked gauge.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_mug_handle_clearance_population_frequency",
+      "subject_id": "task_ycb_round5_mug_handle_clearance",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record mug handle clearance through a marked gauge task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_mug_handle_clearance_robot_execution",
+      "subject_id": "task_ycb_round5_mug_handle_clearance",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record mug handle clearance through a marked gauge task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_mug_handle_clearance_asset_compatibility",
+      "subject_id": "task_ycb_round5_mug_handle_clearance",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_025_mug asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_sponge_compression_recovery_task_suitability",
+      "subject_id": "task_ycb_round5_sponge_compression_recovery",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record sponge compression and shape recovery at a marked limit is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record sponge compression and shape recovery at a marked limit.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_sponge_compression_recovery_population_frequency",
+      "subject_id": "task_ycb_round5_sponge_compression_recovery",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record sponge compression and shape recovery at a marked limit task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_sponge_compression_recovery_robot_execution",
+      "subject_id": "task_ycb_round5_sponge_compression_recovery",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record sponge compression and shape recovery at a marked limit task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_sponge_compression_recovery_asset_compatibility",
+      "subject_id": "task_ycb_round5_sponge_compression_recovery",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_026_sponge asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_base_contact_task_suitability",
+      "subject_id": "task_ycb_round5_skillet_base_contact",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record cool skillet base contact on a flatness gauge is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record cool skillet base contact on a flatness gauge.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_base_contact_population_frequency",
+      "subject_id": "task_ycb_round5_skillet_base_contact",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record cool skillet base contact on a flatness gauge task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_base_contact_robot_execution",
+      "subject_id": "task_ycb_round5_skillet_base_contact",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record cool skillet base contact on a flatness gauge task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_base_contact_asset_compatibility",
+      "subject_id": "task_ycb_round5_skillet_base_contact",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_027_skillet asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_lid_underside_inspection_task_suitability",
+      "subject_id": "task_ycb_round5_skillet_lid_underside_inspection",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record the detached skillet lid underside condition is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record the detached skillet lid underside condition.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_lid_underside_inspection_population_frequency",
+      "subject_id": "task_ycb_round5_skillet_lid_underside_inspection",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record the detached skillet lid underside condition task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_lid_underside_inspection_robot_execution",
+      "subject_id": "task_ycb_round5_skillet_lid_underside_inspection",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record the detached skillet lid underside condition task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_skillet_lid_underside_inspection_asset_compatibility",
+      "subject_id": "task_ycb_round5_skillet_lid_underside_inspection",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_028_skillet_lid asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_plate_rim_separation_task_suitability",
+      "subject_id": "task_ycb_round5_plate_rim_separation",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Verify plate rim separation in a marked rack slot is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Verify plate rim separation in a marked rack slot.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_plate_rim_separation_population_frequency",
+      "subject_id": "task_ycb_round5_plate_rim_separation",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Verify plate rim separation in a marked rack slot task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_plate_rim_separation_robot_execution",
+      "subject_id": "task_ycb_round5_plate_rim_separation",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Verify plate rim separation in a marked rack slot task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_plate_rim_separation_asset_compatibility",
+      "subject_id": "task_ycb_round5_plate_rim_separation",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_029_plate asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_fork_orientation_sort_task_suitability",
+      "subject_id": "task_ycb_round5_fork_orientation_sort",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record fork tine orientation in a marked utensil tray slot is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record fork tine orientation in a marked utensil tray slot.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_fork_orientation_sort_population_frequency",
+      "subject_id": "task_ycb_round5_fork_orientation_sort",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record fork tine orientation in a marked utensil tray slot task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_fork_orientation_sort_robot_execution",
+      "subject_id": "task_ycb_round5_fork_orientation_sort",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record fork tine orientation in a marked utensil tray slot task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_fork_orientation_sort_asset_compatibility",
+      "subject_id": "task_ycb_round5_fork_orientation_sort",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_030_fork asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_spoon_scoop_capacity_task_suitability",
+      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Record spoon scoop capacity with fixed surrogate pieces is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Record spoon scoop capacity with fixed surrogate pieces.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_spoon_scoop_capacity_population_frequency",
+      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Record spoon scoop capacity with fixed surrogate pieces task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_spoon_scoop_capacity_robot_execution",
+      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Record spoon scoop capacity with fixed surrogate pieces task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_spoon_scoop_capacity_asset_compatibility",
+      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_031_spoon asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_knife_cut_soft_strip_task_suitability",
+      "subject_id": "task_ycb_round5_knife_cut_soft_strip",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Cut an approved soft test strip to a marked length is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Cut an approved soft test strip to a marked length.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_knife_cut_soft_strip_population_frequency",
+      "subject_id": "task_ycb_round5_knife_cut_soft_strip",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Cut an approved soft test strip to a marked length task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_knife_cut_soft_strip_robot_execution",
+      "subject_id": "task_ycb_round5_knife_cut_soft_strip",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Cut an approved soft test strip to a marked length task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_knife_cut_soft_strip_asset_compatibility",
+      "subject_id": "task_ycb_round5_knife_cut_soft_strip",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_032_knife asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_spatula_turn_test_task_suitability",
+      "subject_id": "task_ycb_round5_spatula_turn_test",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Turn an approved soft surrogate over in a cool skillet is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Turn an approved soft surrogate over in a cool skillet.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_spatula_turn_test_population_frequency",
+      "subject_id": "task_ycb_round5_spatula_turn_test",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Turn an approved soft surrogate over in a cool skillet task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_spatula_turn_test_robot_execution",
+      "subject_id": "task_ycb_round5_spatula_turn_test",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Turn an approved soft surrogate over in a cool skillet task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_spatula_turn_test_asset_compatibility",
+      "subject_id": "task_ycb_round5_spatula_turn_test",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_033_spatula asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    },
+    {
+      "id": "claim_task_ycb_round5_table_cloth_fold_grid_task_suitability",
+      "subject_id": "task_ycb_round5_table_cloth_fold_grid",
+      "claim_type": "task_suitability",
+      "statement": "This YCB Round 5 task for Fold the table cloth along a marked crease grid is a proposed candidate for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ycb_task_design"
+      ],
+      "scope": "YCB Round 5 kitchen coverage proposal for Fold the table cloth along a marked crease grid.",
+      "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
+    },
+    {
+      "id": "claim_task_ycb_round5_table_cloth_fold_grid_population_frequency",
+      "subject_id": "task_ycb_round5_table_cloth_fold_grid",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Fold the table cloth along a marked crease grid task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population definition or observation protocol is attached to this generated task proposal.",
+      "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
+    },
+    {
+      "id": "claim_task_ycb_round5_table_cloth_fold_grid_robot_execution",
+      "subject_id": "task_ycb_round5_table_cloth_fold_grid",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this specific Fold the table cloth along a marked crease grid task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, trial, or evaluated run is attached.",
+      "limitations": "The unordered skill inventory and collection card are not execution results."
+    },
+    {
+      "id": "claim_task_ycb_round5_table_cloth_fold_grid_asset_compatibility",
+      "subject_id": "task_ycb_round5_table_cloth_fold_grid",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the ycb_034_table_cloth asset and this task setup with a particular simulator or robot is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator asset configuration or physical validation is attached.",
+      "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
+    }
+  ]
+}
