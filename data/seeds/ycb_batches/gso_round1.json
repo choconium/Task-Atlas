@@ -1695,7 +1695,8 @@
         "tie": "cord_tie"
       },
       "compatible_scenes": [
-        "scene_home_bathroom"
+        "scene_home_bathroom",
+        "scene_home_office_desk"
       ],
       "preconditions": [
         "unplugged(theme)",
@@ -9434,6 +9435,7 @@
     "Part C of gso_round1 (8 tasks: rings, Connect 4, knob puzzle, pencil case, bookend, string lights, ink cartridge, fabric cube). Merges into data/drafts/gso_round1.json, which defines the five new scenes and evidence_gso_task_design_round1.",
     "New Atlas concept: object_printer_consumable (ink cartridge). All other objects reuse existing concepts.",
     "Eight new templates (template_gso_*); no existing template carried the needed roles and goals.",
-    "Supporting items (books, second bookend, bins, backpack, printer, card, holiday bin, plush toys, cubby shelf, loose puzzle pieces and rings) are planning resources with gso_resource_* IDs, not ObjectInstances."
+    "Supporting items (books, second bookend, bins, backpack, printer, card, holiday bin, plush toys, cubby shelf, loose puzzle pieces and rings) are planning resources with gso_resource_* IDs, not ObjectInstances.",
+    "Activated 2026-09-25 with Codex review pending (docs/expansion-coordination.md rule); review findings will be applied in place."
   ]
 }
