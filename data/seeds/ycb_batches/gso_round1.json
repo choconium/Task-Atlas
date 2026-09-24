@@ -898,26 +898,26 @@
     {
       "id": "gso_object_connect4_launchers",
       "node_type": "ObjectInstance",
-      "canonical_name": "disc-drop grid game",
-      "name_en": "GSO Connect 4 Launchers model",
-      "name_ja": "GSO コネクト4 ランチャーズ モデル",
-      "category": "disc-drop grid game",
-      "general_concept_id": "object_game_piece",
+      "canonical_name": "board-game retail box",
+      "name_en": "GSO Connect 4 Launchers game box model",
+      "name_ja": "GSO コネクト4 ランチャーズ ゲーム箱 モデル",
+      "category": "boxed board game",
+      "general_concept_id": "object_receptacle",
       "asset_source": "google_scanned_objects",
       "asset_source_version": "Gazebo Fuel GoogleResearch collection, accessed 2026-09-25",
       "asset_source_id": "Connect_4_Launchers",
       "asset_source_url": "https://app.gazebosim.org/GoogleResearch/fuel/models/Connect_4_Launchers",
       "affordances": [
         "graspable",
-        "slot_insertion",
-        "multi_piece",
-        "release_slider"
+        "container",
+        "lidded",
+        "placeable"
       ],
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Google Scanned Objects model Connect_4_Launchers; this is a single rigid photogrammetry scan, not a YCB object. The Atlas concept link object_game_piece is a curator grouping only; GSO carries no source taxonomy. The scan does not establish articulation, deformation, electrical or battery behaviour, or compatibility with Task Atlas, a simulator, or a robot, and it has not been checked whether it shows the loose item or its retail package. The real game has a standing grid, discs in two player colours, launchers, and a box; whether the scan shows the assembled game or its package is not verified."
+      "notes": "Google Scanned Objects model Connect_4_Launchers; a single rigid photogrammetry scan, not a YCB object. The Gazebo Fuel thumbnail (checked 2026-09-25) shows the closed Hasbro retail box, not the assembled game, so the object is named and linked as a box; the Atlas concept link object_receptacle is a curator grouping only and GSO carries no source taxonomy beyond the Fuel category \"Board Games\". The lid is fused to the box in the scan, and the peg grid, rings, and launchers inside the real box are not represented. The scan does not establish articulation, contents, or compatibility with Task Atlas, a simulator, or a robot."
     },
     {
       "id": "gso_object_knob_puzzle_barnyard",
@@ -994,27 +994,26 @@
     {
       "id": "gso_object_led_string_lights",
       "node_type": "ObjectInstance",
-      "canonical_name": "string lights",
-      "name_en": "GSO Philips 60-count warm white LED mini string lights model",
-      "name_ja": "GSO フィリップス LEDミニストリングライト 60球 モデル",
-      "category": "string lights",
-      "general_concept_id": "object_flexible_line",
+      "canonical_name": "string-lights retail box",
+      "name_en": "GSO Philips 60-count warm white LED mini string lights retail box model",
+      "name_ja": "GSO フィリップス LEDミニストリングライト 60球 製品箱 モデル",
+      "category": "retail package",
+      "general_concept_id": "object_receptacle",
       "asset_source": "google_scanned_objects",
       "asset_source_version": "Gazebo Fuel GoogleResearch collection, accessed 2026-09-25",
       "asset_source_id": "Philips_60ct_Warm_White_LED_Smooth_Mini_String_Lights",
       "asset_source_url": "https://app.gazebosim.org/GoogleResearch/fuel/models/Philips_60ct_Warm_White_LED_Smooth_Mini_String_Lights",
       "affordances": [
         "graspable",
-        "flexible",
-        "tangle_prone",
-        "powered",
-        "windable"
+        "container",
+        "flap_closure",
+        "placeable"
       ],
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Google Scanned Objects model Philips_60ct_Warm_White_LED_Smooth_Mini_String_Lights; this is a single rigid photogrammetry scan, not a YCB object. The Atlas concept link object_flexible_line is a curator grouping only; GSO carries no source taxonomy. The scan does not establish articulation, deformation, electrical or battery behaviour, or compatibility with Task Atlas, a simulator, or a robot, and it has not been checked whether it shows the loose item or its retail package. The real light string is a long flexible mains-powered cord; the rigid scan cannot represent winding, and it may show the product package."
+      "notes": "Google Scanned Objects model Philips_60ct_Warm_White_LED_Smooth_Mini_String_Lights; a single rigid photogrammetry scan, not a YCB object. The Gazebo Fuel thumbnail (checked 2026-09-25) shows the closed retail box (Fuel category \"Consumer Goods\"), not the light string, so the object is named and linked as a box; the Atlas concept link object_receptacle is a curator grouping only. The flap is fused to the box in the scan, and the flexible mains-powered string inside the real box is not represented. The scan does not establish articulation, contents, electrical behaviour, or compatibility with Task Atlas, a simulator, or a robot."
     },
     {
       "id": "gso_object_ink_cartridge_cyan_251",
@@ -1700,7 +1699,6 @@
       ],
       "preconditions": [
         "unplugged(theme)",
-        "cool(theme)",
         "cord_uncoiled(theme)",
         "clear(hook)"
       ],
@@ -1922,50 +1920,51 @@
     {
       "id": "template_gso_release_sort_and_box_game",
       "node_type": "TaskTemplate",
-      "name_en": "Release, sort, and box a disc game",
-      "name_ja": "ディスクゲームを外し、色分けして箱にしまう",
+      "name_en": "Clear, sort, and box a ring-stacking game",
+      "name_ja": "リングゲームを片付け、色分けして箱にしまう",
       "verb": "pack",
       "roles": {
         "theme": "game_set",
-        "grid": "grid",
+        "grid": "peg_grid",
         "pieces_a": "piece_set_a",
         "pieces_b": "piece_set_b",
         "bin_a": "bin_a",
         "bin_b": "bin_b",
         "box": "game_box",
-        "catch_tray": "catch_tray"
+        "launchers": "game_accessory"
       },
       "compatible_scenes": [
         "scene_ycb_playroom",
         "scene_kids_bedroom"
       ],
       "preconditions": [
-        "inside(pieces_a, grid)",
-        "inside(pieces_b, grid)",
+        "stacked_on(pieces_a, grid)",
+        "stacked_on(pieces_b, grid)",
         "open(box)"
       ],
       "goals": [
+        "outside(pieces_a, grid)",
+        "outside(pieces_b, grid)",
         "inside(pieces_a, bin_a)",
         "inside(pieces_b, bin_b)",
-        "outside(pieces_a, grid)",
         "inside(grid, box)",
         "inside(bin_a, box)",
         "inside(bin_b, box)",
+        "inside(launchers, box)",
         "closed(box)"
       ],
       "skills": [
         "skill_locate",
-        "skill_open",
         "skill_grasp",
+        "skill_inspect",
         "skill_sort",
         "skill_place",
-        "skill_release",
         "skill_lift",
         "skill_close",
         "skill_verify"
       ],
       "failure_modes": [
-        "disc_spill",
+        "ring_dropped",
         "colour_mixed",
         "box_lid_not_seated"
       ],
@@ -2053,7 +2052,8 @@
         "inside(item_3, theme)",
         "inside(item_4, theme)",
         "closed(theme)",
-        "inside(theme, destination)"
+        "inside(theme, destination)",
+        "closed(destination)"
       ],
       "skills": [
         "skill_locate",
@@ -2099,7 +2099,6 @@
       "goals": [
         "upright(books)",
         "between(books, theme, partner)",
-        "no_book_leaning(books)",
         "on_top_of(theme, shelf)",
         "on_top_of(partner, shelf)"
       ],
@@ -2127,14 +2126,14 @@
     {
       "id": "template_gso_wind_and_store_cord",
       "node_type": "TaskTemplate",
-      "name_en": "Wind a cord on a card and store it in a bin",
-      "name_ja": "コードをカードに巻いて収納箱にしまう",
+      "name_en": "Wind a cord on a card and pack it in its box",
+      "name_ja": "コードをカードに巻いて箱にしまう",
       "verb": "store",
       "roles": {
         "theme": "cord",
         "winder": "storage_card",
         "plug_end": "plug_end",
-        "destination": "storage_bin"
+        "destination": "product_box"
       },
       "compatible_scenes": [
         "scene_household_storage_closet"
@@ -2148,7 +2147,8 @@
         "wound_on(theme, winder)",
         "no_crossing_turns(theme)",
         "tucked_under_last_turn(plug_end, winder)",
-        "inside(winder, destination)"
+        "inside(winder, destination)",
+        "closed(destination)"
       ],
       "skills": [
         "skill_locate",
@@ -2158,7 +2158,8 @@
         "skill_orient",
         "skill_place",
         "skill_release",
-        "skill_verify"
+        "skill_verify",
+        "skill_close"
       ],
       "failure_modes": [
         "tangle",
@@ -2329,12 +2330,12 @@
         "skill_release",
         "skill_verify"
       ],
-      "granularity": "workflow",
+      "granularity": "compound",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Workflow with three checkpointed stages: the pan must be dry before the film is applied, and the film must cover the marked cooking surface before storage. A tinted, non-food oil surrogate replaces cooking oil so coverage is visually checkable and no heating step is needed; real seasoning (oil baked on) is out of scope. The GSO scan is a single rigid mesh with no mass, moisture, or surface-film representation, so wiping and coating need a real pan or a separately authored asset. The pan is heavy; collection uses a cool pan only."
+      "notes": "Compound: one pan, three net changes (dry, film applied, on the liner) in one sitting, with the lined shelf next to the counter work zone. \"Dry before coating\" is an ordering constraint inside one sitting, not a checkpointed stage or a second destination. The intent intent_clean refers to the dry(...) and film_applied(...) goal predicates; on_top_of(liner, shelf) is unchanged from the start state and is listed only as a preserved condition (the liner must not be dragged off). A tinted, non-food oil surrogate replaces cooking oil so coverage is visually checkable and no heating step is needed; real seasoning (oil baked on) is out of scope. The GSO scan is a single rigid mesh with no mass, moisture, or surface-film representation, so wiping and coating need a real pan or a separately authored asset. The pan is heavy; collection uses a cool pan only."
     },
     {
       "id": "task_gso_r1_layer_cake_pans_nest_slot",
@@ -2788,7 +2789,8 @@
         "covered(gso_resource_marked_floor_patch, gso_resource_dry_crumb_surrogate)",
         "brush_snapped_onto_pan(gso_object_dust_pan_and_brush)",
         "on_top_of(gso_object_dust_pan_and_brush, gso_resource_kitchen_floor)",
-        "open_top(gso_resource_kitchen_trash_bin)"
+        "open_top(gso_resource_kitchen_trash_bin)",
+        "inside(gso_resource_trash_bin_liner, gso_resource_kitchen_trash_bin)"
       ],
       "goal_state": [
         "not_covered(gso_resource_marked_floor_patch, gso_resource_dry_crumb_surrogate)",
@@ -2817,7 +2819,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Goal: the patch is clear, the crumbs are in the bin, and the set is stowed. Labelled compound: three goal predicates at one floor spot plus a nearby bin in one sitting, with no reset between stages. A dry surrogate replaces real food debris for hygiene. The GSO scan fuses the brush and pan in their snapped state as one rigid mesh, so separation, bristle contact, and particulate pickup all need a real or separately modelled asset."
+      "notes": "Goal: the patch is clear, the crumbs are in the bin, and the set is stowed. Labelled compound: three goal predicates at one floor spot plus a nearby bin in one sitting, with no reset between stages. A dry surrogate replaces real food debris for hygiene. The GSO scan fuses the brush and pan in their snapped state as one rigid mesh, so separation, bristle contact, and particulate pickup all need a real or separately modelled asset. Tolerance: 40 counted surrogate pieces are spread at setup; the patch counts as clear when at most 3 remain inside it, and at most 2 may end up on the floor outside the patch and bin. The bin is lined so the surrogate can be recovered at reset."
     },
     {
       "id": "task_gso_r1_waste_basket_replace_liner",
@@ -3247,8 +3249,8 @@
       "id": "task_gso_r1_connect4_release_sort_box",
       "node_type": "TaskInstance",
       "template_id": "template_gso_release_sort_and_box_game",
-      "name_en": "Empty the Connect 4 grid, sort the discs by colour, and pack the game box",
-      "name_ja": "コネクト4の盤からディスクを出し、色分けして箱に片付ける",
+      "name_en": "Clear the Connect 4 Launchers peg grid, sort the rings by colour, and pack the game box",
+      "name_ja": "コネクト4ランチャーズのポールからリングを外し、色分けしてゲームの箱に片付ける",
       "intent_id": "intent_store",
       "object_id": "gso_object_connect4_launchers",
       "scene_id": "scene_ycb_playroom",
@@ -3259,8 +3261,8 @@
         "pieces_b": "gso_resource_connect4_discs_colour_b",
         "bin_a": "gso_resource_disc_bin_colour_a",
         "bin_b": "gso_resource_disc_bin_colour_b",
-        "box": "gso_resource_connect4_game_box",
-        "catch_tray": "gso_resource_disc_catch_tray"
+        "box": "gso_object_connect4_launchers",
+        "launchers": "gso_resource_connect4_launcher_pieces"
       },
       "state_ids": [
         "state_upright",
@@ -3270,12 +3272,12 @@
         "state_closed"
       ],
       "initial_state": [
-        "upright(gso_resource_connect4_grid)",
-        "inside(gso_resource_connect4_discs_colour_a, gso_resource_connect4_grid)",
-        "inside(gso_resource_connect4_discs_colour_b, gso_resource_connect4_grid)",
-        "on_top_of(gso_resource_disc_catch_tray, gso_resource_play_table)",
-        "on_top_of(gso_resource_connect4_launchers, gso_resource_play_table)",
-        "open(gso_resource_connect4_game_box)",
+        "on_top_of(gso_resource_connect4_grid, gso_resource_play_table)",
+        "stacked_on(gso_resource_connect4_discs_colour_a, gso_resource_connect4_grid)",
+        "stacked_on(gso_resource_connect4_discs_colour_b, gso_resource_connect4_grid)",
+        "on_top_of(gso_resource_connect4_launcher_pieces, gso_resource_play_table)",
+        "on_top_of(gso_object_connect4_launchers, gso_resource_play_table)",
+        "open(gso_object_connect4_launchers)",
         "empty(gso_resource_disc_bin_colour_a)",
         "empty(gso_resource_disc_bin_colour_b)"
       ],
@@ -3284,25 +3286,23 @@
         "outside(gso_resource_connect4_discs_colour_b, gso_resource_connect4_grid)",
         "inside(gso_resource_connect4_discs_colour_a, gso_resource_disc_bin_colour_a)",
         "inside(gso_resource_connect4_discs_colour_b, gso_resource_disc_bin_colour_b)",
-        "inside(gso_resource_connect4_grid, gso_resource_connect4_game_box)",
-        "inside(gso_resource_disc_bin_colour_a, gso_resource_connect4_game_box)",
-        "inside(gso_resource_disc_bin_colour_b, gso_resource_connect4_game_box)",
-        "inside(gso_resource_connect4_launchers, gso_resource_connect4_game_box)",
-        "closed(gso_resource_connect4_game_box)"
+        "inside(gso_resource_connect4_grid, gso_object_connect4_launchers)",
+        "inside(gso_resource_disc_bin_colour_a, gso_object_connect4_launchers)",
+        "inside(gso_resource_disc_bin_colour_b, gso_object_connect4_launchers)",
+        "inside(gso_resource_connect4_launcher_pieces, gso_object_connect4_launchers)",
+        "closed(gso_object_connect4_launchers)"
       ],
       "instruction_variants": [
-        "Drop the discs out of the grid into the tray, sort them into the two colour bins, and pack everything into the box.",
-        "Clear the Connect 4 grid, separate the two colours, and close the game box with the grid, bins, and launchers inside.",
-        "盤の下のレバーでディスクをトレーに落とし、2色に分けて容器に入れ、盤と一緒に箱へしまってください。"
+        "Lift the rings off the pegs, sort them into the two colour bins, and pack the grid, bins, and launchers into the Connect 4 Launchers box.",
+        "Clear the Connect 4 Launchers grid, separate the two ring colours, and close the game box with the grid, bins, and launchers inside.",
+        "ポールからリングを外して2色に分けて容器に入れ、盤・容器・ランチャーをコネクト4ランチャーズの箱にしまって蓋を閉めてください。"
       ],
       "skills": [
         "skill_locate",
-        "skill_open",
         "skill_grasp",
         "skill_inspect",
         "skill_sort",
         "skill_place",
-        "skill_release",
         "skill_lift",
         "skill_close",
         "skill_verify"
@@ -3312,7 +3312,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Workflow: three checkpointed stages at different destinations: release the discs from the grid into a catch tray (checkpoint: grid empty), sort by colour into two bins (checkpoint: each bin single-colour and total count matches), then pack grid, bins, and launchers into the box and close it. The game-level goal is distinct from active Duplo/Lego connection tasks and from generic die-to-cup tasks. The scan is one rigid mesh; the release slider, discs, and box are declared resources. Discs are coin-sized and are a choking hazard for young children; the game is not used around toddlers during collection."
+      "notes": "Workflow: two checkpointed stages with several destinations: lift every ring off the peg grid into its colour bin (checkpoint: grid empty, each bin single-colour with the recorded count), then pack grid, both bins, and the launchers into the game box and close it. Anchor: the Gazebo Fuel thumbnail of Connect_4_Launchers (checked 2026-09-25) shows the closed retail game box, so the scan is bound as the box that receives the parts and is closed; the grid, rings, and launchers are real-object resources the scan does not show. The box art shows the Launchers edition as a base of vertical pegs that red and yellow rings are launched onto, not the classic upright grid with a bottom release slider, so the earlier release-slider stage was removed. Whether the grid must be partly disassembled to fit the box is recorded at setup. The game-level goal is distinct from active Duplo/Lego connection tasks and from generic die-to-cup tasks. Rings are small parts (the box is marked age 5+); the game is not used around toddlers during collection."
     },
     {
       "id": "task_gso_r1_knob_puzzle_seat_all_pieces",
@@ -3406,7 +3406,8 @@
         "inside(gso_resource_eraser, gso_object_pencil_case_pink)",
         "inside(gso_resource_ruler_15cm, gso_object_pencil_case_pink)",
         "closed(gso_object_pencil_case_pink)",
-        "inside(gso_object_pencil_case_pink, gso_resource_backpack_front_pocket)"
+        "inside(gso_object_pencil_case_pink, gso_resource_backpack_front_pocket)",
+        "closed(gso_resource_backpack_front_pocket)"
       ],
       "instruction_variants": [
         "Put both pencils, the eraser, and the ruler in the pink pencil case, zip it shut, and slide it into the backpack's front pocket.",
@@ -3423,12 +3424,12 @@
         "skill_open",
         "skill_verify"
       ],
-      "granularity": "workflow",
+      "granularity": "compound",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Workflow: three checkpointed stages with two destinations: load four items (checkpoint: all four inside, none protruding past the zipper line), close the zipper end to end (checkpoint: no gap), then open the backpack pocket, insert the case, and close the pocket if declared. Zipper pulling on a soft pouch and a second soft pocket make it harder than the active rigid-box packing tasks. The ruler must fit the case length. The scan is rigid; the zipper and soft walls are not represented."
+      "notes": "Compound: everything happens at one desk in one sitting; the backpack is within reach and putting the case in the pocket is a nested placement, not a second location. End state: four items inside the case (none protruding past the zipper line), the case zipper closed end to end, the case inside the front pocket, and the pocket zipped closed again (it starts closed). Zipper pulling on a soft pouch and a second soft pocket make it harder than the active rigid-box packing tasks. The ruler must fit the case length. The scan is rigid; the zipper and soft walls are not represented."
     },
     {
       "id": "task_gso_r1_bookends_four_books_upright",
@@ -3459,7 +3460,6 @@
       "goal_state": [
         "upright(gso_resource_four_books)",
         "between(gso_resource_four_books, gso_object_reversible_bookend, gso_resource_second_bookend)",
-        "no_book_leaning(gso_resource_four_books)",
         "spine_out(gso_resource_four_books)",
         "on_top_of(gso_object_reversible_bookend, gso_resource_desk_bookshelf)",
         "on_top_of(gso_resource_second_bookend, gso_resource_desk_bookshelf)"
@@ -3484,45 +3484,48 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Compound: four books and two bookends in one sitting, with an upright, non-leaning end state; one bookend must be pushed snug after the books are placed, which holds the row while the gripper releases. No active task arranges books against supports. The scan covers one bookend only. Books are ordinary hardcover or paperback of similar height, declared as a resource."
+      "notes": "Compound: four books and two bookends in one sitting, with an upright, non-leaning end state; one bookend must be pushed snug after the books are placed, which holds the row while the gripper releases. No active task arranges books against supports. The scan covers one bookend only. Books are ordinary hardcover or paperback of similar height, declared as a resource. upright(books) means every book's spine is within 5 degrees of vertical on the front photograph and each book touches its neighbour or a bookend; it replaces the former duplicate no_book_leaning predicate."
     },
     {
       "id": "task_gso_r1_string_lights_wind_and_store",
       "node_type": "TaskInstance",
       "template_id": "template_gso_wind_and_store_cord",
-      "name_en": "Wind the unplugged LED string lights on a storage card and store it in the holiday bin",
-      "name_ja": "電源を抜いたLEDストリングライトを収納カードに巻き、季節用品の箱にしまう",
+      "name_en": "Wind the unplugged LED string lights on a storage card and pack them back in their retail box",
+      "name_ja": "電源を抜いたLEDストリングライトを収納カードに巻き、元の製品箱に戻す",
       "intent_id": "intent_store",
       "object_id": "gso_object_led_string_lights",
       "scene_id": "scene_household_storage_closet",
       "bindings": {
-        "theme": "gso_object_led_string_lights",
+        "theme": "gso_resource_led_light_string",
         "winder": "gso_resource_cord_storage_card",
         "plug_end": "gso_resource_string_lights_plug_end",
-        "destination": "gso_resource_holiday_storage_bin"
+        "destination": "gso_object_led_string_lights"
       },
       "state_ids": [
         "state_on_surface",
         "state_inside_receptacle",
-        "state_open"
+        "state_open",
+        "state_closed"
       ],
       "initial_state": [
-        "unplugged(gso_object_led_string_lights)",
-        "loose_on_surface(gso_object_led_string_lights, gso_resource_closet_work_surface)",
+        "unplugged(gso_resource_led_light_string)",
+        "loose_on_surface(gso_resource_led_light_string, gso_resource_closet_work_surface)",
         "on_top_of(gso_resource_cord_storage_card, gso_resource_closet_work_surface)",
-        "open(gso_resource_holiday_storage_bin)"
+        "on_top_of(gso_object_led_string_lights, gso_resource_closet_work_surface)",
+        "open(gso_object_led_string_lights)"
       ],
       "goal_state": [
-        "unplugged(gso_object_led_string_lights)",
-        "wound_on(gso_object_led_string_lights, gso_resource_cord_storage_card)",
-        "no_crossing_turns(gso_object_led_string_lights)",
+        "unplugged(gso_resource_led_light_string)",
+        "wound_on(gso_resource_led_light_string, gso_resource_cord_storage_card)",
+        "no_crossing_turns(gso_resource_led_light_string)",
         "tucked_under_last_turn(gso_resource_string_lights_plug_end, gso_resource_cord_storage_card)",
-        "inside(gso_resource_cord_storage_card, gso_resource_holiday_storage_bin)"
+        "inside(gso_resource_cord_storage_card, gso_object_led_string_lights)",
+        "closed(gso_object_led_string_lights)"
       ],
       "instruction_variants": [
-        "Wind the unplugged string lights neatly around the storage card, tuck the plug under the last loop, and put the card in the holiday bin.",
-        "Coil the light string on its card without crossing turns, secure the plug end, and store it in the seasonal bin.",
-        "コンセントを抜いたライトを交差しないようにカードに巻き、プラグを最後の巻きの下に挟んで、季節用品の箱に入れてください。"
+        "Wind the unplugged string lights neatly around the storage card, tuck the plug under the last loop, and slide the card back into the Philips box and close it.",
+        "Coil the light string on its card without crossing turns, secure the plug end, and pack it in its retail box.",
+        "コンセントを抜いたライトを交差しないようにカードに巻き、プラグを最後の巻きの下に挟んで、元の製品箱に入れて閉じてください。"
       ],
       "skills": [
         "skill_locate",
@@ -3532,14 +3535,15 @@
         "skill_align",
         "skill_place",
         "skill_release",
+        "skill_close",
         "skill_verify"
       ],
-      "granularity": "workflow",
+      "granularity": "compound",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round1",
-      "notes": "Workflow: stages with checkpoints: confirm the string is unplugged and untangle it into one loose run (checkpoint: no knots), wind it onto the card from the far end with non-crossing turns (checkpoint: turns parallel), tuck the plug end under the last turn, then carry the card to the holiday bin. It differs from the active YCB rope and chain layout and clamp tasks because the goal is a wound, secured coil stored at a second destination. The item is mains powered: it is never plugged in during collection, and the plug is handled by its body, not the cord. LED bulbs can crack if pinched. The scan is rigid and may be the retail box."
+      "notes": "Compound: untangling, winding, tucking, and boxing happen at one closet work surface in one sitting, with no reset or separate destination. Anchor: the Gazebo Fuel thumbnail of Philips_60ct_Warm_White_LED_Smooth_Mini_String_Lights (checked 2026-09-25) shows the retail box, not the light string, so the scan is bound as the box the wound card goes back into; the light string itself is a real-object requirement (gso_resource_led_light_string) that the scan does not show. unplugged(...) is a preserved safety condition, not a change. It differs from the active YCB rope and chain layout and clamp tasks because the goal is a wound, secured coil packed in its product box. The item is mains powered: it is never plugged in during collection, and the plug is handled by its body, not the cord. LED bulbs can crack if pinched."
     },
     {
       "id": "task_gso_r1_ink_cartridge_install_cyan",
@@ -5116,6 +5120,11 @@
         },
         {
           "key": "object",
+          "value": "gso_resource_trash_bin_liner",
+          "reason": "Fresh bin liner so the swept surrogate can be recovered and recounted at reset."
+        },
+        {
+          "key": "object",
           "value": "gso_resource_kitchen_floor",
           "reason": "Hard, flat floor surface where the set rests between uses."
         },
@@ -5147,12 +5156,17 @@
         {
           "key": "condition",
           "value": "crumb_count_or_mass_recorded",
-          "reason": "The surrogate amount is recorded at setup so leftover crumbs can be counted."
+          "reason": "40 surrogate pieces are counted at setup so the at-most-3-left tolerance can be checked."
         },
         {
           "key": "condition",
           "value": "trash_bin_lid_open_or_absent",
           "reason": "The bin must accept the pan's contents without a separate lid-opening step."
+        },
+        {
+          "key": "condition",
+          "value": "trash_bin_lined_with_fresh_liner",
+          "reason": "The swept surrogate lands in a clean liner and is recovered from it at reset."
         }
       ],
       "procedures": [
@@ -5251,13 +5265,13 @@
       ],
       "collection": {
         "success_criteria": [
-          "No crumb surrogate pieces remain inside the taped patch (count at or below the stated tolerance).",
-          "The swept crumb surrogate is inside the trash bin, not on the floor around it.",
+          "At most 3 of the 40 crumb surrogate pieces remain inside the taped patch.",
+          "The swept crumb surrogate is inside the trash bin liner; at most 2 pieces are on the floor outside the patch and the bin.",
           "The brush is snapped onto the dustpan handle."
         ],
         "setup": [
-          "Tape a square on the floor and spread a recorded amount of dry crumb surrogate inside it.",
-          "Place the snapped dustpan-and-brush set beside the patch and an open, lined trash bin within reach."
+          "Tape a 30 cm x 30 cm square on the floor and spread 40 counted pieces of dry crumb surrogate inside it.",
+          "Place the snapped dustpan-and-brush set beside the patch, and put a fresh liner in the open trash bin within reach."
         ],
         "reset": [
           "Recover the surrogate from the bin liner, re-spread the recorded amount inside the patch, and snap the brush onto the pan."
@@ -6638,27 +6652,22 @@
         {
           "key": "object",
           "value": "gso_object_connect4_launchers",
-          "reason": "Primary GSO Connect 4 Launchers model; not a YCB object."
+          "reason": "Primary GSO Connect 4 Launchers model; its thumbnail shows the retail game box, which is the box the parts are packed into. Not a YCB object."
         },
         {
           "key": "object",
           "value": "gso_resource_connect4_grid",
-          "reason": "Standing grid of the physical game, with its bottom release slider."
+          "reason": "Peg grid of the physical Launchers game; the rings stack on its vertical pegs."
         },
         {
           "key": "object",
           "value": "gso_resource_connect4_discs_colour_a",
-          "reason": "Discs of the first player colour."
+          "reason": "Rings of the first player colour."
         },
         {
           "key": "object",
           "value": "gso_resource_connect4_discs_colour_b",
-          "reason": "Discs of the second player colour."
-        },
-        {
-          "key": "object",
-          "value": "gso_resource_disc_catch_tray",
-          "reason": "Shallow tray that catches released discs."
+          "reason": "Rings of the second player colour."
         },
         {
           "key": "object",
@@ -6672,28 +6681,13 @@
         },
         {
           "key": "object",
-          "value": "gso_resource_connect4_launchers",
-          "reason": "Launchers packed with the game."
-        },
-        {
-          "key": "object",
-          "value": "gso_resource_connect4_game_box",
-          "reason": "Game box with lid."
+          "value": "gso_resource_connect4_launcher_pieces",
+          "reason": "The game's launcher pieces, packed with the grid; separate from the scanned box."
         },
         {
           "key": "object",
           "value": "gso_resource_play_table",
           "reason": "Play table under the grid, tray, and box."
-        },
-        {
-          "key": "condition",
-          "value": "disc_count_per_colour_recorded_at_setup",
-          "reason": "Sorting and packing checks need a declared count."
-        },
-        {
-          "key": "condition",
-          "value": "grid_release_slider_operable",
-          "reason": "The first stage relies on the grid's bottom release."
         },
         {
           "key": "condition",
@@ -6703,17 +6697,27 @@
         {
           "key": "capability",
           "value": "rigid_manipulation",
-          "reason": "Grasping discs, grid, and bins."
+          "reason": "Grasping rings, grid, bins, and the box."
         },
         {
           "key": "capability",
           "value": "articulated_closure",
-          "reason": "Operating the release slider and closing the box lid."
+          "reason": "Opening and closing the game box lid."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
           "reason": "Colour sorting."
+        },
+        {
+          "key": "condition",
+          "value": "ring_count_per_colour_recorded_at_setup",
+          "reason": "Sorting and packing checks need a declared count."
+        },
+        {
+          "key": "condition",
+          "value": "grid_packing_configuration_recorded",
+          "reason": "Whether the grid fits the box whole or with pegs removed changes the packing stage."
         }
       ],
       "procedures": [
@@ -6723,35 +6727,27 @@
           "steps": [
             {
               "skill_id": "skill_locate",
-              "description": "Locate the grid, catch tray, bins, launchers, and open box."
+              "description": "Locate the peg grid, both bins, the launchers, and the open game box."
             },
             {
-              "skill_id": "skill_place",
-              "description": "Place the catch tray under the grid."
-            },
-            {
-              "skill_id": "skill_open",
-              "description": "Slide the grid release so the discs drop into the tray."
-            },
-            {
-              "skill_id": "skill_verify",
-              "description": "Checkpoint: verify the grid is empty and return the slider."
+              "skill_id": "skill_grasp",
+              "description": "Grasp the top ring on a peg."
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Identify each disc's colour."
+              "description": "Identify the ring's colour."
             },
             {
               "skill_id": "skill_sort",
-              "description": "Place each disc into its colour bin."
+              "description": "Place the ring into its colour bin; repeat for every ring."
             },
             {
               "skill_id": "skill_verify",
-              "description": "Checkpoint: verify each bin holds one colour and counts match."
+              "description": "Checkpoint: verify the grid is empty and each bin holds one colour with the recorded count."
             },
             {
               "skill_id": "skill_lift",
-              "description": "Lift the grid and lay it in the box."
+              "description": "Lift the grid and lay it in the game box."
             },
             {
               "skill_id": "skill_place",
@@ -6766,13 +6762,7 @@
               "description": "Verify all declared parts are inside and the lid is closed."
             }
           ],
-          "requirements": [
-            {
-              "key": "object",
-              "value": "gso_resource_disc_catch_tray",
-              "reason": "Catches the released discs."
-            }
-          ],
+          "requirements": [],
           "review_status": "proposed"
         },
         {
@@ -6781,15 +6771,15 @@
           "steps": [
             {
               "skill_id": "skill_locate",
-              "description": "Locate grid, bins, and box."
+              "description": "Locate the grid, bins, and game box."
             },
             {
-              "skill_id": "skill_open",
-              "description": "Open the release slider partly so discs drop column by column into the tray."
+              "skill_id": "skill_grasp",
+              "description": "Slide a whole same-colour stack off one peg at a time."
             },
             {
               "skill_id": "skill_sort",
-              "description": "Move each disc from the tray into its colour bin as it falls."
+              "description": "Drop each stack into its colour bin, separating mixed stacks ring by ring."
             },
             {
               "skill_id": "skill_verify",
@@ -6825,25 +6815,25 @@
       ],
       "collection": {
         "success_criteria": [
-          "No discs remain in the grid.",
+          "No rings remain on the peg grid.",
           "Each colour bin holds only its colour and the recorded count.",
           "Grid, both bins, and launchers are inside the game box.",
-          "The box lid is closed."
+          "The game box lid is closed."
         ],
         "setup": [
-          "Fill the grid with the recorded number of discs of each colour in a mixed pattern.",
-          "Place the catch tray, two empty labelled bins, launchers, and open box on the play table.",
-          "Confirm the release slider works and no toddlers are present."
+          "Stack the recorded number of rings of each colour on the pegs in a mixed pattern.",
+          "Place two empty labelled bins, the launchers, and the open game box on the play table.",
+          "Record whether the grid packs whole or with pegs removed, and confirm no toddlers are present."
         ],
         "reset": [
-          "Unpack the box, reload the grid with a new recorded pattern, and empty both bins."
+          "Unpack the box, restack the rings in a new recorded pattern, and empty both bins."
         ],
         "quality_checks": [
-          "Count discs per bin.",
-          "Check for discs dropped on the floor or left in the tray."
+          "Count rings per bin.",
+          "Check for rings dropped on the floor or left on the pegs."
         ],
         "failure_modes": [
-          "Discs spill past the catch tray",
+          "Rings dropped off the table",
           "Colours mixed in a bin",
           "Grid does not fit in the box with bins",
           "Lid not seated"
@@ -7139,14 +7129,15 @@
         "success_criteria": [
           "Both pencils, the eraser, and the ruler are inside the case.",
           "The case zipper is closed end to end.",
-          "The case is inside the backpack front pocket."
+          "The case is inside the backpack front pocket.",
+          "The backpack front pocket is zipped closed with the case inside."
         ],
         "setup": [
           "Open the case fully and lay the four items beside it on the desk in a recorded layout.",
-          "Empty the backpack front pocket and stand the backpack within reach."
+          "Empty the backpack front pocket, zip it closed, and stand the backpack within reach."
         ],
         "reset": [
-          "Remove the case from the pocket, unzip it, and lay the items back out."
+          "Unzip the pocket, remove the case, unzip it, lay the items back out, and zip the empty pocket closed."
         ],
         "quality_checks": [
           "Open the case after the trial and count items.",
@@ -7269,7 +7260,7 @@
         "success_criteria": [
           "All four books stand upright with spines out.",
           "Books are between the two bookends.",
-          "No book leans more than a declared small tolerance.",
+          "Every book spine is within 5 degrees of vertical, measured on the front photograph, 5 s after release.",
           "Both bookends rest on the shelf."
         ],
         "setup": [
@@ -7279,8 +7270,8 @@
           "Remove the books and lay them flat again; move the bookends back to the start positions."
         ],
         "quality_checks": [
-          "Front photograph with a vertical reference to check lean.",
-          "Wait a few seconds after release to confirm the row stays up."
+          "Front photograph with a vertical reference to measure each spine's lean (limit 5 degrees).",
+          "Wait 5 s after release, then re-photograph to confirm the row stays up."
         ],
         "failure_modes": [
           "Last book leans into the gap",
@@ -7308,12 +7299,17 @@
         {
           "key": "object",
           "value": "gso_object_led_string_lights",
-          "reason": "Primary GSO string-lights model; not a YCB object."
+          "reason": "Primary GSO model; its thumbnail shows the Philips retail box, which is the destination the wound card is packed into. Not a YCB object."
+        },
+        {
+          "key": "object",
+          "value": "gso_resource_led_light_string",
+          "reason": "The physical 60-bulb LED light string that is wound; not represented by the box scan."
         },
         {
           "key": "object",
           "value": "gso_resource_cord_storage_card",
-          "reason": "Flat storage card or winder with end notches."
+          "reason": "Flat storage card or winder with end notches that fits inside the retail box when wound."
         },
         {
           "key": "object",
@@ -7322,13 +7318,13 @@
         },
         {
           "key": "object",
-          "value": "gso_resource_holiday_storage_bin",
-          "reason": "Open holiday storage bin."
-        },
-        {
-          "key": "object",
           "value": "gso_resource_closet_work_surface",
           "reason": "Clear work surface in or near the closet."
+        },
+        {
+          "key": "capability",
+          "value": "articulated_closure",
+          "reason": "Tucking the box flap closed."
         },
         {
           "key": "condition",
@@ -7359,6 +7355,11 @@
           "key": "capability",
           "value": "visual_inspection",
           "reason": "Checking for crossing turns."
+        },
+        {
+          "key": "condition",
+          "value": "wound_card_fits_retail_box",
+          "reason": "The card size is chosen so the fully wound string slides into the box."
         }
       ],
       "procedures": [
@@ -7400,15 +7401,19 @@
             },
             {
               "skill_id": "skill_place",
-              "description": "Place the wound card into the holiday bin."
+              "description": "Slide the wound card into the open retail box."
             },
             {
               "skill_id": "skill_release",
-              "description": "Release the card inside the bin."
+              "description": "Release the card inside the box."
+            },
+            {
+              "skill_id": "skill_close",
+              "description": "Tuck the box flap closed."
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify the card is in the bin and the plug stays tucked."
+              "description": "Verify the card is in the closed box and the plug stays tucked."
             }
           ],
           "requirements": [
@@ -7426,14 +7431,14 @@
           "The string is unplugged.",
           "The whole string is wound on the card with no crossing turns.",
           "The plug end is held under the last turn.",
-          "The card is inside the holiday bin."
+          "The card is inside the Philips retail box and the box flap is closed."
         ],
         "setup": [
           "Confirm the string is unplugged; lay it in a recorded loose pattern on the work surface.",
-          "Place the card beside it and open the holiday bin."
+          "Place the card beside it and the empty retail box with its flap open."
         ],
         "reset": [
-          "Remove the card from the bin, unwind the string, and lay it out again in a new recorded pattern."
+          "Take the card out of the box, unwind the string, and lay it out again in a new recorded pattern; leave the box flap open."
         ],
         "quality_checks": [
           "Photograph both faces of the card to check for crossings.",
@@ -7445,7 +7450,8 @@
           "Turns cross",
           "Bulb crushed under a turn",
           "Plug end slips out",
-          "Card dropped outside the bin"
+          "Wound card too thick for the box",
+          "Box flap not tucked closed"
         ],
         "consumables": [],
         "time_estimates": {
@@ -8001,7 +8007,7 @@
       "id": "claim_gso_r1_cast_iron_pan_dry_oil_shelve_task_suitability",
       "subject_id": "task_gso_r1_cast_iron_pan_dry_oil_shelve",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed kitchen cleanup workflow that dries, film-coats, and shelves a cast-iron pan for collection design review.",
+      "statement": "This is a proposed compound kitchen cleanup task that dries, film-coats, and shelves a cast-iron pan for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -8998,7 +9004,7 @@
       "source_ids": [
         "evidence_gso_task_design_round1"
       ],
-      "scope": "One Connect 4 Launchers set on a play table with declared bins and box.",
+      "scope": "One Connect 4 Launchers set (peg grid, rings, launchers) on a play table, packed into its scanned retail box with two declared bins.",
       "limitations": "Design-seed provenance only; the goal, setup, and resources still need review and a collection trial."
     },
     {
@@ -9029,7 +9035,7 @@
       "id": "claim_gso_r1_connect4_release_sort_box_asset_compatibility",
       "subject_id": "task_gso_r1_connect4_release_sort_box",
       "claim_type": "asset_compatibility",
-      "statement": "Compatibility of the rigid GSO Connect 4 scan with separate discs, a working release slider, and a lidded box is unknown.",
+      "statement": "Compatibility of the rigid GSO Connect 4 Launchers box scan with an openable lid and the separate grid, rings, and launchers is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
@@ -9254,7 +9260,7 @@
       "source_ids": [
         "evidence_gso_task_design_round1"
       ],
-      "scope": "One unplugged 60-bulb LED string, one storage card, one holiday bin in a storage closet.",
+      "scope": "One unplugged 60-bulb LED string wound on one storage card and packed in its scanned retail box in a storage closet.",
       "limitations": "Design-seed provenance only; the goal, setup, and resources still need review and a collection trial."
     },
     {
@@ -9285,7 +9291,7 @@
       "id": "claim_gso_r1_string_lights_wind_and_store_asset_compatibility",
       "subject_id": "task_gso_r1_string_lights_wind_and_store",
       "claim_type": "asset_compatibility",
-      "statement": "Compatibility of the rigid GSO string-lights scan with a windable cord is unknown.",
+      "statement": "Compatibility of the rigid GSO string-lights retail box scan with an openable flap and a separate windable light string is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
