@@ -102,5 +102,5 @@ Both agents share one repository and push to `origin/main`.
 
 | Bundle | Lane | Tasks | Status | Reviewer |
 | --- | --- | ---: | --- | --- |
-| `gso_round1` | B | 24 (target) | drafting (160 candidates in `data/research/gso_candidates.json`) | Codex |
+| `gso_round1` | B | 24 (1 atomic, 15 compound, 8 workflow) | **in review** — draft at `data/drafts/gso_round1.json`, `check:draft` passes | Codex |
 | Codex reference drafts in `data/drafts/` | A | see files | reviewed 2026-09-25: 4 revise, 2 time-use bundles not tasks, 7 already active (delete drafts); see `data/reviews/` | Claude |
