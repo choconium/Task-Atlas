@@ -31,6 +31,20 @@ npm start
 
 <http://localhost:3000> を開いてください。開発中は `npm run dev` で変更時にサーバーを再起動できます。GitHub Actionsではpushとpull requestごとにNode.js 22 / 24で `npm run check` を実行します。
 
+## Cloudflare Workersへデプロイする
+
+フロントエンドはCloudflare Static Assetsから配信し、読み取り専用APIはNode HTTP互換レイヤー経由で処理します。seed JSONは読み取り専用データとしてWorkerに同梱します。Wranglerの実行にはNode.js 22以上が必要です。
+
+```bash
+npm install
+npx wrangler login
+npm run worker:dev
+npm run worker:dry-run
+npx wrangler deploy
+```
+
+`npm run worker:dev` はローカルのWorkers runtimeを起動します。`npm run worker:dry-run` は公開せずにデプロイ用bundleを構築します。現在のAPIは同梱seedを読み込み、リクエスト間で変更を永続化しません。
+
 ## 中心となる問いを試す
 
 `ycb_006_mustard_bottle`を選び、文脈を変えて候補を比較します。
