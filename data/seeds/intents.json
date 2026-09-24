@@ -10,5 +10,6 @@
   {"id":"intent_clean","node_type":"Intent","name_en":"Clean","name_ja":"掃除する","description":"Remove residue or soil from an item or surface."},
   {"id":"intent_organize","node_type":"Intent","name_en":"Organize","name_ja":"整頓する","description":"Arrange related items into a useful configuration."},
   {"id":"intent_discard","node_type":"Intent","name_en":"Discard","name_ja":"廃棄する","description":"Move an item to an appropriate waste stream."},
-  {"id":"intent_recover_from_error","node_type":"Intent","name_en":"Recover from an error","name_ja":"異常から復旧する","description":"Return an item or scene to a safe useful state."}
+  {"id":"intent_recover_from_error","node_type":"Intent","name_en":"Recover from an error","name_ja":"異常から復旧する","description":"Return an item or scene to a safe useful state."},
+  {"id":"intent_set_device_state","node_type":"Intent","name_en":"Set a device or fixture state","name_ja":"機器や設備の状態を切り替える","description":"Leave an appliance, fixture, or openable furnishing in a required on/off or open/closed state."}
 ]

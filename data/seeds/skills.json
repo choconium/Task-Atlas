@@ -20,5 +20,6 @@
   {"id":"skill_recover","node_type":"Skill","name_en":"Recover","name_ja":"復旧する","description":"Recover a fallen or misplaced object safely.","motion_primitives":["regrasp","righting_motion"]},
   {"id":"skill_align","node_type":"Skill","name_en":"Align","name_ja":"整列する","description":"Align an item with a display or group.","motion_primitives":["visual_alignment","place"]},
   {"id":"skill_sort","node_type":"Skill","name_en":"Sort","name_ja":"分別する","description":"Choose and place an item in a suitable category.","motion_primitives":["classification","place"]},
-  {"id":"skill_verify","node_type":"Skill","name_en":"Verify","name_ja":"検証する","description":"Check that the goal state was achieved.","motion_primitives":["visual_check","state_estimation"]}
+  {"id":"skill_verify","node_type":"Skill","name_en":"Verify","name_ja":"検証する","description":"Check that the goal state was achieved.","motion_primitives":["visual_check","state_estimation"]},
+  {"id":"skill_toggle","node_type":"Skill","name_en":"Toggle","name_ja":"切り替える","description":"Switch a device, fixture, or valve between on and off.","motion_primitives":["press","rotate"]}
 ]
