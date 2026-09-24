@@ -1403,7 +1403,6 @@
         "reachable(theme)"
       ],
       "goals": [
-        "made(theme)",
         "covers(covering, theme)",
         "smooth(covering)",
         "on_top_of(pillow, theme)",
@@ -1449,14 +1448,14 @@
         "scene_home_bedroom"
       ],
       "preconditions": [
-        "open(door)",
+        "open(theme)",
         "on_top_of(item_1, source)",
         "on_top_of(item_2, source)"
       ],
       "goals": [
         "inside(item_1, theme)",
         "inside(item_2, theme)",
-        "closed(door)"
+        "closed(theme)"
       ],
       "skills": [
         "skill_locate",
@@ -1598,14 +1597,14 @@
         "scene_home_bathroom"
       ],
       "preconditions": [
-        "open(door)",
+        "open(theme)",
         "dirty(load)",
         "inside(load, source)",
         "switched_off(theme)"
       ],
       "goals": [
         "inside(load, theme)",
-        "closed(door)",
+        "closed(theme)",
         "switched_on(theme)"
       ],
       "skills": [
@@ -1681,8 +1680,8 @@
     {
       "id": "template_thor_switch_off_all_house_lights",
       "node_type": "TaskTemplate",
-      "name_en": "Switch off every light in the house before leaving",
-      "name_ja": "出かける前に家じゅうの照明を消す",
+      "name_en": "Switch off a listed set of lights in several rooms before leaving",
+      "name_ja": "出かける前に複数の部屋の指定された照明を消す",
       "verb": "switch_off_all",
       "roles": {
         "theme": "exit_room_switch",
@@ -1785,7 +1784,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Compound: two objects and four goal predicates in one sitting (open, load, close). THOR mapping: closed(thor_object_microwave_1) <-> Microwave isOpen=false; switched_off(thor_object_microwave_1) <-> isToggled=false; inside(thor_object_mug_1, thor_object_microwave_1) <-> the Mug's parentReceptacles contains the Microwave; upright(thor_object_mug_1) is an Atlas pose predicate with no THOR state; empty(thor_object_mug_1) <-> isFilledWithLiquid=false. The goal stops before heating: switched_off is an explicit end state, so the microwave is never run. Physical collection uses an unplugged microwave; the THOR door is a scripted boolean, so a real appliance or an articulated door asset is required."
+      "notes": "Compound: one net change (inside, with the mug kept upright) plus a transient articulation that must be reversed (open the door, then close it again), over two objects in one sitting. closed and switched_off hold at both start and end, so they are preserved end-state constraints, not goal changes. THOR mapping: closed(thor_object_microwave_1) <-> Microwave isOpen=false; switched_off(thor_object_microwave_1) <-> isToggled=false; inside(thor_object_mug_1, thor_object_microwave_1) <-> the Mug's parentReceptacles contains the Microwave; upright(thor_object_mug_1) is an Atlas pose predicate with no THOR state; empty(thor_object_mug_1) <-> isFilledWithLiquid=false. The goal stops before heating: switched_off is an explicit end state, so the microwave is never run. Physical collection uses an unplugged microwave; the THOR door is a scripted boolean, so a real appliance or an articulated door asset is required."
     },
     {
       "id": "task_thor_r1_toaster_bread_slice_switch_on",
@@ -1893,7 +1892,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Compound: two objects (faucet, cup) and a fill-then-off sequence in one sitting. THOR mapping: filled_with_water(thor_resource_cup) <-> Cup isFilledWithLiquid=true with fillLiquid=water; switched_off(thor_object_kitchen_faucet_1) <-> Faucet isToggled=false; the cup fills in THOR when it sits under the running faucet. Physical collection defines 'filled' as water between a marked minimum and maximum line so it is observable. The cup is a planning resource: Cup exists in the asset database but is not the primary object of a part-A task."
+      "notes": "Compound: one net change (filled_with_water on the cup) plus a transient articulation that must be reversed (faucet on, then off again), over two objects in one sitting. switched_off, upright, and the cup's counter position hold at both start and end, so they are preserved end-state constraints, not goal changes. THOR mapping: filled_with_water(thor_resource_cup) <-> Cup isFilledWithLiquid=true with fillLiquid=water; switched_off(thor_object_kitchen_faucet_1) <-> Faucet isToggled=false; the cup fills in THOR when it sits under the running faucet. Physical collection defines 'filled' as water between a marked minimum and maximum line so it is observable. The cup is a planning resource: Cup exists in the asset database but is not the primary object of a part-A task."
     },
     {
       "id": "task_thor_r1_pot_fill_water_back_burner",
@@ -2174,7 +2173,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Workflow: three stages across two rooms and three destinations (fill at the kitchen sink, water in the living room, return to the home spot), with checkpoints after filling and after watering. THOR mapping: watered(thor_resource_living_room_house_plant) <-> HousePlant isFilledWithLiquid=true (fillLiquid=water); switched_off(thor_object_kitchen_faucet_1) <-> Faucet isToggled=false; at(thor_object_watering_can_1, thor_resource_watering_can_home_spot) is an Atlas location predicate with no THOR state; THOR fills the WateringCan (isFilledWithLiquid) but has no pour action, so the watering step is not simulated as flow. Physical collection defines 'watered' as a measured water volume reaching the soil (e.g. saucer or scale reading) and no water outside the saucer. Intent: no plant-care intent exists; intent_transport is the closest fit because the task carries water from the kitchen to the living room. A future intent_tend_plant may be proposed. HousePlant exists in the asset database but is not a part-A primary object, so it is a planning resource."
+      "notes": "Workflow: three stages across two rooms and three destinations (fill at the kitchen sink, water in the living room, return to the home spot), with checkpoints after filling and after watering. Physical definition of watered(thor_resource_living_room_house_plant): the pot-and-saucer assembly, standing on a scale, gains 150-250 g (150-250 mL of water) between the pre-watering reading and a reading 60 s after pouring stops, and no more than 30 mL stands in the saucer. no_water_outside_saucer means no water on the floor, furniture, or route outside the pot and saucer. THOR mapping: watered <-> HousePlant isFilledWithLiquid=true (fillLiquid=water); switched_off(thor_object_kitchen_faucet_1) <-> Faucet isToggled=false; at(thor_object_watering_can_1, thor_resource_watering_can_home_spot) is an Atlas location predicate with no THOR state. THOR fills the WateringCan (isFilledWithLiquid) but has no pour action, and HousePlant isFilledWithLiquid can be set without the can ever tilting over the plant, so a simulated goal check cannot show that the can delivered the water. Intent: no plant-care intent exists in the seeds; intent_transport is kept because the task's defining difficulty is carrying a filled can between rooms and delivering its contents at a destination. A future intent_tend_plant may be proposed; see the task_suitability claim scope. HousePlant exists in the asset database but is not a part-A primary object, so it is a planning resource."
     },
     {
       "id": "task_thor_r1_tv_switch_off",
@@ -2256,14 +2255,14 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Goal: the floor lamp is switched on; a reviewer sees the bulb emitting light through the shade. Labelled atomic: one object and one state change; standing(lamp) is a preserved constraint, not a second goal. THOR mapping: switched_off(lamp) <-> isToggled=false initially, switched_on(lamp) <-> isToggled=true at the end. The asset does not say whether the lamp uses a pull chain, a rotary stem switch, or a foot switch; the setup records which one is used."
+      "notes": "Goal: the floor lamp is switched on; a reviewer sees its on/off indicator read on. Power policy (same as the desk lamp and house-light tasks): the lamp is unplugged and fitted with a battery dummy indicator wired to its own switch, or the task runs in simulation only; mains power is never used, and the indicator stands in for the bulb's light. Labelled atomic: one object and one state change; standing(lamp) is a preserved constraint, not a second goal. THOR mapping: switched_off(lamp) <-> isToggled=false initially, switched_on(lamp) <-> isToggled=true at the end. The asset does not say whether the lamp uses a pull chain, a rotary stem switch, or a foot switch; the setup records which one is used."
     },
     {
       "id": "task_thor_r1_blinds_close",
       "node_type": "TaskInstance",
       "template_id": "template_thor_close_openable_fixture",
-      "name_en": "Close the living-room window blinds so the window is covered",
-      "name_ja": "リビングの窓のブラインドを閉めて窓を覆う",
+      "name_en": "Lower the living-room window blinds to the sill so the window is covered",
+      "name_ja": "リビングの窓のブラインドを窓台まで下ろして窓を覆う",
       "intent_id": "intent_set_device_state",
       "object_id": "thor_object_blinds_1",
       "scene_id": "scene_home_living_room",
@@ -2283,9 +2282,9 @@
         "closed(thor_object_blinds_1)"
       ],
       "instruction_variants": [
-        "Close the blinds on the living-room window.",
-        "Lower the blinds and shut the slats so the window is covered.",
-        "リビングの窓のブラインドを閉めてください。"
+        "Lower the blinds on the living-room window all the way to the sill.",
+        "Bring the blinds down so the whole window is covered.",
+        "リビングの窓のブラインドを窓台まで下ろしてください。"
       ],
       "skills": [
         "skill_locate",
@@ -2301,7 +2300,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Goal: the blinds are closed; a reviewer sees the blind lowered over the window with the slats shut, and no clear view through the window. Labelled atomic: one fixture and one state change. THOR mapping, unresolved: the brief maps closed(blinds) <-> isOpen=false, but the asset database gives Blinds_1 a 0.20 m tall default box and a 1.47 m tall 'open' box, so THOR's isOpen=true may be the lowered, window-covering pose. Confirm in the simulator; the Atlas goal is the physical observation above."
+      "notes": "Goal: the blinds are closed, defined as lowered to the sill across the full window width. Slat tilt is out of scope: on real blinds it is a separate control (tilt wand) from lowering (lift cord or cordless rail), and THOR has only one isOpen boolean, so the slats stay at the tilt recorded at setup. Labelled atomic: one fixture, one control, one state change. THOR mapping, unresolved: the brief maps closed(blinds) <-> isOpen=false, but the asset database gives Blinds_1 a 0.20 m tall default box and a 1.47 m tall 'open' box, so THOR's isOpen=true may be the lowered, window-covering pose. The planning condition thor_blinds_isopen_pose_confirmed_in_simulator and the asset_compatibility limitation carry this; the Atlas goal is the physical observation above."
     },
     {
       "id": "task_thor_r1_candle_extinguish",
@@ -2487,7 +2486,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Goal: the shower curtain is drawn closed; a reviewer sees the curtain spread along the rod from wall to wall, covering the tub opening. Labelled atomic: one fixture and one state change. THOR mapping, unresolved: the brief maps closed(curtain) <-> isOpen=false, but the asset database gives Shower_Curtain_1 a 0.43 m wide default box and a 2.17 m wide 'open' box, so THOR's isOpen=true may be the spread, tub-covering pose (plain-language 'closed'). Confirm in the simulator; the Atlas goal is the physical observation above."
+      "notes": "Goal: the shower curtain is drawn closed; a reviewer sees the curtain spread along the rod from wall to wall, covering the tub opening. Labelled atomic: one fixture and one state change. THOR mapping, unresolved: the brief maps closed(curtain) <-> isOpen=false, but the asset database gives Shower_Curtain_1 a 0.43 m wide default box and a 2.17 m wide 'open' box, so THOR's isOpen=true may be the spread, tub-covering pose (plain-language 'closed'). The planning condition thor_shower_curtain_isopen_pose_confirmed_in_simulator and the asset_compatibility limitation carry this; the Atlas goal is the physical observation above."
     },
     {
       "id": "task_thor_r1_toilet_lid_close",
@@ -2602,7 +2601,6 @@
         "at_foot_end(thor_resource_pillow, thor_object_bed_1)"
       ],
       "goal_state": [
-        "made(thor_object_bed_1)",
         "covers(thor_resource_duvet, thor_object_bed_1)",
         "smooth(thor_resource_duvet)",
         "on_top_of(thor_resource_pillow, thor_object_bed_1)",
@@ -2629,7 +2627,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Compound, not atomic: THOR collapses bed-making into one flag, but the observable end state has several predicates over two objects (duvet covers the mattress and is smooth; pillow is on the bed at the head end). Observable criteria for made: the duvet's top edge is within a marked band below the pillow, its sides hang evenly, and no fold or bunch higher than a set threshold remains on the top surface. Atlas-to-THOR mapping: unmade/made = isDirty true/false on Bed (THOR uses isDirty for an unmade bed; it does not mean soiled). covers, smooth, and at_head_end have no THOR state and must be judged from images. Real collection needs real bedding; the THOR bed has no cloth simulation."
+      "notes": "Compound, not atomic: THOR collapses bed-making into one flag, but the observable end state has several predicates over two objects (duvet covers the mattress and is smooth; pillow is on the bed at the head end). made() is not a separate goal: it is the conjunction of the goal predicates, and the THOR mapping made <-> Bed isDirty=false (unmade <-> isDirty=true; THOR uses isDirty for an unmade bed, not for soiling) is kept only for simulated checks. Default tolerances: smooth means no fold or bunch higher than 3 cm on the top surface; covers means the duvet covers the whole mattress top with left and right overhang within 10 cm of each other; the duvet's top edge lies within 15 cm of the pillow's foot-side edge. covers, smooth, and at_head_end have no THOR state and must be judged from images. Real collection needs real bedding; the THOR bed has no cloth simulation."
     },
     {
       "id": "task_thor_r1_safe_store_keychain_card",
@@ -2654,7 +2652,7 @@
         "state_on_surface"
       ],
       "initial_state": [
-        "open(thor_resource_safe_door)",
+        "open(thor_object_safe_18_1)",
         "on_top_of(thor_resource_keychain, thor_resource_dresser_top)",
         "on_top_of(thor_resource_dummy_credit_card, thor_resource_dresser_top)",
         "empty(thor_object_safe_18_1)"
@@ -2662,7 +2660,7 @@
       "goal_state": [
         "inside(thor_resource_keychain, thor_object_safe_18_1)",
         "inside(thor_resource_dummy_credit_card, thor_object_safe_18_1)",
-        "closed(thor_resource_safe_door)"
+        "closed(thor_object_safe_18_1)"
       ],
       "instruction_variants": [
         "Put the keychain and the card in the safe and shut the safe door.",
@@ -2684,7 +2682,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Compound: two items stored and one closure, three goal predicates in one sitting at one place. The flat card is a hard grasp from a table top. Atlas-to-THOR mapping: inside(x, safe) = x's parentReceptacles contains the Safe; open/closed = isOpen true/false on Safe. THOR has no lock state, so locking is out of scope and the goal is door closed, not locked. Real collection uses a dummy key ring and a blank non-payment card, the safe is left unlocked with no code set, and nothing of value is stored."
+      "notes": "Compound: two items stored and one closure, three goal predicates in one sitting at one place. The flat card is a hard grasp from a table top. Atlas-to-THOR mapping: inside(x, safe) = x's parentReceptacles contains the Safe; open/closed = isOpen true/false on Safe, so the goal is closed(thor_object_safe_18_1); thor_resource_safe_door is only the grasp handle used to swing the door shut and carries no state. THOR has no lock state, so locking is out of scope and the goal is door closed, not locked. Real collection uses a dummy key ring and a blank non-payment card, the safe is left unlocked with no code set, and nothing of value is stored."
     },
     {
       "id": "task_thor_r1_dresser_store_folded_cloth",
@@ -2739,7 +2737,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Compound: open a drawer, store a deformable item while keeping it folded, close the drawer; three goal predicates, one place. Atlas-to-THOR mapping: open/closed = isOpen on the child Drawer object of the dresser; inside = the Cloth's parentReceptacles contains that Drawer; folded has no THOR state (Cloth is rigid in THOR) and is judged by the cloth's footprint staying within its folded outline. The drawer is a planning resource because THOR drawers are room or furniture parts, not asset-database entries."
+      "notes": "Compound: one net change (inside, with the cloth kept folded) plus a transient articulation that must be reversed (open the drawer, then close it again), over two objects at one place. folded and closed hold at both start and end, so they are preserved end-state constraints, not goal changes. Atlas-to-THOR mapping: open/closed = isOpen on the child Drawer object of the dresser; inside = the Cloth's parentReceptacles contains that Drawer; folded has no THOR state (Cloth is rigid in THOR) and is judged by the cloth's footprint staying within its folded outline. The drawer is a planning resource because THOR drawers are room or furniture parts, not asset-database entries."
     },
     {
       "id": "task_thor_r1_desk_clear_for_night",
@@ -2824,7 +2822,7 @@
         "state_inside_receptacle"
       ],
       "initial_state": [
-        "open(thor_resource_washing_machine_door)",
+        "open(thor_object_washing_machine_1)",
         "dirty(thor_resource_dirty_cloths)",
         "inside(thor_resource_dirty_cloths, thor_resource_laundry_basket)",
         "empty(thor_object_washing_machine_1)",
@@ -2832,7 +2830,7 @@
       ],
       "goal_state": [
         "inside(thor_resource_dirty_cloths, thor_object_washing_machine_1)",
-        "closed(thor_resource_washing_machine_door)",
+        "closed(thor_object_washing_machine_1)",
         "switched_on(thor_object_washing_machine_1)"
       ],
       "instruction_variants": [
@@ -2856,7 +2854,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Compound: load two deformable items, close the door, switch on; three goal predicates at one appliance in one sitting. switched_on is the goal state, not a wash cycle, so the task ends when the power indicator reads on. Atlas-to-THOR mapping: dirty = isDirty on Cloth; inside = parentReceptacles contains WashingMachine; open/closed = isOpen and switched_on/off = isToggled on WashingMachine. ProcTHOR houses have no laundry room, so the machine is placed in the bathroom scene on purpose. Real collection uses an unplugged machine with a dummy power indicator, or runs in simulation only; no water supply is connected and no cycle runs."
+      "notes": "Compound: load two deformable items, close the door, switch on; three goal predicates at one appliance in one sitting. switched_on is the goal state, not a wash cycle, so the task ends when the power indicator reads on. Atlas-to-THOR mapping: dirty = isDirty on Cloth; inside = parentReceptacles contains WashingMachine; open/closed = isOpen and switched_on/off = isToggled on WashingMachine, so the goal is closed(thor_object_washing_machine_1); thor_resource_washing_machine_door is only the grasp handle and carries no state. ProcTHOR houses have no laundry room, so the machine is placed in the bathroom scene on purpose. Real collection uses an unplugged machine with a dummy power indicator, or runs in simulation only; no water supply is connected and no cycle runs."
     },
     {
       "id": "task_thor_r1_spray_bottle_return_under_sink",
@@ -2909,14 +2907,14 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Compound: open a cabinet, store the bottle upright, close the cabinet; the goal adds closed and upright to inside. Atlas-to-THOR mapping: open/closed = isOpen on the Cabinet room part; inside = the SprayBottle's parentReceptacles contains that Cabinet; upright has no THOR state and is judged from the bottle's axis. The under-sink cabinet is a room-layout part in THOR, not an asset-database entry, so it is a planning resource. Real collection uses a capped bottle filled with water or empty, never a cleaning chemical."
+      "notes": "Compound: one net change (inside, with the bottle kept upright) plus a transient articulation that must be reversed (open the cabinet door, then close it again), over two objects in one sitting. closed holds at both start and end, so it is a preserved end-state constraint, not a goal change. Atlas-to-THOR mapping: open/closed = isOpen on the Cabinet room part; inside = the SprayBottle's parentReceptacles contains that Cabinet; upright has no THOR state and is judged from the bottle's axis. The under-sink cabinet is a room-layout part in THOR, not an asset-database entry, so it is a planning resource. Real collection uses a capped bottle filled with water or empty, never a cleaning chemical."
     },
     {
       "id": "task_thor_r1_house_lights_off_before_leaving",
       "node_type": "TaskInstance",
       "template_id": "template_thor_switch_off_all_house_lights",
-      "name_en": "Switch off every light before leaving: the bedroom desk lamp and the bedroom, kitchen, and living-room switches",
-      "name_ja": "出かける前に家じゅうの照明を消す（寝室のデスクランプと、寝室・キッチン・リビングのスイッチ）",
+      "name_en": "Switch off the desk lamp and the bedroom, kitchen, and living-room lights before leaving",
+      "name_ja": "出かける前にデスクランプと寝室・キッチン・リビングの照明を消す",
       "intent_id": "intent_set_device_state",
       "object_id": "thor_object_light_switch_12",
       "scene_id": "scene_multi_room_house",
@@ -2931,20 +2929,18 @@
         "switched_on(thor_object_desk_lamp_1)",
         "switched_on(thor_resource_bedroom_light_switch)",
         "switched_on(thor_resource_kitchen_light_switch)",
-        "switched_on(thor_object_light_switch_12)",
-        "in_room(robot, thor_resource_bedroom)"
+        "switched_on(thor_object_light_switch_12)"
       ],
       "goal_state": [
         "switched_off(thor_object_desk_lamp_1)",
         "switched_off(thor_resource_bedroom_light_switch)",
         "switched_off(thor_resource_kitchen_light_switch)",
-        "switched_off(thor_object_light_switch_12)",
-        "in_room(robot, thor_resource_living_room)"
+        "switched_off(thor_object_light_switch_12)"
       ],
       "instruction_variants": [
-        "Turn off every light before leaving: the desk lamp, then the bedroom, kitchen, and living-room switches.",
-        "Go room by room and switch all the lights off, finishing at the living-room switch by the front door.",
-        "出かける前に、デスクランプ、寝室、キッチン、リビングの順に照明をすべて消してください。"
+        "Before leaving, turn off the desk lamp, then the bedroom, kitchen, and living-room lights.",
+        "Go room by room and switch off these four lights: the desk lamp and the bedroom, kitchen, and living-room lights.",
+        "出かける前に、デスクランプ、寝室、キッチン、リビングの順に4つの照明を消してください。"
       ],
       "skills": [
         "skill_locate",
@@ -2959,7 +2955,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round1",
-      "notes": "Workflow: four device-state goals at four destinations in three rooms, with a checkpoint in each room before moving on. Order matters only for safety (desk lamp before the bedroom ceiling light so the robot is not left in the dark), and the route ends at the living-room switch near the front door; ending location is recorded as in_room(robot, living room). Atlas-to-THOR mapping: switched_on/off = isToggled on LightSwitch (room lights) and on DeskLamp. Light_Switch_12 is the living-room switch; ProcTHOR may place the same switch asset in several rooms, so the other switches are planning resources. The desk lamp reuses thor_object_desk_lamp_1. Real collection uses dummy switch panels or an unplugged lamp, or runs in simulation only; the robot must navigate with house lights going off, so a navigation aid (robot light or depth sensing) is required."
+      "notes": "Workflow: four device-state goals at four destinations in three rooms, with a checkpoint in each room before moving on. Scope is exactly these four lights, not every light in the house. Order matters only for safety (desk lamp before the bedroom ceiling light so the robot is not left in the dark). The robot's position is not part of the goal state; the proposed procedure optionally ends at the living-room switch by the front door, and the robot's start room is set in setup. Atlas-to-THOR mapping: switched_on/off = isToggled on LightSwitch (room lights) and on DeskLamp. Light_Switch_12 is the living-room switch; ProcTHOR may place the same switch asset in several rooms, so the other switches are planning resources. The desk lamp reuses thor_object_desk_lamp_1; its switched_off goal also appears in task_thor_r1_desk_lamp_switch_off (lamp alone) and task_thor_r1_desk_clear_for_night (one desk), which have different scopes. Real collection uses dummy switch panels and an unplugged lamp with a dummy indicator that stands in for each light, or runs in simulation only; the robot must navigate with house lights going off, so a navigation aid (robot light or depth sensing) is required."
     }
   ],
   "planning": [
@@ -4223,7 +4219,7 @@
         {
           "key": "object",
           "value": "thor_resource_living_room_house_plant",
-          "reason": "Potted houseplant with a saucer."
+          "reason": "Potted houseplant with a saucer, standing on a scale for the watering reading."
         },
         {
           "key": "object",
@@ -4269,6 +4265,16 @@
           "key": "condition",
           "value": "clear_navigation_path_between_rooms",
           "reason": "The route between kitchen and living room is free of obstacles and people."
+        },
+        {
+          "key": "object",
+          "value": "thor_resource_plant_scale",
+          "reason": "Kitchen or parcel scale (1 g resolution) under the pot and saucer."
+        },
+        {
+          "key": "condition",
+          "value": "watering_band_150_250_g_saucer_max_30_ml",
+          "reason": "Watered means a 150-250 g gain on the scale 60 s after pouring stops, with no more than 30 mL in the saucer."
         }
       ],
       "procedures": [
@@ -4322,11 +4328,11 @@
             },
             {
               "skill_id": "skill_dispense",
-              "description": "Pour until the target volume is delivered."
+              "description": "Pour until about 200 mL is delivered to the soil."
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Checkpoint 2: soil is wet and no water is outside the saucer."
+              "description": "Checkpoint 2: after 60 s the scale shows a 150-250 g gain, the saucer holds no more than 30 mL, and no water is outside the saucer."
             },
             {
               "skill_id": "skill_navigate_or_reach",
@@ -4351,21 +4357,22 @@
       ],
       "collection": {
         "success_criteria": [
-          "The target water volume reached the plant's soil (saucer or scale reading within the band).",
+          "The scale under the pot and saucer reads 150-250 g above its pre-watering value 60 s after pouring stops.",
+          "No more than 30 mL of water stands in the saucer.",
           "No water is on the floor or furniture outside the saucer.",
           "The watering can is on its marked home spot.",
           "The faucet is off."
         ],
         "setup": [
           "Place the empty can on its marked home spot.",
-          "Use a plant (or soil-filled surrogate pot) with dry soil and an empty saucer in the living room; clear electronics from the area.",
+          "Stand a plant (or soil-filled surrogate pot) with dry soil and an empty saucer on a scale in the living room, record the reading, and clear electronics from the area.",
           "Mark the can's fill line from the payload limit; turn the faucet off and install the splash guard or declare a dry run."
         ],
         "reset": [
           "Empty the saucer, let the soil drain or swap the surrogate pot, empty and dry the can, and return it to its spot."
         ],
         "quality_checks": [
-          "Weigh the pot or read the saucer level before and after watering.",
+          "Record the scale reading before watering and 60 s after pouring stops; measure any saucer water with a syringe or graduated cup.",
           "Inspect the floor around the plant and along the route for drips."
         ],
         "failure_modes": [
@@ -4569,7 +4576,7 @@
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "Judging the lamp as lit."
+          "reason": "Reading the lamp's dummy on/off indicator."
         },
         {
           "key": "condition",
@@ -4578,13 +4585,13 @@
         },
         {
           "key": "condition",
-          "value": "low_heat_led_bulb",
-          "reason": "Electrics and heat: an LED bulb is fitted so the shade and bulb stay cool."
+          "value": "lamp_unplugged_or_simulation_only",
+          "reason": "Electrics: the lamp is unplugged and a battery dummy indicator on its own switch shows on/off, or the task runs in simulation only; mains power is not used."
         },
         {
           "key": "condition",
           "value": "cord_routed_along_wall",
-          "reason": "Trip and snag: the power cord runs along the wall, not across the robot's path."
+          "reason": "Trip and snag: the unplugged power cord is coiled or runs along the wall, not across the robot's path."
         }
       ],
       "procedures": [
@@ -4610,7 +4617,7 @@
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify the bulb is lit and the lamp is still upright."
+              "description": "Verify the indicator reads on and the lamp is still upright."
             }
           ],
           "requirements": [],
@@ -4619,11 +4626,11 @@
       ],
       "collection": {
         "success_criteria": [
-          "The bulb emits light through the shade at the end of the trial.",
+          "The lamp's dummy on/off indicator (which stands in for the bulb's light), or isToggled in simulation, reads on at the end of the trial.",
           "The lamp is upright in its marked position."
         ],
         "setup": [
-          "Switch the lamp off at its own switch, mark the base position, and record the switch type."
+          "Unplug the lamp, fit the dummy indicator to its switch, switch it off, mark the base position, and record the switch type."
         ],
         "reset": [
           "Switch the lamp off at its own switch and return the base to its mark if it moved."
@@ -4663,7 +4670,7 @@
         {
           "key": "object",
           "value": "thor_resource_blinds_control",
-          "reason": "Tilt wand or cordless bottom rail used to lower and shut the blinds."
+          "reason": "Cordless bottom rail or lift wand used to lower the blind; the tilt wand is not used."
         },
         {
           "key": "object",
@@ -4673,37 +4680,42 @@
         {
           "key": "object",
           "value": "thor_resource_window_sill",
-          "reason": "Sill kept clear so the bottom rail can come down."
+          "reason": "Sill kept clear so the bottom rail can come down to it."
         },
         {
           "key": "capability",
           "value": "articulated_closure",
-          "reason": "Lowering the blind and tilting the slats; proposed design requirement only."
+          "reason": "Lowering the blind along its guide; proposed design requirement only."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "Judging the window as covered."
+          "reason": "Judging the bottom rail as resting on the sill across the window."
         },
         {
           "key": "condition",
           "value": "cordless_or_wand_blinds",
-          "reason": "Strangulation hazard: looped pull cords are removed or tied up; a wand or cordless rail is used."
+          "reason": "Strangulation hazard: looped pull cords are removed or tied up; a cordless rail or lift wand is used."
         },
         {
           "key": "condition",
           "value": "blinds_headrail_secured",
           "reason": "The headrail is screwed to the frame so a pull cannot detach it."
+        },
+        {
+          "key": "condition",
+          "value": "thor_blinds_isopen_pose_confirmed_in_simulator",
+          "reason": "Before any simulated goal check, confirm in AI2-THOR which isOpen value of Blinds_1 is the lowered, window-covering pose; the asset database bounding boxes suggest isOpen=true may be lowered, the reverse of the brief's mapping."
         }
       ],
       "procedures": [
         {
           "id": "procedure_thor_r1_blinds_close",
-          "label": "Lower and shut with the wand or rail",
+          "label": "Lower with the cordless rail or lift wand",
           "steps": [
             {
               "skill_id": "skill_locate",
-              "description": "Locate the blinds and the wand or bottom rail."
+              "description": "Locate the blinds and the cordless bottom rail or lift wand."
             },
             {
               "skill_id": "skill_approach",
@@ -4711,23 +4723,23 @@
             },
             {
               "skill_id": "skill_reach",
-              "description": "Reach the wand or rail."
+              "description": "Reach the rail or wand."
             },
             {
               "skill_id": "skill_grasp",
-              "description": "Grasp the wand or the centre of the bottom rail."
+              "description": "Grasp the centre of the bottom rail or the lift wand."
             },
             {
               "skill_id": "skill_close",
-              "description": "Lower the blind to the sill and turn the wand until the slats are shut."
+              "description": "Lower the blind evenly until the bottom rail rests on the sill."
             },
             {
               "skill_id": "skill_release",
-              "description": "Release the wand or rail."
+              "description": "Release the rail or wand."
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify the window is covered and the slats are shut."
+              "description": "Verify the bottom rail rests on the sill across the full window width."
             }
           ],
           "requirements": [],
@@ -4736,23 +4748,23 @@
       ],
       "collection": {
         "success_criteria": [
-          "The blind reaches the sill across the full window width.",
-          "The slats are shut so the view through the window is blocked."
+          "The bottom rail rests on the sill (no gap wider than 2 cm) across the full window width.",
+          "The slats are at the tilt recorded at setup; slat tilt is not judged."
         ],
         "setup": [
-          "Raise the blind fully with the slats open and clear the sill."
+          "Raise the blind fully, record the slat tilt, and clear the sill."
         ],
         "reset": [
-          "Raise the blind and open the slats to the recorded start position."
+          "Raise the blind to the recorded start height; leave the slat tilt as recorded."
         ],
         "quality_checks": [
           "Photograph the window from the room side before and after.",
           "Check the headrail is still level and attached."
         ],
         "failure_modes": [
-          "Blind lowered but slats left open",
           "Blind stops above the sill",
-          "Blind lowered unevenly and jams"
+          "Blind lowered unevenly and jams",
+          "Slats tilted instead of the blind lowered"
         ],
         "consumables": [],
         "time_estimates": {
@@ -5181,6 +5193,11 @@
           "key": "condition",
           "value": "tub_dry",
           "reason": "Slip and splash: the tub and floor are dry and the shower is off."
+        },
+        {
+          "key": "condition",
+          "value": "thor_shower_curtain_isopen_pose_confirmed_in_simulator",
+          "reason": "Before any simulated goal check, confirm in AI2-THOR which isOpen value of Shower_Curtain_1 is the drawn, tub-covering pose; the asset database bounding boxes suggest isOpen=true may be drawn, the reverse of the brief's mapping."
         }
       ],
       "procedures": [
@@ -5422,7 +5439,7 @@
       ],
       "collection": {
         "success_criteria": [
-          "The lamp's on/off indicator (or isToggled) reads off.",
+          "The lamp's dummy on/off indicator (which stands in for the bulb's light), or isToggled in simulation, reads off.",
           "The lamp stands upright where it started."
         ],
         "setup": [
@@ -5486,8 +5503,8 @@
         },
         {
           "key": "condition",
-          "value": "smoothness_threshold_defined_at_setup",
-          "reason": "The maximum fold height and the duvet edge band are fixed before collection."
+          "value": "bed_tolerances_fold_3cm_overhang_10cm_edge_15cm",
+          "reason": "Default tolerances: no fold or bunch higher than 3 cm on the top surface; left and right overhang within 10 cm of each other; duvet top edge within 15 cm of the pillow's foot-side edge."
         },
         {
           "key": "condition",
@@ -5526,7 +5543,7 @@
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Checkpoint: check the duvet covers the mattress and lies flat within the threshold."
+              "description": "Checkpoint: check the duvet covers the mattress, no fold is higher than 3 cm, and the side overhangs are within 10 cm of each other."
             },
             {
               "skill_id": "skill_grasp",
@@ -5555,20 +5572,21 @@
       ],
       "collection": {
         "success_criteria": [
-          "The duvet covers the mattress top with even side overhang and no bunch above the setup threshold.",
-          "The pillow lies on the bed at the marked head end.",
-          "The duvet's top edge falls in the marked band below the pillow."
+          "The duvet covers the whole mattress top, with left and right overhang within 10 cm of each other.",
+          "No fold or bunch higher than 3 cm remains on the top surface.",
+          "The pillow lies on the bed in the marked head-end zone.",
+          "The duvet's top edge lies within 15 cm of the pillow's foot-side edge."
         ],
         "setup": [
           "Bunch the duvet toward the foot end in a recorded pattern.",
           "Place the pillow at the foot end.",
-          "Mark the head-end zone and the duvet edge band."
+          "Mark the head-end zone for the pillow."
         ],
         "reset": [
           "Re-bunch the duvet to the recorded pattern and return the pillow to the foot end."
         ],
         "quality_checks": [
-          "Top-down image scored for coverage and fold height.",
+          "Top-down image scored for coverage and overhang; fold height measured with a 3 cm gauge or from depth.",
           "Check the fitted sheet was not pulled off."
         ],
         "failure_modes": [
@@ -5612,7 +5630,7 @@
         {
           "key": "object",
           "value": "thor_resource_safe_door",
-          "reason": "Hinged safe door, open at the start."
+          "reason": "Hinged safe door, grasped to swing it shut; the open/closed state is read on the Safe object (isOpen)."
         },
         {
           "key": "object",
@@ -5977,7 +5995,7 @@
         "success_criteria": [
           "The laptop lid is fully closed.",
           "The pen and the pencil are inside the upright mug.",
-          "The desk lamp reads off."
+          "The desk lamp's dummy on/off indicator (which stands in for the bulb's light), or isToggled in simulation, reads off."
         ],
         "setup": [
           "Open the laptop to a recorded angle.",
@@ -6033,7 +6051,7 @@
         {
           "key": "object",
           "value": "thor_resource_washing_machine_door",
-          "reason": "Front-loading door, open at the start."
+          "reason": "Front-loading door, grasped to close it until it latches; the open/closed state is read on the WashingMachine object (isOpen)."
         },
         {
           "key": "capability",
@@ -6118,7 +6136,7 @@
         "success_criteria": [
           "Both cloths are inside the drum.",
           "The door is latched.",
-          "The power indicator (or isToggled) reads on."
+          "The dummy power indicator (or isToggled in simulation) reads on; it stands in for pressing start and does not mean a wash cycle ran."
         ],
         "setup": [
           "Disconnect power and water, or use the simulator.",
@@ -6300,12 +6318,12 @@
         {
           "key": "object",
           "value": "thor_resource_bedroom",
-          "reason": "Start room."
+          "reason": "Start room, set in setup; not part of the goal state."
         },
         {
           "key": "object",
           "value": "thor_resource_living_room",
-          "reason": "End room, beside the front door."
+          "reason": "Room of the last switch, beside the front door; the optional procedure end pose, not part of the goal state."
         },
         {
           "key": "condition",
@@ -6374,7 +6392,7 @@
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify all four lights read off and the robot is in the living room."
+              "description": "Verify all four lights read off; optionally end beside the living-room switch by the front door."
             }
           ],
           "requirements": [],
@@ -6383,8 +6401,7 @@
       ],
       "collection": {
         "success_criteria": [
-          "The desk lamp and the bedroom, kitchen, and living-room lights all read off.",
-          "The robot ends in the living room near the front door."
+          "The desk lamp and the bedroom, kitchen, and living-room lights all read off on their dummy indicators (which stand in for the lights) or isToggled in simulation."
         ],
         "setup": [
           "Set all four lights (or dummy indicators) to on.",
@@ -6887,7 +6904,7 @@
       "source_ids": [
         "evidence_thor_task_design_round1"
       ],
-      "scope": "One watering can, one kitchen faucet, and one living-room houseplant in one house.",
+      "scope": "One watering can, one kitchen faucet, and one living-room houseplant in one house. Filed under intent_transport because no plant-care intent exists in the seeds and the task's core is carrying a filled can between rooms and delivering its contents; a future intent_tend_plant may replace it.",
       "limitations": "The design seed supports proposed task design only; AI2-THOR state flags do not establish physical feasibility, and review and a collection trial are still required."
     },
     {
@@ -6924,7 +6941,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "AI2-THOR assets are Unity-bound simulator objects with boolean state flags; they do not by themselves provide articulation geometry, fluid behaviour, or a physical counterpart for this task."
+      "limitations": "AI2-THOR assets are Unity-bound simulator objects with boolean state flags; they do not provide articulation geometry, fluid behaviour, or a physical counterpart for this task. THOR has no pour action, and HousePlant isFilledWithLiquid can be set without the can ever tilting over the plant, so a simulated goal check cannot show that the can delivered the water."
     },
     {
       "id": "claim_thor_object_television_1_catalog_identity",
@@ -7099,7 +7116,7 @@
       "source_ids": [
         "evidence_thor_task_design_round1"
       ],
-      "scope": "One switched-off floor lamp beside a sofa in a home living room switched on with its own switch.",
+      "scope": "One switched-off, unplugged or simulated floor lamp beside a sofa in a home living room, switched on with its own switch and judged by a dummy indicator.",
       "limitations": "The design seed supports proposed task design only; review and an actual collection trial are still required."
     },
     {
@@ -7136,7 +7153,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "An AI2-THOR boolean toggle does not represent the physical switch, valve, or light output this task is judged on."
+      "limitations": "An AI2-THOR boolean toggle does not represent the physical switch or light output; physical collection judges a dummy indicator that stands in for the light."
     },
     {
       "id": "claim_thor_r1_blinds_close_task_suitability",
@@ -7149,7 +7166,7 @@
       "source_ids": [
         "evidence_thor_task_design_round1"
       ],
-      "scope": "One set of open window blinds in a home living room lowered and shut.",
+      "scope": "One raised set of window blinds in a home living room lowered to the sill; slat tilt is out of scope.",
       "limitations": "The design seed supports proposed task design only; review and an actual collection trial are still required."
     },
     {
@@ -7186,7 +7203,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "An AI2-THOR isOpen boolean does not represent the physical articulation, cloth, or hinge behaviour this task needs."
+      "limitations": "An AI2-THOR isOpen boolean does not represent the physical lift mechanism or slat tilt this task needs. The THOR open/closed pose of Blinds_1 is unconfirmed: the asset database's 'open' bounding box is the tall, window-covering one, so isOpen=true may be the lowered pose. A simulated goal check against isOpen is invalid until the pose is confirmed in the simulator."
     },
     {
       "id": "claim_thor_r1_candle_extinguish_task_suitability",
@@ -7386,7 +7403,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "An AI2-THOR isOpen boolean does not represent the physical articulation, cloth, or hinge behaviour this task needs."
+      "limitations": "An AI2-THOR isOpen boolean does not represent the physical cloth or ring behaviour this task needs. The THOR open/closed pose of Shower_Curtain_1 is unconfirmed: the asset database's 'open' bounding box is the wide, tub-covering one, so isOpen=true may be the drawn pose. A simulated goal check against isOpen is invalid until the pose is confirmed in the simulator."
     },
     {
       "id": "claim_thor_r1_toilet_lid_close_task_suitability",
@@ -7904,7 +7921,7 @@
       "id": "claim_thor_r1_house_lights_off_before_leaving_task_suitability",
       "subject_id": "task_thor_r1_house_lights_off_before_leaving",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed multi-room device-state task: switch off every light in the house before leaving.",
+      "statement": "This is a proposed multi-room device-state task: switch off the desk lamp and the bedroom, kitchen, and living-room lights before leaving.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -7961,22 +7978,23 @@
     "Heat, knife, and water safety: the microwave, toaster, and stove stay unpowered or simulated; slicing is simulation-only or uses a pre-scored surrogate with a blunt tool; running water tasks declare a splash guard or dry run and splash-protected electronics.",
     "New Atlas concepts proposed: object_kitchen_appliance (microwave, toaster), object_home_fixture (faucet), object_food_item (bread). Other objects reuse object_cookware, object_paper_item, object_drinkware, and object_liquid_container. Parts B and C may propose the same concept IDs; they are strings, not records, so no merge conflict arises.",
     "Eight new templates (template_thor_*); no existing template carried the needed device-state goals.",
-    "The watering-can task uses intent_transport because no plant-care intent exists; this is flagged for review.",
+    "The watering-can task keeps intent_transport because no plant-care intent exists; the reason is stated in its task_suitability claim scope, and a future intent_tend_plant may replace it.",
     "Part B of thor_round1 (8 tasks): living-room television, floor lamp, window blinds, candle, and laptop; bathroom shower, shower curtain, and toilet lid. Built on the skeleton data/drafts/thor_round1.json; scenes, evidence_thor_task_design_round1, and evidence_procthor_asset_database are defined there and not redefined here.",
     "Object IDs carry the THOR asset number (thor_object_television_1 etc.) so they cannot collide with other THOR assets of the same objectType drafted in parts A or C.",
     "Resource IDs beginning thor_resource_ are planning object requirements (controls, sofa, coffee table, window, rod, bathtub, surrogates), not cataloged ObjectInstances or claims that matching assets exist.",
     "Proposed new Atlas concepts used: object_lamp (floor lamp), object_decor (candle), object_home_fixture (blinds, shower head, shower curtain, toilet). Television and laptop reuse object_electronic_device.",
     "Five new templates: template_thor_switch_device_off (television, shower), template_thor_switch_device_on (floor lamp), template_thor_close_openable_fixture (blinds, shower curtain, toilet lid), template_thor_extinguish_candle, template_thor_close_laptop_and_set_down.",
-    "Open issue for review: for Blinds_1 and Shower_Curtain_1 the asset database's 'open' bounding box is the extended, covering pose, so THOR isOpen=true may mean plain-language 'closed'. Task goals follow the physical observation; the THOR mapping must be confirmed in the simulator before these goals are checked against isOpen.",
+    "For Blinds_1 and Shower_Curtain_1 the asset database's 'open' bounding box is the extended, covering pose, so THOR isOpen=true may mean plain-language 'closed'. Task goals follow the physical observation; the planning conditions thor_blinds_isopen_pose_confirmed_in_simulator and thor_shower_curtain_isopen_pose_confirmed_in_simulator and both asset_compatibility limitations require the mapping to be confirmed in the simulator before goals are checked against isOpen.",
     "THOR toggles state on the object itself (Television, FloorLamp, ShowerHead, Candle); real collection uses the physical control (power button or remote, lamp switch, wall valve, LED surrogate switch), listed as planning resources. The candle uses an LED surrogate and no open flame.",
     "Part C of thor_round1 (8 tasks: desk lamp, bed, safe, dresser, desk, washing machine, spray bottle, light switches). Merges into data/drafts/thor_round1.json, which defines scene_home_living_room, scene_home_bedroom, scene_multi_room_house, evidence_thor_task_design_round1, and evidence_procthor_asset_database; they are not redefined here. scene_home_bathroom comes from gso_round1.",
     "Only the primary asset of each task is an ObjectInstance (thor_object_<asset slug>, e.g. thor_object_desk_lamp_1) to avoid collisions with parts A and B. The desk lamp object is reused as a bound item in the desk and whole-house tasks.",
     "Supporting items (keychain, card, cloths, duvet, pillow, pen, pencil, mug, laptop, drawers, cabinet and machine doors, under-sink cabinet, other light switches, rooms) are thor_resource_* planning object requirements, not ObjectInstances or claims that matching assets exist.",
     "Catalog identity claims cite the shared evidence_procthor_asset_database; no per-object evidence is created. Every task_suitability claim cites evidence_thor_task_design_round1; other task claims stay unknown with no sources.",
     "Granularity: 1 atomic (desk lamp), 6 compound, 1 workflow (whole-house lights). The bed task is compound because the observable made-bed end state has several predicates over the duvet and pillow, even though THOR models it as one isDirty flag. The desk task is compound, not workflow: one desk, one sitting, no reset or checkpoint stages, one destination.",
-    "The washing machine sits in scene_home_bathroom on purpose: ProcTHOR houses have no laundry room. It and all lamps and switches are framed as unplugged, dummy-indicator, or simulation-only.",
+    "The washing machine sits in scene_home_bathroom on purpose: ProcTHOR houses have no laundry room. Lamp power policy for the whole bundle: the desk lamp, floor lamp, washing machine, and light switches are unplugged with a dummy indicator, or simulation-only; each success criterion says the indicator stands in for the light or the cycle.",
     "New Atlas concepts: object_lamp, object_furniture, object_household_appliance, object_home_fixture (as proposed in thor_candidates.json). The safe reuses object_receptacle and the spray bottle reuses object_cleaning_bottle.",
     "Eight new templates (template_thor_*); none of the existing templates carried the device-state or articulated-closure goals needed.",
-    "Open question for review: in THOR, Blinds_1 and Shower_Curtain_1 bounding boxes suggest isOpen=true may be the drawn (covering) pose. Goals are written as what a reviewer observes; the THOR mapping must be confirmed in the simulator before simulation-based collection."
+    "Review response (thor_round1 review): compound notes now count one net change plus a transient articulation rather than preserved predicates; safe and washing-machine goals use closed() on the THOR object; the blinds task is scoped to lowering to the sill; the bed goal drops made() and carries numeric tolerances; the house-lights goal no longer includes robot position.",
+    "Activated 2026-09-25 after an independent Claude review (data/reviews/thor_round1.md) with all findings addressed; the Codex cross-lane review is still pending."
   ]
 }

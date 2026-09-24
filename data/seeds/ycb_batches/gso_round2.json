@@ -713,7 +713,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Google Scanned Objects model Clorox_Premium_Choice_Gloves_SM_1_pair: a single rigid photogrammetry scan of a retail product, not a YCB object. The scan does not establish articulation, deformation, contents, power behaviour, or compatibility with Task Atlas, a simulator, or a robot. The Atlas concept object_cleaning_tool is a curator grouping only; GSO has no source taxonomy. The scan is the retail pair as one rigid mesh; separating the two gloves, cuff opening, and drape are real-object behaviour the mesh does not represent. The concept object_cleaning_tool is used because the gloves are cleaning equipment rather than clothing."
+      "notes": "Google Scanned Objects model Clorox_Premium_Choice_Gloves_SM_1_pair: a single rigid photogrammetry scan of a retail product, not a YCB object. The scan does not establish articulation, deformation, contents, power behaviour, or compatibility with Task Atlas, a simulator, or a robot. The Atlas concept object_cleaning_tool is a curator grouping only; GSO has no source taxonomy. The Gazebo Fuel thumbnails (checked 2026-09-25) show two loose gloves lying flat side by side, with no retail header card or packaging, captured together as one rigid mesh; separating the two gloves, cuff opening, and drape are real-object behaviour the mesh does not represent. The concept object_cleaning_tool is used because the gloves are cleaning equipment rather than clothing."
     },
     {
       "id": "gso_object_boat_shoe_navy",
@@ -1081,7 +1081,7 @@
       "name_ja": "皿の間に保護シートを挟んで棚に重ねる",
       "verb": "stack_with_protectors",
       "roles": {
-        "theme": "plate",
+        "theme": "bottom_plate",
         "plates": "matching_plate_set",
         "protectors": "plate_protector_set",
         "destination": "cabinet_shelf"
@@ -1095,10 +1095,11 @@
         "clear(destination)"
       ],
       "goals": [
-        "stacked_on(plates, destination)",
-        "protector_between_each(protectors, plates)",
-        "corners_aligned(plates)",
-        "all_items_accounted(plates)"
+        "stacked_on(theme, destination)",
+        "stacked_on(plates, theme)",
+        "protector_between_each(protectors, theme, plates)",
+        "corners_aligned(theme, plates)",
+        "all_items_accounted(plates, protectors)"
       ],
       "skills": [
         "skill_locate",
@@ -1341,7 +1342,8 @@
         "scene_home_bathroom"
       ],
       "preconditions": [
-        "rolled_or_folded(theme)",
+        "lying_flat(theme)",
+        "outside(theme, zone)",
         "clear(zone)"
       ],
       "goals": [
@@ -1804,6 +1806,7 @@
       ],
       "goals": [
         "all_inside(contents, theme)",
+        "all_tips_up(contents)",
         "flap_tucked(theme)",
         "inside(theme, bin)"
       ],
@@ -2199,7 +2202,7 @@
       "scene_id": "scene_home_kitchen",
       "bindings": {
         "theme": "gso_object_square_dinner_plate",
-        "plates": "gso_resource_square_dinner_plate_set_of_four",
+        "plates": "gso_resource_matching_square_dinner_plates_three",
         "protectors": "gso_resource_felt_plate_protector_set_of_three",
         "destination": "gso_resource_dish_cabinet_shelf"
       },
@@ -2208,16 +2211,19 @@
         "state_on_surface"
       ],
       "initial_state": [
-        "on_top_of(gso_resource_square_dinner_plate_set_of_four, gso_resource_dish_drainer)",
-        "dry(gso_resource_square_dinner_plate_set_of_four)",
+        "on_top_of(gso_object_square_dinner_plate, gso_resource_dish_drainer)",
+        "on_top_of(gso_resource_matching_square_dinner_plates_three, gso_resource_dish_drainer)",
+        "dry(gso_object_square_dinner_plate)",
+        "dry(gso_resource_matching_square_dinner_plates_three)",
         "on_top_of(gso_resource_felt_plate_protector_set_of_three, gso_resource_counter_work_zone)",
         "clear(gso_resource_dish_cabinet_shelf)"
       ],
       "goal_state": [
-        "stacked_on(gso_resource_square_dinner_plate_set_of_four, gso_resource_dish_cabinet_shelf)",
-        "protector_between_each(gso_resource_felt_plate_protector_set_of_three, gso_resource_square_dinner_plate_set_of_four)",
-        "corners_aligned(gso_resource_square_dinner_plate_set_of_four)",
-        "all_items_accounted(gso_resource_square_dinner_plate_set_of_four)"
+        "stacked_on(gso_object_square_dinner_plate, gso_resource_dish_cabinet_shelf)",
+        "stacked_on(gso_resource_matching_square_dinner_plates_three, gso_object_square_dinner_plate)",
+        "protector_between_each(gso_resource_felt_plate_protector_set_of_three, gso_object_square_dinner_plate, gso_resource_matching_square_dinner_plates_three)",
+        "corners_aligned(gso_object_square_dinner_plate, gso_resource_matching_square_dinner_plates_three)",
+        "all_items_accounted(gso_resource_matching_square_dinner_plates_three, gso_resource_felt_plate_protector_set_of_three)"
       ],
       "instruction_variants": [
         "Stack the four square plates on the cabinet shelf with a felt pad between each pair and the corners lined up.",
@@ -2239,7 +2245,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Compound: several objects (four plates, three protectors) and four goal predicates in one sitting at one destination, with no reset between stages. The GSO model is one plate; the set of four is modelled as a planning resource that includes the scanned model plus three matching plates. The goal is chip-free storage, distinct from existing plate tasks that set, clear, inspect, or rack a single plate."
+      "notes": "Compound: several objects (the scanned plate, three matching plates, three protectors) and five goal predicates in one sitting at one destination, with no reset between stages. The GSO model is one plate and is bound explicitly as the bottom plate of the stack (stacked_on the shelf); the three matching plates above it are a planning resource. The goal is chip-free storage, distinct from existing plate tasks that set, clear, inspect, or rack a single plate."
     },
     {
       "id": "task_gso_r2_ramekins_portion_on_porcelain_tray",
@@ -2306,7 +2312,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Compound: six items (three ramekins, three portions) on one tray in one sitting, with seven goal predicates and no reset between stages. Connects to round 1 by using the round-1 GSO porcelain tray (gso_object_porcelain_tray) as the tray. The GSO ramekin model is one ramekin; the other two are matching physical ramekins declared as planning resources. Dry, non-perishable surrogates stand in for recipe ingredients; tray dimensions have not been checked against three ramekins."
+      "notes": "Compound: six items (three ramekins, three portions) on one tray in one sitting, with seven goal predicates and no reset between stages. Connects to round 1 by using the round-1 GSO porcelain tray (gso_object_porcelain_tray) as the tray. The GSO ramekin model is one ramekin; the other two are matching physical ramekins declared as planning resources. Dry, non-perishable surrogates stand in for recipe ingredients; tray dimensions have not been checked against three ramekins. in_a_row lists the ramekins left to right as seen from the counter front: the scanned ramekin with rice on the left, ramekin b with lentils in the middle, ramekin c with sugar on the right. Tray fit stays an unverified condition; the tray interior is measured once and the same recorded value is meant to serve the round-1 tray-carry task (task_gso_r1_tray_carry_mugs_sugar_bowl)."
     },
     {
       "id": "task_gso_r2_butter_dish_cover_refrigerate",
@@ -2423,7 +2429,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Workflow with checkpointed stages at two destinations (sink and feeding area): empty and rinse at the sink, fill to the line with a checkpoint, dry the mat, and return the bowl. The feeding area is modelled inside scene_home_kitchen rather than as a new scene. No pet is present during collection. The GSO scan is rigid and carries no water or fill-line representation; the fill line is a marker applied to the physical bowl."
+      "notes": "Workflow with checkpointed stages at two destinations (sink and feeding area): empty and rinse at the sink, fill to the line with a checkpoint, dry the mat, and return the bowl. The feeding area is modelled inside scene_home_kitchen rather than as a new scene. No pet is present during collection. The GSO scan is rigid and carries no water or fill-line representation; the fill line is a marker applied to the physical bowl. Emptying is not a separate goal predicate: rinsed and filled_to imply the old water was poured out. The mat counts as dry when no droplets are visible and a dry paper towel pressed on it for 3 s shows no wet mark."
     },
     {
       "id": "task_gso_r2_slide_sandal_on_bath_mat",
@@ -2471,7 +2477,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Goal: the slide rests sole-down on the bath mat, opening toward the shower door. Labelled atomic: one object and one placement with a heading, in one motion; stable is the resting consequence of that placement, not a second goal. Reuses the existing template_ycb_transport_orient_object, whose roles (theme, source, destination, heading) fit exactly. The scan is rigid; sole flex and wetness are not represented."
+      "notes": "Goal: the slide rests sole-down on the bath mat, opening toward the shower door. Labelled atomic: one object and one placement with a heading, in one motion; stable is the resting consequence of that placement, not a second goal. Uses the new template_gso_transport_orient_item, which copies the roles, preconditions, and goals of template_ycb_transport_orient_object; the YCB template is not reused because its compatible_scenes cover only YCB scenes (playroom, workshop, storage shelf) and it lives in another lane's active seed, whereas this template declares the bathroom and entryway. Merging the two is left to a later consolidation. The scan is rigid; sole flex and wetness are not represented."
     },
     {
       "id": "task_gso_r2_hand_towel_hang_on_ring",
@@ -2536,8 +2542,8 @@
         "state_on_surface"
       ],
       "initial_state": [
-        "rolled(gso_object_dish_drying_mat_red)",
-        "on_top_of(gso_object_dish_drying_mat_red, gso_resource_kitchen_counter)",
+        "lying_flat_on(gso_object_dish_drying_mat_red, gso_resource_kitchen_counter)",
+        "outside(gso_object_dish_drying_mat_red, gso_resource_sink_side_zone)",
         "clear(gso_resource_sink_side_zone)"
       ],
       "goal_state": [
@@ -2563,7 +2569,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Goal: the mat lies flat in the sink-side zone with its long edge parallel to the counter front. Labelled atomic: one object and one placement change (rolled to laid flat in place); parallelism and flat corners are tolerances of that placement. Not a skill-only task because the end state is a specific laid-out configuration. The scan is rigid and cannot represent rolling or corner curl."
+      "notes": "Goal: the mat lies flat in the sink-side zone with its long edge parallel to the counter front. Labelled atomic: the mat starts flat on the counter away from the zone, so the task is one relocation into the zone with a parallel pose qualifier; flatness is kept, not created. Rolling was removed from the start state after review so that no shape change is stacked on the placement. Not a skill-only task because the end state is a specific laid-out configuration. The scan is rigid and cannot represent the limp drape or corner curl."
     },
     {
       "id": "task_gso_r2_conditioner_stand_in_organizer",
@@ -3063,6 +3069,7 @@
       ],
       "goal_state": [
         "all_inside(gso_resource_24_loose_crayons, gso_object_crayon_box_24)",
+        "all_tips_up(gso_resource_24_loose_crayons)",
         "flap_tucked(gso_object_crayon_box_24)",
         "inside(gso_object_crayon_box_24, gso_object_fabric_cube_red)"
       ],
@@ -3088,7 +3095,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Compound, not workflow: three goal predicates (all crayons inside, flap tucked, box in bin) with two catalogued objects in one sitting and one destination. The 24 insertions repeat one skill loop rather than forming separate stages. Uses round-1 object gso_object_fabric_cube_red as the art bin. The GSO crayon-box scan is the packaged box only; the loose crayons are a planning resource."
+      "notes": "Compound, not workflow: four goal predicates (all crayons inside, all tips up, flap tucked, box in bin) with two catalogued objects in one sitting and one destination. The 24 insertions repeat one skill loop rather than forming separate stages. Uses round-1 object gso_object_fabric_cube_red as the art bin. The GSO crayon-box scan is the packaged box only; the loose crayons are a planning resource."
     },
     {
       "id": "task_gso_r2_headset_coil_tie_hang",
@@ -3105,13 +3112,11 @@
         "tie": "gso_resource_hook_and_loop_cable_tie"
       },
       "state_ids": [
-        "state_on_surface",
-        "state_room_temperature"
+        "state_on_surface"
       ],
       "initial_state": [
         "on_top_of(gso_object_headset_kraken_pro, gso_resource_desk_surface)",
         "unplugged(gso_object_headset_kraken_pro)",
-        "cool(gso_object_headset_kraken_pro)",
         "cord_uncoiled(gso_object_headset_kraken_pro)",
         "clear(gso_resource_desk_edge_headset_hook)"
       ],
@@ -3141,7 +3146,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Compound: three changed predicates (cable coiled, cable tied, headset hanging) across the headset and a tie in one sitting. Reuses round-1 template_gso_hang_corded_appliance, whose roles and goals fit; the headset is unpowered and passive, so the template's cool() precondition holds trivially, and the template's compatible_scenes would need scene_home_office_desk added when round 1 is activated. The GSO scan does not model a flexible cable."
+      "notes": "Compound: three changed predicates (cable coiled, cable tied, headset hanging) across the headset and a tie in one sitting. Reuses round-1 template_gso_hang_corded_appliance, whose roles and goals fit. The headset has no heating element, so no cool() predicate is asserted; the template's cool(theme) precondition is meant for heat-source appliances such as the hair dryer, and scoping it that way is a change to the round-1 template in gso_round1, not made here. Template twin of task_gso_r1_hair_dryer_hang_on_hook on a different object, not a duplicate. The GSO scan does not model a flexible cable."
     },
     {
       "id": "task_gso_r2_drawer_organizer_sort_and_close",
@@ -3729,12 +3734,12 @@
         {
           "key": "object",
           "value": "gso_object_square_dinner_plate",
-          "reason": "Primary GSO scan; one of the four physical plates matches this model."
+          "reason": "Primary GSO scan; the physical plate of this model is the bottom plate of the stack."
         },
         {
           "key": "object",
-          "value": "gso_resource_square_dinner_plate_set_of_four",
-          "reason": "The scanned plate plus three matching square dinner plates."
+          "value": "gso_resource_matching_square_dinner_plates_three",
+          "reason": "Three square dinner plates of the same model as the scan, stacked above it."
         },
         {
           "key": "object",
@@ -3788,7 +3793,7 @@
             },
             {
               "skill_id": "skill_grasp",
-              "description": "Grasp the first plate at its rim."
+              "description": "Grasp the scanned-model plate (the bottom plate) at its rim."
             },
             {
               "skill_id": "skill_lift",
@@ -3837,13 +3842,13 @@
       ],
       "collection": {
         "success_criteria": [
-          "Four plates are stacked on the shelf.",
+          "The scanned-model plate sits on the shelf as the bottom plate, with the three matching plates stacked above it.",
           "A protector lies between each adjacent pair of plates.",
-          "Plate corners are aligned within the declared tolerance.",
+          "Each plate corner is within 5 mm of the corresponding corner of the bottom plate, measured horizontally on the front and side photographs.",
           "No plate is chipped."
         ],
         "setup": [
-          "Place four clean, dry, chip-free plates in the drainer.",
+          "Place the scanned-model plate and three matching clean, dry, chip-free plates in the drainer; mark the scanned-model plate on its underside.",
           "Place three protectors on the counter work zone.",
           "Open the cabinet and clear the target shelf area."
         ],
@@ -3851,7 +3856,7 @@
           "Unstack the plates back to the drainer and the protectors to the counter."
         ],
         "quality_checks": [
-          "Front and side photographs of the stack against a corner-alignment mark.",
+          "Front and side photographs of the stack against a millimetre corner-alignment scale.",
           "Rim inspection of each plate at reset."
         ],
         "failure_modes": [
@@ -3946,7 +3951,7 @@
         {
           "key": "condition",
           "value": "tray_fits_three_ramekins_confirmed",
-          "reason": "The tray footprint holds three ramekins in a row with clearance."
+          "reason": "Unverified: the tray's usable interior (length and width in mm) is measured once, recorded in the trial log, and must hold three ramekins in a row with clearance. The same recorded measurement is reused for the round-1 tray-carry task."
         },
         {
           "key": "condition",
@@ -4070,19 +4075,21 @@
       "collection": {
         "success_criteria": [
           "Each ramekin holds its declared portion.",
-          "All three ramekins stand on the tray in a straight row in the declared order.",
-          "No surrogate is spilled on the tray or counter beyond the declared tolerance."
+          "All three ramekins stand on the tray in a straight row in the order rice, lentil, sugar from left to right as seen from the counter front.",
+          "No more than 2 g of surrogate in total lies outside the ramekins, measured by weighing the tray and the counter spill sheet before and after the trial."
         ],
         "setup": [
+          "Measure the porcelain tray's usable interior length and width once, in mm, and record it in the trial log for reuse by the round-1 tray-carry task.",
           "Measure each surrogate into its own cup.",
-          "Place the empty tray and three empty ramekins on the counter work zone."
+          "Place the empty tray and three empty ramekins on the counter work zone.",
+          "Lay a spill sheet on the counter work zone around the tray and weigh the empty tray and the sheet."
         ],
         "reset": [
           "Pour the surrogates back into their cups, wipe the ramekins and tray, and return them to the counter."
         ],
         "quality_checks": [
           "Top-down photograph of the tray at fixed height.",
-          "Weigh the spilled surrogate if any is visible."
+          "Weigh the tray (with ramekins removed) and the spill sheet after the trial and compare with the setup weights."
         ],
         "failure_modes": [
           "Portion in the wrong ramekin",
@@ -4323,6 +4330,11 @@
           "key": "condition",
           "value": "tap_water_cool",
           "reason": "Safety: only cool tap water is used."
+        },
+        {
+          "key": "condition",
+          "value": "robot_electronics_splash_protected",
+          "reason": "Safety: the arm and wrist electronics are rated or covered for splashes while the bowl is emptied, filled at the tap, and carried full across the floor."
         }
       ],
       "procedures": [
@@ -4444,9 +4456,9 @@
       "collection": {
         "success_criteria": [
           "No visible residue remains in the bowl.",
-          "The water level is at the fill line within the declared tolerance.",
+          "The water level is within 5 mm above or below the fill line, read on the side photograph.",
           "The bowl sits on the mat.",
-          "The mat surface is dry."
+          "The mat surface is dry: no visible droplets, and a dry paper towel pressed on it for 3 s shows no wet mark."
         ],
         "setup": [
           "Leave the bowl on the mat partly full of water with a visible residue surrogate (a few dry food-colour flakes).",
@@ -4458,7 +4470,7 @@
         ],
         "quality_checks": [
           "Side photograph of the water level against the marker.",
-          "Touch or moisture-card check of the mat surface."
+          "Press a dry paper towel on the mat for 3 s and photograph it; any wet mark fails."
         ],
         "failure_modes": [
           "Water spilled while carrying",
@@ -4468,7 +4480,8 @@
         ],
         "consumables": [
           "Residue surrogate",
-          "Drying towel (replaced when wet)"
+          "Drying towel (replaced when wet)",
+          "Paper towels for the dryness test"
         ],
         "time_estimates": {
           "setup_minutes": null,
@@ -4535,7 +4548,7 @@
         {
           "key": "condition",
           "value": "heading_tolerance_marked",
-          "reason": "A tape arc on the mat marks the accepted heading range toward the door."
+          "reason": "A tape arc on the mat marks the accepted heading range, ±15° toward the door."
         }
       ],
       "procedures": [
@@ -4579,7 +4592,7 @@
       "collection": {
         "success_criteria": [
           "The slide rests sole-down fully on the bath mat.",
-          "The slide's opening points at the shower door within the marked arc."
+          "The slide's opening points at the shower door within ±15° (the marked arc)."
         ],
         "setup": [
           "Lay the bath mat in front of the shower, mark the heading arc, and set the dry slide in the floor corner in a random orientation."
@@ -4749,12 +4762,12 @@
         {
           "key": "object",
           "value": "gso_resource_kitchen_counter",
-          "reason": "Counter area where the rolled mat starts."
+          "reason": "Counter area away from the zone where the flat mat starts."
         },
         {
           "key": "capability",
           "value": "deformable_manipulation",
-          "reason": "Unrolling and flattening a flexible mat."
+          "reason": "Carrying a limp mat and lowering it flat without folding a corner under."
         },
         {
           "key": "capability",
@@ -4774,7 +4787,7 @@
         {
           "key": "condition",
           "value": "alignment_tolerance_marked",
-          "reason": "Tape marks give the accepted angle between the mat and the counter edge."
+          "reason": "Tape marks give the accepted angle between the mat's long edge and the counter edge: at most 5°."
         }
       ],
       "procedures": [
@@ -4784,15 +4797,15 @@
           "steps": [
             {
               "skill_id": "skill_locate",
-              "description": "Locate the rolled mat and the taped zone beside the sink."
+              "description": "Locate the flat mat on the counter and the taped zone beside the sink."
             },
             {
               "skill_id": "skill_grasp",
-              "description": "Grasp the free end of the rolled mat."
+              "description": "Grasp the mat at the two corners of one short edge."
             },
             {
               "skill_id": "skill_place",
-              "description": "Set the free end at the zone's far edge and unroll the mat across the zone."
+              "description": "Lift the mat so it hangs, carry it over the zone, and lower it from the far edge toward the near edge so it lies flat."
             },
             {
               "skill_id": "skill_align",
@@ -4808,7 +4821,7 @@
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify the mat is inside the zone and within the alignment tolerance."
+              "description": "Verify the mat is inside the zone and within 5° of the counter edge."
             }
           ],
           "requirements": [],
@@ -4818,13 +4831,13 @@
       "collection": {
         "success_criteria": [
           "The mat lies inside the taped zone with no corner folded under or curled over.",
-          "The long edge is within the marked angle of the counter front edge."
+          "The long edge is within 5° of the counter front edge (the marked angle)."
         ],
         "setup": [
-          "Roll the dry mat loosely and place it on the counter away from the taped zone."
+          "Lay the dry mat flat on the counter at least 30 cm from the taped zone, at a random angle."
         ],
         "reset": [
-          "Re-roll the mat and return it to the start position."
+          "Return the mat flat to the start position at a new random angle."
         ],
         "quality_checks": [
           "Top-down photo with the tape marks visible.",
@@ -5020,6 +5033,11 @@
           "key": "condition",
           "value": "caddy_fixed_to_sink",
           "reason": "The caddy does not tip when a glove is hung on it."
+        },
+        {
+          "key": "condition",
+          "value": "robot_electronics_splash_protected",
+          "reason": "Safety: the arm and wrist electronics are rated or covered for drips while wet gloves are handled and hung above the basin."
         }
       ],
       "procedures": [
@@ -8189,18 +8207,19 @@
     "Resource IDs beginning gso_resource_ are planning object requirements (hooks, slots, protectors, matching plates and ramekins, surrogates, mats), not cataloged ObjectInstances or claims that matching assets exist.",
     "Every GSO model is a single rigid scan. Screw threads, separable covers, hinged handles, water, and granular surrogates are real-object behaviour; every asset_compatibility claim stays unknown.",
     "Part B of gso_round2 (8 tasks): slide sandal, hand towel, dish drying mat, conditioner bottle, rubber gloves, boat shoe, facial cleanser, kitchen towel pack. Built on the skeleton data/drafts/gso_round2.json; evidence_gso_task_design_round2 is defined there and round-1 scenes come from data/drafts/gso_round1.json.",
-    "Granularity: 4 atomic (slide, hand towel, drying mat, conditioner), 3 compound (gloves, boat shoe, cleanser), 1 workflow (kitchen towels). Candidate-list labels were revised where honest: gloves atomic -> compound (two separate hangs), boat shoe and cleanser workflow -> compound (one sitting, one location).",
+    "Granularity: 4 atomic (slide, hand towel, drying mat, conditioner), 3 compound (gloves, boat shoe, cleanser), 1 workflow (kitchen towels). Candidate-list labels were revised where honest: gloves atomic -> compound (two separate hangs), boat shoe and cleanser workflow -> compound (one sitting, one location). After review the drying mat starts flat away from its zone, so it stays atomic as a single placement.",
     "Round-1 connection: the cleanser task uses gso_object_waste_basket (gso_round1) as its carton destination; the boat shoe reuses the round-1 planning resource gso_resource_shoe_rack.",
-    "Template reuse: the slide sandal uses the existing template_ycb_transport_orient_object. Seven new templates (template_gso_*).",
+    "Template reuse: part B adds eight new templates (template_gso_*). The slide sandal uses template_gso_transport_orient_item, a copy of template_ycb_transport_orient_object's roles and goals, because the YCB template's compatible_scenes do not include the bathroom or entryway and it lives in another lane's active seed.",
     "New Atlas concepts: object_textile (hand towel, drying mat, kitchen towel pack) and object_personal_care_container (conditioner, cleanser), both proposed in data/research/gso_candidates.json. Gloves use object_cleaning_tool; the slide and boat shoe use round-1 object_footwear. No new scene.",
     "Personal-care products use water surrogates and closed caps; gloves and shoe cleaning use water only; towel and footwear items carry hygiene conditions; the oven-handle task requires the oven off and cool.",
     "All GSO scans are single rigid meshes; draping, rolling, separation, caps, and contents are real-object behaviour, so every asset_compatibility claim stays unknown.",
     "gso_round2 part C (8 tasks: Monopoly Hotels box lid, handheld console hinge, lunch box latch, gaffer tape rod, crayon box refill, headset coil-and-hang, drawer organizer, lavender fabric cube fold). Groups: toys_games_puzzles, office_stationery_books, electronics_hardware, storage_containers.",
     "Granularity: 4 atomic (box lid, console, lunch box, tape roll), 4 compound. Each atomic task changes one goal predicate on one object; packing, stacking, casing, or shelving that would add predicates is left out on purpose.",
     "Round-1 links: task_gso_r2_crayons_refill_box_into_fabric_cube uses gso_object_fabric_cube_red as its bin; task_gso_r2_fabric_cube_collapse_stand_by_bookend uses gso_object_reversible_bookend as the upright support. Both are referenced by ID and not redefined.",
-    "Template reuse: task_gso_r2_headset_coil_tie_hang reuses round-1 template_gso_hang_corded_appliance; when round 1 is activated its compatible_scenes should add scene_home_office_desk. Seven new templates are added for the other tasks.",
+    "Template reuse: task_gso_r2_headset_coil_tie_hang reuses round-1 template_gso_hang_corded_appliance (already compatible with scene_home_office_desk); the headset asserts no cool() predicate because it has no heating element. Seven new templates are added for the other tasks.",
     "New Atlas concepts: object_tape_roll (gaffer tape) and object_writing_tool (crayon box). Other objects reuse object_game_piece, object_electronic_device, object_food_container, and object_receptacle.",
     "Scenes, evidence_gso_task_design_round2, and the round-1 records are defined elsewhere (data/drafts/gso_round2.json, data/drafts/gso_round1.json) and are not redefined here. gso_resource_* IDs are planning resources, not ObjectInstances.",
-    "All GSO scans are single rigid meshes; lids, hinges, latches, cables, adhesive ends, loose crayons, and fabric folding are real-object behaviour, so every asset_compatibility claim stays unknown."
+    "All GSO scans are single rigid meshes; lids, hinges, latches, cables, adhesive ends, loose crayons, and fabric folding are real-object behaviour, so every asset_compatibility claim stays unknown.",
+    "Activated 2026-09-25 after an independent Claude review (data/reviews/gso_round2.md) with all findings addressed; the Codex cross-lane review is still pending."
   ]
 }
