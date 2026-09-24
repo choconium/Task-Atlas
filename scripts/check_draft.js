@@ -19,16 +19,26 @@ function checkDrafts(draftPaths) {
     fs.cpSync(SEED_DIR, scratch, { recursive: true });
     const activeTasks = defaultData(scratch).tasks;
     const draftTaskIds = new Set();
+    const draftErrors = [];
     for (const draftPath of draftPaths) {
       const bundle = JSON.parse(fs.readFileSync(draftPath, "utf8"));
       for (const task of bundle.tasks || []) draftTaskIds.add(task.id);
+      // New external objects must carry their own catalog identity claim.
+      const identified = new Set(
+        (bundle.claims || [])
+          .filter((claim) => claim.claim_type === "catalog_identity")
+          .map((claim) => claim.subject_id),
+      );
+      for (const object of bundle.external_objects || [])
+        if (!identified.has(object.id))
+          draftErrors.push(`${object.id}: missing catalog_identity claim`);
       fs.copyFileSync(
         draftPath,
         path.join(scratch, "ycb_batches", path.basename(draftPath)),
       );
     }
     const data = defaultData(scratch);
-    const { errors } = validateData(data);
+    const errors = [...draftErrors, ...validateData(data).errors];
     const drafted = data.tasks.filter((task) => draftTaskIds.has(task.id));
 
     const activeNames = new Map(

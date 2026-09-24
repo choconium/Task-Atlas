@@ -20,6 +20,12 @@ test("draft checker validates a bundle against active seeds and reports broken r
     fs.writeFileSync(broken, JSON.stringify(bundle));
     const failing = checkDrafts([broken]);
     assert.ok(failing.errors.some((error) => error.includes("scene_does_not_exist")));
+
+    const unidentified = JSON.parse(fs.readFileSync(ACTIVE_BUNDLE, "utf8"));
+    unidentified.claims = unidentified.claims.filter((claim) => claim.claim_type !== "catalog_identity");
+    const missing = path.join(scratch, "unidentified.json");
+    fs.writeFileSync(missing, JSON.stringify(unidentified));
+    assert.ok(checkDrafts([missing]).errors.some((error) => error.includes("missing catalog_identity claim")));
   } finally {
     fs.rmSync(scratch, { recursive: true, force: true });
   }
