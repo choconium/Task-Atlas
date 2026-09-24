@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta id="page-description" name="description" content="The design philosophy behind Physical AI Task Atlas.">
+    <title>What's this? · Task Atlas</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="shell start philosophy">
+      <header>
+        <a class="brand" href="/">
+          <b aria-hidden="true">✦</b>
+          <span><small>PHYSICAL AI / TASK EXPLORER</small>Task Atlas</span>
+        </a>
+        <span class="spacer"></span>
+        <button id="language" class="quiet" type="button">Japanese</button>
+        <a class="cta" href="/" data-copy-en="Open the explorer" data-copy-ja="エクスプローラーを開く">Open the explorer</a>
+      </header>
+
+      <main>
+        <section class="panel philosophy-intro">
+          <small data-copy-en="DESIGN PHILOSOPHY" data-copy-ja="設計哲学">DESIGN PHILOSOPHY</small>
+          <h1 data-copy-en="What is Task Atlas?" data-copy-ja="Task Atlasとは？">What is Task Atlas?</h1>
+          <p data-copy-en="Task Atlas is a map for choosing what Physical AI data to collect. Start from an object, scene, state, intent, skill, dataset, or robot; follow connected task candidates; inspect what is known and what still needs a trial." data-copy-ja="Task Atlasは、Physical AIのために何を収集するかを考える行動マップです。物体・シーン・状態・目的・スキル・データセット・ロボットのどこからでも探索を始め、つながるタスク候補をたどり、分かっていることと試行が必要なことを確認できます。">Task Atlas is a map for choosing what Physical AI data to collect. Start from an object, scene, state, intent, skill, dataset, or robot; follow connected task candidates; inspect what is known and what still needs a trial.</p>
+          <p class="start-time" data-copy-en="Explore broadly · Ground every claim · Keep unknowns visible" data-copy-ja="広く探索する · 主張ごとに根拠を示す · 不明は不明のままにする">Explore broadly · Ground every claim · Keep unknowns visible</p>
+        </section>
+
+        <section class="philosophy-principles" aria-labelledby="principles-title">
+          <h2 id="principles-title" data-copy-en="The principles behind the map" data-copy-ja="このマップを支える考え方">The principles behind the map</h2>
+          <div class="philosophy-grid">
+            <article class="panel philosophy-card">
+              <b class="principle-number">01</b>
+              <h3 data-copy-en="Begin anywhere" data-copy-ja="入口を一つに決めない">Begin anywhere</h3>
+              <p data-copy-en="Objects, scenes, states, intents, skills, datasets, and robots are different starting points. Typed relationships connect them, so exploration can follow the question at hand instead of forcing every task into one fixed tree." data-copy-ja="物体・シーン・状態・目的・スキル・データセット・ロボットを、それぞれ探索の入口にできます。型のある関係で結び、すべてのタスクを一つの固定階層へ押し込まず、問いに沿ってたどります。">Objects, scenes, states, intents, skills, datasets, and robots are different starting points. Typed relationships connect them, so exploration can follow the question at hand instead of forcing every task into one fixed tree.</p>
+            </article>
+
+            <article class="panel philosophy-card">
+              <b class="principle-number">02</b>
+              <h3 data-copy-en="Define tasks by their goals" data-copy-ja="タスクを目標で定義する">Define tasks by their goals</h3>
+              <p data-copy-en="A task describes a meaningful change from an initial state to a goal. Procedures are optional proposals for reaching that goal; skills describe capabilities, not a required choreography. Demonstrations remain separate records of observed action." data-copy-ja="タスクは初期状態から目標状態への意味のある変化を表します。手順は目標へ至る方法の提案であり、必須の順序ではありません。スキルは能力を示し、デモは観測した行動として別に扱います。">A task describes a meaningful change from an initial state to a goal. Procedures are optional proposals for reaching that goal; skills describe capabilities, not a required choreography. Demonstrations remain separate records of observed action.</p>
+            </article>
+
+            <article class="panel philosophy-card">
+              <b class="principle-number">03</b>
+              <h3 data-copy-en="Keep uncertainty visible" data-copy-ja="不確かさを見えるままにする">Keep uncertainty visible</h3>
+              <p data-copy-en="An omitted field is unknown. “None” means someone checked and found nothing. A ready assessment means the declared planning requirements are met; it does not mean a robot has succeeded." data-copy-ja="未指定の項目は不明です。「なし」は確認して存在しなかったという意味です。「準備完了」は宣言された計画要件を満たすことを示し、ロボットの成功を意味しません。">An omitted field is unknown. “None” means someone checked and found nothing. A ready assessment means the declared planning requirements are met; it does not mean a robot has succeeded.</p>
+            </article>
+
+            <article class="panel philosophy-card">
+              <b class="principle-number">04</b>
+              <h3 data-copy-en="Give every claim its own evidence" data-copy-ja="主張ごとに根拠を分ける">Give every claim its own evidence</h3>
+              <p data-copy-en="Task suitability, human frequency, asset compatibility, and robot execution answer different questions. Each source is tied to the claim and scope it can support. Dataset counts or video appearances are not treated as everyday population frequency." data-copy-ja="タスクの妥当性、人間の行動頻度、アセット適合性、ロボット実行は別々の問いです。出典は、支えられる主張と範囲を明示して結びます。データセット内の件数や映像への登場を、日常生活での頻度とはみなしません。">Task suitability, human frequency, asset compatibility, and robot execution answer different questions. Each source is tied to the claim and scope it can support. Dataset counts or video appearances are not treated as everyday population frequency.</p>
+            </article>
+
+            <article class="panel philosophy-card">
+              <b class="principle-number">05</b>
+              <h3 data-copy-en="Make the next trial reviewable" data-copy-ja="次の試行をレビュー可能にする">Make the next trial reviewable</h3>
+              <p data-copy-en="A collection card gathers the setup, reset, success checks, failure modes, required resources, and unresolved conditions for a candidate. A proposal stays a proposal until observations support a stronger claim." data-copy-ja="収集カードには、候補に必要な準備・リセット・成功確認・失敗要因・資源・未解決条件をまとめます。観測によって主張が裏づけられるまでは、提案を提案のまま示します。">A collection card gathers the setup, reset, success checks, failure modes, required resources, and unresolved conditions for a candidate. A proposal stays a proposal until observations support a stronger claim.</p>
+            </article>
+
+            <article class="panel philosophy-card">
+              <b class="principle-number">06</b>
+              <h3 data-copy-en="Use each source within its limits" data-copy-ja="出典をその限界の範囲で使う">Use each source within its limits</h3>
+              <p data-copy-en="Benchmarks, object catalogs, activity surveys, and video datasets reveal different parts of the map. Their coverage and biases stay attached to the source; no single dataset defines all useful tasks." data-copy-ja="ベンチマーク・物体カタログ・生活時間調査・映像データは、マップの異なる部分を示します。網羅範囲と偏りは出典とともに記録し、一つのデータセットだけで有用なタスク全体を定義しません。">Benchmarks, object catalogs, activity surveys, and video datasets reveal different parts of the map. Their coverage and biases stay attached to the source; no single dataset defines all useful tasks.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel philosophy-bridge">
+          <small data-copy-en="FROM EXPLORATION TO COLLECTION" data-copy-ja="探索から収集へ">FROM EXPLORATION TO COLLECTION</small>
+          <h2 data-copy-en="A grounded path from a question to a plan" data-copy-ja="問いから根拠のある収集計画へ">A grounded path from a question to a plan</h2>
+          <p data-copy-en="Task Atlas uses object sets such as YCB as physical anchors, then connects concepts, situations, goals, and reusable skills. A selected candidate can become a collection plan while its assumptions, evidence, and unknowns remain inspectable." data-copy-ja="YCBなどの物体セットを物理的な手がかりに、概念・状況・目標・再利用可能なスキルをつなぎます。選んだ候補を収集計画に変換しても、前提・根拠・不明点を確認できる状態に保ちます。">Task Atlas uses object sets such as YCB as physical anchors, then connects concepts, situations, goals, and reusable skills. A selected candidate can become a collection plan while its assumptions, evidence, and unknowns remain inspectable.</p>
+          <a class="quiet philosophy-source" href="https://github.com/choconium/Task-Atlas/blob/main/physical_ai_task_atlas_handoff_ja.md" target="_blank" rel="noopener noreferrer" data-copy-en="Read the full design handoff" data-copy-ja="設計引き継ぎメモ全文を読む">Read the full design handoff</a>
+        </section>
+
+        <section class="panel start-next">
+          <div>
+            <h2 data-copy-en="Explore the map" data-copy-ja="マップを探索する">Explore the map</h2>
+            <p data-copy-en="Choose an object or another starting point, then follow its tasks and evidence." data-copy-ja="物体などの入口を選び、つながるタスクと根拠をたどってみてください。">Choose an object or another starting point, then follow its tasks and evidence.</p>
+          </div>
+          <a class="cta" href="/" data-copy-en="Open the explorer" data-copy-ja="エクスプローラーを開く">Open the explorer</a>
+        </section>
+      </main>
+
+      <footer>
+        <span>Physical AI Task Atlas</span>
+        <a class="quiet" href="https://github.com/choconium/Task-Atlas" data-copy-en="Source and documentation" data-copy-ja="ソースコードとドキュメント">Source and documentation</a>
+        <span>© 2026 chocopan</span>
+      </footer>
+    </div>
+    <script src="/about.js" defer></script>
+  </body>
+</html>

@@ -770,3 +770,243 @@ footer {
     flex-direction: column;
   }
 }
+.philosophy main > section,
+.philosophy-principles {
+  margin-bottom: 15px;
+}
+.philosophy-principles > h2 {
+  margin: 4px 2px 10px;
+}
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.philosophy-card {
+  padding: 20px 22px;
+}
+.principle-number {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #55dfc755;
+  border-radius: 9px;
+  color: var(--teal);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.philosophy-card h3 {
+  margin-top: 13px;
+}
+.philosophy-card p,
+.philosophy-bridge p {
+  margin-bottom: 0;
+}
+.philosophy-bridge {
+  padding: 22px;
+}
+.philosophy-bridge h2 {
+  margin-top: 8px;
+}
+.philosophy-source {
+  display: inline-block;
+  margin-top: 16px;
+}
+@media (max-width: 790px) {
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+  }
+  .philosophy-card,
+  .philosophy-bridge {
+    padding: 16px;
+  }
+}
+.guide-link,
+.cta {
+  padding: 7px 11px;
+  border-radius: 8px;
+  color: #08221f;
+  background: var(--teal);
+  font-size: 11px;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.guide-link:hover,
+.cta:hover {
+  background: #7ae9d6;
+}
+.start {
+  max-width: 920px;
+}
+.start .spacer {
+  flex: 1;
+}
+.start main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+}
+.start main > .panel {
+  padding: 22px;
+}
+.start h1 {
+  margin: 8px 0 10px;
+  font-size: clamp(26px, 4vw, 38px);
+  letter-spacing: -0.05em;
+  line-height: 1.15;
+}
+.start h2 {
+  margin: 6px 0 10px;
+  font-size: 19px;
+  letter-spacing: -0.035em;
+}
+.start h3 {
+  margin: 2px 0 6px;
+  color: var(--text);
+  font-size: 15px;
+}
+.start p,
+.start li,
+.start dd {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.start-time {
+  display: inline-block;
+  margin: 4px 0 0;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: var(--teal) !important;
+  background: #55dfc720;
+  font-size: 11px !important;
+  font-weight: 700;
+}
+.layout-map {
+  display: grid;
+  grid-template-columns: 1fr 2.4fr 1.4fr;
+  grid-template-areas:
+    "objects context inspector"
+    "objects graph inspector"
+    "objects tasks inspector";
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+.area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0a1c2e;
+  font-size: 12px;
+  font-weight: 650;
+}
+.area b,
+.step {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  color: #08221f;
+  background: var(--teal);
+  font-size: 12px;
+}
+.a-objects {
+  grid-area: objects;
+}
+.a-context {
+  grid-area: context;
+}
+.a-graph {
+  grid-area: graph;
+  min-height: 80px;
+}
+.a-tasks {
+  grid-area: tasks;
+}
+.a-inspector {
+  grid-area: inspector;
+}
+.start-steps > h2 {
+  margin: 10px 2px 8px;
+}
+.start-steps ol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.start-steps li {
+  display: flex;
+  gap: 14px;
+  padding: 16px 18px;
+}
+.start-steps li p {
+  margin: 0;
+}
+.step {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+}
+.start-try ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.start-terms dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 22px;
+  margin: 0;
+}
+.start-terms dt {
+  margin-top: 8px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+}
+.start-terms dd {
+  margin: 2px 0 0;
+}
+.start-next {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.start-next .cta {
+  padding: 11px 16px;
+  font-size: 13px;
+}
+.start footer a {
+  font-size: 10px;
+}
+@media (max-width: 790px) {
+  .start main > .panel {
+    padding: 16px;
+  }
+  .layout-map {
+    grid-template-columns: 1fr;
+    grid-template-areas: "objects" "context" "graph" "tasks" "inspector";
+  }
+  .a-graph {
+    min-height: 46px;
+  }
+  .start-terms dl {
+    grid-template-columns: 1fr;
+  }
+  .start-next {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

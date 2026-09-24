@@ -187,6 +187,46 @@ test("root serves the current Task Atlas explorer shell and graph mount", async 
   assert.match(response.body, /<title>Task Atlas<\/title>/);
   assert.match(response.body, /id="graph"/);
   assert.match(response.body, /RELATIONSHIP GRAPH/);
+  assert.match(response.body, /href="\/start\.html"/);
+  assert.match(response.body, /href="\/about\.html"[^>]*data-copy-en="What's this\?"/);
+  assert.match(response.body, /© 2026 chocopan/);
+});
+
+test("the get started page is served with its script and links back to the explorer", async () => {
+  const page = await request("/start.html");
+  assert.equal(page.status, 200);
+  assert.match(page.headers["content-type"] || "", /text\/html/);
+  assert.match(page.body, /GET STARTED/);
+  assert.match(page.body, /data-copy-en="What's this\?"/);
+  assert.match(page.body, /<script src="\/start\.js"/);
+  assert.match(page.body, /class="cta" href="\/"/);
+  assert.match(page.body, /© 2026 chocopan/);
+  const script = await request("/start.js");
+  assert.equal(script.status, 200);
+  assert.match(script.headers["content-type"] || "", /javascript/);
+});
+
+test("the design philosophy page is bilingual and defaults to English-only copy", async () => {
+  const page = await request("/about.html");
+  assert.equal(page.status, 200);
+  assert.match(page.headers["content-type"] || "", /text\/html/);
+  assert.match(page.body, /<html lang="en">/);
+  assert.match(page.body, /<title>What's this\? · Task Atlas<\/title>/);
+  assert.match(page.body, /What is Task Atlas\?/);
+  assert.match(page.body, /Give every claim its own evidence/);
+  assert.match(page.body, /href="https:\/\/github\.com\/choconium\/Task-Atlas\/blob\/main\/physical_ai_task_atlas_handoff_ja\.md"/);
+  assert.match(page.body, /data-copy-ja="設計哲学"/);
+  assert.match(page.body, /© 2026 chocopan/);
+  const visibleText = page.body
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<[^>]+>/g, " ");
+  assert.doesNotMatch(visibleText, /[\u3040-\u30ff\u3400-\u9fff]/);
+
+  const script = await request("/about.js");
+  assert.equal(script.status, 200);
+  assert.match(script.headers["content-type"] || "", /javascript/);
+  assert.match(script.body, /localStorage\.setItem\("atlas-lang", language\)/);
+  assert.match(script.body, /document\.documentElement\.lang = language/);
 });
 
 test("full and empty contents assess dispensing and disposal differently", async () => {

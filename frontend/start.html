@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A short guide to exploring Physical AI tasks in Task Atlas.">
+    <title>Get started · Task Atlas</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="shell start">
+      <header>
+        <a class="brand" href="/">
+          <b aria-hidden="true">✦</b>
+          <span><small>PHYSICAL AI / TASK EXPLORER</small>Task Atlas</span>
+        </a>
+        <span class="spacer"></span>
+        <a class="guide-link" href="/about.html" data-copy-en="What's this?" data-copy-ja="このサイトについて">What's this?</a>
+        <button id="language" class="quiet" type="button">Japanese</button>
+        <a class="cta" href="/" data-copy-en="Open the explorer" data-copy-ja="エクスプローラーを開く">Open the explorer</a>
+      </header>
+
+      <main>
+        <section class="panel start-intro">
+          <small>GET STARTED</small>
+          <h1 data-copy-en="Find the right task before you collect data" data-copy-ja="データを集める前に、適切なタスクを見つける">Find the right task before you collect data</h1>
+          <p data-copy-en="Task Atlas starts from an everyday object and asks which tasks make sense in a given situation. It shows what is ready, what is missing, and which claims have sources, then turns a candidate into a collection card you can use for a simulation or teleoperation session." data-copy-ja="Task Atlasは身近な物体を入口に、「この状況ならどんなタスクが成り立つか」を考えるためのツールです。準備できていること・足りないこと・根拠のある主張を分けて示し、選んだ候補をシミュレーションや遠隔操作での収集に使える収集カードにまとめます。">Task Atlas starts from an everyday object and asks which tasks make sense in a given situation. It shows what is ready, what is missing, and which claims have sources, then turns a candidate into a collection card you can use for a simulation or teleoperation session.</p>
+          <p class="start-time" data-copy-en="About 5 minutes · no sign-in needed" data-copy-ja="所要時間 約5分・ログイン不要">About 5 minutes · no sign-in needed</p>
+        </section>
+
+        <section class="panel start-layout" aria-labelledby="layout-title">
+          <small>SCREEN LAYOUT</small>
+          <h2 id="layout-title" data-copy-en="What you will see" data-copy-ja="画面の見方">What you will see</h2>
+          <div class="layout-map" aria-hidden="true">
+            <div class="area a-objects"><b>1</b><span data-copy-en="Objects" data-copy-ja="オブジェクト">Objects</span></div>
+            <div class="area a-context"><b>2</b><span data-copy-en="Context" data-copy-ja="文脈">Context</span></div>
+            <div class="area a-graph"><b>5</b><span data-copy-en="Relationship graph" data-copy-ja="関係グラフ">Relationship graph</span></div>
+            <div class="area a-tasks"><b>3</b><span data-copy-en="Candidate tasks" data-copy-ja="タスク候補">Candidate tasks</span></div>
+            <div class="area a-inspector"><b>4</b><span data-copy-en="Inspector" data-copy-ja="インスペクター">Inspector</span></div>
+          </div>
+          <p data-copy-en="On a narrow screen the same panels stack vertically in this order." data-copy-ja="画面が狭い場合は、同じパネルが縦に並びます。">On a narrow screen the same panels stack vertically in this order.</p>
+        </section>
+
+        <section class="start-steps" aria-labelledby="steps-title">
+          <h2 id="steps-title" data-copy-en="Five steps" data-copy-ja="5つのステップ">Five steps</h2>
+          <ol>
+            <li class="panel">
+              <b class="step">1</b>
+              <div>
+                <h3 data-copy-en="Choose an object" data-copy-ja="物体を選ぶ">Choose an object</h3>
+                <p data-copy-en="Pick an object from the Objects list on the left, or type a name into the search box at the top. The mustard bottle is selected when the page opens, so you can start with it." data-copy-ja="左の「オブジェクト」一覧から選ぶか、上部の検索欄に名前を入力します。最初はマスタードボトルが選ばれているので、そのまま始められます。">Pick an object from the Objects list on the left, or type a name into the search box at the top. The mustard bottle is selected when the page opens, so you can start with it.</p>
+              </div>
+            </li>
+            <li class="panel">
+              <b class="step">2</b>
+              <div>
+                <h3 data-copy-en="Describe the situation" data-copy-ja="状況を指定する">Describe the situation</h3>
+                <p data-copy-en="In Context, set the Scene, Contents, Role, and Asset profile. Leave a field unspecified when you do not know it; choose “None” only when you have checked and found none. Open “Resources, capabilities, and confirmed conditions” to declare what is present." data-copy-ja="「文脈」でシーン・内容物・役割・アセットプロファイルを指定します。分からない項目は未指定のままにし、「なし」は確認したうえで存在しないときだけ選びます。「資源・能力・確認済み条件」を開くと、手元にあるものを宣言できます。">In Context, set the Scene, Contents, Role, and Asset profile. Leave a field unspecified when you do not know it; choose “None” only when you have checked and found none. Open “Resources, capabilities, and confirmed conditions” to declare what is present.</p>
+              </div>
+            </li>
+            <li class="panel">
+              <b class="step">3</b>
+              <div>
+                <h3 data-copy-en="Compare candidate tasks" data-copy-ja="タスク候補を比べる">Compare candidate tasks</h3>
+                <p data-copy-en="Candidates update as you change the context. Each one is labelled ready, needs changes, unknown, or blocked. Explore keeps every candidate and says what would change its assessment; Ready only hides the rest." data-copy-ja="文脈を変えると候補が更新されます。各候補には「準備完了」「要変更」「不明」「ブロック」のいずれかが付きます。「探索」ではすべての候補と、評価を変えるのに必要なことを表示し、「準備完了のみ」ではそれ以外を隠します。">Candidates update as you change the context. Each one is labelled ready, needs changes, unknown, or blocked. Explore keeps every candidate and says what would change its assessment; Ready only hides the rest.</p>
+              </div>
+            </li>
+            <li class="panel">
+              <b class="step">4</b>
+              <div>
+                <h3 data-copy-en="Inspect a task and download its card" data-copy-ja="タスクを確認し、カードを保存する">Inspect a task and download its card</h3>
+                <p data-copy-en="Click a candidate to open it in the Inspector. It shows the goal and success criteria, initial state, required capabilities, alternative procedures, and each claim with its source and limits. Choose a procedure, then press “Download collection card” to save the plan as JSON." data-copy-ja="候補をクリックすると「インスペクター」に詳細が表示されます。目標と成功条件、初期状態、必要な能力、代替となる手順、主張ごとの出典と制約を確認できます。手順を選んで「収集カードをダウンロード」を押すと、計画をJSONで保存できます。">Click a candidate to open it in the Inspector. It shows the goal and success criteria, initial state, required capabilities, alternative procedures, and each claim with its source and limits. Choose a procedure, then press “Download collection card” to save the plan as JSON.</p>
+              </div>
+            </li>
+            <li class="panel">
+              <b class="step">5</b>
+              <div>
+                <h3 data-copy-en="Follow the relationships" data-copy-ja="関係をたどる">Follow the relationships</h3>
+                <p data-copy-en="In the Relationship graph, click any node (a scene, state, intent, skill, or task) to put it at the centre. Use the Context, Goals, and Execution lenses to narrow the links, and Back to return." data-copy-ja="「関係グラフ」でシーン・状態・目的・スキル・タスクなどのノードをクリックすると、そのノードが中心になります。「文脈」「目標」「実行」のレンズで表示する関係を絞り込み、「戻る」で前のノードに戻れます。">In the Relationship graph, click any node (a scene, state, intent, skill, or task) to put it at the centre. Use the Context, Goals, and Execution lenses to narrow the links, and Back to return.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="panel start-try" aria-labelledby="try-title">
+          <small>TRY THIS FIRST</small>
+          <h2 id="try-title" data-copy-en="See context change the answer" data-copy-ja="文脈で答えが変わることを確かめる">See context change the answer</h2>
+          <p data-copy-en="With the mustard bottle selected, change one field at a time and watch the candidates:" data-copy-ja="マスタードボトルを選んだ状態で、1項目ずつ変えて候補の変化を見てください。">With the mustard bottle selected, change one field at a time and watch the candidates:</p>
+          <ul>
+            <li data-copy-en="Scene “Home kitchen” and Contents “Full”: preparation and dispensing come forward." data-copy-ja="シーン「家庭のキッチン」、内容物「Full」：準備や中身を出すタスクが前に出ます。">Scene “Home kitchen” and Contents “Full”: preparation and dispensing come forward.</li>
+            <li data-copy-en="Change Contents to “Empty”: checking, replacement, disposal, and cleaning take over." data-copy-ja="内容物を「Empty」に変える：確認・交換・廃棄・洗浄が中心になります。">Change Contents to “Empty”: checking, replacement, disposal, and cleaning take over.</li>
+            <li data-copy-en="Scene “Supermarket shelf”, then switch Role between “Customer” and “Staff”: purchase tasks give way to restocking, facing, and inventory work." data-copy-ja="シーン「スーパーの商品棚」で役割を「Customer」と「Staff」で切り替える：購入のタスクが、補充・前出し・棚卸しに変わります。">Scene “Supermarket shelf”, then switch Role between “Customer” and “Staff”: purchase tasks give way to restocking, facing, and inventory work.</li>
+          </ul>
+        </section>
+
+        <section class="panel start-terms" aria-labelledby="terms-title">
+          <small>GOOD TO KNOW</small>
+          <h2 id="terms-title" data-copy-en="How to read the results" data-copy-ja="結果の読み方">How to read the results</h2>
+          <dl>
+            <div>
+              <dt data-copy-en="Unknown is not “no”" data-copy-ja="「不明」は「なし」ではない">Unknown is not “no”</dt>
+              <dd data-copy-en="Anything you have not declared stays unknown. The atlas does not fill it in for you." data-copy-ja="宣言していない項目は不明のまま扱われ、勝手に補われることはありません。">Anything you have not declared stays unknown. The atlas does not fill it in for you.</dd>
+            </div>
+            <div>
+              <dt data-copy-en="Four separate claims" data-copy-ja="4つの主張は別物">Four separate claims</dt>
+              <dd data-copy-en="Whether a task is possible, how often it happens, whether an asset fits, and whether a robot can do it are recorded and sourced separately." data-copy-ja="タスクが可能か、どのくらいの頻度で起きるか、アセットが適合するか、ロボットが実行できるかは、それぞれ別に記録され、別々の出典を持ちます。">Whether a task is possible, how often it happens, whether an asset fits, and whether a robot can do it are recorded and sourced separately.</dd>
+            </div>
+            <div>
+              <dt data-copy-en="Procedures are options" data-copy-ja="手順は選択肢">Procedures are options</dt>
+              <dd data-copy-en="A task is defined by its goal. Listed procedures are alternative ways to reach it, not a required sequence." data-copy-ja="タスクは目標で定義されます。手順は目標に至る方法の候補で、決められた順序ではありません。">A task is defined by its goal. Listed procedures are alternative ways to reach it, not a required sequence.</dd>
+            </div>
+            <div>
+              <dt data-copy-en="A card is a plan, not a result" data-copy-ja="カードは計画であり、結果ではない">A card is a plan, not a result</dt>
+              <dd data-copy-en="A collection card prepares a trial. It does not claim that a robot has already succeeded." data-copy-ja="収集カードは試行の準備です。ロボットがすでに成功したことを示すものではありません。">A collection card prepares a trial. It does not claim that a robot has already succeeded.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="panel start-next" aria-labelledby="next-title">
+          <div>
+            <h2 id="next-title" data-copy-en="Ready to explore?" data-copy-ja="始めてみましょう">Ready to explore?</h2>
+            <p data-copy-en="Developers can use the same data through the read-only API, for example /api/export/tasks.csv." data-copy-ja="開発者は読み取り専用APIで同じデータを利用できます（例：/api/export/tasks.csv）。">Developers can use the same data through the read-only API, for example /api/export/tasks.csv.</p>
+          </div>
+          <a class="cta" href="/" data-copy-en="Open the explorer" data-copy-ja="エクスプローラーを開く">Open the explorer</a>
+        </section>
+      </main>
+
+      <footer>
+        <span>Physical AI Task Atlas</span>
+        <a class="quiet" href="https://github.com/choconium/Task-Atlas" data-copy-en="Source and documentation" data-copy-ja="ソースコードとドキュメント">Source and documentation</a>
+        <span>© 2026 chocopan</span>
+      </footer>
+    </div>
+    <script src="/start.js" defer></script>
+  </body>
+</html>
