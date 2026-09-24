@@ -25,7 +25,9 @@
         "closed(ycb_001_chips_can)",
         "on_shelf(ycb_001_chips_can, inventory_scan_bay)",
         "barcode_away_from_scanner(ycb_001_chips_can)",
+        "readable_barcode_present(ycb_001_chips_can)",
         "scanner_ready(inventory_scanner)",
+        "inventory_record_blank(inventory_record)",
         "inventory_scan_bay_stable"
       ],
       "goal_state": [
@@ -52,9 +54,9 @@
       ],
       "granularity": "compound",
       "review_status": "proposed",
-      "notes": "The skills field is an unordered capability inventory. This proposed Round 5 collection design uses inert or approved replicas where food function is not required.",
+      "notes": "The skills field is an unordered capability inventory. Scanning is eligible only when the selected YCB can itself has an existing readable barcode; no synthetic label or substitute package counts as success.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -335,8 +337,8 @@
       "id": "task_ycb_round5_tuna_fish_can",
       "node_type": "TaskInstance",
       "template_id": "place_in_receptacle",
-      "name_en": "Place an empty tuna can in a puncture-guarded recycling sleeve",
-      "name_ja": "空のツナ缶を穴あき防止リサイクルスリーブに収める",
+      "name_en": "Contain an empty tuna can and its detached lid in a guarded recycling sleeve",
+      "name_ja": "空のツナ缶と分離したふたをガード付きリサイクルスリーブに収める",
       "intent_id": "intent_discard",
       "object_id": "ycb_007_tuna_fish_can",
       "scene_id": "scene_trash_sorting_area",
@@ -352,9 +354,12 @@
         "empty(ycb_007_tuna_fish_can)",
         "detached(tuna_can_lid, ycb_007_tuna_fish_can)",
         "on_top_of(ycb_007_tuna_fish_can, sorting_surface)",
+        "on_top_of(tuna_can_lid, sorting_surface)",
+        "reachable(ycb_007_tuna_fish_can)",
+        "reachable(tuna_can_lid)",
         "recycling_sleeve_open(puncture_guarded_recycling_sleeve)",
         "edge_guard_available(tuna_edge_guard)",
-        "sorting_surface_clear"
+        "sorting_surface_perimeter_clear"
       ],
       "goal_state": [
         "inside(ycb_007_tuna_fish_can, puncture_guarded_recycling_sleeve)",
@@ -362,13 +367,16 @@
         "parts_ready_for_recycling(ycb_007_tuna_fish_can)",
         "no_exposed_sharp_edge(ycb_007_tuna_fish_can)",
         "sleeve_stable(puncture_guarded_recycling_sleeve)",
+        "detached(tuna_can_lid, ycb_007_tuna_fish_can)",
         "inside(tuna_can_lid, puncture_guarded_recycling_sleeve)",
+        "edge_guarded(tuna_can_lid, tuna_edge_guard)",
+        "parts_ready_for_recycling(tuna_can_lid)",
         "no_exposed_sharp_edge(tuna_can_lid)"
       ],
       "instruction_variants": [
-        "Place an empty tuna can in a puncture-guarded recycling sleeve.",
-        "Complete the proposed place an empty tuna can in a puncture-guarded recycling sleeve setup with all declared partner and acceptance conditions.",
-        "空のツナ缶を穴あき防止リサイクルスリーブに収める。"
+        "Contain an empty tuna can and its detached lid in a guarded recycling sleeve.",
+        "Complete the proposed contain an empty tuna can and its detached lid in a guarded recycling sleeve setup with all declared partner and acceptance conditions.",
+        "空のツナ缶と分離したふたをガード付きリサイクルスリーブに収める。"
       ],
       "skills": [
         "skill_locate",
@@ -381,9 +389,9 @@
       ],
       "granularity": "compound",
       "review_status": "proposed",
-      "notes": "The skills field is an unordered capability inventory. This proposed Round 5 collection design uses inert or approved replicas where food function is not required.",
+      "notes": "The skills field is an unordered capability inventory. tuna_can_lid is an explicitly tracked detached-part resource of the selected YCB can, not a separate YCB catalog object; both parts must remain reachable and guarded.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -549,52 +557,51 @@
     {
       "id": "task_ycb_round5_banana",
       "node_type": "TaskInstance",
-      "template_id": "place_in_receptacle",
-      "name_en": "Fit a banana into a padded hanging produce cradle without pressure",
-      "name_ja": "バナナを圧迫せず緩衝付き吊り下げクレードルに収める",
-      "intent_id": "intent_store",
+      "template_id": "template_ycb_visual_inspection",
+      "name_en": "Classify a banana contour against a validated non-contact profile",
+      "name_ja": "検証済みの非接触プロファイルでバナナの輪郭を分類する",
+      "intent_id": "intent_inspect",
       "object_id": "ycb_011_banana",
-      "scene_id": "scene_home_kitchen",
+      "scene_id": "scene_ycb_workshop",
       "bindings": {
         "theme": "ycb_011_banana",
-        "destination": "padded_produce_cradle"
+        "property": "banana_contour_classification"
       },
       "state_ids": [
         "state_on_surface"
       ],
       "initial_state": [
-        "on_top_of(ycb_011_banana, kitchen_counter)",
-        "cradle_open(padded_produce_cradle)",
-        "padding_present(padded_produce_cradle)",
-        "no_stack_pressure(ycb_011_banana)",
-        "cradle_stable(padded_produce_cradle)"
+        "visible(ycb_011_banana)",
+        "reachable(ycb_011_banana)",
+        "on_top_of(ycb_011_banana, banana_contour_station)",
+        "profile_reference_ready(banana_compatible_contour_profile)",
+        "noncontact_sensor_ready(banana_contour_sensor)",
+        "sensor_calibrated(banana_contour_sensor)",
+        "contour_record_blank(banana_contour_record)",
+        "station_stable(banana_contour_station)"
       ],
       "goal_state": [
-        "inside(ycb_011_banana, padded_produce_cradle)",
-        "suspended_by_cradle(ycb_011_banana)",
-        "uncrushed(ycb_011_banana)",
-        "stem_clear(ycb_011_banana)",
-        "cradle_stable(padded_produce_cradle)"
+        "contour_scan_completed(ycb_011_banana, banana_contour_sensor)",
+        "contour_classification_recorded(ycb_011_banana, banana_compatible_contour_profile, banana_contour_record)",
+        "no_contact_with(banana_contour_sensor, ycb_011_banana)",
+        "on_top_of(ycb_011_banana, banana_contour_station)",
+        "station_stable(banana_contour_station)"
       ],
       "instruction_variants": [
-        "Fit a banana into a padded hanging produce cradle without pressure.",
-        "Complete the proposed fit a banana into a padded hanging produce cradle without pressure setup with all declared partner and acceptance conditions.",
-        "バナナを圧迫せず緩衝付き吊り下げクレードルに収める。"
+        "Classify a banana contour against a validated non-contact profile.",
+        "Compare only the observed contour with the declared compatible profile; record match, mismatch, or indeterminate without asserting unmeasured dimensions or material.",
+        "検証済みの非接触プロファイルでバナナの輪郭を分類する。"
       ],
       "skills": [
         "skill_locate",
-        "skill_approach",
-        "skill_grasp",
-        "skill_lift",
-        "skill_place",
-        "skill_release",
+        "skill_inspect",
         "skill_verify"
       ],
       "granularity": "compound",
       "review_status": "proposed",
-      "notes": "The skills field is an unordered capability inventory. This proposed Round 5 collection design uses inert or approved replicas where food function is not required.",
+      "notes": "The skills field is an unordered capability inventory. This proposed non-contact contour classification records only comparison outcomes against a validated compatible profile; it asserts no unmeasured banana dimensions or material properties.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -1002,8 +1009,18 @@
         },
         {
           "key": "condition",
+          "value": "initial_readable_barcode_present_ycb_001_chips_can",
+          "reason": "Required initial predicate: readable_barcode_present(ycb_001_chips_can)"
+        },
+        {
+          "key": "condition",
           "value": "initial_scanner_ready_inventory_scanner",
           "reason": "Required initial predicate: scanner_ready(inventory_scanner)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_inventory_record_blank_inventory_record",
+          "reason": "Required initial predicate: inventory_record_blank(inventory_record)"
         },
         {
           "key": "condition",
@@ -1037,38 +1054,37 @@
         },
         {
           "key": "condition",
-          "value": "round5_package_feature_verified_ycb_001_chips_can",
-          "reason": "Verify the actual readable barcode, functional flap-lock, or readable expiration panel required by this task exists on the specimen. Missing features block collection; synthetic substitutes do not establish catalog asset compatibility."
+          "value": "selected_can_actual_barcode_verified_ycb_001_chips_can",
+          "reason": "Verify the selected YCB can itself has an existing barcode readable by inventory_scanner. If it is absent or unreadable, stop; a synthetic label or another package cannot satisfy this prerequisite."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The sealed chips-can replica rests fully on inventory_scan_bay with its barcode facing inventory_scanner.",
-          "The barcode scan record identifies the chips can and the scanner view is unobstructed."
+          "The selected sealed YCB chips can rests fully on inventory_scan_bay with its existing barcode facing inventory_scanner.",
+          "The initially blank inventory_record contains the observed identity from a successful scan of that same can; a synthetic label is not a successful result."
         ],
         "setup": [
-          "Place the sealed labeled chips-can replica barcode-away on the marked inventory_scan_bay.",
-          "Make inventory_scanner ready and provide an empty inventory_record; use inert packaging if the catalog asset has no readable barcode.",
+          "Inspect the selected YCB chips can itself and proceed only if its existing barcode is present and readable by inventory_scanner; if absent or unreadable, stop the trial without applying a synthetic barcode or substituting another package.",
+          "Place that sealed can barcode-away on the marked inventory_scan_bay; make inventory_scanner ready and provide an empty inventory_record.",
           "Prepare task_ycb_round5_chips_can_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
         ],
         "reset": [
-          "Restore the recorded initial predicates exactly: sealed(ycb_001_chips_can); closed(ycb_001_chips_can); on_shelf(ycb_001_chips_can, inventory_scan_bay); barcode_away_from_scanner(ycb_001_chips_can); scanner_ready(inventory_scanner); inventory_scan_bay_stable.",
+          "Restore the recorded initial predicates exactly: sealed(ycb_001_chips_can); closed(ycb_001_chips_can); on_shelf(ycb_001_chips_can, inventory_scan_bay); barcode_away_from_scanner(ycb_001_chips_can); readable_barcode_present(ycb_001_chips_can); scanner_ready(inventory_scanner); inventory_record_blank(inventory_record); inventory_scan_bay_stable.",
           "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
-          "Archive the completed acceptance record and prepare a blank record for the next trial."
+          "Archive the completed acceptance record and scan result, then prepare a fresh blank inventory_record and acceptance record for the next trial."
         ],
         "quality_checks": [
-          "Verify YCB identity, full bay support, barcode orientation, scan-record identity, and scanner visibility.",
+          "Verify the YCB can identity, actual barcode readability on that same can, full bay support, barcode orientation, scan-record identity, and scanner visibility.",
           "Record any slip, occlusion, or contact with the scanner."
         ],
         "failure_modes": [
+          "the selected YCB can has no barcode or its barcode is unreadable; stop without substituting a synthetic label",
           "barcode remains away from scanner",
           "scan record names the wrong package",
           "can overhangs or occludes the scan bay"
         ],
-        "consumables": [
-          "inert package label if needed"
-        ],
+        "consumables": [],
         "time_estimates": {
           "setup_minutes": null,
           "execution_minutes": null,
@@ -1720,6 +1736,21 @@
         },
         {
           "key": "condition",
+          "value": "initial_on_top_of_tuna_can_lid_sorting_surface",
+          "reason": "Required initial predicate: on_top_of(tuna_can_lid, sorting_surface)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_ycb_007_tuna_fish_can",
+          "reason": "Required initial predicate: reachable(ycb_007_tuna_fish_can)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_tuna_can_lid",
+          "reason": "Required initial predicate: reachable(tuna_can_lid)"
+        },
+        {
+          "key": "condition",
           "value": "initial_recycling_sleeve_open_puncture_guarded_recycling_sleeve",
           "reason": "Required initial predicate: recycling_sleeve_open(puncture_guarded_recycling_sleeve)"
         },
@@ -1730,8 +1761,8 @@
         },
         {
           "key": "condition",
-          "value": "initial_sorting_surface_clear",
-          "reason": "Required initial predicate: sorting_surface_clear"
+          "value": "initial_sorting_surface_perimeter_clear",
+          "reason": "Required initial predicate: sorting_surface_perimeter_clear"
         },
         {
           "key": "capability",
@@ -1761,35 +1792,44 @@
         {
           "key": "object",
           "value": "tuna_can_lid",
-          "reason": "Detached lid from the selected empty can; contained together with the can, never left exposed."
+          "reason": "Explicit detached-part resource from the selected ycb_007_tuna_fish_can; identify and stage this matching lid separately, then contain and guard both parts. It is not a separate YCB catalog ObjectInstance."
+        },
+        {
+          "key": "condition",
+          "value": "tuna_can_lid_part_identity_verified_ycb_007_tuna_fish_can",
+          "reason": "Verify that tuna_can_lid is the matching detached lid from the selected YCB can before staging; track it as a separate explicit part resource."
+        },
+        {
+          "key": "condition",
+          "value": "tuna_edge_guard_compatible_with_can_and_lid",
+          "reason": "Verify the declared guard covers the exposed edges of both the can body and detached lid before collection."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The empty can is fully contained in the puncture-guarded recycling sleeve and no exposed sharp edge is visible.",
-          "The edge-guard and recycling-readiness checks are recorded while the sleeve stays stable.",
-          "Contain the detached lid inside the same sleeve with its edge guarded."
+          "The empty tuna-can body and its matching detached lid are both fully contained in the puncture-guarded recycling sleeve, remain separate parts, and have their exposed edges guarded.",
+          "Record the edge-guard and recycling-readiness result for each part while the sleeve stays stable and no sharp edge is exposed."
         ],
         "setup": [
-          "Place the empty can and its detached lid on a clear sorting_surface with the puncture_guarded_recycling_sleeve open.",
-          "Provide the declared tuna_edge_guard and use cut-resistant handling controls; catalog geometry does not establish sharp-edge behavior.",
+          "Stage the selected empty can and its matching detached tuna_can_lid on separate marked positions on sorting_surface; verify both are reachable and the surface perimeter has handling clearance.",
+          "Open puncture_guarded_recycling_sleeve and provide tuna_edge_guard; verify the guard covers both parts and use cut-resistant handling controls. Catalog geometry does not establish sharp-edge behavior.",
           "Prepare task_ycb_round5_tuna_fish_can_acceptance_record with acceptance fields and thresholds before collection; record only observed results.",
-          "Verify the edge-guard assembly covers both can and detached lid and that the sleeve fits both. Clear means free handling clearance around staged resources."
+          "Verify the lid matches the selected can, the guard covers both parts, and the sleeve fits both; do not leave either part exposed."
         ],
         "reset": [
-          "Restore the recorded initial predicates exactly: empty(ycb_007_tuna_fish_can); detached(tuna_can_lid, ycb_007_tuna_fish_can); on_top_of(ycb_007_tuna_fish_can, sorting_surface); recycling_sleeve_open(puncture_guarded_recycling_sleeve); edge_guard_available(tuna_edge_guard); sorting_surface_clear.",
+          "Restore the recorded initial predicates exactly: empty(ycb_007_tuna_fish_can); detached(tuna_can_lid, ycb_007_tuna_fish_can); on_top_of(ycb_007_tuna_fish_can, sorting_surface); on_top_of(tuna_can_lid, sorting_surface); reachable(ycb_007_tuna_fish_can); reachable(tuna_can_lid); recycling_sleeve_open(puncture_guarded_recycling_sleeve); edge_guard_available(tuna_edge_guard); sorting_surface_perimeter_clear.",
           "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
           "Archive the completed acceptance record and prepare a blank record for the next trial."
         ],
         "quality_checks": [
-          "Verify can identity, empty state, detached lid, complete sleeve containment, edge guarding, and sleeve stability.",
-          "Inspect for exposed metal edges before accepting the trial."
+          "Verify can identity and empty state, matching detached-lid identity, reachability of each part, complete containment of both, edge guarding of both, and sleeve stability.",
+          "Inspect both parts for exposed metal edges before accepting the trial; record readiness separately for the can and lid."
         ],
         "failure_modes": [
-          "sharp edge remains exposed",
-          "can or lid is outside the sleeve",
-          "sleeve tips or edge-guard status is unrecorded"
+          "the lid is not the matching part from the selected can or either part is unreachable",
+          "the guard does not cover both parts or any sharp edge remains exposed",
+          "the can or lid is outside the sleeve, or the sleeve tips"
         ],
         "consumables": [
           "replaceable puncture guard"
@@ -2163,8 +2203,8 @@
       "requirements": [
         {
           "key": "scene_id",
-          "value": "scene_home_kitchen",
-          "reason": "The declared scene_id scene_home_kitchen is required for this proposed collection."
+          "value": "scene_ycb_workshop",
+          "reason": "The declared scene_id scene_ycb_workshop is required for this proposed collection."
         },
         {
           "key": "object",
@@ -2173,48 +2213,63 @@
         },
         {
           "key": "object",
-          "value": "kitchen_counter",
-          "reason": "The declared collection resource kitchen_counter is required for this proposed collection."
+          "value": "banana_contour_station",
+          "reason": "The stable non-contact inspection station is required for this proposed collection."
         },
         {
           "key": "object",
-          "value": "padded_produce_cradle",
-          "reason": "The declared collection resource padded_produce_cradle is required for this proposed collection."
+          "value": "banana_contour_sensor",
+          "reason": "The verified non-contact contour sensor is required for this proposed collection."
+        },
+        {
+          "key": "object",
+          "value": "banana_compatible_contour_profile",
+          "reason": "The validated comparison profile and its declared match criteria are required; do not infer them from the banana catalog entry."
+        },
+        {
+          "key": "object",
+          "value": "banana_contour_record",
+          "reason": "The record must capture match, mismatch, or indeterminate/unavailable without inventing dimensions or material properties."
         },
         {
           "key": "condition",
-          "value": "initial_on_top_of_ycb_011_banana_kitchen_counter",
-          "reason": "Required initial predicate: on_top_of(ycb_011_banana, kitchen_counter)"
+          "value": "initial_visible_ycb_011_banana",
+          "reason": "Required initial predicate: visible(ycb_011_banana)"
         },
         {
           "key": "condition",
-          "value": "initial_cradle_open_padded_produce_cradle",
-          "reason": "Required initial predicate: cradle_open(padded_produce_cradle)"
+          "value": "initial_reachable_ycb_011_banana",
+          "reason": "Required initial predicate: reachable(ycb_011_banana)"
         },
         {
           "key": "condition",
-          "value": "initial_padding_present_padded_produce_cradle",
-          "reason": "Required initial predicate: padding_present(padded_produce_cradle)"
+          "value": "initial_on_top_of_ycb_011_banana_banana_contour_station",
+          "reason": "Required initial predicate: on_top_of(ycb_011_banana, banana_contour_station)"
         },
         {
           "key": "condition",
-          "value": "initial_no_stack_pressure_ycb_011_banana",
-          "reason": "Required initial predicate: no_stack_pressure(ycb_011_banana)"
+          "value": "initial_profile_reference_ready_banana_compatible_contour_profile",
+          "reason": "Required initial predicate: profile_reference_ready(banana_compatible_contour_profile)"
         },
         {
           "key": "condition",
-          "value": "initial_cradle_stable_padded_produce_cradle",
-          "reason": "Required initial predicate: cradle_stable(padded_produce_cradle)"
+          "value": "initial_noncontact_sensor_ready_banana_contour_sensor",
+          "reason": "Required initial predicate: noncontact_sensor_ready(banana_contour_sensor)"
         },
         {
-          "key": "capability",
-          "value": "rigid_manipulation",
-          "reason": "The declared capability rigid_manipulation is required for this proposed collection."
+          "key": "condition",
+          "value": "initial_sensor_calibrated_banana_contour_sensor",
+          "reason": "Required initial predicate: sensor_calibrated(banana_contour_sensor)"
         },
         {
-          "key": "capability",
-          "value": "deformable_manipulation",
-          "reason": "The declared capability deformable_manipulation is required for this proposed collection."
+          "key": "condition",
+          "value": "initial_contour_record_blank_banana_contour_record",
+          "reason": "Required initial predicate: contour_record_blank(banana_contour_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_banana_contour_station",
+          "reason": "Required initial predicate: station_stable(banana_contour_station)"
         },
         {
           "key": "capability",
@@ -2227,44 +2282,46 @@
           "reason": "The declared role home_user is required for this proposed collection."
         },
         {
-          "key": "object",
-          "value": "task_ycb_round5_banana_acceptance_record",
-          "reason": "Stores specimen identity, declared acceptance protocol and observed result; fixture names in recorded predicates identify the subject, not a storage device."
+          "key": "condition",
+          "value": "noncontact_contour_sensor_asset_verified",
+          "reason": "Verify the declared sensor obtains a contour without contacting or deforming the specimen."
         },
         {
           "key": "condition",
-          "value": "round5_material_verified_ycb_011_banana",
-          "reason": "Verify the actual specimen or asset has the declared compliant behavior and compatible handling limits; catalog identity alone is insufficient."
+          "value": "banana_compatible_profile_reference_verified_ycb_011_banana",
+          "reason": "Verify the reference profile is validated for this classification and the match criteria are declared; otherwise record unavailable and stop."
+        },
+        {
+          "key": "condition",
+          "value": "contour_classification_protocol_ready",
+          "reason": "Define only match, mismatch, and indeterminate/unavailable outcomes; no unmeasured dimensions or material properties may be asserted."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The banana replica is fully supported inside the padded produce cradle with its stem clear and no stack pressure.",
-          "The cradle remains stable and the acceptance check records no crush or contact damage."
+          "Complete the contour scan without contact and record a match, mismatch, or indeterminate/unavailable result against the validated compatible profile.",
+          "The banana remains visible and supported at the station; no unmeasured dimensions or material properties are asserted."
         ],
         "setup": [
-          "Open and pad the produce cradle on a stable kitchen_counter, leaving its hanging support fixed.",
-          "Use a deformable or approved banana replica and define a no-pressure observation protocol; catalog geometry alone does not establish softness.",
-          "Prepare task_ycb_round5_banana_acceptance_record with acceptance fields and thresholds before collection; record only observed results."
+          "Stage the identified YCB banana visibly on banana_contour_station with banana_contour_sensor and banana_compatible_contour_profile held at the declared non-contact inspection positions.",
+          "Verify sensor calibration, profile compatibility, and the match/mismatch/indeterminate protocol before scanning; if no validated compatible profile is available, record unavailable and stop.",
+          "Provide a blank banana_contour_record and compare only the observed contour; do not infer or record unmeasured dimensions or material properties."
         ],
         "reset": [
-          "Restore the recorded initial predicates exactly: on_top_of(ycb_011_banana, kitchen_counter); cradle_open(padded_produce_cradle); padding_present(padded_produce_cradle); no_stack_pressure(ycb_011_banana); cradle_stable(padded_produce_cradle).",
-          "Clear the collection fixture and return all reusable props to their marked starting positions before the next trial.",
-          "Archive the completed acceptance record and prepare a blank record for the next trial."
+          "Clear banana_contour_record, restore sensor calibration and profile readiness, and return the visible banana to its marked position on banana_contour_station.",
+          "Restore the recorded initial predicates exactly: visible(ycb_011_banana); reachable(ycb_011_banana); on_top_of(ycb_011_banana, banana_contour_station); profile_reference_ready(banana_compatible_contour_profile); noncontact_sensor_ready(banana_contour_sensor); sensor_calibrated(banana_contour_sensor); contour_record_blank(banana_contour_record); station_stable(banana_contour_station)."
         ],
         "quality_checks": [
-          "Verify identity, complete cradle support, stem clearance, no-stack-pressure condition, and stable fixture.",
-          "Record bending, compression, slip, or contact with the cradle edge."
+          "Verify YCB identity, a clear contour view, sensor calibration, validated profile compatibility, and the declared classification protocol.",
+          "Ensure the sensor does not touch or deform the banana; record only match, mismatch, or indeterminate/unavailable and do not assert unmeasured dimensions or material."
         ],
         "failure_modes": [
-          "banana is pinched or crushed",
-          "banana is not fully supported",
-          "cradle moves or stem is obstructed"
+          "no validated compatible profile or defined classification criteria; stop and record unavailable",
+          "contour is occluded, the sensor is uncalibrated, or the scan result is invalid",
+          "the sensor contacts the specimen or the record cannot distinguish match, mismatch, and indeterminate"
         ],
-        "consumables": [
-          "replaceable cradle liner"
-        ],
+        "consumables": [],
         "time_estimates": {
           "setup_minutes": null,
           "execution_minutes": null,
@@ -3363,21 +3420,21 @@
       "id": "claim_task_ycb_round5_tuna_fish_can_task_suitability",
       "subject_id": "task_ycb_round5_tuna_fish_can",
       "claim_type": "task_suitability",
-      "statement": "This YCB Round 5 task for Place an empty tuna can in a puncture-guarded recycling sleeve is a proposed candidate for collection design review.",
+      "statement": "This YCB Round 5 task for Contain an empty tuna can and its detached lid in a guarded recycling sleeve is a proposed candidate for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_ycb_task_design"
       ],
-      "scope": "YCB Round 5 coverage proposal for Place an empty tuna can in a puncture-guarded recycling sleeve.",
+      "scope": "YCB Round 5 coverage proposal for Contain an empty tuna can and its detached lid in a guarded recycling sleeve.",
       "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
     },
     {
       "id": "claim_task_ycb_round5_tuna_fish_can_population_frequency",
       "subject_id": "task_ycb_round5_tuna_fish_can",
       "claim_type": "population_frequency",
-      "statement": "Population frequency for this specific Place an empty tuna can in a puncture-guarded recycling sleeve task is unknown.",
+      "statement": "Population frequency for this specific Contain an empty tuna can and its detached lid in a guarded recycling sleeve task is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
@@ -3389,7 +3446,7 @@
       "id": "claim_task_ycb_round5_tuna_fish_can_robot_execution",
       "subject_id": "task_ycb_round5_tuna_fish_can",
       "claim_type": "robot_execution",
-      "statement": "Robot execution for this specific Place an empty tuna can in a puncture-guarded recycling sleeve task is unknown.",
+      "statement": "Robot execution for this specific Contain an empty tuna can and its detached lid in a guarded recycling sleeve task is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
@@ -3563,21 +3620,21 @@
       "id": "claim_task_ycb_round5_banana_task_suitability",
       "subject_id": "task_ycb_round5_banana",
       "claim_type": "task_suitability",
-      "statement": "This YCB Round 5 task for Fit a banana into a padded hanging produce cradle without pressure is a proposed candidate for collection design review.",
+      "statement": "This YCB Round 5 task for Classify a banana contour against a validated non-contact profile is a proposed candidate for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_ycb_task_design"
       ],
-      "scope": "YCB Round 5 coverage proposal for Fit a banana into a padded hanging produce cradle without pressure.",
+      "scope": "YCB Round 5 coverage proposal for Classify a banana contour against a validated non-contact profile.",
       "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
     },
     {
       "id": "claim_task_ycb_round5_banana_population_frequency",
       "subject_id": "task_ycb_round5_banana",
       "claim_type": "population_frequency",
-      "statement": "Population frequency for this specific Fit a banana into a padded hanging produce cradle without pressure task is unknown.",
+      "statement": "Population frequency for this specific Classify a banana contour against a validated non-contact profile task is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
@@ -3589,7 +3646,7 @@
       "id": "claim_task_ycb_round5_banana_robot_execution",
       "subject_id": "task_ycb_round5_banana",
       "claim_type": "robot_execution",
-      "statement": "Robot execution for this specific Fit a banana into a padded hanging produce cradle without pressure task is unknown.",
+      "statement": "Robot execution for this specific Classify a banana contour against a validated non-contact profile task is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,

@@ -668,24 +668,22 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_046_plastic_bolt",
-      "template_id": "template_ycb_insert_item_in_fixture",
-      "name_en": "Hand-start a compatible plastic bolt with its matching nut without torque",
-      "name_ja": "トルクをかけずに適合するプラスチックボルトへ合うナットを手で掛け始める",
-      "intent_id": "intent_prepare_food",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Measure a plastic bolt against a calibrated fixture while keeping its paired nut separate",
+      "name_ja": "対応するナットを分離したまま較正済み治具でプラスチックボルトを測定する",
+      "intent_id": "intent_inspect",
       "object_id": "ycb_046_plastic_bolt",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_046_plastic_bolt",
-        "target": "bolt_axis_guide",
-        "fixture": "thread_start_fixture",
-        "focus_piece": "bolt_head_stop",
-        "matching_part": "ycb_047_plastic_nut"
+        "property": "bolt_shank_diameter_and_head_to_tip_length",
+        "fixture": "bolt_dimension_fixture"
       },
       "state_ids": [
         "state_on_surface"
@@ -694,27 +692,28 @@
         "visible(ycb_046_plastic_bolt)",
         "on_top_of(ycb_046_plastic_bolt, workshop_bench)",
         "reachable(ycb_046_plastic_bolt)",
-        "bolt_separated_from_nut(ycb_046_plastic_bolt, ycb_047_plastic_nut)",
-        "fixture_stable(thread_start_fixture)",
-        "target_aligned(bolt_axis_guide)",
-        "bolt_head_stop_ready(bolt_head_stop)",
-        "bolt_nut_functionally_compatible(ycb_046_plastic_bolt, ycb_047_plastic_nut)",
-        "plastic_material_compatible(ycb_046_plastic_bolt, ycb_047_plastic_nut)",
-        "no_torque_protocol_declared",
-        "record_ready(thread_start_record)"
+        "visible(ycb_047_plastic_nut)",
+        "on_top_of(ycb_047_plastic_nut, workshop_bench)",
+        "reachable(ycb_047_plastic_nut)",
+        "bolt_and_paired_nut_kept_separate(ycb_046_plastic_bolt, ycb_047_plastic_nut)",
+        "fixture_stable(bolt_dimension_fixture)",
+        "fixture_calibration_current(bolt_dimension_fixture)",
+        "measurement_axes_units_endpoints_and_tolerance_defined(bolt_dimension_protocol_card)",
+        "no_thread_mating_protocol_declared",
+        "record_ready(bolt_dimension_record)"
       ],
       "goal_state": [
-        "bolt_aligned_with(ycb_046_plastic_bolt, bolt_axis_guide)",
-        "thread_started_by_hand(ycb_046_plastic_bolt, ycb_047_plastic_nut)",
-        "bolt_head_seated(ycb_046_plastic_bolt, bolt_head_stop)",
-        "no_torque_applied(ycb_046_plastic_bolt)",
-        "nut_not_forced(ycb_047_plastic_nut)",
-        "thread_start_recorded(ycb_046_plastic_bolt, thread_start_record)"
+        "bolt_seated_in(ycb_046_plastic_bolt, bolt_dimension_fixture)",
+        "bolt_shank_diameter_observed(ycb_046_plastic_bolt, bolt_dimension_record)",
+        "bolt_head_to_tip_length_observed(ycb_046_plastic_bolt, bolt_dimension_record)",
+        "record_uses_protocol_units_and_tolerance(bolt_dimension_record, bolt_dimension_protocol_card)",
+        "bolt_and_paired_nut_kept_separate(ycb_046_plastic_bolt, ycb_047_plastic_nut)",
+        "no_thread_mating_performed(ycb_046_plastic_bolt, ycb_047_plastic_nut)"
       ],
       "instruction_variants": [
-        "Hand-start a compatible plastic bolt with its matching nut without torque.",
-        "Complete the proposed hand-start a compatible plastic bolt with its matching nut without torque setup with all declared compatibility, safety, and recording conditions.",
-        "トルクをかけずに適合するプラスチックボルトへ合うナットを手で掛け始める。"
+        "Measure the plastic bolt against the calibrated fixture while keeping its paired nut separate.",
+        "Record only observed shank diameter and head-to-tip length using the protocol's axes, units, and tolerance; do not mate the threads or invent readings.",
+        "対応するナットを分離したまま較正済み治具でボルトを測り、プロトコルに沿って観察値を記録する。"
       ],
       "skills": [
         "skill_locate",
@@ -730,22 +729,22 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_047_plastic_nut",
-      "template_id": "template_ycb_align_assembly_fixture",
-      "name_en": "Seat a plastic nut on a compatible bolt for hand-start inspection",
-      "name_ja": "手掛け確認のため適合するボルトへプラスチックナットを合わせる",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Observe plastic-nut thread visibility and condition with non-contact lighting",
+      "name_ja": "非接触照明でプラスチックナットのねじの見え方と状態を観察する",
       "intent_id": "intent_inspect",
       "object_id": "ycb_047_plastic_nut",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_047_plastic_nut",
-        "destination": "nut_bolt_alignment_fixture",
-        "target": "matching_bolt_axis_reference"
+        "property": "thread_visibility_and_visible_condition",
+        "fixture": "nut_thread_inspection_cradle"
       },
       "state_ids": [
         "state_on_surface"
@@ -754,27 +753,27 @@
         "visible(ycb_047_plastic_nut)",
         "on_top_of(ycb_047_plastic_nut, workshop_bench)",
         "reachable(ycb_047_plastic_nut)",
-        "matching_bolt_available(ycb_046_plastic_bolt)",
-        "fixture_stable(nut_bolt_alignment_fixture)",
-        "target_marked(matching_bolt_axis_reference)",
-        "bolt_supported(ycb_046_plastic_bolt, nut_bolt_alignment_fixture)",
-        "nut_bolt_functionally_compatible(ycb_047_plastic_nut, ycb_046_plastic_bolt)",
-        "plastic_material_compatible(ycb_047_plastic_nut, ycb_046_plastic_bolt)",
-        "nut_thread_start_card_visible(nut_thread_start_card)",
-        "no_torque_protocol_declared",
-        "record_ready(nut_alignment_record)"
+        "fixture_stable(nut_thread_inspection_cradle)",
+        "diffuse_light_ready(diffuse_thread_inspection_light)",
+        "thread_observation_protocol_visible(nut_thread_observation_protocol_card)",
+        "no_bolt_at_thread_inspection_station(ycb_047_plastic_nut)",
+        "thread_area_exposed_for_observation(ycb_047_plastic_nut)",
+        "thread_contact_boundary_clear(nut_thread_contact_boundary)",
+        "no_thread_contact_protocol_declared",
+        "record_ready(nut_thread_observation_record)"
       ],
       "goal_state": [
-        "nut_concentric_with(ycb_047_plastic_nut, ycb_046_plastic_bolt)",
-        "thread_started_by_hand(ycb_047_plastic_nut, ycb_046_plastic_bolt)",
-        "no_torque_applied(ycb_047_plastic_nut)",
-        "bolt_remains_supported(ycb_046_plastic_bolt, nut_bolt_alignment_fixture)",
-        "nut_alignment_recorded(ycb_047_plastic_nut, nut_alignment_record)"
+        "seated_in(ycb_047_plastic_nut, nut_thread_inspection_cradle)",
+        "thread_visibility_observed_under_diffuse_light(ycb_047_plastic_nut, diffuse_thread_inspection_light)",
+        "thread_visibility_observation_recorded(ycb_047_plastic_nut, nut_thread_observation_record)",
+        "visible_thread_condition_recorded(ycb_047_plastic_nut, nut_thread_observation_record)",
+        "no_bolt_inserted(ycb_047_plastic_nut)",
+        "no_thread_contact_performed(ycb_047_plastic_nut)"
       ],
       "instruction_variants": [
-        "Seat a plastic nut on a compatible bolt for hand-start inspection.",
-        "Complete the proposed seat a plastic nut on a compatible bolt for hand-start inspection setup with all declared compatibility, safety, and recording conditions.",
-        "手掛け確認のため適合するボルトへプラスチックナットを合わせる。"
+        "Observe plastic-nut thread visibility and condition with non-contact lighting.",
+        "Use the cradle and diffuse light to record whether the threads are visible and their visible condition; do not insert a bolt, probe the threads, or infer compatibility, pitch, or material.",
+        "クレードルと拡散照明を使い、ねじの視認性と見える範囲の状態を記録する。ボルト挿入や互換性の推定は行わない。"
       ],
       "skills": [
         "skill_locate",
@@ -911,21 +910,22 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_050_medium_clamp",
-      "template_id": "template_ycb_secure_clamp",
-      "name_en": "Secure a compatible medium sample with the medium clamp",
-      "name_ja": "中型クランプで適合する試験片を固定する",
-      "intent_id": "intent_prepare_food",
+      "template_id": "template_ycb_inspect_tool_condition",
+      "name_en": "Non-contact observation of unloaded medium-clamp jaw opening and parallelism against calibrated references",
+      "name_ja": "較正済み基準に対する無負荷中型クランプの開口幅と平行度を非接触で観察する",
+      "intent_id": "intent_inspect",
       "object_id": "ycb_050_medium_clamp",
       "scene_id": "scene_ycb_tool_workshop",
       "bindings": {
         "theme": "ycb_050_medium_clamp",
-        "workpiece": "medium_protected_sample"
+        "property": "unloaded_jaw_opening_and_parallelism",
+        "fixture": "medium_clamp_geometry_inspection_fixture"
       },
       "state_ids": [
         "state_open",
@@ -934,34 +934,45 @@
       "initial_state": [
         "visible(ycb_050_medium_clamp)",
         "open(ycb_050_medium_clamp)",
+        "unloaded(ycb_050_medium_clamp)",
         "on_top_of(ycb_050_medium_clamp, workshop_bench)",
         "reachable(ycb_050_medium_clamp)",
-        "workpiece_positioned(medium_protected_sample, medium_clamp_test_fixture)",
-        "fixture_stable(medium_clamp_test_fixture)",
-        "jaws_aligned(ycb_050_medium_clamp, medium_protected_sample)",
-        "sample_material_compatible(medium_protected_sample, ycb_050_medium_clamp)",
+        "no_workpiece_in_jaws(ycb_050_medium_clamp)",
+        "fixture_stable(medium_clamp_geometry_inspection_fixture)",
+        "opening_stop_calibration_current(calibrated_medium_clamp_opening_stop)",
+        "parallelism_reference_calibration_current(calibrated_medium_clamp_parallelism_reference)",
+        "geometry_protocol_visible(medium_clamp_geometry_protocol_card)",
         "pinch_guard_ready(pinch_guard)",
-        "jaw_contact_mark_visible(jaw_contact_mark)",
-        "record_ready(medium_clamp_load_record)"
+        "pinch_boundary_marked(medium_clamp_pinch_boundary)",
+        "pinch_zone_clear(medium_clamp_pinch_boundary)",
+        "non_contact_reference_protocol_declared",
+        "no_clamping_protocol_declared",
+        "record_ready(medium_clamp_geometry_record)"
       ],
       "goal_state": [
-        "closed(ycb_050_medium_clamp)",
-        "clamped(ycb_050_medium_clamp, medium_protected_sample)",
-        "sample_stable(medium_protected_sample, medium_clamp_test_fixture)",
-        "pinch_guard_between(pinch_guard, ycb_050_medium_clamp)",
-        "sample_undamaged(medium_protected_sample)",
-        "clamp_load_recorded(ycb_050_medium_clamp, medium_clamp_load_record)"
+        "seated_in(ycb_050_medium_clamp, medium_clamp_geometry_inspection_fixture)",
+        "unloaded(ycb_050_medium_clamp)",
+        "no_workpiece_in_jaws(ycb_050_medium_clamp)",
+        "jaw_opening_observed_against_calibrated_stop(ycb_050_medium_clamp, calibrated_medium_clamp_opening_stop)",
+        "jaw_parallelism_observed_against_calibrated_reference(ycb_050_medium_clamp, calibrated_medium_clamp_parallelism_reference)",
+        "opening_and_parallelism_observation_recorded(ycb_050_medium_clamp, medium_clamp_geometry_record)",
+        "non_contact_reference_observation_completed(ycb_050_medium_clamp)",
+        "no_clamp_load_applied(ycb_050_medium_clamp)",
+        "pinch_zone_clear(medium_clamp_pinch_boundary)",
+        "pinch_guard_ready(pinch_guard)"
       ],
       "instruction_variants": [
-        "Secure a compatible medium sample with the medium clamp.",
-        "Complete the proposed secure a compatible medium sample with the medium clamp setup with all declared compatibility, safety, and recording conditions.",
-        "中型クランプで適合する試験片を固定する。"
+        "Non-contact observation of the unloaded medium-clamp jaw opening and parallelism against calibrated references.",
+        "Keep the jaws empty and unloaded; compare their opening and parallelism with the current calibrated stop/reference without contact, record directly observed readings or mark them indeterminate, and keep the pinch zone clear without clamping a workpiece.",
+        "試験片を挟まず無負荷のまま、較正済みの開口幅ストッパーと平行度基準に対する観察値を記録する。"
       ],
       "skills": [
         "skill_locate",
         "skill_approach",
         "skill_grasp",
-        "skill_close",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
         "skill_inspect",
         "skill_verify"
       ]
@@ -2706,17 +2717,17 @@
         },
         {
           "key": "object",
-          "value": "thread_start_fixture",
+          "value": "bolt_dimension_fixture",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "bolt_axis_guide",
+          "value": "bolt_dimension_calibration_certificate",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "bolt_head_stop",
+          "value": "bolt_dimension_protocol_card",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -2726,7 +2737,7 @@
         },
         {
           "key": "object",
-          "value": "thread_start_record",
+          "value": "bolt_dimension_record",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -2746,42 +2757,47 @@
         },
         {
           "key": "condition",
-          "value": "bolt_separated_from_nut",
+          "value": "initial_visible_ycb_047_plastic_nut",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "fixture_stable_thread_start_fixture",
+          "value": "initial_on_top_of_ycb_047_plastic_nut_workshop_bench",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "target_aligned_bolt_axis_guide",
+          "value": "initial_reachable_ycb_047_plastic_nut",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "bolt_head_stop_ready",
+          "value": "bolt_and_paired_nut_kept_separate",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "bolt_nut_functionally_compatible",
+          "value": "fixture_stable_bolt_dimension_fixture",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "plastic_material_compatible",
+          "value": "fixture_calibration_current",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "no_torque_protocol_declared",
+          "value": "measurement_axes_units_endpoints_and_tolerance_defined",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "record_ready_thread_start_record",
+          "value": "no_thread_mating_protocol_declared",
+          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+        },
+        {
+          "key": "condition",
+          "value": "record_ready_bolt_dimension_record",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -2803,25 +2819,27 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The compatible plastic nut is hand-started on the aligned bolt while the bolt head rests on the stop.",
-          "No torque or forced engagement occurs and the thread-start record identifies the pair."
+          "Record the selected bolt's observed shank diameter perpendicular to its centerline and its head-to-tip length, following the stated endpoint convention.",
+          "The record uses the protocol's units and tolerance, identifies both the bolt and its separate paired-nut resource, and contains no invented or inferred reading.",
+          "The bolt and nut remain separate throughout; no thread engagement or compatibility conclusion is part of this task."
         ],
         "setup": [
-          "Stage the separated bolt and matching nut with the stable axis guide, head stop, no-torque protocol, and record.",
-          "Verify functional and plastic-material compatibility before contact."
+          "Stage the bolt and catalog-paired nut as separate, visible, reachable resources; place the bolt in the stable dimension fixture without contacting or mating it to the nut.",
+          "Verify the fixture's current calibration certificate and use the protocol card, which specifies the shank-diameter axis perpendicular to the bolt centerline, the length endpoints from head face to tip, millimeters, and the applicable resolution/tolerance before recording."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_046_plastic_bolt); on_top_of(ycb_046_plastic_bolt, workshop_bench); reachable(ycb_046_plastic_bolt); bolt_separated_from_nut(ycb_046_plastic_bolt, ycb_047_plastic_nut); fixture_stable(thread_start_fixture); target_aligned(bolt_axis_guide); bolt_head_stop_ready(bolt_head_stop); bolt_nut_functionally_compatible(ycb_046_plastic_bolt, ycb_047_plastic_nut); plastic_material_compatible(ycb_046_plastic_bolt, ycb_047_plastic_nut); no_torque_protocol_declared; record_ready(thread_start_record).",
+          "Restore the initial predicates exactly: visible(ycb_046_plastic_bolt); on_top_of(ycb_046_plastic_bolt, workshop_bench); reachable(ycb_046_plastic_bolt); visible(ycb_047_plastic_nut); on_top_of(ycb_047_plastic_nut, workshop_bench); reachable(ycb_047_plastic_nut); bolt_and_paired_nut_kept_separate(ycb_046_plastic_bolt, ycb_047_plastic_nut); fixture_stable(bolt_dimension_fixture); fixture_calibration_current(bolt_dimension_fixture); measurement_axes_units_endpoints_and_tolerance_defined(bolt_dimension_protocol_card); no_thread_mating_protocol_declared; record_ready(bolt_dimension_record).",
           "Clear the fixture and return every reusable prop and record to its marked starting position."
         ],
         "quality_checks": [
-          "Check the threads start smoothly by hand, the bolt stays aligned, and the nut is not forced or cross-threaded.",
-          "Confirm no tool or torque was applied."
+          "Confirm the certificate is current, the protocol axes/endpoints/units/tolerance are followed, and both reported dimensions come from visible fixture readings for this identified bolt.",
+          "Leave a reading blank or mark it indeterminate if a feature is obscured or the fixture cannot resolve it; never estimate, copy, or fabricate a value.",
+          "Verify the paired nut remains separate and no threads were engaged."
         ],
         "failure_modes": [
-          "The pair is incompatible, cross-threaded, forced, or misaligned.",
-          "The fixture shifts, the head leaves the stop, or torque is applied.",
-          "The pair or record is misidentified."
+          "The calibration certificate is missing or expired, the protocol card does not specify axes, endpoints, units, and tolerance, or the fixture shifts.",
+          "The bolt's shank or endpoint is obscured, ambiguous, or outside the calibrated measurement range.",
+          "A reading is estimated or fabricated, the bolt/nut identity is confused, or the threads contact or engage."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2853,27 +2871,27 @@
         },
         {
           "key": "object",
-          "value": "nut_bolt_alignment_fixture",
+          "value": "nut_thread_inspection_cradle",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "matching_bolt_axis_reference",
+          "value": "diffuse_thread_inspection_light",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "ycb_046_plastic_bolt",
+          "value": "nut_thread_contact_boundary",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "nut_thread_start_card",
+          "value": "nut_thread_observation_protocol_card",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "nut_alignment_record",
+          "value": "nut_thread_observation_record",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -2893,47 +2911,42 @@
         },
         {
           "key": "condition",
-          "value": "matching_bolt_available",
+          "value": "fixture_stable_nut_thread_inspection_cradle",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "fixture_stable_nut_bolt_alignment_fixture",
+          "value": "diffuse_light_ready",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "target_marked_matching_bolt_axis_reference",
+          "value": "thread_observation_protocol_visible",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "bolt_supported",
+          "value": "no_bolt_at_thread_inspection_station",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "nut_bolt_functionally_compatible",
+          "value": "thread_area_exposed_for_observation",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "plastic_material_compatible",
+          "value": "thread_contact_boundary_clear",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "nut_thread_start_card_visible",
+          "value": "no_thread_contact_protocol_declared",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "no_torque_protocol_declared",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
-        },
-        {
-          "key": "condition",
-          "value": "record_ready_nut_alignment_record",
+          "value": "record_ready_nut_thread_observation_record",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -2955,25 +2968,27 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The compatible plastic nut is concentric with the supported bolt and hand-started without torque.",
-          "The bolt remains supported and the alignment record is complete."
+          "Record whether the nut's threads are visible under the diffuse light and describe only visible condition as clear, obscured, visibly damaged, or indeterminate.",
+          "The record identifies the nut and uses only the observation categories in the protocol; no thread pitch, material, mating compatibility, or unobserved condition is inferred.",
+          "No bolt is inserted and the thread surfaces are not touched by a tool or probe."
         ],
         "setup": [
-          "Stage the nut, matching bolt, stable alignment fixture, axis reference, thread card, no-torque protocol, and record.",
-          "Verify material and functional compatibility before placing the nut."
+          "Place the nut in the stable inspection cradle with its thread opening exposed, illuminate it with the diffuse light, and stage the protocol card and blank observation record.",
+          "Keep the bolt absent from the inspection station and establish the marked thread-contact boundary; use visual observation only, without probing or handling the threads."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_047_plastic_nut); on_top_of(ycb_047_plastic_nut, workshop_bench); reachable(ycb_047_plastic_nut); matching_bolt_available(ycb_046_plastic_bolt); fixture_stable(nut_bolt_alignment_fixture); target_marked(matching_bolt_axis_reference); bolt_supported(ycb_046_plastic_bolt, nut_bolt_alignment_fixture); nut_bolt_functionally_compatible(ycb_047_plastic_nut, ycb_046_plastic_bolt); plastic_material_compatible(ycb_047_plastic_nut, ycb_046_plastic_bolt); nut_thread_start_card_visible(nut_thread_start_card); no_torque_protocol_declared; record_ready(nut_alignment_record).",
+          "Restore the initial predicates exactly: visible(ycb_047_plastic_nut); on_top_of(ycb_047_plastic_nut, workshop_bench); reachable(ycb_047_plastic_nut); fixture_stable(nut_thread_inspection_cradle); diffuse_light_ready(diffuse_thread_inspection_light); thread_observation_protocol_visible(nut_thread_observation_protocol_card); no_bolt_at_thread_inspection_station(ycb_047_plastic_nut); thread_area_exposed_for_observation(ycb_047_plastic_nut); thread_contact_boundary_clear(nut_thread_contact_boundary); no_thread_contact_protocol_declared; record_ready(nut_thread_observation_record).",
           "Clear the fixture and return every reusable prop and record to its marked starting position."
         ],
         "quality_checks": [
-          "Check the nut starts smoothly without cross-threading or forced engagement and the bolt remains supported.",
-          "Confirm no tool or torque is applied."
+          "Confirm lighting is sufficient to distinguish visible thread features; if obscured or uncertain, record that category rather than filling gaps by inference.",
+          "Verify the nut remained in the cradle, no bolt was inserted, and no probe or tool touched its threads.",
+          "Confirm the record contains only the protocol's qualitative visibility and visible-condition categories."
         ],
         "failure_modes": [
-          "The nut or bolt is incompatible, offset, cross-threaded, or forced.",
-          "The bolt loses support, the fixture shifts, or torque is applied.",
-          "The record is missing."
+          "The cradle shifts, lighting is insufficient, or thread features are obscured so the observation cannot be made reliably.",
+          "A bolt enters the station or a tool/probe contacts the threads.",
+          "The record asserts compatibility, pitch, material, damage, or other properties that were not visibly established."
         ],
         "consumables": [],
         "time_estimates": {
@@ -3300,12 +3315,12 @@
         },
         {
           "key": "object",
-          "value": "medium_protected_sample",
+          "value": "calibrated_medium_clamp_opening_stop",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "medium_clamp_test_fixture",
+          "value": "medium_clamp_geometry_inspection_fixture",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -3315,12 +3330,22 @@
         },
         {
           "key": "object",
-          "value": "jaw_contact_mark",
+          "value": "calibrated_medium_clamp_parallelism_reference",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "medium_clamp_load_record",
+          "value": "medium_clamp_geometry_protocol_card",
+          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "medium_clamp_pinch_boundary",
+          "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "medium_clamp_geometry_record",
           "reason": "This fixture, partner, marked region, protection aid, or record is an explicit collection resource."
         },
         {
@@ -3345,22 +3370,22 @@
         },
         {
           "key": "condition",
-          "value": "workpiece_positioned",
+          "value": "initial_unloaded_ycb_050_medium_clamp",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "fixture_stable_medium_clamp_test_fixture",
+          "value": "no_workpiece_in_jaws",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "jaws_aligned",
+          "value": "fixture_stable_medium_clamp_geometry_inspection_fixture",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "sample_material_compatible",
+          "value": "opening_stop_calibration_current",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -3370,12 +3395,37 @@
         },
         {
           "key": "condition",
-          "value": "jaw_contact_mark_visible",
+          "value": "parallelism_reference_calibration_current",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
           "key": "condition",
-          "value": "record_ready_medium_clamp_load_record",
+          "value": "geometry_protocol_visible",
+          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+        },
+        {
+          "key": "condition",
+          "value": "pinch_boundary_marked",
+          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+        },
+        {
+          "key": "condition",
+          "value": "pinch_zone_clear",
+          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+        },
+        {
+          "key": "condition",
+          "value": "non_contact_reference_protocol_declared",
+          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_clamping_protocol_declared",
+          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+        },
+        {
+          "key": "condition",
+          "value": "record_ready_medium_clamp_geometry_record",
           "reason": "Confirm this initial, safety, or compatibility condition before collection."
         },
         {
@@ -3397,25 +3447,27 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The medium clamp closes on the compatible protected sample with the sample stable on the marked fixture.",
-          "The pinch guard remains in place, the sample is undamaged, and the load record is complete."
+          "With the clamp stably seated in the inspection fixture and its jaws empty and unloaded, record the directly observed jaw opening against the current calibrated stop/reference and parallelism against its calibrated reference.",
+          "Use the protocol's units and tolerance for legible readings; record an indeterminate result rather than estimating if either observation is obscured or unresolved.",
+          "No workpiece is inserted, no clamp load is applied, the references remain non-contact, and the pinch zone remains clear with the guard ready."
         ],
         "setup": [
-          "Place the open medium clamp and compatible protected sample on the stable test fixture with the guard and contact mark visible.",
-          "Verify jaw alignment, material compatibility, and record before closure."
+          "Stage the stable geometry-inspection fixture, calibrated opening stop/reference, parallelism reference, protocol card, record, pinch boundary, and ready guard; leave the open, unloaded clamp on the bench within reach with its jaws empty.",
+          "Verify both reference calibrations are current and the protocol states units and tolerance; position references beside the jaws without inserting them between or contacting the jaws, and keep hands outside the marked pinch boundary."
         ],
         "reset": [
-          "Restore the initial predicates exactly: visible(ycb_050_medium_clamp); open(ycb_050_medium_clamp); on_top_of(ycb_050_medium_clamp, workshop_bench); reachable(ycb_050_medium_clamp); workpiece_positioned(medium_protected_sample, medium_clamp_test_fixture); fixture_stable(medium_clamp_test_fixture); jaws_aligned(ycb_050_medium_clamp, medium_protected_sample); sample_material_compatible(medium_protected_sample, ycb_050_medium_clamp); pinch_guard_ready(pinch_guard); jaw_contact_mark_visible(jaw_contact_mark); record_ready(medium_clamp_load_record).",
+          "Restore the initial predicates exactly: visible(ycb_050_medium_clamp); open(ycb_050_medium_clamp); unloaded(ycb_050_medium_clamp); on_top_of(ycb_050_medium_clamp, workshop_bench); reachable(ycb_050_medium_clamp); no_workpiece_in_jaws(ycb_050_medium_clamp); fixture_stable(medium_clamp_geometry_inspection_fixture); opening_stop_calibration_current(calibrated_medium_clamp_opening_stop); parallelism_reference_calibration_current(calibrated_medium_clamp_parallelism_reference); geometry_protocol_visible(medium_clamp_geometry_protocol_card); pinch_guard_ready(pinch_guard); pinch_boundary_marked(medium_clamp_pinch_boundary); pinch_zone_clear(medium_clamp_pinch_boundary); non_contact_reference_protocol_declared; no_clamping_protocol_declared; record_ready(medium_clamp_geometry_record).",
           "Clear the fixture and return every reusable prop and record to its marked starting position."
         ],
         "quality_checks": [
-          "Check both pads contact the protected sample without slipping or damage.",
-          "Confirm the fixture and guard remain stable; record the observed setup without inventing a force value."
+          "Confirm the jaw gap and parallelism are read directly against the current calibrated references in the protocol's units, without reference-to-jaw contact.",
+          "Keep the jaws empty and unloaded throughout; do not close the clamp onto a sample or apply a test force, and record indeterminate rather than estimate if the reference cannot resolve an observation.",
+          "Verify the guard is ready and the pinch zone stays clear; do not reach between the jaws."
         ],
         "failure_modes": [
-          "The jaws are misaligned, the sample is incompatible or damaged, or the fixture shifts.",
-          "The pinch guard is absent or the clamp slips.",
-          "The record is wrong or incomplete."
+          "Either reference is uncalibrated/expired, the protocol lacks units or tolerance, or the fixture shifts.",
+          "A workpiece is placed between the jaws, a clamp load is applied, or a reference contacts the jaws.",
+          "The pinch boundary is obstructed, the guard is unavailable, the opening/parallelism reading is estimated, or the record is mismatched."
         ],
         "consumables": [],
         "time_estimates": {
@@ -4286,7 +4338,7 @@
       "id": "claim_task_ycb_round5_046_plastic_bolt_task_suitability",
       "subject_id": "task_ycb_round5_046_plastic_bolt",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Hand-start a compatible plastic bolt with its matching nut without torque.",
+      "statement": "This is a proposed candidate for collection design review: Measure a plastic bolt against a calibrated fixture while keeping its paired nut separate.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -4336,7 +4388,7 @@
       "id": "claim_task_ycb_round5_047_plastic_nut_task_suitability",
       "subject_id": "task_ycb_round5_047_plastic_nut",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Seat a plastic nut on a compatible bolt for hand-start inspection.",
+      "statement": "This is a proposed candidate for collection design review: Observe plastic-nut thread visibility and condition with non-contact lighting.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -4486,7 +4538,7 @@
       "id": "claim_task_ycb_round5_050_medium_clamp_task_suitability",
       "subject_id": "task_ycb_round5_050_medium_clamp",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Secure a compatible medium sample with the medium clamp.",
+      "statement": "This is a proposed candidate for collection design review: Non-contact observation of unloaded medium-clamp jaw opening and parallelism against calibrated references.",
       "status": "proposed",
       "value": null,
       "unit": null,

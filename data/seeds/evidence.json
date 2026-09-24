@@ -1,17 +1,17 @@
 [
   {
     "id": "evidence_ycb_task_design",
-    "source_name": "Task Atlas catalog-wide task proposals",
+    "source_name": "Task Atlas YCB catalog-wide task proposals, coverage rounds 1–5",
     "source_type": "design_seed",
     "supported_claim_types": ["task_suitability"],
-    "source_version": "2026-09-23",
+    "source_version": "YCB catalog coverage rounds 1–5 (Round 5 draft snapshot 2026-09-25)",
     "source_locator": "data/seeds/ycb_batches/",
     "observed_count": null,
-    "scope": "Proposed collection designs for objects in the repository's YCB catalog, authored by gpt-5.6-luna with max reasoning effort.",
-    "limitations": "LLM proposals reviewed for internal consistency only; no population measurements, robot execution results, or asset validation.",
+    "scope": "Proposed collection designs for all objects in the repository's YCB catalog across coverage rounds 1–5. Rounds 1–4 retain their historical gpt-5.6-luna provenance; Round 5 includes 33 untouched legacy gpt-5.6-luna records and 44 new or materially revised gpt-6-luna records, all with max reasoning effort. Round 5 task metadata remains the per-record provenance source.",
+    "limitations": "This design-seed source supports proposed task-suitability provenance only. The LLM proposals were reviewed for internal consistency; they do not establish physical feasibility, population frequency, robot execution results, or asset compatibility.",
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Generation instructions and review criteria are documented in docs/ycb-coverage.md."
+    "notes": "Generation instructions and review criteria are documented in docs/ycb-coverage.md. Keep task suitability proposed and preserve each task's own model metadata; this source cannot support frequency, execution, or asset-compatibility claims. Round 5 remains draft-only until promotion into data/seeds/ycb_batches/."
   },
   {
     "id": "evidence_ycb_object",

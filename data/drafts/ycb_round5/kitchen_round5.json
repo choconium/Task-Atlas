@@ -25,7 +25,8 @@
         "capacity_line_visible(pitcher_capacity_marker)",
         "capacity_record_blank(pitcher_capacity_record)",
         "payload_approved(cool_nonfood_surrogate_payload)",
-        "station_stable(pitcher_capacity_station)"
+        "station_stable(pitcher_capacity_station)",
+        "fill_level_below_mark(ycb_019_pitcher_base, pitcher_capacity_marker)"
       ],
       "goal_state": [
         "contains(ycb_019_pitcher_base, cool_nonfood_surrogate_payload)",
@@ -54,7 +55,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -87,14 +88,15 @@
         "leak_test_fixture_ready(pitcher_leak_test_station)",
         "leak_record_blank(pitcher_lid_leak_record)",
         "payload_approved(cool_nonfood_surrogate_payload)",
-        "station_stable(pitcher_leak_test_station)"
+        "station_stable(pitcher_leak_test_station)",
+        "absorbent_pad_positioned(absorbent_leak_pad, pitcher_leak_test_station)"
       ],
       "goal_state": [
         "closure_attached(ycb_020_pitcher_lid, ycb_019_pitcher_base)",
         "closed(ycb_019_pitcher_base)",
         "leak_test_completed(ycb_020_pitcher_lid, pitcher_leak_test_station)",
-        "no_leak_at_joint(ycb_020_pitcher_lid, ycb_019_pitcher_base)",
         "leak_result_recorded(ycb_020_pitcher_lid, pitcher_lid_leak_record)",
+        "no_spill_beyond_pad(absorbent_leak_pad)",
         "upright(ycb_019_pitcher_base)",
         "stable(ycb_019_pitcher_base)"
       ],
@@ -118,7 +120,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -177,7 +179,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -205,6 +207,7 @@
         "closed(ycb_022_windex_bottle)",
         "on_top_of(ycb_022_windex_bottle, windex_spray_station)",
         "trigger_lock_off(ycb_022_windex_bottle)",
+        "absorbent_pad_ready(spray_absorbent_pad)",
         "target_pad_clear(windex_spray_target)",
         "target_mark_visible(windex_spray_target)",
         "spray_record_blank(windex_spray_coverage_record)",
@@ -215,6 +218,8 @@
         "spray_deposited_on(ycb_022_windex_bottle, windex_spray_target)",
         "spray_coverage_recorded(ycb_022_windex_bottle, windex_spray_coverage_record)",
         "trigger_returned(ycb_022_windex_bottle)",
+        "trigger_lock_off(ycb_022_windex_bottle)",
+        "closed(ycb_022_windex_bottle)",
         "no_spray_outside_target(windex_spray_station)",
         "upright(ycb_022_windex_bottle)",
         "stable(ycb_022_windex_bottle)"
@@ -239,7 +244,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -269,7 +274,8 @@
         "rim_clear(ycb_023_wine_glass)",
         "volume_record_blank(wine_glass_volume_record)",
         "payload_approved(cool_nonfood_surrogate_payload)",
-        "station_stable(wine_glass_fill_station)"
+        "station_stable(wine_glass_fill_station)",
+        "fill_level_below_mark(ycb_023_wine_glass, wine_glass_fill_marker)"
       ],
       "goal_state": [
         "contains(ycb_023_wine_glass, cool_nonfood_surrogate_payload)",
@@ -299,7 +305,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -329,13 +335,14 @@
         "stability_record_blank(bowl_tilt_stability_record)",
         "payload_approved(cool_nonfood_surrogate_payload)",
         "station_level(bowl_stability_station)",
-        "station_stable(bowl_stability_station)"
+        "station_stable(bowl_stability_station)",
+        "spill_containment_ready(bowl_spill_containment_tray)"
       ],
       "goal_state": [
         "tilt_test_completed(ycb_024_bowl, bowl_tilt_limit_marker)",
-        "payload_retained(ycb_024_bowl)",
+        "payload_retention_result_recorded(ycb_024_bowl, bowl_tilt_stability_record)",
         "stability_recorded(ycb_024_bowl, bowl_tilt_stability_record)",
-        "no_spill(bowl_stability_station)",
+        "no_spill_outside(bowl_spill_containment_tray)",
         "upright(ycb_024_bowl)",
         "stable(ycb_024_bowl)"
       ],
@@ -358,7 +365,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -391,12 +398,13 @@
         "station_stable(mug_handle_gauge_station)"
       ],
       "goal_state": [
-        "handle_passes_gauge_without_force(ycb_025_mug, mug_handle_clearance_gauge)",
-        "handle_clearance_recorded(ycb_025_mug, mug_handle_clearance_record)",
+        "handle_clearance_result_recorded(ycb_025_mug, mug_handle_clearance_record)",
+        "handle_clearance_pass_fail_recorded(ycb_025_mug, mug_handle_clearance_gauge)",
         "empty(ycb_025_mug)",
         "upright(ycb_025_mug)",
         "stable(ycb_025_mug)",
-        "handle_visible(ycb_025_mug)"
+        "handle_visible(ycb_025_mug)",
+        "handle_undamaged(ycb_025_mug)"
       ],
       "instruction_variants": [
         "Record mug handle clearance through a marked gauge",
@@ -417,7 +425,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -449,10 +457,10 @@
         "station_stable(sponge_recovery_station)"
       ],
       "goal_state": [
-        "compressed_to_mark(ycb_026_sponge, sponge_compression_gauge)",
-        "recovered_shape(ycb_026_sponge)",
-        "compression_recovery_recorded(ycb_026_sponge, sponge_compression_record)",
-        "no_tearing(ycb_026_sponge)",
+        "compression_response_recorded(ycb_026_sponge, sponge_compression_record)",
+        "shape_recovery_result_recorded(ycb_026_sponge, sponge_compression_record)",
+        "sponge_damage_status_recorded(ycb_026_sponge, sponge_compression_record)",
+        "released(ycb_026_sponge)",
         "clean(ycb_026_sponge)",
         "dry(ycb_026_sponge)",
         "stable(ycb_026_sponge)"
@@ -475,7 +483,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -509,9 +517,10 @@
       ],
       "goal_state": [
         "base_contact_pattern_recorded(ycb_027_skillet, skillet_base_contact_record)",
-        "flat_contact_confirmed(ycb_027_skillet)",
+        "flatness_status_recorded(ycb_027_skillet, skillet_base_contact_record)",
         "empty(ycb_027_skillet)",
         "cool(ycb_027_skillet)",
+        "on_top_of(ycb_027_skillet, skillet_base_inspection_station)",
         "handle_accessible(ycb_027_skillet)",
         "stable(ycb_027_skillet)",
         "stovetop_off"
@@ -534,7 +543,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -567,6 +576,7 @@
       ],
       "goal_state": [
         "detached(ycb_028_skillet_lid, ycb_027_skillet)",
+        "on_top_of(ycb_028_skillet_lid, skillet_lid_inspection_mat)",
         "underside_residue_recorded(ycb_028_skillet_lid, skillet_lid_underside_record)",
         "underside_clear_or_flagged(ycb_028_skillet_lid)",
         "no_contact_with_heat(ycb_028_skillet_lid)",
@@ -592,7 +602,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -650,7 +660,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -676,6 +686,7 @@
         "on_top_of(ycb_030_fork, fork_orientation_mat)",
         "tines_away_from_hand(ycb_030_fork)",
         "orientation_mark_visible(fork_tine_direction_mark)",
+        "orientation_mark_visible(fork_handle_direction_mark)",
         "tray_slot_clear(fork_orientation_tray)",
         "orientation_record_blank(fork_orientation_record)",
         "mat_stable(fork_orientation_mat)"
@@ -708,46 +719,50 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
     {
-      "id": "task_ycb_round5_spoon_scoop_capacity",
+      "id": "task_ycb_round5_spoon_bowl_dimensions",
       "node_type": "TaskInstance",
       "template_id": "inspect_container_state",
-      "name_en": "Record spoon scoop capacity with fixed surrogate pieces",
-      "name_ja": "固定した試験用片でスプーンのすくえる量を記録する",
+      "name_en": "Record spoon bowl width and depth with a calibrated non-contact gauge",
+      "name_ja": "較正済み非接触ゲージでスプーンのすくい部の幅と深さを記録する",
       "intent_id": "intent_inspect",
       "object_id": "ycb_031_spoon",
       "scene_id": "scene_kitchen_counter",
       "bindings": {
         "theme": "ycb_031_spoon",
-        "property": "spoon_scoop_capacity_record"
+        "property": "spoon_bowl_dimension_record"
       },
       "state_ids": [
         "state_clean",
         "state_on_surface"
       ],
       "initial_state": [
-        "on_top_of(ycb_031_spoon, spoon_scoop_station)",
+        "on_top_of(ycb_031_spoon, spoon_dimension_station)",
         "spoon_dry(ycb_031_spoon)",
-        "scoop_capacity_gauge_ready(spoon_scoop_capacity_gauge)",
-        "fixed_piece_set_ready(fixed_cool_surrogate_pieces)",
-        "scoop_record_blank(spoon_scoop_capacity_record)",
-        "station_stable(spoon_scoop_station)"
+        "spoon_bowl_visible(ycb_031_spoon)",
+        "gauge_calibrated(spoon_bowl_dimension_gauge)",
+        "measurement_axes_and_units_defined(spoon_bowl_dimension_gauge)",
+        "measurement_tolerance_defined(spoon_bowl_dimension_gauge)",
+        "bowl_dimension_record_blank(spoon_bowl_dimension_record)",
+        "station_stable(spoon_dimension_station)"
       ],
       "goal_state": [
-        "scoop_capacity_recorded(ycb_031_spoon, spoon_scoop_capacity_record)",
-        "scoop_count_supported(ycb_031_spoon, fixed_cool_surrogate_pieces)",
-        "spoon_clear(ycb_031_spoon)",
+        "measurement_result_recorded(ycb_031_spoon, spoon_bowl_dimension_record)",
+        "measurement_values_units_or_unavailable_reason_recorded(spoon_bowl_dimension_record)",
+        "measurement_repeatability_status_recorded(spoon_bowl_dimension_record)",
         "spoon_dry(ycb_031_spoon)",
-        "stable(ycb_031_spoon)"
+        "spoon_bowl_visible(ycb_031_spoon)",
+        "stable(ycb_031_spoon)",
+        "spoon_undamaged(ycb_031_spoon)"
       ],
       "instruction_variants": [
-        "Record spoon scoop capacity with fixed surrogate pieces",
-        "Complete the proposed record spoon scoop capacity with fixed surrogate pieces setup with all declared partner and acceptance conditions.",
-        "固定した試験用片でスプーンのすくえる量を記録する"
+        "Record spoon bowl width and depth with a calibrated non-contact gauge",
+        "Measure the spoon bowl on the calibrated gauge and record units or an explicit unavailable reason.",
+        "較正済み非接触ゲージでスプーンのすくい部の幅と深さを記録する"
       ],
       "skills": [
         "skill_locate",
@@ -760,9 +775,9 @@
       ],
       "granularity": "compound",
       "review_status": "proposed",
-      "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
+      "notes": "Proposed Round 5 collection design for calibrated non-contact spoon bowl geometry measurement, distinct from prior piece transfer and qualitative inspection goals; values are recorded only when measured, and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -819,7 +834,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -879,7 +894,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     },
@@ -936,7 +951,7 @@
       "review_status": "proposed",
       "notes": "Proposed Round 5 collection design with one object-specific goal distinct from prior kitchen rounds; skills are an unordered capability inventory and no execution or frequency is asserted.",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5"
     }
@@ -1055,28 +1070,46 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared full contents state determines whether this activity applies."
+        },
+        {
+          "key": "object",
+          "value": "surrogate_recovery_container",
+          "reason": "The approved surrogate needs a declared recovery container for reset."
+        },
+        {
+          "key": "condition",
+          "value": "initial_fill_level_below_mark_ycb_019_pitcher_base_pitcher_capacity_marker",
+          "reason": "The pitcher must start below the marked line so filling creates an observable state change."
+        },
+        {
+          "key": "condition",
+          "value": "surrogate_recovery_container_compatible_and_ready",
+          "reason": "Verify the recovery container is clean, stable, empty, and compatible with the approved surrogate before staging or reset."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The cool approved surrogate reaches the marked capacity line, remains contained and upright, and the reading is entered in pitcher_capacity_record.",
-          "No payload is outside the pitcher or station."
+          "The approved surrogate reaches the marked line, remains contained, and the reading with units is recorded.",
+          "The pitcher remains upright and stable, with no surrogate outside it or the station."
         ],
         "setup": [
-          "Place the pitcher base with the measured cool nonfood surrogate payload at pitcher_capacity_station and expose pitcher_capacity_marker.",
-          "Provide a blank pitcher_capacity_record; verify the marker, payload, and liquid-flow asset are approved."
+          "Stage the pitcher upright at pitcher_capacity_station with an approved measured cool surrogate volume below pitcher_capacity_marker.",
+          "Expose the marker and blank pitcher_capacity_record; verify the pitcher supports the intended liquid flow and the station is level."
         ],
         "reset": [
-          "Empty and dry the pitcher into the approved recovery container, restore it upright at pitcher_capacity_station, clear pitcher_capacity_record, and verify the marked line is visible."
+          "Recover the surrogate into surrogate_recovery_container, dry the pitcher and station, then restore the same measured below-marker starting volume and blank the record.",
+          "Recheck marker visibility, station level, and pitcher stability."
         ],
         "quality_checks": [
-          "Verify YCB identity, fill-line visibility, containment, upright stability, no spill, and record identity.",
-          "Check that the reading reflects the declared marked line rather than an unmeasured estimate."
+          "Verify the initial fill is below the marker and the volume record is blank.",
+          "Confirm liquid-flow asset and surrogate approval before contact.",
+          "Check the entered reading and units against the visible marker."
         ],
         "failure_modes": [
-          "Payload spills, the pitcher tips, the marker is occluded, or the record is missing.",
-          "An asset cannot contain the surrogate or the payload is not approved."
+          "The line is occluded or the initial volume is already at or above the marker.",
+          "The asset or surrogate lacks verified liquid-flow compatibility.",
+          "Any spill escapes the station boundary."
         ],
         "consumables": [],
         "time_estimates": {
@@ -1173,6 +1206,11 @@
         },
         {
           "key": "condition",
+          "value": "initial_absorbent_pad_positioned_absorbent_leak_pad_pitcher_leak_test_station",
+          "reason": "Required initial predicate: absorbent_pad_positioned(absorbent_leak_pad, pitcher_leak_test_station)"
+        },
+        {
+          "key": "condition",
           "value": "cool_surrogate_payload_approved",
           "reason": "The declared asset, material, fixture, or safety prerequisite cool_surrogate_payload_approved must be verified before collection."
         },
@@ -1220,29 +1258,51 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared full contents state determines whether this activity applies."
+        },
+        {
+          "key": "object",
+          "value": "surrogate_recovery_container",
+          "reason": "The approved surrogate needs a declared recovery container for reset."
+        },
+        {
+          "key": "condition",
+          "value": "lid_base_joint_compatibility_verified_ycb_020_pitcher_lid_ycb_019_pitcher_base",
+          "reason": "Verify the specific lid and base sealing interface before the leak check."
+        },
+        {
+          "key": "condition",
+          "value": "leak_result_record_ready_pitcher_lid_leak_record",
+          "reason": "The record must accept either a leak or no-leak result."
+        },
+        {
+          "key": "condition",
+          "value": "surrogate_recovery_container_compatible_and_ready",
+          "reason": "Verify the recovery container is clean, stable, empty, and compatible with the approved surrogate before staging or reset."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The attached lid and base complete the declared leak check with no surrogate escaping at the joint, and the result is recorded.",
-          "The pitcher remains upright and stable on the marked station."
+          "Complete the bounded leak check and record the observed joint status, including a leak or no-leak result.",
+          "The pitcher remains upright and stable; any escaped surrogate stays within absorbent_leak_pad."
         ],
         "setup": [
-          "Attach the lid to the upright pitcher base containing the approved cool surrogate and place the set on pitcher_leak_test_station over absorbent_leak_pad.",
-          "Provide a blank pitcher_lid_leak_record and verify the fixture and flow asset."
+          "Attach the verified lid to the upright pitcher base containing the approved cool surrogate and stage the set over absorbent_leak_pad at pitcher_leak_test_station.",
+          "Provide a blank pitcher_lid_leak_record and verify the pad, joint, surrogate, and liquid-flow asset."
         ],
         "reset": [
-          "Recover the surrogate, dry the lid, base, and absorbent pad, restore the attached closed upright set, and clear pitcher_lid_leak_record.",
-          "Replace the pad if wet and verify the station is stable."
+          "Recover surrogate into surrogate_recovery_container, dry the lid, base, pad, and station, restore the initial attached and closed set, reposition a dry or replacement absorbent_leak_pad under the station, and clear pitcher_lid_leak_record.",
+          "Replace a wet pad and verify the station before another trial."
         ],
         "quality_checks": [
-          "Inspect the joint, pad, station, and record for leakage or ambiguity.",
-          "Confirm the test result is tied to ycb_020_pitcher_lid and not an unrelated container."
+          "Verify lid-to-base compatibility and the approved surrogate before filling.",
+          "Record the observed result without presuming that the joint passes.",
+          "Confirm no surrogate escapes beyond the absorbent pad."
         ],
         "failure_modes": [
-          "A joint leaks, the lid detaches, the pitcher tips, or the pad is missing.",
-          "The surrogate, fixture, or lid material behavior is unapproved."
+          "The lid does not attach as specified or joint compatibility is unverified.",
+          "Surrogate escapes the pad boundary.",
+          "The fixture is unstable or the record cannot capture a failed result."
         ],
         "consumables": [],
         "time_estimates": {
@@ -1454,6 +1514,11 @@
         },
         {
           "key": "condition",
+          "value": "initial_absorbent_pad_ready_spray_absorbent_pad",
+          "reason": "Required initial predicate: absorbent_pad_ready(spray_absorbent_pad)"
+        },
+        {
+          "key": "condition",
           "value": "initial_target_pad_clear_windex_spray_target",
           "reason": "Required initial predicate: target_pad_clear(windex_spray_target)"
         },
@@ -1493,6 +1558,11 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite target_pad_absorbency_verified must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "spray_absorbent_pad_asset_verified",
+          "reason": "Verify the overspray pad is clean, compatible with the surrogate, and able to contain the expected spray before use."
+        },
+        {
           "key": "capability",
           "value": "rigid_manipulation",
           "reason": "The proposed interaction requires rigid_manipulation."
@@ -1516,21 +1586,31 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared full contents state determines whether this activity applies."
+        },
+        {
+          "key": "condition",
+          "value": "spray_container_cleaned_for_surrogate",
+          "reason": "Verify the bottle contains no unapproved product or residue before using the nonhazardous surrogate."
+        },
+        {
+          "key": "condition",
+          "value": "spray_result_record_ready_windex_spray_coverage_record",
+          "reason": "The record must capture target coverage and any out-of-target spray."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "A controlled amount of the approved nonhazardous surrogate lands within the marked target, the trigger returns, and coverage is recorded.",
-          "No spray reaches outside windex_spray_target."
+          "A controlled spray lands on the marked target and coverage is recorded; the trigger returns and the bottle is closed, upright, and stable.",
+          "No spray reaches outside the target boundary or absorbent pad."
         ],
         "setup": [
-          "Fill ycb_022_windex_bottle only with approved_nonhazardous_spray_surrogate and place it upright at windex_spray_station.",
-          "Clear and mark windex_spray_target, provide spray_absorbent_pad and a blank record, and verify material behavior."
+          "Verify ycb_022_windex_bottle is clean and free of unapproved residue, then fill only with approved_nonhazardous_spray_surrogate.",
+          "Stage the closed upright bottle at windex_spray_station; mark the target, add spray_absorbent_pad, and provide a blank coverage record."
         ],
         "reset": [
-          "Recover or dispose of the surrogate under protocol, clean and dry the target and station, restore the closed upright bottle, and clear the record.",
-          "Verify trigger return and no residue outside the target."
+          "Remove and replace or clean spray_absorbent_pad under the approved cleanup protocol, restore it in the marked position in its ready state, clear the target and record, and restore the clean closed upright bottle with trigger returned.",
+          "Verify the target and station are residue-free before another trial."
         ],
         "quality_checks": [
           "Inspect target coverage, overspray boundary, trigger return, bottle identity, and station stability.",
@@ -1667,25 +1747,40 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared full contents state determines whether this activity applies."
+        },
+        {
+          "key": "condition",
+          "value": "initial_fill_level_below_mark_ycb_023_wine_glass_wine_glass_fill_marker",
+          "reason": "The glass must start below the fill band so filling creates an observable state change."
+        },
+        {
+          "key": "object",
+          "value": "surrogate_recovery_container",
+          "reason": "The approved surrogate needs a declared recovery container for reset."
+        },
+        {
+          "key": "condition",
+          "value": "surrogate_recovery_container_compatible_and_ready",
+          "reason": "Verify the recovery container is clean, stable, empty, and compatible with the approved surrogate before staging or reset."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The cool approved surrogate reaches the marked fill band without contacting the rim or spilling, and the volume is recorded.",
-          "The wine glass remains upright and stable."
+          "The approved surrogate reaches the marked band without contacting the rim or spilling, and the reading with units is recorded.",
+          "The glass remains upright and stable."
         ],
         "setup": [
-          "Place the intact wine glass upright at wine_glass_fill_station with the approved cool surrogate and expose wine_glass_fill_marker.",
-          "Provide a blank wine_glass_volume_record and verify the fragile-contact protocol."
+          "Stage the intact upright glass at wine_glass_fill_station with an approved measured cool surrogate volume below wine_glass_fill_marker.",
+          "Provide a blank volume record and verify the fill marker, glass integrity, and fragile-contact protocol."
         ],
         "reset": [
-          "Empty the surrogate into the approved recovery container, rinse and dry the glass under protocol, restore it upright at the station, and clear the record.",
-          "Inspect rim and stem before another trial."
+          "Recover the surrogate into surrogate_recovery_container, rinse and dry the glass under protocol, then restore the initial below-band volume and clear the record.",
+          "Inspect rim and stem and verify the station before another trial."
         ],
         "quality_checks": [
-          "Verify glass identity, fill-band visibility, rim clearance, containment, upright stability, and record identity.",
-          "Do not infer drinking suitability from the YCB identity."
+          "Verify rim and stem integrity, initial level below the band, surrogate approval, and containment.",
+          "Check the recorded reading and units against the marked band; do not infer drinking suitability from the YCB identity."
         ],
         "failure_modes": [
           "The glass chips, tips, spills, the marker is occluded, or the record is missing.",
@@ -1795,6 +1890,11 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite station_level_verified must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "spill_tray_asset_verified",
+          "reason": "Verify the containment tray catches the approved surrogate and surrounds the tilt station."
+        },
+        {
           "key": "capability",
           "value": "rigid_manipulation",
           "reason": "The proposed interaction requires rigid_manipulation."
@@ -1818,28 +1918,48 @@
           "key": "contents",
           "value": "full",
           "reason": "The declared full contents state determines whether this activity applies."
+        },
+        {
+          "key": "object",
+          "value": "surrogate_recovery_container",
+          "reason": "The approved surrogate needs a declared recovery container for reset."
+        },
+        {
+          "key": "condition",
+          "value": "surrogate_recovery_container_compatible_and_ready",
+          "reason": "Verify the recovery container is clean, stable, empty, and compatible with the approved surrogate before staging or reset."
+        },
+        {
+          "key": "object",
+          "value": "bowl_spill_containment_tray",
+          "reason": "The tilt test requires a declared boundary to contain any released surrogate."
+        },
+        {
+          "key": "condition",
+          "value": "initial_spill_containment_ready_bowl_spill_containment_tray",
+          "reason": "Required initial predicate: spill_containment_ready(bowl_spill_containment_tray)"
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The bowl reaches the declared tilt limit, retains the approved surrogate without spill, returns upright, and the result is recorded.",
-          "The bowl and station remain stable."
+          "Complete the tilt test, return the bowl upright, and record whether the payload remained in the bowl.",
+          "Any released surrogate stays within bowl_spill_containment_tray; the bowl and station remain stable."
         ],
         "setup": [
-          "Load the bowl with the approved cool surrogate and place it upright on the level bowl_stability_station beside bowl_tilt_limit_marker.",
+          "Place bowl_spill_containment_tray around the level bowl_stability_station, then load the bowl with approved cool surrogate and stage it upright beside bowl_tilt_limit_marker.",
           "Provide a blank bowl_tilt_stability_record and keep the tilt boundary visible."
         ],
         "reset": [
-          "Recover the surrogate, wash and dry the bowl and station under protocol, restore the upright loaded state, and clear the record.",
-          "Recheck station level before another trial."
+          "Recover surrogate from the bowl and tray into surrogate_recovery_container, clean and dry the bowl, tray, and station, restore the same upright loaded initial state, and clear the record.",
+          "Recheck station level and bowl condition before another trial."
         ],
         "quality_checks": [
-          "Verify tilt mark, retained payload, spill boundary, bowl identity, upright return, and record.",
+          "Verify the initial load, marked tilt limit, and tray containment boundary; record retention without assuming the payload remains in the bowl.",
           "Do not treat a single design trial as evidence of general stability."
         ],
         "failure_modes": [
-          "Payload spills, the bowl tips, the station is not level, or tilt exceeds the mark.",
+          "Payload escapes the tray, the bowl tips, the station is not level, or tilt exceeds the mark.",
           "The bowl geometry or surrogate is unapproved."
         ],
         "consumables": [],
@@ -1936,6 +2056,16 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite gauge_asset_dimension_verified must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "handle_clearance_threshold_and_units_defined",
+          "reason": "Define the gauge threshold and units before interpreting a pass or fail result."
+        },
+        {
+          "key": "condition",
+          "value": "handle_clearance_result_record_ready_mug_handle_clearance_record",
+          "reason": "The record must capture pass, fail, or an unavailable result."
+        },
+        {
           "key": "capability",
           "value": "rigid_manipulation",
           "reason": "The proposed interaction requires rigid_manipulation."
@@ -1959,19 +2089,20 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The mug handle passes the marked gauge without force, the clearance is recorded, and the mug remains empty, upright, and stable.",
-          "The handle and gauge stay visible throughout the check."
+          "Record the measured clearance or an explicit unavailable reason, including pass or fail against the declared threshold.",
+          "The mug stays empty, upright, and stable; the handle remains undamaged and no force is applied."
         ],
         "setup": [
-          "Place the empty upright mug at mug_handle_gauge_station with mug_handle_clearance_gauge ready and its no-force protocol visible.",
-          "Provide a blank mug_handle_clearance_record and keep the handle boundary unobstructed."
+          "Place the empty upright mug at mug_handle_gauge_station with the handle unobstructed and the no-force gauge protocol visible.",
+          "Provide a blank clearance record; verify the gauge threshold, units, and handle geometry before measurement."
         ],
         "reset": [
           "Return the mug upright to its start mark, clear the gauge and record, and inspect the handle for contact damage.",
           "Restore the no-force protocol before another trial."
         ],
         "quality_checks": [
-          "Verify mug identity, handle visibility, gauge dimension, no-force contact, stable return, and record identity.",
+          "Verify gauge calibration, threshold, and units before measurement.",
+          "Check the result is recorded without presuming that the handle passes; inspect for contact damage.",
           "Do not infer ergonomic suitability from this single clearance check."
         ],
         "failure_modes": [
@@ -2077,6 +2208,11 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite dry_clean_sponge_confirmed must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "compression_force_and_deflection_limit_defined",
+          "reason": "A bounded force and deflection limit must be defined before contacting the sponge."
+        },
+        {
           "key": "capability",
           "value": "deformable_squeezing",
           "reason": "The proposed interaction requires deformable_squeezing."
@@ -2105,24 +2241,26 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The clean dry sponge reaches the marked compression limit, recovers its declared shape after release, and the observation is recorded without tearing.",
-          "The sponge remains clean and dry on the station."
+          "Record the observed compression and post-release recovery response, or an explicit unavailable reason, plus damage status.",
+          "Stop at the declared limit; return the sponge released, clean, dry, and stable."
         ],
         "setup": [
-          "Place the clean dry sponge uncompressed on sponge_recovery_station with sponge_compression_gauge and a blank sponge_compression_record visible.",
-          "Verify deformable material behavior and the soft-contact fixture before contact."
+          "Place the clean dry sponge uncompressed on sponge_recovery_station with the compression gauge and blank record visible.",
+          "Verify deformable behavior and define a bounded force and deflection limit before contact."
         ],
         "reset": [
-          "Restore the sponge to its clean dry uncompressed state, clear the gauge and record, and inspect for tearing or permanent deformation.",
-          "Leave the station stable and free of residue."
+          "Release and inspect the sponge. If intact, restore its clean dry uncompressed state; if torn or permanently deformed, quarantine it and replace it with a verified asset.",
+          "Clear the gauge and record and verify the station is stable and residue-free."
         ],
         "quality_checks": [
-          "Inspect compression boundary, recovery, tears, moisture, station support, and record identity.",
-          "Leave the material-verification condition unconfirmed if the selected asset has not been checked."
+          "Verify deformable behavior and the force/deflection limit before contact.",
+          "Record compression, recovery, and damage status without presuming full recovery.",
+          "Stop if the force limit is reached or damage begins."
         ],
         "failure_modes": [
-          "The sponge tears, remains deformed, contacts an unapproved hard edge, or the gauge is exceeded.",
-          "Material behavior or the compression limit is unverified."
+          "The asset behavior or force limit is unverified.",
+          "The sponge tears, remains compressed, or leaves the safe contact boundary.",
+          "The gauge or station becomes unstable."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2223,6 +2361,11 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite stovetop_off_confirmed must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "flatness_threshold_and_gauge_zero_verified",
+          "reason": "Define the flatness threshold and verify the feeler gauge zero before measuring."
+        },
+        {
           "key": "capability",
           "value": "rigid_manipulation",
           "reason": "The proposed interaction requires rigid_manipulation."
@@ -2246,20 +2389,24 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed record cool skillet base contact on a flatness gauge reaches its declared observable goal and the named record or safety condition is verified."
+          "Record the observed base contact pattern and pass/fail flatness status against the declared threshold."
         ],
         "setup": [
-          "Stage ycb_027_skillet with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Stage the empty cool skillet base-down on skillet_base_inspection_station with its handle accessible and stovetop off.",
+          "Provide the calibrated feeler gauge and blank contact record; verify the station is level and the measurement threshold is defined."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_027_skillet, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Remove the skillet, clear the contact record, clean and zero the gauge, and restore the empty cool skillet to its initial mark with the stovetop off."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Verify the skillet is cool and the stovetop is off.",
+          "Check gauge zero, contact threshold, and record units before use.",
+          "Record measured contact without presuming the base is flat."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "The asset, gauge, or threshold is unverified.",
+          "The skillet is hot, unstable, or not empty.",
+          "The feeler gauge scratches or catches the base."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2360,6 +2507,11 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite underside_contact_safe must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "skillet_lid_cool_and_detached_verified",
+          "reason": "Confirm the lid is cool and detached before exposing its underside."
+        },
+        {
           "key": "capability",
           "value": "rigid_manipulation",
           "reason": "The proposed interaction requires rigid_manipulation."
@@ -2383,20 +2535,25 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed record the detached skillet lid underside condition reaches its declared observable goal and the named record or safety condition is verified."
+          "Record whether underside residue is clear or flagged, including the observed condition; leave the cool lid detached and stable on the mat."
         ],
         "setup": [
-          "Stage ycb_028_skillet_lid with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Stage the cool detached lid underside-up on the stable inspection mat with the empty cool skillet nearby and stovetop off.",
+          "Provide a blank underside record and inspection light; verify the mat and light stay clear of hot surfaces."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_028_skillet_lid, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Return the detached cool lid underside-up to the mat, switch off the inspection light, and clear the record.",
+          "Restore the skillet and lid to the same cool, detached, no-heat starting arrangement."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Verify lid identity, cool state, underside visibility, and safe light placement.",
+          "Record observed clear or flagged status without assuming cleanliness.",
+          "Keep the lid detached and away from heat."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "The lid is hot, attached, unstable, or the underside is occluded.",
+          "The light or mat is incompatible with the setup.",
+          "The lid contacts a heat source."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2502,6 +2659,11 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite clean_plate_confirmed must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "plate_rack_clearance_verified_ycb_029_plate",
+          "reason": "Verify the plate diameter and rim fit the specific rack slot and separators before insertion."
+        },
+        {
           "key": "capability",
           "value": "rigid_manipulation",
           "reason": "The proposed interaction requires rigid_manipulation."
@@ -2525,20 +2687,25 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed verify plate rim separation in a marked rack slot reaches its declared observable goal and the named record or safety condition is verified."
+          "Seat the plate in the verified rack slot and record separator clearance and stack position.",
+          "The plate remains clean, stable, and supported without rim-to-rim contact."
         ],
         "setup": [
-          "Stage ycb_029_plate with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Verify the rack slot and rim separators match the measured plate geometry before loading.",
+          "Stage the clean empty plate at plate_rack_staging, keep the slot clear, and provide a blank rim-separation record."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_029_plate, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Remove the plate to plate_rack_staging, clear the record, reset the slot and separators, and inspect the plate for chips before another trial."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Verify measured plate-to-slot clearance and separator spacing before insertion.",
+          "Check stable support and absence of damaging rim contact.",
+          "Record the measured clearance and stack position."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "Plate and rack geometry are incompatible or unverified.",
+          "The rack slot is obstructed or unstable.",
+          "The plate chips, binds, or contacts a neighboring rim."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2605,6 +2772,11 @@
         },
         {
           "key": "condition",
+          "value": "initial_orientation_mark_visible_fork_handle_direction_mark",
+          "reason": "Required initial predicate: orientation_mark_visible(fork_handle_direction_mark)"
+        },
+        {
+          "key": "condition",
           "value": "initial_tray_slot_clear_fork_orientation_tray",
           "reason": "Required initial predicate: tray_slot_clear(fork_orientation_tray)"
         },
@@ -2662,20 +2834,25 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed record fork tine orientation in a marked utensil tray slot reaches its declared observable goal and the named record or safety condition is verified."
+          "Place the fork in the tray with tines and handle aligned to their respective marks, then record orientation.",
+          "The fork is stable and the tines remain away from the hand side."
         ],
         "setup": [
-          "Stage ycb_030_fork with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Stage the fork on fork_orientation_mat with tines away from the hand side; verify the tray slot is clear and both direction marks are visible.",
+          "Provide a blank orientation record and verify the tine-clearance protocol."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_030_fork, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Remove the fork from the tray, return it to the mat with tines away from the hand side, clear the record, and restore the slot and marks."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Verify the direction marks are unambiguous and the tray supports the fork.",
+          "Check tine clearance and orientation after placement.",
+          "Confirm the recorded orientation matches the visible marks."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "The marks or tray geometry are unverified.",
+          "The tines point toward the hand side or are obstructed.",
+          "The fork is unstable or damaged."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2687,8 +2864,8 @@
       }
     },
     {
-      "id": "planning_ycb_round5_spoon_scoop_capacity",
-      "task_id": "task_ycb_round5_spoon_scoop_capacity",
+      "id": "planning_ycb_round5_spoon_bowl_dimensions",
+      "task_id": "task_ycb_round5_spoon_bowl_dimensions",
       "requirements": [
         {
           "key": "scene_id",
@@ -2702,28 +2879,23 @@
         },
         {
           "key": "object",
-          "value": "spoon_scoop_station",
-          "reason": "The declared fixture, marked area, partner object, or record resource spoon_scoop_station is required for this proposed collection."
+          "value": "spoon_dimension_station",
+          "reason": "The marked stable measurement station is required."
         },
         {
           "key": "object",
-          "value": "spoon_scoop_capacity_gauge",
-          "reason": "The declared fixture, marked area, partner object, or record resource spoon_scoop_capacity_gauge is required for this proposed collection."
+          "value": "spoon_bowl_dimension_gauge",
+          "reason": "The calibrated non-contact gauge is required."
         },
         {
           "key": "object",
-          "value": "fixed_cool_surrogate_pieces",
-          "reason": "The declared fixture, marked area, partner object, or record resource fixed_cool_surrogate_pieces is required for this proposed collection."
-        },
-        {
-          "key": "object",
-          "value": "spoon_scoop_capacity_record",
-          "reason": "The declared fixture, marked area, partner object, or record resource spoon_scoop_capacity_record is required for this proposed collection."
+          "value": "spoon_bowl_dimension_record",
+          "reason": "The measurement record is required."
         },
         {
           "key": "condition",
-          "value": "initial_on_top_of_ycb_031_spoon_spoon_scoop_station",
-          "reason": "Required initial predicate: on_top_of(ycb_031_spoon, spoon_scoop_station)"
+          "value": "initial_on_top_of_ycb_031_spoon_spoon_dimension_station",
+          "reason": "Required initial predicate: on_top_of(ycb_031_spoon, spoon_dimension_station)"
         },
         {
           "key": "condition",
@@ -2732,23 +2904,33 @@
         },
         {
           "key": "condition",
-          "value": "initial_scoop_capacity_gauge_ready_spoon_scoop_capacity_gauge",
-          "reason": "Required initial predicate: scoop_capacity_gauge_ready(spoon_scoop_capacity_gauge)"
+          "value": "initial_spoon_bowl_visible_ycb_031_spoon",
+          "reason": "Required initial predicate: spoon_bowl_visible(ycb_031_spoon)"
         },
         {
           "key": "condition",
-          "value": "initial_fixed_piece_set_ready_fixed_cool_surrogate_pieces",
-          "reason": "Required initial predicate: fixed_piece_set_ready(fixed_cool_surrogate_pieces)"
+          "value": "initial_gauge_calibrated_spoon_bowl_dimension_gauge",
+          "reason": "Required initial predicate: gauge_calibrated(spoon_bowl_dimension_gauge)"
         },
         {
           "key": "condition",
-          "value": "initial_scoop_record_blank_spoon_scoop_capacity_record",
-          "reason": "Required initial predicate: scoop_record_blank(spoon_scoop_capacity_record)"
+          "value": "initial_measurement_axes_and_units_defined_spoon_bowl_dimension_gauge",
+          "reason": "Required initial predicate: measurement_axes_and_units_defined(spoon_bowl_dimension_gauge)"
         },
         {
           "key": "condition",
-          "value": "initial_station_stable_spoon_scoop_station",
-          "reason": "Required initial predicate: station_stable(spoon_scoop_station)"
+          "value": "initial_measurement_tolerance_defined_spoon_bowl_dimension_gauge",
+          "reason": "Required initial predicate: measurement_tolerance_defined(spoon_bowl_dimension_gauge)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_bowl_dimension_record_blank_spoon_bowl_dimension_record",
+          "reason": "Required initial predicate: bowl_dimension_record_blank(spoon_bowl_dimension_record)"
+        },
+        {
+          "key": "condition",
+          "value": "initial_station_stable_spoon_dimension_station",
+          "reason": "Required initial predicate: station_stable(spoon_dimension_station)"
         },
         {
           "key": "condition",
@@ -2757,18 +2939,23 @@
         },
         {
           "key": "condition",
-          "value": "scoop_payload_approved",
-          "reason": "The declared asset, material, fixture, or safety prerequisite scoop_payload_approved must be verified before collection."
+          "value": "spoon_bowl_dimension_gauge_calibrated",
+          "reason": "Verify the non-contact gauge calibration before recording values."
         },
         {
           "key": "condition",
-          "value": "scoop_gauge_asset_verified",
-          "reason": "The declared asset, material, fixture, or safety prerequisite scoop_gauge_asset_verified must be verified before collection."
+          "value": "non_contact_gauge_function_verified",
+          "reason": "Verify the gauge measures the spoon without contact or deformation."
         },
         {
           "key": "condition",
-          "value": "dry_spoon_confirmed",
-          "reason": "The declared asset, material, fixture, or safety prerequisite dry_spoon_confirmed must be verified before collection."
+          "value": "measurement_axes_units_tolerance_protocol_ready",
+          "reason": "Define axes, units, tolerance, and repeatability protocol before measurement."
+        },
+        {
+          "key": "condition",
+          "value": "measurement_record_resource_ready_spoon_bowl_dimension_record",
+          "reason": "Verify the record can distinguish measured values from unavailable results."
         },
         {
           "key": "capability",
@@ -2794,20 +2981,26 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed record spoon scoop capacity with fixed surrogate pieces reaches its declared observable goal and the named record or safety condition is verified."
+          "Record spoon bowl width and depth with units, or record an explicit unavailable or invalid reason; include repeatability status against the declared tolerance."
         ],
         "setup": [
-          "Stage ycb_031_spoon with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Stage the dry spoon bowl-up on spoon_dimension_station with the bowl fully visible and unobstructed.",
+          "Calibrate spoon_bowl_dimension_gauge; define axes, units, tolerance, and repeatability before collecting values; provide a blank spoon_bowl_dimension_record. Never infer or fabricate a reading."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_031_spoon, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Clear the record, recalibrate the gauge, and return the dry spoon bowl-up to its start mark.",
+          "Verify the station is stable and the record is blank before another trial.",
+          "Reconfirm the initial measurement contract: the same axes and units remain defined, and the declared tolerance and repeatability protocol are restored on spoon_bowl_dimension_gauge."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Confirm calibration, axis labels, units, tolerance, and repeat protocol before measurement.",
+          "Check that entries are measured values or explicitly unavailable with a reason; do not infer readings.",
+          "Confirm the gauge does not touch or deform the spoon and that the spoon remains dry and intact."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "The spoon scale or gauge calibration is unverified.",
+          "Axes, units, tolerance, or repeatability are undefined.",
+          "The gauge obscures or touches the spoon, or a reading is inferred rather than measured."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2913,6 +3106,11 @@
           "reason": "The declared asset, material, fixture, or safety prerequisite no_sharp_hazard must be verified before collection."
         },
         {
+          "key": "condition",
+          "value": "cutting_no_human_access_boundary_verified",
+          "reason": "Verify the guarded cut zone excludes people and protects access to the sharp edge."
+        },
+        {
           "key": "capability",
           "value": "rigid_manipulation",
           "reason": "The proposed interaction requires rigid_manipulation."
@@ -2936,22 +3134,30 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed cut an approved soft test strip to a marked length reaches its declared observable goal and the named record or safety condition is verified."
+          "Cut the approved strip at the marked length and record the observed cut result.",
+          "Return the knife to its safe rest, leave the cut zone clear, and keep the blade isolated from people."
         ],
         "setup": [
-          "Stage ycb_032_knife with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Verify the sharp-edge asset, guarded station, stable cutting board, human-clearance boundary, and approved soft strip before staging.",
+          "Place the marked strip in the clear cut zone with a blank record; keep people outside the guarded boundary."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_032_knife, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Remove the cut strip and fragments under the guarded protocol, replace soft_test_strip, clear the record and board, and restore the knife to its safe initial rest.",
+          "Verify the guard and human-clearance boundary before another trial."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Verify sharp-edge status, strip approval, board stability, and guarded human clearance before contact.",
+          "Check and record the marked cut result.",
+          "Confirm the knife is returned to the safe rest and the cut zone is clear."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "The edge, strip, guard, or human-clearance boundary is unverified.",
+          "The board shifts, cut zone is obstructed, or strip fragments escape the station.",
+          "Any person enters the guarded boundary or the blade contacts a person."
         ],
-        "consumables": [],
+        "consumables": [
+          "soft_test_strip"
+        ],
         "time_estimates": {
           "setup_minutes": null,
           "execution_minutes": null,
@@ -3066,32 +3272,38 @@
         },
         {
           "key": "role",
-          "value": "home_user",
-          "reason": "The proposed collection is scoped to the home_user context."
+          "value": "staff",
+          "reason": "The restaurant_kitchen scene is scoped to a kitchen staff context."
         },
         {
           "key": "contents",
-          "value": "empty",
-          "reason": "The declared empty contents state determines whether this activity applies."
+          "value": "full",
+          "reason": "The partner skillet must start loaded with the approved soft surrogate."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed turn an approved soft surrogate over in a cool skillet reaches its declared observable goal and the named record or safety condition is verified."
+          "Turn the approved surrogate over in the cool skillet, retain it in the pan, and record the observed result.",
+          "The spatula is clear, the pan remains cool and stable, and no surrogate leaves the skillet."
         ],
         "setup": [
-          "Stage ycb_033_spatula with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Stage the empty cool skillet with the approved soft surrogate centered on spatula_turn_station; stage the clean spatula beside it and keep the station away from heat.",
+          "Provide a blank turn record and verify surrogate contact, skillet stability, and staff-only scene access."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_033_spatula, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Return the surrogate to its centered initial orientation, clear the record, and restore the clean spatula and cool loaded skillet to their start marks.",
+          "Verify the station remains away from heat before another trial."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Verify the surrogate is approved and centered in the cool stable skillet.",
+          "Confirm spatula geometry and turn fixture before manipulation.",
+          "Check the pan remains cool and no payload leaves it."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "The spatula, pan, or surrogate compatibility is unverified.",
+          "The skillet shifts, heats, or the surrogate leaves the pan.",
+          "The restaurant-kitchen work area is inaccessible to staff."
         ],
         "consumables": [],
         "time_estimates": {
@@ -3215,20 +3427,26 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The proposed fold the table cloth along a marked crease grid reaches its declared observable goal and the named record or safety condition is verified."
+          "Fold the cloth along the marked grid with edges aligned and record the resulting footprint.",
+          "The cloth remains clean and dry and the fold is stable on the station."
         ],
         "setup": [
-          "Stage ycb_034_table_cloth with all declared fixtures, marked areas, partner objects, and record resources; verify every listed prerequisite before collection."
+          "Spread the clean dry cloth flat on cloth_fold_station with the visible grid unobstructed and no objects on the cloth.",
+          "Provide a blank footprint record and verify the cloth asset exhibits safe deformable behavior."
         ],
         "reset": [
-          "Restore the initial predicates for ycb_034_table_cloth, clear reusable fixtures and records, and replace or reset any declared consumable before another trial."
+          "Unfold and spread the cloth flat at its initial station mark, clear the footprint record, and remove any debris.",
+          "Verify the grid remains visible and the cloth is clean and dry."
         ],
         "quality_checks": [
-          "Verify object identity, initial and goal predicates, fixture support, material or asset prerequisites, and record identity."
+          "Verify cloth condition, grid scale, station stability, and deformable behavior before folding.",
+          "Check fold edges against the grid and record the footprint.",
+          "Confirm no objects are trapped in the fold."
         ],
         "failure_modes": [
-          "A declared predicate, fixture, material prerequisite, or record is missing or ambiguous.",
-          "The object is unstable, damaged, or handled outside the declared boundary."
+          "The cloth behavior or grid scale is unverified.",
+          "The cloth tears, remains wet or soiled, or cannot be aligned safely.",
+          "The station shifts or an object is trapped in the fold."
         ],
         "consumables": [],
         "time_estimates": {
@@ -3842,24 +4060,24 @@
       "limitations": "YCB catalog identity does not establish the functional, material, safety, or scene capabilities required by this task."
     },
     {
-      "id": "claim_task_ycb_round5_spoon_scoop_capacity_task_suitability",
-      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "id": "claim_task_ycb_round5_spoon_bowl_dimensions_task_suitability",
+      "subject_id": "task_ycb_round5_spoon_bowl_dimensions",
       "claim_type": "task_suitability",
-      "statement": "This YCB Round 5 task for Record spoon scoop capacity with fixed surrogate pieces is a proposed candidate for collection design review.",
+      "statement": "This YCB Round 5 task for Record spoon bowl width and depth with a calibrated non-contact gauge is a proposed candidate for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_ycb_task_design"
       ],
-      "scope": "YCB Round 5 kitchen coverage proposal for Record spoon scoop capacity with fixed surrogate pieces.",
+      "scope": "YCB Round 5 kitchen coverage proposal for Record spoon bowl width and depth with a calibrated non-contact gauge.",
       "limitations": "The design seed supports proposal provenance only; it does not establish population frequency, robot execution, or compatibility of a particular asset."
     },
     {
-      "id": "claim_task_ycb_round5_spoon_scoop_capacity_population_frequency",
-      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "id": "claim_task_ycb_round5_spoon_bowl_dimensions_population_frequency",
+      "subject_id": "task_ycb_round5_spoon_bowl_dimensions",
       "claim_type": "population_frequency",
-      "statement": "Population frequency for this specific Record spoon scoop capacity with fixed surrogate pieces task is unknown.",
+      "statement": "Population frequency for this specific Record spoon bowl width and depth with a calibrated non-contact gauge task is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
@@ -3868,10 +4086,10 @@
       "limitations": "Catalog metadata and a proposed design cannot quantify how often people perform this specific task."
     },
     {
-      "id": "claim_task_ycb_round5_spoon_scoop_capacity_robot_execution",
-      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "id": "claim_task_ycb_round5_spoon_bowl_dimensions_robot_execution",
+      "subject_id": "task_ycb_round5_spoon_bowl_dimensions",
       "claim_type": "robot_execution",
-      "statement": "Robot execution for this specific Record spoon scoop capacity with fixed surrogate pieces task is unknown.",
+      "statement": "Robot execution for this specific Record spoon bowl width and depth with a calibrated non-contact gauge task is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
@@ -3880,8 +4098,8 @@
       "limitations": "The unordered skill inventory and collection card are not execution results."
     },
     {
-      "id": "claim_task_ycb_round5_spoon_scoop_capacity_asset_compatibility",
-      "subject_id": "task_ycb_round5_spoon_scoop_capacity",
+      "id": "claim_task_ycb_round5_spoon_bowl_dimensions_asset_compatibility",
+      "subject_id": "task_ycb_round5_spoon_bowl_dimensions",
       "claim_type": "asset_compatibility",
       "statement": "Compatibility of the ycb_031_spoon asset and this task setup with a particular simulator or robot is unknown.",
       "status": "unknown",

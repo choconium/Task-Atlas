@@ -4,7 +4,7 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
@@ -39,7 +39,7 @@
         "initial_gauge_fit_compatibility_checked"
       ],
       "goal_state": [
-        "ball_seated_in_diameter_gauge(ycb_053_mini_soccer_ball, mini_ball_diameter_gauge_set)",
+        "smallest_accepting_gauge_identified(ycb_053_mini_soccer_ball, mini_ball_diameter_gauge_set)",
         "gauge_diameter_reading_visible(ycb_053_mini_soccer_ball)",
         "diameter_recorded_with_1_mm_tolerance(ycb_053_mini_soccer_ball)",
         "no_force_applied(ycb_053_mini_soccer_ball)",
@@ -128,7 +128,7 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
@@ -161,7 +161,9 @@
         "no_bat_at_station(baseball_heading_station)",
         "initial_no_bat_at_baseball_station",
         "stitching_visible(ycb_055_baseball)",
-        "initial_baseball_stitching_visible"
+        "initial_baseball_stitching_visible",
+        "baseball_tee_fit_checked_for_physical_ball(ycb_055_baseball, baseball_tee)",
+        "initial_baseball_tee_fit_checked_for_physical_ball"
       ],
       "goal_state": [
         "seated_on(ycb_055_baseball, baseball_tee)",
@@ -192,52 +194,53 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_056_tennis_ball",
-      "template_id": "template_ycb_gentle_contact_inspection",
-      "name_en": "Measure controlled tennis-ball deflection against a soft limit",
-      "name_ja": "軟らかいストッパーに対するテニスボールの制御変位を測定する",
+      "template_id": "template_ycb_visual_inspection",
+      "name_en": "Record the tennis ball's response to one controlled low-height drop",
+      "name_ja": "テニスボールを低い高さから一度だけ落とし、その反応を記録する",
       "intent_id": "intent_inspect",
       "object_id": "ycb_056_tennis_ball",
       "scene_id": "scene_ycb_workshop",
       "bindings": {
         "theme": "ycb_056_tennis_ball",
-        "support": "tennis_deflection_support",
-        "contact_limit": "tennis_compression_stop"
+        "property": "single_low_drop_response"
       },
       "state_ids": [
         "state_on_surface"
       ],
       "initial_state": [
-        "on_top_of(ycb_056_tennis_ball, tennis_deflection_support)",
-        "initial_tennis_ball_at_deflection_support",
-        "support_stable(tennis_deflection_support)",
-        "initial_tennis_deflection_support_stable",
-        "compression_stop_padded(tennis_compression_stop)",
-        "initial_tennis_compression_stop_padded",
-        "deflection_fixture_compatible_with_tennis_ball(tennis_deflection_support)",
-        "initial_deflection_fixture_compatibility_checked",
-        "compression_limit_marked(tennis_compression_stop)",
-        "initial_compression_limit_marked",
-        "no_sharp_edges(tennis_deflection_support)",
-        "initial_no_sharp_edges_at_tennis_station"
+        "on_top_of(ycb_056_tennis_ball, tennis_drop_platform)",
+        "initial_tennis_ball_at_drop_platform",
+        "visible(ycb_056_tennis_ball)",
+        "reachable(ycb_056_tennis_ball)",
+        "inspection_method_declared(single_low_drop_response)",
+        "physical_tennis_ball_identity_checked(ycb_056_tennis_ball)",
+        "tennis_drop_platform_stable_and_height_marked(tennis_drop_platform, 50_mm)",
+        "drop_station_compatible_with_this_ball_without_clamping(ycb_056_tennis_ball, tennis_drop_platform)",
+        "padded_catch_tray_stable_and_sized_for_ball(padded_tennis_catch_tray, ycb_056_tennis_ball)",
+        "side_camera_height_reference_visible(tennis_rebound_height_reference)",
+        "ball_surface_intact(ycb_056_tennis_ball)",
+        "one_drop_only_no_throw_protocol_declared(tennis_drop_station)",
+        "rebound_response_log_available(tennis_rebound_log)"
       ],
       "goal_state": [
-        "ball_contacts_soft_limit(ycb_056_tennis_ball, tennis_compression_stop)",
-        "compression_limit_not_exceeded(ycb_056_tennis_ball)",
-        "deflection_reading_recorded_with_1_mm_tolerance(ycb_056_tennis_ball)",
-        "ball_recovers_after_release(ycb_056_tennis_ball)",
-        "surface_intact(ycb_056_tennis_ball)",
-        "stable(tennis_deflection_support)"
+        "tennis_ball_released_once_from_50_mm_without_throw(ycb_056_tennis_ball)",
+        "first_rebound_response_classified_or_no_rebound_recorded(ycb_056_tennis_ball)",
+        "first_peak_height_recorded_with_5_mm_tolerance_if_rebound_observed(ycb_056_tennis_ball)",
+        "captured_in_padded_catch_tray(ycb_056_tennis_ball, padded_tennis_catch_tray)",
+        "ball_surface_intact(ycb_056_tennis_ball)",
+        "single_drop_response_recorded(tennis_rebound_log)",
+        "tennis_drop_station_ready(tennis_drop_station)"
       ],
       "instruction_variants": [
-        "Apply only the declared gentle contact until the tennis ball reaches the padded limit, then record deflection and release it.",
-        "Use the fixture compatibility and compression mark as prerequisites; do not squeeze, clamp, or infer material properties.",
-        "テニスボールをパッド付き限界まで軽く接触させ、変位を記録してから解放してください。"
+        "If the physical ball and guarded station pass the fit and safety checks, release it once from the 50 mm mark and record the first response.",
+        "Record a visible rebound peak only if one occurs; otherwise log no rebound. Do not throw, press, or infer a sports-performance rating.",
+        "実物のボールと受け止め設備の適合・安全を確認し、50 mmの印から一度だけ静かに離して反応を記録してください。跳ね返りが見える場合のみ最高点を記録し、投げたり押したりしないでください。"
       ],
       "skills": [
         "skill_locate",
@@ -252,7 +255,7 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
@@ -287,7 +290,7 @@
       ],
       "goal_state": [
         "seated_in(ycb_057_racquetball, racquetball_diameter_cradle)",
-        "diameter_gauge_contacts_without_force(ycb_057_racquetball, racquetball_diameter_gauge)",
+        "noncontact_diameter_reading_observed(ycb_057_racquetball, racquetball_diameter_gauge)",
         "diameter_reading_recorded_with_1_mm_tolerance(ycb_057_racquetball)",
         "surface_visible(ycb_057_racquetball)",
         "no_deformation_applied(ycb_057_racquetball)",
@@ -377,52 +380,52 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_059_chain",
-      "template_id": "template_ycb_layout_flexible_item",
-      "name_en": "Align three chain links in a no-tension spacing gauge",
-      "name_ja": "無張力の間隔ゲージでチェーン3リンクを位置合わせする",
+      "template_id": "template_ycb_visual_inspection",
+      "name_en": "Inspect three selected chain links for visible condition without tension",
+      "name_ja": "張力をかけずに選んだチェーンのリンク3個の外観を確認する",
       "intent_id": "intent_inspect",
       "object_id": "ycb_059_chain",
       "scene_id": "scene_ycb_workshop",
       "bindings": {
         "theme": "ycb_059_chain",
-        "layout_surface": "three_link_gauge_surface",
-        "path": "three_link_gauge_path"
+        "property": "selected_link_surface_condition"
       },
       "state_ids": [
         "state_on_surface"
       ],
       "initial_state": [
-        "on_top_of(ycb_059_chain, three_link_gauge_surface)",
-        "initial_chain_at_three_link_gauge_surface",
-        "three_link_path_marked(three_link_gauge_path)",
-        "initial_three_link_path_marked",
-        "chain_untangled(ycb_059_chain)",
-        "initial_chain_untangled",
-        "gauge_compatible_with_chain_links(three_link_gauge_path)",
-        "initial_chain_gauge_compatibility_checked",
-        "no_tension_protocol_declared(three_link_gauge_surface)",
-        "initial_no_tension_protocol_declared_chain",
-        "link_spacing_log_available(chain_link_spacing_log)",
-        "initial_chain_link_spacing_log_available"
+        "on_top_of(ycb_059_chain, chain_inspection_mat)",
+        "initial_chain_at_inspection_mat",
+        "visible(ycb_059_chain)",
+        "reachable(ycb_059_chain)",
+        "inspection_method_declared(selected_link_surface_condition)",
+        "chain_untangled_and_unloaded(ycb_059_chain)",
+        "three_consecutive_target_links_identified(chain_link_id_card)",
+        "target_links_and_adjacent_surfaces_visible(ycb_059_chain, chain_link_id_card)",
+        "both_chain_ends_visible(ycb_059_chain)",
+        "chain_inspection_light_and_magnifier_fit_checked(chain_inspection_station, ycb_059_chain)",
+        "chain_surface_clean_and_dry(ycb_059_chain)",
+        "no_tension_or_pulling_protocol_declared(chain_inspection_station)",
+        "chain_link_condition_log_available(chain_link_condition_log)"
       ],
       "goal_state": [
-        "three_links_aligned(ycb_059_chain, three_link_gauge_path)",
-        "chain_supported_without_tension(ycb_059_chain)",
-        "link_count_verified(ycb_059_chain)",
-        "link_spacing_recorded_with_1_mm_tolerance(ycb_059_chain)",
-        "chain_ends_visible(ycb_059_chain)",
-        "three_link_gauge_station_ready(three_link_gauge_surface)"
+        "three_target_links_visually_inspected(ycb_059_chain, chain_link_id_card)",
+        "each_target_link_status_recorded_as_intact_damaged_or_uncertain(ycb_059_chain, chain_link_condition_log)",
+        "chain_remains_untangled_and_unloaded(ycb_059_chain)",
+        "both_chain_ends_visible(ycb_059_chain)",
+        "chain_inspection_record_complete(chain_link_condition_log)",
+        "chain_inspection_station_ready(chain_inspection_station)"
       ],
       "instruction_variants": [
-        "Lay exactly three chain links on the marked spacing path without tension and record the visible spacing.",
-        "Keep the chain untangled and both ends visible; do not use the gauge as a load or strength test.",
-        "チェーンのリンク3個を印付き経路に無張力で合わせ、間隔を記録してください。"
+        "Inspect the three identified links under the compatible light and record each visible condition without pulling the chain.",
+        "Classify only what is visible as intact, visibly damaged, or uncertain; do not test load capacity or infer strength.",
+        "指定したリンク3個を適合確認済みの照明下で見て、チェーンを引っ張らずに外観を記録してください。見える範囲だけを「異常なし・損傷あり・判定不能」に分類し、強度を試験しないでください。"
       ],
       "skills": [
         "skill_locate",
@@ -438,7 +441,7 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
@@ -469,7 +472,11 @@
         "no_stacking_protocol_declared(washer_flatness_station)",
         "initial_no_stacking_protocol_declared_washers",
         "flatness_log_available(washer_flatness_log)",
-        "initial_washer_flatness_log_available"
+        "initial_washer_flatness_log_available",
+        "physical_washer_set_and_gauge_datum_compatibility_checked(ycb_060_washers, washer_flatness_gauge, washer_flatness_datum)",
+        "initial_washer_set_and_gauge_datum_compatibility_checked",
+        "flatness_gauge_resolution_verified_at_0_1_mm(washer_flatness_gauge)",
+        "initial_washer_flatness_resolution_verified"
       ],
       "goal_state": [
         "each_washer_on_datum(ycb_060_washers, washer_flatness_datum)",
@@ -499,52 +506,51 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_061_foam_brick",
-      "template_id": "template_ycb_gentle_contact_inspection",
-      "name_en": "Measure foam-brick recovery after a controlled compression",
-      "name_ja": "制御した圧縮後のフォームレンガの回復を測定する",
+      "template_id": "template_ycb_visual_inspection",
+      "name_en": "Measure foam-brick thickness at four points without contact",
+      "name_ja": "フォームブロックの厚さを非接触で4点測定する",
       "intent_id": "intent_inspect",
       "object_id": "ycb_061_foam_brick",
       "scene_id": "scene_ycb_workshop",
       "bindings": {
         "theme": "ycb_061_foam_brick",
-        "support": "foam_recovery_support",
-        "contact_limit": "foam_compression_stop"
+        "property": "unloaded_thickness_at_four_marked_points"
       },
       "state_ids": [
         "state_on_surface"
       ],
       "initial_state": [
-        "on_top_of(ycb_061_foam_brick, foam_recovery_station)",
-        "initial_foam_brick_at_recovery_station",
-        "support_stable(foam_recovery_support)",
-        "initial_foam_recovery_support_stable",
-        "compression_stop_padded(foam_compression_stop)",
-        "initial_foam_compression_stop_padded",
-        "foam_fixture_compatible_with_brick(foam_recovery_support)",
-        "initial_foam_fixture_compatibility_checked",
-        "compression_limit_verified(foam_compression_stop)",
-        "initial_foam_compression_limit_verified",
-        "recovery_gauge_zeroed(foam_recovery_gauge)",
-        "initial_foam_recovery_gauge_zeroed"
+        "on_top_of(ycb_061_foam_brick, foam_thickness_station)",
+        "initial_foam_brick_at_thickness_station",
+        "visible(ycb_061_foam_brick)",
+        "reachable(ycb_061_foam_brick)",
+        "inspection_method_declared(unloaded_thickness_at_four_marked_points)",
+        "foam_brick_unloaded_and_surface_intact(ycb_061_foam_brick)",
+        "foam_thickness_support_stable(foam_thickness_station)",
+        "noncontact_optical_gauge_calibrated_and_clear(foam_optical_thickness_gauge)",
+        "optical_gauge_compatibility_checked_for_physical_brick_surface(foam_optical_thickness_gauge, ycb_061_foam_brick)",
+        "four_thickness_points_marked_and_visible(foam_four_point_card, ycb_061_foam_brick)",
+        "no_load_or_contact_measurement_protocol_declared(foam_thickness_station)",
+        "thickness_tolerance_declared_2_mm(foam_optical_thickness_gauge)",
+        "foam_thickness_log_available(foam_thickness_log)"
       ],
       "goal_state": [
-        "foam_brick_contacts_compression_stop(ycb_061_foam_brick, foam_compression_stop)",
-        "compression_limit_not_exceeded(ycb_061_foam_brick)",
-        "rebound_height_recorded_with_2_mm_tolerance(ycb_061_foam_brick)",
-        "shape_recovers_after_release(ycb_061_foam_brick)",
-        "surface_intact(ycb_061_foam_brick)",
-        "foam_recovery_station_ready(foam_recovery_station)"
+        "unloaded_thickness_readings_recorded_at_four_marked_points_with_2_mm_tolerance(ycb_061_foam_brick, foam_thickness_log)",
+        "foam_brick_remains_unloaded_and_surface_intact(ycb_061_foam_brick)",
+        "noncontact_gauge_remains_clear_of_brick(foam_optical_thickness_gauge, ycb_061_foam_brick)",
+        "foam_thickness_record_complete(foam_thickness_log)",
+        "foam_thickness_station_ready(foam_thickness_station)"
       ],
       "instruction_variants": [
-        "Compress the foam brick only to the padded marked stop, release it, and record its recovered height.",
-        "Verify the support and limit are compatible with this brick instance; do not infer a material constant or apply a load beyond the mark.",
-        "フォームレンガをパッド付きストッパーまで軽く圧縮して解放し、回復した高さを記録してください。"
+        "With the noncontact gauge verified for this physical brick surface, record unloaded thickness at the four marked points.",
+        "Keep the gauge clear of the foam; stop if the surface or reading is unstable, and do not infer foam stiffness or recovery.",
+        "実物のフォーム表面との適合を確認した非接触ゲージで、印の4点の無荷重厚さを記録してください。フォームに触れず、硬さや復元性能を推定しないでください。"
       ],
       "skills": [
         "skill_locate",
@@ -746,7 +752,7 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
@@ -778,7 +784,9 @@
         "rack_wells_compatible_with_cup_set(cup_drying_rack)",
         "initial_cup_rack_compatibility_checked",
         "drying_log_available(cup_drying_log)",
-        "initial_cup_drying_log_available"
+        "initial_cup_drying_log_available",
+        "nested(ycb_065_cups)",
+        "initial_cups_nested"
       ],
       "goal_state": [
         "each_cup_in_separate_drying_well(ycb_065_cups, cup_drying_rack)",
@@ -808,63 +816,58 @@
     {
       "node_type": "TaskInstance",
       "generated_by": "llm",
-      "model": "gpt-5.6-luna",
+      "model": "gpt-6-luna",
       "reasoning_effort": "max",
       "generation_version": "ycb_coverage_round5",
       "notes": "Proposed design only; task-specific claims are carried in this draft bundle.",
       "review_status": "proposed",
       "id": "task_ycb_round5_066_blank_credit_card",
-      "template_id": "template_ycb_visual_inspection",
-      "name_en": "Inspect blank-card edges and corners on a non-payment gauge",
-      "name_ja": "非決済ゲージで無地カードの辺と角を検査する",
-      "intent_id": "intent_inspect",
+      "template_id": "template_ycb_handover_object",
+      "name_en": "Hand the verified blank training card to a ready participant",
+      "name_ja": "無地の練習カードを準備のできた参加者に手渡す",
+      "intent_id": "intent_handover",
       "object_id": "ycb_066_blank_credit_card",
-      "scene_id": "scene_ycb_workshop",
+      "scene_id": "scene_ycb_playroom",
       "bindings": {
         "theme": "ycb_066_blank_credit_card",
-        "property": "edge_and_corner_condition"
+        "recipient": "nonpayment_training_participant"
       },
       "state_ids": [
-        "state_on_surface"
+        "state_on_surface",
+        "state_held"
       ],
       "initial_state": [
-        "on_top_of(ycb_066_blank_credit_card, card_edge_inspection_station)",
-        "initial_card_at_edge_inspection_station",
-        "gauge_stable(card_edge_corner_gauge)",
-        "initial_card_edge_gauge_stable",
-        "blank_side_visible(ycb_066_blank_credit_card)",
-        "initial_blank_card_side_visible",
-        "non_payment_protocol_declared(card_edge_inspection_station)",
-        "initial_non_payment_card_protocol_declared",
-        "gauge_compatible_with_blank_card(card_edge_corner_gauge)",
-        "initial_card_edge_gauge_compatibility_checked",
-        "card_edge_log_available(card_edge_log)",
-        "initial_card_edge_log_available"
+        "on_top_of(ycb_066_blank_credit_card, nonpayment_handover_surface)",
+        "recipient_present",
+        "recipient_ready(nonpayment_training_participant)",
+        "reachable(ycb_066_blank_credit_card)",
+        "safe_grasp(ycb_066_blank_credit_card)",
+        "clear(nonpayment_handover_zone)",
+        "physical_blank_training_card_verified_visually(ycb_066_blank_credit_card)",
+        "no_payment_terminal_or_reader_at_station(nonpayment_handover_zone)",
+        "nonpayment_only_protocol_declared(nonpayment_handover_zone)",
+        "card_surface_intact(ycb_066_blank_credit_card)",
+        "handover_record_available(nonpayment_card_handover_log)"
       ],
       "goal_state": [
-        "card_seated_on_gauge(ycb_066_blank_credit_card, card_edge_corner_gauge)",
-        "all_card_corners_visible(ycb_066_blank_credit_card)",
-        "long_edge_clear_of_overhang(ycb_066_blank_credit_card)",
-        "corner_offset_recorded_with_1_mm_tolerance(ycb_066_blank_credit_card)",
-        "card_not_inserted(ycb_066_blank_credit_card)",
-        "card_edge_condition_recorded(ycb_066_blank_credit_card)",
-        "card_edge_inspection_station_ready(card_edge_inspection_station)"
+        "held_by(ycb_066_blank_credit_card, nonpayment_training_participant)",
+        "theme_released_by(robot)",
+        "safe_handover(ycb_066_blank_credit_card)",
+        "no_payment_action(nonpayment_handover_zone)",
+        "blank_card_handover_recorded(nonpayment_card_handover_log)",
+        "card_surface_intact(ycb_066_blank_credit_card)"
       ],
       "instruction_variants": [
-        "Place the blank card on the non-payment edge gauge, keep all corners visible, and record the observed edge offsets.",
-        "Do not insert the card into a reader or sleeve and do not infer payment behavior from this inspection.",
-        "無地カードを非決済用辺ゲージに置き、四隅を見える状態にして辺のずれを記録してください。"
+        "Hand the verified blank training card to the ready participant in the clear non-payment handover zone.",
+        "Release only after the participant has a safe hold; do not insert the card into a reader or perform a payment action.",
+        "実物が無地の練習カードであることを確認し、決済端末のない受け渡し場所で準備のできた参加者に渡してください。相手が安全に持ったことを確かめ、読み取りや決済操作は行わないでください。"
       ],
       "skills": [
         "skill_locate",
         "skill_approach",
         "skill_grasp",
-        "skill_lift",
-        "skill_orient",
-        "skill_place",
-        "skill_release",
-        "skill_inspect",
-        "skill_verify"
+        "skill_handover",
+        "skill_release"
       ]
     },
     {
@@ -988,11 +991,15 @@
         "skill_verify"
       ]
     },
-    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-5.6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_069_box_lid","template_id":"template_ycb_round4_bounded_target","name_en":"Inspect the box-lid rim on a padded condition frame","name_ja":"パッド付き状態確認フレームでボックスふたの縁を検査する","intent_id":"intent_inspect","object_id":"ycb_069_box_lid","scene_id":"scene_ycb_workshop","bindings":{"theme":"ycb_069_box_lid","boundary":"lid_edge_reference_mark","station":"lid_condition_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_069_box_lid, lid_condition_station)","stable(lid_condition_frame)","lid_underside_visible(ycb_069_box_lid)","lid_surface_clean(ycb_069_box_lid)","lid_condition_frame_compatible_with_lid(lid_condition_frame)","gauge_zeroed(lid_condition_gauge)","edge_reference_marked(lid_edge_reference_mark)","material_observation_protocol_declared(lid_condition_station)","record_available(lid_condition_log)","no_closure_attempt(lid_condition_station)"],"goal_state":["lid_seated_in_condition_frame(ycb_069_box_lid, lid_condition_frame)","rim_corners_visible(ycb_069_box_lid)","lid_surface_intact(ycb_069_box_lid)","lid_rim_observations_recorded_with_1_mm_tolerance(ycb_069_box_lid)","no_pressure_applied(ycb_069_box_lid)","lid_condition_station_ready(lid_condition_station)"],"instruction_variants":["Place the box lid in the padded frame and record its rim observations without pressing it onto the box.","Keep the closure pair separate; do not claim seal or fit performance.","パッド付きフレームにボックスふたを置き、ボックスへ押し付けず縁を記録してください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_lift","skill_orient","skill_place","skill_release","skill_inspect","skill_verify"]},
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_069_box_lid","template_id":"template_ycb_round4_bounded_target","name_en":"Store the detached clear-box lid in a compatible padded rack slot","name_ja":"取り外した透明ボックスのふたを適合確認済みのパッド付きラックに収納する","intent_id":"intent_store","object_id":"ycb_069_box_lid","scene_id":"scene_ycb_workshop","bindings":{"theme":"ycb_069_box_lid","boundary":"padded_lid_rack_slot","station":"lid_storage_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_069_box_lid, lid_storage_staging_surface)","separated(ycb_068_clear_box, ycb_069_box_lid)","open(ycb_068_clear_box)","actual_lid_pair_identified(ycb_068_clear_box, ycb_069_box_lid)","lid_surface_clean_and_rim_intact(ycb_069_box_lid)","padded_lid_rack_stable(lid_storage_rack)","rack_slot_padded_and_fit_checked(padded_lid_rack_slot, ycb_069_box_lid)","lid_storage_station_clear(lid_storage_station)","no_stacking_or_pressure_protocol_declared(lid_storage_station)","lid_storage_log_available(lid_storage_log)"],"goal_state":["supported_in(ycb_069_box_lid, padded_lid_rack_slot)","inside(ycb_069_box_lid, lid_storage_rack)","lid_rim_clear_of_hard_contact(ycb_069_box_lid)","lid_surface_and_rim_intact(ycb_069_box_lid)","lid_storage_recorded(ycb_069_box_lid, lid_storage_log)","lid_storage_station_ready(lid_storage_station)"],"instruction_variants":["Place the already detached lid in the padded rack slot only after checking its fit and support for this physical lid.","Keep the clear box and lid separate; do not press, stack weight on, or test the lid's closure fit.","すでに取り外されたふたを、実物との適合と支持を確認したパッド付きラック枠に置いてください。ボックスへ押し付けたり、ふたの適合試験をしたりしないでください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_lift","skill_orient","skill_place","skill_release","skill_inspect","skill_verify"]},
     {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-5.6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_070_colored_wood_blocks","template_id":"template_ycb_round4_bounded_target","name_en":"Build a two-layer color pattern from the wood blocks in a marked frame","name_ja":"印付きフレーム内で木ブロックを二層の色パターンに組む","intent_id":"intent_organize","object_id":"ycb_070_colored_wood_blocks","scene_id":"scene_ycb_playroom","bindings":{"theme":"ycb_070_colored_wood_blocks","boundary":"block_stack_frame","station":"block_stack_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_070_colored_wood_blocks, block_stack_station)","blocks_separated(ycb_070_colored_wood_blocks)","blocks_surface_intact(ycb_070_colored_wood_blocks)","stable(block_stack_frame)","stack_footprint_marked(block_stack_frame)","color_pattern_card_available(block_color_pattern_card)","blocks_fit_frame_checked(ycb_070_colored_wood_blocks, block_stack_frame)","no_glue_protocol_declared(block_stack_station)","gauge_zeroed(stack_height_gauge)","record_available(block_stack_log)","no_person_contact(block_stack_station)"],"goal_state":["blocks_in_two_layer_pattern(ycb_070_colored_wood_blocks, block_stack_frame)","colors_match_pattern_card(ycb_070_colored_wood_blocks, block_color_pattern_card)","stack_height_recorded_with_1_mm_tolerance(ycb_070_colored_wood_blocks)","blocks_surface_intact(ycb_070_colored_wood_blocks)","no_glue_applied(ycb_070_colored_wood_blocks)","all_blocks_accounted(ycb_070_colored_wood_blocks)","block_stack_station_ready(block_stack_station)"],"instruction_variants":["Arrange the colored wood blocks into the two-layer pattern shown on the card inside the marked frame and record stack height.","Use hand placement only; do not glue or infer wood strength.","印付きフレーム内で色見本どおりに木ブロックを二層に並べ、高さを記録してください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_lift","skill_place","skill_release","skill_align","skill_inspect","skill_verify"]},
-    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-5.6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_071_nine_hole_peg_test","template_id":"template_ycb_round4_bounded_target","name_en":"Seat one peg in a specified hole and record insertion alignment","name_ja":"指定された穴にペグを一つ差し込み、挿入位置を記録する","intent_id":"intent_inspect","object_id":"ycb_071_nine_hole_peg_test","scene_id":"scene_ycb_workshop","bindings":{"theme":"ycb_071_nine_hole_peg_test","boundary":"peg_target_hole_3","station":"peg_insertion_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_071_nine_hole_peg_test, peg_insertion_station)","stable(peg_insertion_station)","peg_grid_visible(ycb_071_nine_hole_peg_test)","hole_marked(peg_target_hole_3)","designated_peg_available(designated_peg)","peg_compatible_with_hole(designated_peg, peg_target_hole_3)","designated_peg_surface_intact(designated_peg)","apparatus_surface_intact(ycb_071_nine_hole_peg_test)","no_force_insertion_protocol_declared(peg_insertion_station)","gauge_zeroed(peg_insertion_gauge)","record_available(peg_insertion_log)"],"goal_state":["designated_peg_seated_in(designated_peg, peg_target_hole_3)","peg_axis_aligned(designated_peg, peg_target_hole_3)","insertion_depth_recorded_with_1_mm_tolerance(designated_peg)","designated_peg_surface_intact(designated_peg)","apparatus_surface_intact(ycb_071_nine_hole_peg_test)","no_overforce_applied(designated_peg)","peg_insertion_station_ready(peg_insertion_station)"],"instruction_variants":["Insert the designated peg into the marked third hole, check its axis and depth, and record the observation.","Use gentle alignment only; do not test pull-out force or claim a general peg score.","指定されたペグを印のある3番穴へ静かに差し込み、軸と深さを記録してください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_lift","skill_place","skill_release","skill_align","skill_inspect","skill_verify"]},
-    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-5.6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_072_toy_airplane","template_id":"template_ycb_round4_marked_station","name_en":"Orient the toy airplane nose-forward on a marked runway","name_ja":"印付き滑走路でおもちゃの飛行機を機首前方に向ける","intent_id":"intent_organize","object_id":"ycb_072_toy_airplane","scene_id":"scene_ycb_playroom","bindings":{"theme":"ycb_072_toy_airplane","marker_a":"airplane_nose_heading","marker_b":"airplane_tail_heading","station":"airplane_orientation_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_072_toy_airplane, airplane_orientation_station)","runway_marked(airplane_runway)","nose_heading_marked(airplane_nose_heading)","tail_heading_marked(airplane_tail_heading)","stable(airplane_orientation_station)","airplane_wings_intact(ycb_072_toy_airplane)","airplane_surface_clean(ycb_072_toy_airplane)","runway_width_compatible_with_airplane(airplane_runway)","no_throwing_protocol_declared(airplane_orientation_station)","gauge_available(airplane_orientation_gauge)","record_available(airplane_orientation_log)"],"goal_state":["centered_on(ycb_072_toy_airplane, airplane_runway)","nose_faces_mark(ycb_072_toy_airplane, airplane_nose_heading)","wings_inside_runway_marks(ycb_072_toy_airplane, airplane_runway)","orientation_recorded_with_5_degrees_tolerance(ycb_072_toy_airplane)","airplane_surface_intact(ycb_072_toy_airplane)","no_throwing_applied(ycb_072_toy_airplane)","airplane_orientation_station_ready(airplane_orientation_station)"],"instruction_variants":["Place the toy airplane centered on the marked runway with its nose facing the heading mark and record its pose.","Use the runway only for orientation; do not throw or infer flight performance.","印付き滑走路の中央に飛行機を置き、機首を方位マークへ向けて姿勢を記録してください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_lift","skill_orient","skill_place","skill_release","skill_align","skill_inspect","skill_verify"]},
-    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-5.6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_073_lego_duplo","template_id":"template_ycb_round4_bounded_target","name_en":"Join two Duplo bricks in a marked connection fixture and inspect the seam","name_ja":"印付き接続治具でデュプロのブロック二つを接続し継ぎ目を検査する","intent_id":"intent_inspect","object_id":"ycb_073_lego_duplo","scene_id":"scene_ycb_playroom","bindings":{"theme":"ycb_073_lego_duplo","boundary":"duplo_connection_frame","station":"duplo_connection_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_073_lego_duplo, duplo_connection_station)","multiple_items(ycb_073_lego_duplo)","two_bricks_selected(ycb_073_lego_duplo)","stable(duplo_connection_fixture)","fixture_footprint_marked(duplo_connection_frame)","brick_surfaces_intact(ycb_073_lego_duplo)","brick_studs_clean(ycb_073_lego_duplo)","connection_compatibility_checked(ycb_073_lego_duplo, duplo_connection_fixture)","no_tool_force_protocol_declared(duplo_connection_station)","gauge_zeroed(duplo_engagement_gauge)","record_available(duplo_connection_log)"],"goal_state":["two_bricks_connected_in(ycb_073_lego_duplo, duplo_connection_frame)","connection_seam_visible(ycb_073_lego_duplo)","stud_engagement_recorded_with_1_mm_tolerance(ycb_073_lego_duplo)","brick_surfaces_intact(ycb_073_lego_duplo)","no_tool_force_applied(ycb_073_lego_duplo)","brick_pair_count_verified(ycb_073_lego_duplo)","duplo_connection_station_ready(duplo_connection_station)"],"instruction_variants":["Connect the selected two Duplo bricks in the marked fixture, inspect the seam, and record stud engagement.","Use hand pressure only within the protocol; do not infer connector strength or stress limits.","印付き治具で選んだデュプロのブロック二つを接続し、継ぎ目と結合状態を記録してください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_lift","skill_place","skill_release","skill_align","skill_inspect","skill_verify"]}
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_071_nine_hole_peg_test","template_id":"template_ycb_round4_marked_station","name_en":"Measure the nine-hole peg grid without inserting pegs","name_ja":"ペグを差し込まずにナインホール装置の穴配置を測定する","intent_id":"intent_inspect","object_id":"ycb_071_nine_hole_peg_test","scene_id":"scene_ycb_workshop","bindings":{"theme":"ycb_071_nine_hole_peg_test","marker_a":"peg_grid_reference_origin","marker_b":"peg_grid_scale_marker","station":"peg_geometry_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_071_nine_hole_peg_test, peg_geometry_station)","peg_geometry_station_stable(peg_geometry_station)","physical_apparatus_identity_checked(ycb_071_nine_hole_peg_test)","nine_holes_visible_and_unobstructed(ycb_071_nine_hole_peg_test)","all_holes_empty(ycb_071_nine_hole_peg_test)","grid_reference_marks_visible(peg_geometry_station)","metric_scale_calibrated(peg_grid_scale)","measurement_record_available(peg_geometry_log)","noncontact_measurement_protocol_declared(peg_geometry_station)"],"goal_state":["hole_count_recorded_as_nine(ycb_071_nine_hole_peg_test)","row_pitch_recorded_with_1_mm_tolerance(ycb_071_nine_hole_peg_test)","column_pitch_recorded_with_1_mm_tolerance(ycb_071_nine_hole_peg_test)","board_footprint_recorded_with_1_mm_tolerance(ycb_071_nine_hole_peg_test)","all_holes_empty(ycb_071_nine_hole_peg_test)","apparatus_unmodified(ycb_071_nine_hole_peg_test)","peg_geometry_logged(peg_geometry_log)","peg_geometry_station_ready(peg_geometry_station)"],"instruction_variants":["Measure and record the visible nine-hole grid pitch and board footprint with the calibrated scale; do not insert a peg.","Use a physical apparatus whose hole layout is verified at setup. Catalog or simulated geometry alone does not establish dimensions.","実物の穴配置を確認したうえで、校正済みスケールで穴間隔と装置外形を記録してください。ペグは差し込まないでください。"],"skills":["skill_locate","skill_approach","skill_align","skill_inspect","skill_verify"]},
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_072_toy_airplane","template_id":"template_ycb_transport_object","name_en":"Roll the toy airplane through a marked taxi lane to its stop","name_ja":"おもちゃの飛行機を印付き誘導路で停止位置まで転がす","intent_id":"intent_transport","object_id":"ycb_072_toy_airplane","scene_id":"scene_ycb_playroom","bindings":{"theme":"ycb_072_toy_airplane","source":"airplane_taxi_start_pad","destination":"airplane_taxi_stop"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_072_toy_airplane, airplane_taxi_start_pad)","airplane_taxi_track_clear(airplane_taxi_track)","airplane_taxi_track_level_and_stable(airplane_taxi_track)","selected_physical_airplane_asset_wheels_verified_free_rolling(ycb_072_toy_airplane)","airplane_width_compatible_with_taxi_track(ycb_072_toy_airplane, airplane_taxi_track)","wing_clearance_checked(ycb_072_toy_airplane, airplane_taxi_track)","padded_stop_secured(airplane_taxi_stop)","airplane_taxi_distance_gauge_calibration_current(airplane_taxi_distance_gauge)","airplane_taxi_distance_gauge_resolution_verified_at_5_mm(airplane_taxi_distance_gauge)","taxi_distance_log_available(airplane_taxi_log)","no_throwing_protocol_declared(airplane_taxi_track)"],"goal_state":["on_top_of(ycb_072_toy_airplane, airplane_taxi_stop)","wheels_remained_inside_marked_lane(ycb_072_toy_airplane, airplane_taxi_track)","taxi_distance_recorded_with_5_mm_tolerance(ycb_072_toy_airplane)","wings_clear(ycb_072_toy_airplane)","airplane_surface_intact(ycb_072_toy_airplane)","no_throwing_or_flight_test_performed(ycb_072_toy_airplane)","airplane_taxi_log_complete(airplane_taxi_log)","airplane_taxi_station_ready(airplane_taxi_track)"],"instruction_variants":["After verifying freely rolling wheels and track fit on the physical toy, guide it along the marked taxi lane to the padded stop and record travel distance.","Do not throw, lift for flight, or infer flight performance; stop if a wheel binds or a wing contacts the track.","実物の車輪が安全に転がり、誘導路に適合することを確認してから、印の範囲で停止位置まで誘導し、移動距離を記録してください。"],"skills":["skill_locate","skill_approach","skill_reach","skill_align","skill_inspect","skill_verify"]},
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_073_lego_duplo","template_id":"template_ycb_round4_pair_station","name_en":"Separate a joined Duplo pair into two marked return slots","name_ja":"接続されたデュプロの二つのブロックを分離して別々の返却枠に置く","intent_id":"intent_organize","object_id":"ycb_073_lego_duplo","scene_id":"scene_ycb_playroom","bindings":{"theme":"ycb_073_lego_duplo","companion":"duplo_mate_brick","station":"duplo_separation_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_073_lego_duplo, duplo_separation_station)","two_physical_duplo_bricks_joined(ycb_073_lego_duplo, duplo_mate_brick)","pair_compatibility_checked(ycb_073_lego_duplo, duplo_mate_brick)","brick_studs_and_surfaces_intact(ycb_073_lego_duplo, duplo_mate_brick)","duplo_separation_station_stable(duplo_separation_station)","force_limited_separator_jig_compatible(duplo_separator_jig, ycb_073_lego_duplo)","return_slots_labeled(duplo_return_slot_a, duplo_return_slot_b)","no_prying_protocol_declared(duplo_separation_station)","duplo_separation_log_available(duplo_separation_log)"],"goal_state":["separated(ycb_073_lego_duplo, duplo_mate_brick)","on_top_of(ycb_073_lego_duplo, duplo_return_slot_a)","on_top_of(duplo_mate_brick, duplo_return_slot_b)","brick_studs_and_surfaces_intact(ycb_073_lego_duplo, duplo_mate_brick)","pair_count_verified(ycb_073_lego_duplo, duplo_mate_brick)","separation_recorded(duplo_separation_log)","duplo_separation_station_ready(duplo_separation_station)"],"instruction_variants":["Separate the verified joined pair with the compatible low-force jig, then place one brick in each labeled return slot.","Use the declared hand-separation limit; do not pry, test connector strength, or infer compatibility from a static asset.","適合を確認した接続済みペアを低荷重治具で分離し、各ブロックを別々の表示枠に返してください。こじ開けたり結合強度を試したりしないでください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_separate","skill_place","skill_release","skill_inspect","skill_verify"]},
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_074_t_shirt","template_id":"template_ycb_round4_marked_station","name_en":"Hang a size-checked T-shirt on a stable hanger","name_ja":"サイズ適合を確認したハンガーにTシャツを掛ける","intent_id":"intent_store","object_id":"ycb_074_t_shirt","scene_id":"scene_ycb_workshop","bindings":{"theme":"ycb_074_t_shirt","marker_a":"hanger_left_shoulder_mark","marker_b":"hanger_right_shoulder_mark","station":"shirt_hanger_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_074_t_shirt, shirt_staging_surface)","shirt_unfolded(ycb_074_t_shirt)","shirt_neckline_visible(ycb_074_t_shirt)","shirt_fabric_intact(ycb_074_t_shirt)","hanger_stable_on_support(shirt_hanger, hanger_support_bar)","hanger_size_compatible_with_shirt(shirt_hanger, ycb_074_t_shirt)","hanger_shoulder_marks_visible(shirt_hanger)","shirt_hanger_station_clear(shirt_hanger_station)","no_stretching_protocol_declared(ycb_074_t_shirt)"],"goal_state":["supported_by(ycb_074_t_shirt, shirt_hanger)","shirt_shoulders_rest_on_hanger_arms(ycb_074_t_shirt, shirt_hanger)","shirt_neckline_centered_without_stretching(ycb_074_t_shirt, shirt_hanger)","shirt_sleeves_and_hem_hang_clear(ycb_074_t_shirt)","shirt_fabric_intact(ycb_074_t_shirt)","shirt_hanging_recorded(ycb_074_t_shirt, shirt_hanger_log)","shirt_hanger_station_ready(shirt_hanger_station)"],"instruction_variants":["Hang the actual T-shirt on the size-checked hanger, center its shoulders on the marked arms, and keep the neckline and fabric unstretched.","Check garment-to-hanger fit before handling; a catalog mesh does not establish fabric drape or hanger compatibility.","実物のTシャツとハンガーの適合を先に確認し、肩位置を印に合わせて掛けてください。襟や生地を伸ばさないでください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_lift","skill_orient","skill_place","skill_release","skill_align","skill_inspect","skill_verify"]},
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_075_magazine","template_id":"template_ycb_round4_marked_station","name_en":"Mark an indexed magazine page with a non-adhesive tab","name_ja":"非粘着タブで指定された雑誌ページに目印を付ける","intent_id":"intent_organize","object_id":"ycb_075_magazine","scene_id":"scene_ycb_workshop","bindings":{"theme":"ycb_075_magazine","marker_a":"magazine_target_page_card","marker_b":"nonadhesive_page_marker","station":"magazine_index_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_075_magazine, magazine_index_station)","closed(ycb_075_magazine)","pages_dry_and_intact(ycb_075_magazine)","physical_separate_page_leaves_verified(ycb_075_magazine)","target_page_exists_and_matches_card(ycb_075_magazine, magazine_target_page_card)","rounded_page_lifter_available(rounded_page_lifter)","nonadhesive_page_marker_fit_checked(nonadhesive_page_marker, ycb_075_magazine)","magazine_index_station_stable(magazine_index_station)","page_marking_log_available(magazine_page_log)"],"goal_state":["open_to_indexed_page(ycb_075_magazine, magazine_target_page_card)","nonadhesive_page_marker_on_target_page_edge(nonadhesive_page_marker, ycb_075_magazine)","target_page_identifier_visible(ycb_075_magazine)","marker_does_not_cover_print(ycb_075_magazine, nonadhesive_page_marker)","pages_uncreased_and_intact(ycb_075_magazine)","page_marking_recorded(magazine_page_log)","magazine_index_station_ready(magazine_index_station)"],"instruction_variants":["Open the physical magazine to the indexed page and attach the fit-checked non-adhesive edge marker without creasing or covering text.","Proceed only when separate page leaves and the target page are verified; do not assume a rigid YCB asset can open.","実物のページが分かれており指定ページが存在することを確認し、非粘着タブで目印を付けてください。折り目を付けたり文字を覆ったりしないでください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_reach","skill_align","skill_place","skill_release","skill_inspect","skill_verify"]},
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_076_timer","template_id":"template_ycb_round4_marked_station","name_en":"Set the kitchen timer to a verified 30-second duration","name_ja":"キッチンタイマーを確認済みの30秒に設定する","intent_id":"intent_prepare_food","object_id":"ycb_076_timer","scene_id":"scene_ycb_workshop","bindings":{"theme":"ycb_076_timer","marker_a":"timer_30_second_reference","marker_b":"timer_display_reference","station":"timer_setup_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_076_timer, timer_setup_station)","timer_not_running(ycb_076_timer)","physical_timer_powered_and_operational_check_passed(ycb_076_timer)","timer_control_map_verified_for_this_unit(timer_control_card, ycb_076_timer)","thirty_second_setting_supported(ycb_076_timer)","display_readable(ycb_076_timer)","initial_timer_setting_recorded(ycb_076_timer, timer_setup_log)","timer_setup_station_stable(timer_setup_station)"],"goal_state":["timer_setting_equals_30_seconds(ycb_076_timer)","display_shows_00_30(ycb_076_timer)","timer_not_running(ycb_076_timer)","timer_setting_recorded(ycb_076_timer, timer_setup_log)","timer_setup_station_ready(timer_setup_station)"],"instruction_variants":["Use the verified control map for this physical timer to set 30 seconds, confirm 00:30 on its display, and leave it stopped.","Do not start the countdown or infer working controls from catalog metadata or a static simulation asset.","実物の個体で確認済みの操作表に従って30秒に設定し、表示が00:30で停止中であることを記録してください。"],"skills":["skill_locate","skill_approach","skill_reach","skill_inspect","skill_verify"]},
+    {"node_type":"TaskInstance","generated_by":"llm","model":"gpt-6-luna","reasoning_effort":"max","generation_version":"ycb_coverage_round5","notes":"Proposed design only; task-specific claims are carried in this draft bundle.","review_status":"proposed","id":"task_ycb_round5_077_rubiks_cube","template_id":"template_ycb_round4_marked_station","name_en":"Turn the Rubik's Cube top layer one quarter turn","name_ja":"ルービックキューブの上面を90度だけ回転させる","intent_id":"intent_organize","object_id":"ycb_077_rubiks_cube","scene_id":"scene_ycb_playroom","bindings":{"theme":"ycb_077_rubiks_cube","marker_a":"cube_start_state_card","marker_b":"cube_quarter_turn_reference","station":"cube_turn_station"},"state_ids":["state_on_surface"],"initial_state":["on_top_of(ycb_077_rubiks_cube, cube_turn_station)","physical_twisty_cube_identity_checked(ycb_077_rubiks_cube)","top_layer_turning_function_verified_without_force(ycb_077_rubiks_cube)","cube_start_state_recorded(ycb_077_rubiks_cube, cube_start_state_card)","quarter_turn_direction_and_target_declared(cube_quarter_turn_reference)","cube_turn_mat_stable(cube_turn_station)","cube_surfaces_and_stickers_intact(ycb_077_rubiks_cube)","no_solver_or_force_test_protocol_declared(ycb_077_rubiks_cube)","cube_turn_log_available(cube_turn_log)"],"goal_state":["top_layer_rotated_clockwise_90_degrees_from_start(ycb_077_rubiks_cube, cube_quarter_turn_reference)","middle_and_bottom_layers_unchanged(ycb_077_rubiks_cube)","cube_remains_on_turn_mat(ycb_077_rubiks_cube, cube_turn_station)","cube_surfaces_and_stickers_intact(ycb_077_rubiks_cube)","single_turn_recorded(cube_turn_log)","cube_turn_station_ready(cube_turn_station)"],"instruction_variants":["On a verified physical twisty cube, make the single declared top-layer quarter-turn and record the resulting layer alignment.","Stop if the layer binds; do not force a static asset, solve the puzzle, or infer turning capability from catalog identity.","実物の回転機構を確認したキューブで、指定された上面の90度回転を一度だけ行い、層の位置を記録してください。"],"skills":["skill_locate","skill_approach","skill_grasp","skill_orient","skill_inspect","skill_verify"]}
   ],
   "planning": [
     {
@@ -1078,13 +1085,18 @@
           "key": "role",
           "value": "home_user",
           "reason": "The proposed activity is a supervised workshop collection design."
+        },
+        {
+          "key": "condition",
+          "value": "initial_baseball_tee_fit_checked_for_physical_ball",
+          "reason": "Confirm this physical ball-to-tee compatibility prerequisite before collection."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The mini soccer ball is seated in the smallest accepting gauge without force, and the diameter reading is visible.",
-          "The reading is recorded with a declared 1 mm tolerance and the ball is removed clear of the gauge."
+          "The selected gauge accepts the mini soccer ball without force, and its visible diameter reading is recorded.",
+          "After the reading, the ball is clear of the gauge and the station is ready."
         ],
         "setup": [
           "Stage the separated gauge set, reading card, and measurement log on a stable station with the ball at the marked start.",
@@ -1095,9 +1107,9 @@
           "Separate and return the gauges, card, and log to their staging locations."
         ],
         "quality_checks": [
-          "Check the gauge accepts the ball without squeezing, wedging, or deforming it.",
-          "Verify the smallest accepting gauge and 1 mm reading are visible in the record.",
-          "Confirm the ball surface is unchanged and no diameter is inferred from catalog identity."
+          "Confirm the ball was never squeezed, wedged, or deformed.",
+          "Verify the selected gauge, visible reading, and 1 mm tolerance in the log.",
+          "Confirm the ball is removed at the end; do not treat the in-gauge observation and the final state as simultaneous."
         ],
         "failure_modes": [
           "The ball is forced, squeezed, substituted, or left wedged in a gauge.",
@@ -1313,22 +1325,24 @@
           "The stationary heading pose is recorded and no bat contact occurs."
         ],
         "setup": [
-          "Stabilize the padded tee and heading station, mark the heading reference, and stage the pose log.",
-          "Remove all bats and declare a no-strike observation protocol before placing the baseball."
+          "Verify this physical baseball fits the stable, padded tee top without force; stage the heading mark and log.",
+          "Keep a bat absent and declare that only the stationary stitching orientation will be recorded."
         ],
         "reset": [
           "Lift the baseball from the tee and return it to its marked station position.",
           "Clear the tee, reference, and pose log from the station."
         ],
         "quality_checks": [
-          "Verify the ball is centered, stitching and heading mark are visible, and the tee pad supports it.",
-          "Confirm no bat, throw, or sports performance action occurred.",
-          "Check the pose record identifies the handled baseball."
+          "Confirm ball-to-tee compatibility for this physical instance before placing it.",
+          "Verify the baseball is centered, the visible stitching aligns with the mark, and no bat contact occurred.",
+          "Record only the stationary pose; do not infer swing or flight behavior."
         ],
         "failure_modes": [
           "The ball rolls off, contacts a bat, is substituted, or the stitching is not visible.",
           "The tee or heading reference shifts or the pad is missing.",
-          "A heading is recorded without a centered, stable placement."
+          "A heading is recorded without a centered, stable placement.",
+          "Reject a tee that is unstable, unpadded, damaged, or incompatible with this baseball.",
+          "Stop if the ball rolls, the stitching/mark cannot be seen, or a bat is present."
         ],
         "consumables": [],
         "time_estimates": {
@@ -1346,112 +1360,142 @@
         {
           "key": "scene_id",
           "value": "scene_ycb_workshop",
-          "reason": "The proposed task is scoped to the controlled YCB workshop."
+          "reason": "The proposed collection is scoped to this declared YCB scene."
         },
         {
           "key": "object",
           "value": "ycb_056_tennis_ball",
-          "reason": "The YCB catalog object is the primary item for this collection design."
+          "reason": "The catalog object is the primary item for this proposed collection design."
         },
         {
           "key": "object",
-          "value": "tennis_deflection_support",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "tennis_drop_station",
+          "reason": "This physical fixture, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "tennis_compression_stop",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "tennis_drop_platform",
+          "reason": "This physical fixture, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "deflection_gauge",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "tennis_rebound_height_reference",
+          "reason": "This physical fixture, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "tennis_deflection_log",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "padded_tennis_catch_tray",
+          "reason": "This physical fixture, measurement aid, marker, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "side_view_camera",
+          "reason": "This physical fixture, measurement aid, marker, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "tennis_rebound_log",
+          "reason": "This physical fixture, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "condition",
-          "value": "initial_tennis_ball_at_deflection_support",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "initial_tennis_ball_at_drop_platform",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_tennis_deflection_support_stable",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "ball_visible_and_reachable",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_tennis_compression_stop_padded",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "inspection_method_declared",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_deflection_fixture_compatibility_checked",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "physical_tennis_ball_identity_checked",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_compression_limit_marked",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "tennis_drop_height_marked_50_mm",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_no_sharp_edges_at_tennis_station",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "drop_station_compatibility_checked_without_clamping",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "deflection_tolerance_declared_1_mm",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "padded_catch_tray_fit_and_stability_checked",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "height_reference_and_camera_calibrated",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "ball_surface_intact_before_drop",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "one_drop_only_no_throw_protocol_declared",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "rebound_response_log_available",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "capability",
           "value": "rigid_manipulation",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "capability",
           "value": "deformable_manipulation",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "role",
           "value": "home_user",
-          "reason": "The proposed activity is a supervised workshop collection design."
+          "reason": "The activity is a supervised YCB task-design proposal."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The tennis ball contacts the padded limit without exceeding the declared compression mark, and the deflection reading is visible.",
-          "The ball returns to its observed released shape with an intact surface, and the reading is recorded with 1 mm tolerance."
+          "The physical tennis ball is released once from the marked 50 mm height without a throw and is captured in the padded tray.",
+          "The first response is classified; a rebound peak is recorded to 5 mm only if visible, otherwise the no-rebound result is logged."
         ],
         "setup": [
-          "Use a padded deflection support and stop verified compatible with this tennis-ball instance, with no sharp edges.",
-          "Mark the compression limit, stage the deflection gauge and log, and declare the 1 mm reading tolerance before contact."
+          "Verify the actual ball, 50 mm release platform, padded catch tray, and guarded camera view are compatible and stable.",
+          "Calibrate the visible height reference and declare the single-drop, no-throw protocol; do not assume that the asset rebounds."
         ],
         "reset": [
-          "Release the ball and return it to the marked support position.",
-          "Clear the gauge and log, leaving the padded stop at its declared limit."
+          "Retrieve the ball from the padded catch tray and return it to the marked release platform.",
+          "Clear or archive the observation log and restore the guarded drop station."
         ],
         "quality_checks": [
-          "Verify only gentle contact occurred and the stop was not exceeded.",
-          "Compare the released ball surface and shape with the initial observation.",
-          "Confirm the fixture compatibility and reading are recorded without claiming a material constant."
+          "Check that exactly one release from rest occurred, the ball stayed inside the catch area, and the visible result was classified.",
+          "Record a peak height only if a rebound was observed; do not infer a coefficient, sports rating, or material property.",
+          "Confirm the ball surface remains intact and the station is ready for reset."
         ],
         "failure_modes": [
-          "The ball is squeezed, clamped, over-compressed, or contacts a sharp edge.",
-          "The ball does not release cleanly, the surface changes, or the support shifts.",
-          "Deflection is inferred without a visible gauge reading or declared tolerance."
+          "Reject an incompatible or unstable platform/tray, an unreadable height reference, or a ball with visible damage.",
+          "Stop if the ball is thrown, pressed, leaves the catch area, or the camera view is obstructed.",
+          "Do not report a rebound height when no rebound is visible."
         ],
         "consumables": [],
         "time_estimates": {
@@ -1550,8 +1594,8 @@
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The racquetball rests in the cradle and the diameter gauge contacts its envelope without force or deformation.",
-          "The diameter reading is recorded with a 1 mm tolerance while the surface remains visible."
+          "The noncontact gauge obtains a visible diameter reading while the racquetball remains uncompressed.",
+          "The reading is logged with a declared 1 mm tolerance and the surface stays visible."
         ],
         "setup": [
           "Stabilize the diameter cradle, stage the non-contact gauge and log, and declare the 1 mm tolerance.",
@@ -1562,9 +1606,9 @@
           "Clear the gauge and reset or archive the diameter log."
         ],
         "quality_checks": [
-          "Verify the gauge touches without pressing and the ball surface remains unchanged.",
-          "Check the cradle and gauge are stable and the reading is visible in the log.",
-          "Confirm no diameter is inferred from the catalog model."
+          "Confirm the gauge does not touch, pinch, or deform the ball.",
+          "Verify that the visible reading and 1 mm tolerance are recorded while the surface remains visible.",
+          "Do not infer internal pressure or material properties from the measurement."
         ],
         "failure_modes": [
           "The gauge pinches, deforms, or forces the ball, or the wrong gauge is used.",
@@ -1663,6 +1707,16 @@
           "key": "role",
           "value": "home_user",
           "reason": "The proposed activity is a supervised workshop collection design."
+        },
+        {
+          "key": "condition",
+          "value": "initial_washer_set_and_gauge_datum_compatibility_checked",
+          "reason": "Confirm physical washer, datum, gauge compatibility, and measurement resolution before collection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_washer_flatness_resolution_verified",
+          "reason": "Confirm physical washer, datum, gauge compatibility, and measurement resolution before collection."
         }
       ],
       "procedures": [],
@@ -1705,112 +1759,136 @@
         {
           "key": "scene_id",
           "value": "scene_ycb_workshop",
-          "reason": "The proposed task is scoped to the controlled YCB workshop."
+          "reason": "The proposed collection is scoped to this declared YCB scene."
         },
         {
           "key": "object",
           "value": "ycb_059_chain",
-          "reason": "The YCB catalog object is the primary item for this collection design."
+          "reason": "The catalog object is the primary item for this proposed collection design."
         },
         {
           "key": "object",
-          "value": "three_link_gauge_surface",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "chain_inspection_station",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "three_link_gauge_path",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "chain_inspection_mat",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "link_spacing_gauge",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "oblique_link_light",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "chain_link_spacing_log",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "chain_magnifier",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "chain_link_id_card",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "chain_link_condition_log",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "condition",
-          "value": "initial_chain_at_three_link_gauge_surface",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "initial_chain_at_inspection_mat",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_three_link_path_marked",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "chain_visible_and_reachable",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_chain_untangled",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "inspection_method_declared",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_chain_gauge_compatibility_checked",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "chain_untangled_and_unloaded",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_no_tension_protocol_declared_chain",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "three_consecutive_target_links_identified",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_chain_link_spacing_log_available",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "target_links_and_adjacent_surfaces_visible",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "spacing_tolerance_declared_1_mm",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "both_chain_ends_visible",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
-          "key": "capability",
-          "value": "rigid_manipulation",
-          "reason": "The collection requires this declared capability."
+          "key": "condition",
+          "value": "inspection_light_and_magnifier_compatibility_checked",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "chain_surface_clean_and_dry",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "no_tension_or_pulling_protocol_declared",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "chain_link_condition_log_available",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "capability",
           "value": "deformable_manipulation",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "role",
           "value": "home_user",
-          "reason": "The proposed activity is a supervised workshop collection design."
+          "reason": "The activity is a supervised YCB task-design proposal."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "Exactly three links lie on the marked path without tension, with both chain ends visible.",
-          "The link spacing is read and recorded with a 1 mm tolerance without treating the setup as a strength test."
+          "The three identified links and adjacent surfaces are visible under the checked light, with both chain ends visible and no tension.",
+          "Each target link is recorded as visibly intact, visibly damaged, or uncertain."
         ],
         "setup": [
-          "Verify the spacing gauge accepts the chain links, mark the three-link path, untangle the chain, and stage the log.",
-          "Declare the no-tension protocol and 1 mm spacing tolerance before handling."
+          "Identify three consecutive physical links, verify the magnifier and oblique light can view them, and stage the inspection mat and log.",
+          "Keep the chain slack and declare that this is visual condition recording only, not a load or strength test."
         ],
         "reset": [
-          "Lift the chain from the path, restore it untangled to the marked staging area, and clear the gauge surface.",
-          "Reset or archive the spacing log."
+        "Return the chain untangled and slack to its marked staging position on the inspection mat; clear the mat and light.",
+          "Reset or archive the link-condition log."
         ],
         "quality_checks": [
-          "Count exactly three links, check both ends are visible, and verify no tension or crossing is present.",
-          "Confirm the gauge and path are compatible with this chain instance and the reading is visible.",
-          "Do not infer material strength or load capacity from the placement."
+          "Check the three link IDs, both visible ends, unobstructed surfaces, and the recorded visual condition for each link.",
+          "Do not pull, load, or infer strength from appearance."
         ],
         "failure_modes": [
-          "The chain is pulled taut, crossed, entangled, or the wrong link count is used.",
-          "The path or gauge is incompatible, unstable, or the ends are hidden.",
-          "Spacing is guessed or interpreted as a strength result."
+          "Reject a missing or mismatched target segment, hidden link surfaces, unsuitable lighting, or an entangled chain.",
+          "Stop if the chain becomes taut, a link is disturbed by force, or the observation cannot be classified.",
+          "Do not claim load capacity or structural strength."
         ],
         "consumables": [],
         "time_estimates": {
@@ -1913,22 +1991,24 @@
           "Each observed flatness reading is recorded with a declared 0.1 mm tolerance and the complete set is accounted for."
         ],
         "setup": [
-          "Clean and stabilize the datum plate, separate the washer set, zero the flatness gauge, and stage the log.",
-          "Declare the no-stacking protocol and 0.1 mm tolerance before placing any washer."
+          "Verify the physical washer set fits the datum and gauge, check the gauge resolution supports 0.1 mm, clean and stabilize the plate, and stage the log.",
+          "Separate the washers, zero the gauge, and declare the no-stacking protocol before handling."
         ],
         "reset": [
           "Collect each washer from the datum plate and return the complete set to its marked staging location.",
           "Clear the datum, gauge, and log from the station."
         ],
         "quality_checks": [
-          "Verify every washer appears once, lies flat and nonoverlapping, and the gauge remains zeroed.",
-          "Check the datum is clean and every reading is tied to the corresponding washer observation.",
-          "Do not infer strength or material grade from flatness."
+          "Confirm each physical washer is assessed separately on a clean, compatible datum and all items are accounted for.",
+          "Verify gauge zero and its declared 0.1 mm resolution; never force a washer flat.",
+          "Record observed readings only, without assuming washer material or a manufacturing tolerance."
         ],
         "failure_modes": [
           "Washers are stacked, overlapped, lost, or placed on a dirty or unstable datum.",
           "The gauge is not zeroed or a washer is forced flat.",
-          "A reading is guessed or recorded without the individual washer on the datum."
+          "A reading is guessed or recorded without the individual washer on the datum.",
+          "Reject a gauge/datum incompatible with the physical washer shapes or a gauge without the declared resolution.",
+          "Stop if any washer is forced flat, stacked, overlapped, lost, or measured on a dirty or unstable datum."
         ],
         "consumables": [],
         "time_estimates": {
@@ -1946,117 +2026,115 @@
         {
           "key": "scene_id",
           "value": "scene_ycb_workshop",
-          "reason": "The proposed task is scoped to the controlled YCB workshop."
+          "reason": "The proposed collection is scoped to this declared YCB scene."
         },
         {
           "key": "object",
           "value": "ycb_061_foam_brick",
-          "reason": "The YCB catalog object is the primary item for this collection design."
+          "reason": "The catalog object is the primary item for this proposed collection design."
         },
         {
           "key": "object",
-          "value": "foam_recovery_station",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "foam_thickness_station",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "foam_recovery_support",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "foam_optical_thickness_gauge",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "foam_compression_stop",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "foam_four_point_card",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "foam_recovery_gauge",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
-        },
-        {
-          "key": "object",
-          "value": "foam_recovery_log",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "foam_thickness_log",
+          "reason": "This physical fixture, part, measurement aid, marker, or record is an explicit collection resource."
         },
         {
           "key": "condition",
-          "value": "initial_foam_brick_at_recovery_station",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "initial_foam_brick_at_thickness_station",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_foam_recovery_support_stable",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "foam_brick_surface_intact_and_unloaded",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_foam_compression_stop_padded",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "foam_thickness_support_stable",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_foam_fixture_compatibility_checked",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "noncontact_gauge_calibrated_and_clear",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_foam_compression_limit_verified",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "physical_surface_and_gauge_compatibility_checked",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_foam_recovery_gauge_zeroed",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "four_marked_points_visible",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "recovery_tolerance_declared_2_mm",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "noncontact_no_load_protocol_declared",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
-          "key": "capability",
-          "value": "rigid_manipulation",
-          "reason": "The collection requires this declared capability."
+          "key": "condition",
+          "value": "2_mm_thickness_tolerance_declared",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
+        },
+        {
+          "key": "condition",
+          "value": "foam_thickness_log_available",
+          "reason": "Confirm this physical, material, safety, or compatibility prerequisite before collection."
         },
         {
           "key": "capability",
           "value": "deformable_manipulation",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "role",
           "value": "home_user",
-          "reason": "The proposed activity is a supervised workshop collection design."
+          "reason": "The activity is a supervised YCB task-design proposal."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The foam brick reaches the padded compression stop without exceeding the marked limit, then is released without tearing.",
-          "The recovered height is recorded with a declared 2 mm tolerance and the brick remains visibly intact."
+          "Noncontact readings from all four marked points are logged with 2 mm tolerance while the foam brick remains unloaded.",
+          "The gauge does not touch the brick and the surface remains intact."
         ],
         "setup": [
-          "Use a padded support and stop verified compatible with this foam-brick instance, with a zeroed recovery gauge.",
-          "Mark the compression limit, stage the recovery log, and declare the 2 mm tolerance before contact."
+          "Verify the optical gauge can read the physical foam surface without contact, confirm calibration and four visible point marks, and stage the brick unloaded.",
+          "Declare the 2 mm tolerance and no-contact protocol before collecting any readings."
         ],
         "reset": [
-          "Release the brick and return it to the marked station position without further compression.",
-          "Clear the gauge and log and leave the padded stop at its declared limit."
+        "Return the unloaded brick to its marked staging position on the foam thickness station without compressing it.",
+          "Clear the optical gauge and reset or archive the thickness log."
         ],
         "quality_checks": [
-          "Verify only the declared gentle compression occurred and the brick is released before the recovery reading.",
-          "Compare surface and shape with the initial observation and record any visible change.",
-          "Confirm fixture compatibility and do not claim foam modulus or material performance."
+          "Confirm four readings correspond to the marked points and the optical gauge remained clear of the surface.",
+          "Check the brick stayed unloaded and intact; do not infer stiffness, rebound, or recovery performance."
         ],
         "failure_modes": [
-          "The brick is over-compressed, torn, forced against an incompatible support, or left loaded.",
-          "The stop or gauge is unstable, unpadded, or unreadable.",
-          "Recovery is asserted without a released height reading."
+          "Reject a gauge that cannot read this physical surface at the declared tolerance, an unstable support, or an unreadable mark.",
+          "Stop if the gauge touches the foam, the brick is loaded, the surface changes, or a point cannot be measured."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2518,8 +2596,8 @@
           "Cup size order and well assignments are recorded without nesting or filling the cups."
         ],
         "setup": [
-          "Stabilize the drying rack, separate its wells, verify the wells fit this cup set, and stage the empty cups and drying log.",
-          "Declare a 2 mm fit observation tolerance and keep no liquid or unrelated objects at the station."
+          "Confirm the cups start nested and empty; stabilize the rack, verify its separate wells accept this cup set, and stage the drying log.",
+          "Declare the 2 mm fit observation tolerance and keep liquids or unrelated objects away."
         ],
         "reset": [
           "Lift each cup from its well and return the complete nested set to the marked staging position.",
@@ -2550,103 +2628,112 @@
       "requirements": [
         {
           "key": "scene_id",
-          "value": "scene_ycb_workshop",
-          "reason": "The proposed task is scoped to the controlled YCB workshop."
+          "value": "scene_ycb_playroom",
+          "reason": "The proposed collection is scoped to this declared YCB scene."
         },
         {
           "key": "object",
           "value": "ycb_066_blank_credit_card",
-          "reason": "The YCB catalog object is the primary item for this collection design."
+          "reason": "The catalog object is the primary item for this proposed collection design."
         },
         {
           "key": "object",
-          "value": "card_edge_inspection_station",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "nonpayment_handover_surface",
+          "reason": "This physical fixture, person, notice, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "card_edge_corner_gauge",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "nonpayment_handover_zone",
+          "reason": "This physical fixture, person, notice, or record is an explicit collection resource."
         },
         {
           "key": "object",
-          "value": "card_edge_log",
-          "reason": "This fixture, station, measurement aid, or record is an explicit collection resource."
+          "value": "nonpayment_training_participant",
+          "reason": "This physical fixture, person, notice, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "nonpayment_notice",
+          "reason": "This physical fixture, person, notice, or record is an explicit collection resource."
+        },
+        {
+          "key": "object",
+          "value": "nonpayment_card_handover_log",
+          "reason": "This physical fixture, person, notice, or record is an explicit collection resource."
         },
         {
           "key": "condition",
-          "value": "initial_card_at_edge_inspection_station",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "physical_blank_training_card_verified_visually",
+          "reason": "Confirm this physical, safety, or non-payment prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_card_edge_gauge_stable",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "recipient_present_and_ready",
+          "reason": "Confirm this physical, safety, or non-payment prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_blank_card_side_visible",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "safe_grasp_and_handover_zone_clear",
+          "reason": "Confirm this physical, safety, or non-payment prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_non_payment_card_protocol_declared",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "no_payment_terminal_or_reader_at_station",
+          "reason": "Confirm this physical, safety, or non-payment prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_card_edge_gauge_compatibility_checked",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "nonpayment_only_protocol_declared",
+          "reason": "Confirm this physical, safety, or non-payment prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "initial_card_edge_log_available",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "card_surface_intact",
+          "reason": "Confirm this physical, safety, or non-payment prerequisite before collection."
         },
         {
           "key": "condition",
-          "value": "corner_tolerance_declared_1_mm",
-          "reason": "Confirm this initial, safety, or compatibility condition before collection."
+          "value": "handover_record_available",
+          "reason": "Confirm this physical, safety, or non-payment prerequisite before collection."
         },
         {
           "key": "capability",
-          "value": "rigid_manipulation",
-          "reason": "The collection requires this declared capability."
+          "value": "human_handover",
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "The collection requires this declared capability."
+          "reason": "The proposed collection requires this declared capability."
         },
         {
           "key": "role",
           "value": "home_user",
-          "reason": "The proposed activity is a supervised workshop collection design."
+          "reason": "The activity is a supervised YCB task-design proposal."
         }
       ],
       "procedures": [],
       "collection": {
         "success_criteria": [
-          "The blank card lies on the compatible non-payment gauge with all four corners visible and its long edge clear of overhang.",
-          "Corner offset and edge condition are recorded with a 1 mm tolerance without inserting the card."
+          "The verified blank training card is safely held by the ready participant and has been released by the robot.",
+          "The handover is recorded with no payment terminal, reader insertion, or payment action."
         ],
         "setup": [
-          "Stabilize the edge gauge and station, verify compatibility with this card instance, and stage the edge log.",
-          "Declare the non-payment protocol and 1 mm corner tolerance before placing the card."
+          "Visually verify the physical blank card, recipient readiness, clear handover zone, and absence of payment terminals/readers.",
+          "Declare a non-payment-only handover protocol and stage the log before approaching the recipient."
         ],
         "reset": [
-          "Lift the card from the gauge and return it to the marked station position without inserting it into a reader or sleeve.",
-          "Clear the gauge and reset or archive the edge log."
+          "Receive the card back through a supervised, agreed return handover and place it on the marked non-payment staging surface.",
+          "Verify the card remains visibly blank and intact; clear the zone and reset or archive the handover log."
         ],
         "quality_checks": [
-          "Verify card identity, blank side, all four corners, edge clearance, and gauge stability.",
-          "Check no reader, sleeve, or payment action is present and the 1 mm record is readable.",
-          "Do not infer payment capability or plastic properties from the edge observation."
+          "Confirm the recipient was ready, gained a safe hold, and the robot released the card.",
+          "Verify no reader, terminal, sleeve insertion, or payment action occurred; record only the handover."
         ],
         "failure_modes": [
-          "The card is inserted, a payment action is attempted, a corner is hidden, or the gauge is incompatible.",
-          "The gauge shifts, the card overhangs, or the blank side is not visible.",
-          "Offsets are guessed or logged without the card seated on the gauge."
+          "Stop if the card's blank-training identity is uncertain, the recipient is not ready, or the handover zone is obstructed.",
+          "Reject any setup with a payment terminal/reader or request to insert or use the card.",
+          "Stop for an unsafe grasp, drop, or contact with the participant."
         ],
         "consumables": [],
         "time_estimates": {
@@ -2898,11 +2985,15 @@
         }
       }
     },
-    {"id":"planning_task_ycb_round5_069_box_lid","task_id":"task_ycb_round5_069_box_lid","requirements":[{"key":"scene_id","value":"scene_ycb_workshop","reason":"The proposed task is scoped to the declared YCB collection scene."},{"key":"object","value":"ycb_069_box_lid","reason":"The YCB catalog object is the primary item for this collection design."},{"key":"object","value":"lid_condition_station","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"lid_condition_frame","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"lid_condition_gauge","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"lid_edge_reference_mark","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"lid_condition_log","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"condition","value":"lid_at_condition_station","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_condition_frame_stable","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_underside_visible","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_surface_clean","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_condition_frame_compatible","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_condition_gauge_zeroed","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_edge_reference_marked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_material_protocol_declared","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"lid_condition_log_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"no_box_closure_attempt","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The proposed activity is a supervised workshop collection design."}],"procedures":[],"collection":{"success_criteria":["The lid rests in the padded frame, rim corners and surface are intact, and the 1 mm observation is recorded without pressure."],"setup":["Stabilize and pad the frame, verify lid/frame compatibility and gauge zero, mark the rim reference, and stage the log."],"reset":["Lift the lid from the frame and return it to marked staging without seating it on the box; clear the gauge and log."],"quality_checks":["Verify lid identity, rim visibility, surface condition, gauge zero, and observations; do not infer sealing or material strength."],"failure_modes":["Reject a cracked, dirty, incompatible, pressed, hidden, or unreadable setup."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
+    {"id":"planning_task_ycb_round5_069_box_lid","task_id":"task_ycb_round5_069_box_lid","requirements":[{"key":"scene_id","value":"scene_ycb_workshop","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_069_box_lid","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"ycb_068_clear_box","reason":"This physical fixture, related part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"lid_storage_station","reason":"This physical fixture, related part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"lid_storage_staging_surface","reason":"This physical fixture, related part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"lid_storage_rack","reason":"This physical fixture, related part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"padded_lid_rack_slot","reason":"This physical fixture, related part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"lid_rack_fit_card","reason":"This physical fixture, related part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"lid_storage_log","reason":"This physical fixture, related part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"lid_and_clear_box_pair_identified_and_separated","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"clear_box_open_and_stable","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"lid_surface_clean_and_rim_intact","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"rack_stable_and_slot_padded","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"physical_lid_slot_compatibility_checked","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"no_pressure_or_stacking_protocol_declared","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"lid_storage_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["The already detached lid is supported in the compatible padded rack slot, with its rim clear of hard contact.","The lid remains intact, the storage placement is logged, and the slot is stable."],"setup":["Verify the actual lid is detached from its paired clear box, and confirm the stable rack slot is padded and fits this physical lid.","Stage the fit card and storage log; do not close the box or press on the lid."],"reset":["Lift the lid from the rack and return it flat to the marked staging surface while leaving it separate from the open clear box.","Clear the rack slot and reset or archive the storage log."],"quality_checks":["Check the paired catalog lid identity, pad coverage, stable support, rim clearance, and readable storage record.","Do not infer closure fit, sealing, or material strength from storage."],"failure_modes":["Reject a mismatched lid/box pair, unpadded or unstable slot, unreadable fit check, or damaged rim.","Stop if the lid is pressed, stacked under weight, forced into the slot, or makes hard rim contact."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
     {"id":"planning_task_ycb_round5_070_colored_wood_blocks","task_id":"task_ycb_round5_070_colored_wood_blocks","requirements":[{"key":"scene_id","value":"scene_ycb_playroom","reason":"The proposed task is scoped to the declared YCB collection scene."},{"key":"object","value":"ycb_070_colored_wood_blocks","reason":"The YCB catalog object is the primary item for this collection design."},{"key":"object","value":"block_stack_station","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"block_stack_frame","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"block_color_pattern_card","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"stack_height_gauge","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"block_stack_log","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"condition","value":"blocks_at_stack_station","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"blocks_separated","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"blocks_surface_intact","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"block_stack_frame_stable","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"stack_footprint_marked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"color_pattern_card_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"blocks_fit_frame_checked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"no_glue_protocol_declared","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"stack_height_gauge_zeroed","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"block_stack_log_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"no_person_contact","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The proposed activity is a supervised workshop collection design."}],"procedures":[],"collection":{"success_criteria":["All blocks are accounted for in the two-layer pattern inside the marked frame, with color match and height recorded; surfaces remain intact."],"setup":["Stabilize and mark the frame, verify block/frame compatibility, zero the height gauge, and stage the card and log."],"reset":["Separate the blocks, return them to labeled staging, and clear the frame, gauge, and log."],"quality_checks":["Verify block count, pattern, footprint, height, stability, and surface condition; do not infer wood grade or load capacity."],"failure_modes":["Reject missing, cracked, glued, unstable, out-of-frame, or unreadable setups."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
-    {"id":"planning_task_ycb_round5_071_nine_hole_peg_test","task_id":"task_ycb_round5_071_nine_hole_peg_test","requirements":[{"key":"scene_id","value":"scene_ycb_workshop","reason":"The proposed task is scoped to the declared YCB collection scene."},{"key":"object","value":"ycb_071_nine_hole_peg_test","reason":"The YCB catalog object is the primary item for this collection design."},{"key":"object","value":"peg_insertion_station","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"peg_target_hole_3","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"designated_peg","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"peg_insertion_gauge","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"peg_insertion_log","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"condition","value":"apparatus_at_insertion_station","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"peg_insertion_station_stable","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"peg_grid_visible","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"peg_target_hole_marked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"designated_peg_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"peg_compatible_with_hole","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"designated_peg_surface_intact","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"apparatus_surface_intact","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"no_force_insertion_protocol_declared","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"peg_insertion_gauge_zeroed","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"peg_insertion_log_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The proposed activity is a supervised workshop collection design."}],"procedures":[],"collection":{"success_criteria":["The designated peg is seated and aligned in the marked hole, with depth recorded to 1 mm and both surfaces intact."],"setup":["Stabilize the apparatus, verify hole/peg compatibility and surfaces, mark the target hole, zero the gauge, and stage the log."],"reset":["Remove the peg gently, return it to labeled staging, leave all holes unobstructed, and clear the gauge and log."],"quality_checks":["Verify target identity, seating, axis, depth, surfaces, and stability; do not infer a general peg score or pull-out strength."],"failure_modes":["Reject incompatible, forced, tilted, damaged, unmarked, unstable, or unreadable setups."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
-    {"id":"planning_task_ycb_round5_072_toy_airplane","task_id":"task_ycb_round5_072_toy_airplane","requirements":[{"key":"scene_id","value":"scene_ycb_playroom","reason":"The proposed task is scoped to the declared YCB collection scene."},{"key":"object","value":"ycb_072_toy_airplane","reason":"The YCB catalog object is the primary item for this collection design."},{"key":"object","value":"airplane_orientation_station","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"airplane_runway","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"airplane_nose_heading","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"airplane_tail_heading","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"airplane_orientation_gauge","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"airplane_orientation_log","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"condition","value":"airplane_at_orientation_station","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_runway_marked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_nose_heading_marked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_tail_heading_marked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_orientation_station_stable","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_wings_intact","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_surface_clean","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"runway_width_compatible","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"no_throwing_protocol_declared","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_orientation_gauge_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"airplane_orientation_log_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The proposed activity is a supervised workshop collection design."}],"procedures":[],"collection":{"success_criteria":["The airplane is centered between runway marks with nose heading recorded to 5 degrees and wings and surface intact."],"setup":["Mark and stabilize the runway, verify width and airplane condition, stage heading marks and gauge, and open the pose log."],"reset":["Lift the airplane from the runway and return it to marked staging; clear the gauge and log."],"quality_checks":["Verify identity, centered placement, heading, wing clearance, surface condition, and angle record; do not infer flight performance."],"failure_modes":["Reject damaged, thrown, out-of-runway, incompatible, obscured, or unrecorded setups."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
-    {"id":"planning_task_ycb_round5_073_lego_duplo","task_id":"task_ycb_round5_073_lego_duplo","requirements":[{"key":"scene_id","value":"scene_ycb_playroom","reason":"The proposed task is scoped to the declared YCB collection scene."},{"key":"object","value":"ycb_073_lego_duplo","reason":"The YCB catalog object is the primary item for this collection design."},{"key":"object","value":"duplo_connection_station","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"duplo_connection_fixture","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"duplo_connection_frame","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"duplo_engagement_gauge","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"object","value":"duplo_connection_log","reason":"This fixture, marked region, measurement aid, or record is an explicit collection resource."},{"key":"condition","value":"duplo_at_connection_station","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"multiple_duplo_items","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"two_duplo_bricks_selected","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"duplo_connection_fixture_stable","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"duplo_connection_frame_marked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"brick_surfaces_intact","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"brick_studs_clean","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"connection_compatibility_checked","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"no_tool_force_protocol_declared","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"duplo_engagement_gauge_zeroed","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"condition","value":"duplo_connection_log_available","reason":"Confirm this initial, safety, material, or compatibility condition before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The proposed activity is a supervised workshop collection design."}],"procedures":[],"collection":{"success_criteria":["Exactly two selected bricks are connected in the marked fixture, seam and engagement are recorded to 1 mm, and both remain intact."],"setup":["Stabilize and mark the fixture, select two compatible bricks, verify studs and surfaces, zero the gauge, and stage the log."],"reset":["Separate the bricks by hand without prying, return pieces to labeled staging, and clear the fixture, gauge, and log."],"quality_checks":["Verify pair count, compatibility, seam, engagement, surfaces, and stability; do not infer connector strength or load capacity."],"failure_modes":["Reject cracked, dirty, missing, incompatible, tool-forced, hidden, or unreadable setups."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}}
+    {"id":"planning_task_ycb_round5_071_nine_hole_peg_test","task_id":"task_ycb_round5_071_nine_hole_peg_test","requirements":[{"key":"scene_id","value":"scene_ycb_workshop","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_071_nine_hole_peg_test","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"peg_geometry_station","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"peg_grid_scale","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"peg_grid_camera","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"peg_geometry_log","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"physical_nine_hole_apparatus_verified","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"all_nine_holes_empty_and_visible","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"peg_geometry_station_stable","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"metric_scale_and_camera_calibration_current","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"grid_reference_marks_visible","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"noncontact_measurement_protocol_declared","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"peg_geometry_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["Record nine visible empty holes, row and column pitch, and board footprint to 1 mm; leave the apparatus unchanged."],"setup":["Confirm the physical apparatus and unobstructed holes, stabilize the geometry station, check reference marks, calibrate the scale/camera, and stage the log."],"reset":["Return the apparatus to its labeled staging surface, remove the scale and camera from the work area, and clear the station and log sheet."],"quality_checks":["Cross-check the hole count and both pitch measurements against the visible reference; confirm no peg was inserted and no dimension was inferred from a mesh."],"failure_modes":["Reject a missing, damaged, obstructed, or non-nine-hole physical apparatus; stale calibration; hidden reference marks; or a model-only setup."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
+    {"id":"planning_task_ycb_round5_072_toy_airplane","task_id":"task_ycb_round5_072_toy_airplane","requirements":[{"key":"scene_id","value":"scene_ycb_playroom","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_072_toy_airplane","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"airplane_taxi_track","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"airplane_taxi_start_pad","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"airplane_taxi_stop","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"airplane_taxi_distance_gauge","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"airplane_taxi_log","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"selected_physical_airplane_asset_wheels_verified_free_rolling","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"airplane_and_track_width_compatibility_checked","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"taxi_track_level_clear_and_stable","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"padded_stop_secured","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"wing_clearance_checked","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"airplane_taxi_distance_gauge_calibration_current","reason":"Verify the distance gauge calibration is current before accepting a 5 mm measurement."},{"key":"condition","value":"airplane_taxi_distance_gauge_resolution_verified_at_5_mm","reason":"Verify the gauge resolves 5 mm or finer before accepting a distance measurement."},{"key":"condition","value":"low_force_rolling_protocol_declared","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"no_throwing_or_flight_test_protocol_declared","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"airplane_taxi_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["The physical toy rolls within the marked lane to the padded stop and remains intact; distance is successful only when the gauge current calibration and 5 mm or finer resolution were verified before measurement.","If calibration or resolution cannot be verified, do not record distance success and mark the result unverified."],"setup":["Verify actual wheel function and lane fit, level and clear the track, secure the padded stop, and check wing clearance. Before collecting distance, verify the gauge calibration is current and its resolution is 5 mm or finer; if either check fails, do not collect or report distance success. Stage the gauge and log."],"reset":["Lift the airplane only if the handling protocol permits; return it to the start pad, clear the track, reset the gauge, and retain the measured record. Reconfirm current calibration and 5 mm or finer resolution before another trial; if either is unverified, do not report distance success."],"quality_checks":["Verify wheel travel stayed inside the marks, the stop was reached without impact, the distance record is legible, and no flight or throw was performed.","Before accepting distance, confirm the gauge calibration is current and its resolution is 5 mm or finer; otherwise mark the distance result unverified."],"failure_modes":["Reject a static mesh, missing or binding wheels, incompatible lane width, unstable track, loose stop, wing contact, thrown motion, or unreadable measurement. Expired or unverified gauge calibration, or resolution coarser than 5 mm, means no distance success."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
+    {"id":"planning_task_ycb_round5_073_lego_duplo","task_id":"task_ycb_round5_073_lego_duplo","requirements":[{"key":"scene_id","value":"scene_ycb_playroom","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_073_lego_duplo","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"duplo_separation_station","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"duplo_mate_brick","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"duplo_separator_jig","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"duplo_return_slot_a","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"duplo_return_slot_b","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"duplo_compatibility_card","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"duplo_separation_log","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"actual_compatible_duplo_pair_present_and_joined","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"brick_studs_and_surfaces_intact","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"separator_jig_fit_and_force_limit_verified","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"separation_direction_permitted_by_pair_protocol","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"return_slots_labeled_and_stable","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"no_prying_or_strength_test_protocol_declared","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"duplo_separation_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["The verified pair is separated without prying, each intact brick rests in its labeled slot, and the pair count is recorded."],"setup":["Confirm the actual joined pair and connector compatibility, inspect studs and surfaces, stabilize and fit-check the force-limited jig, label both slots, and stage the log."],"reset":["A supervised operator may reconnect the pair only under its declared fit protocol; inspect both bricks and return the joined pair to its start mark. If compatibility is uncertain, stop and quarantine the pair."],"quality_checks":["Verify separation, one brick per slot, intact studs and surfaces, and the declared force limit; do not infer connector strength or general Duplo compatibility."],"failure_modes":["Reject a mismatched pair, cracked or dirty studs, incompatible jig, missing force limit, prying, unexpected resistance, or an unverified reset."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
+    {"id":"planning_task_ycb_round5_074_t_shirt","task_id":"task_ycb_round5_074_t_shirt","requirements":[{"key":"scene_id","value":"scene_ycb_workshop","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_074_t_shirt","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"shirt_staging_surface","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"shirt_hanger_station","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"shirt_hanger","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"hanger_support_bar","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"hanger_size_card","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"shirt_hanger_log","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"physical_textile_shirt_present_and_intact","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"neckline_and_shoulder_fit_checked_without_force","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"hanger_secure_on_support_bar","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"hanger_shoulder_marks_visible","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"shirt_handling_protocol_declared","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"no_stretching_or_forceful_pulling_protocol","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"shirt_hanger_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"deformable_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["The shirt is supported at both shoulders, centered on the compatible hanger, clear of the station, undamaged, and recorded."],"setup":["Inspect the real garment and hanger, verify size compatibility and support stability, mark both hanger shoulders, clear the station, and stage the log."],"reset":["Remove the shirt without pulling its neckline, lay it flat at its labeled staging surface, and return the hanger and cards to their separate positions."],"quality_checks":["Check both shoulder seams, neckline shape, sleeve and hem clearance, fabric condition, hanger stability, and the record; do not infer textile behavior from a rigid asset."],"failure_modes":["Reject a size mismatch, unstable hanger, damaged fabric, hidden neckline, snag, overstretching, or any setup that requires forceful pulling."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
+    {"id":"planning_task_ycb_round5_075_magazine","task_id":"task_ycb_round5_075_magazine","requirements":[{"key":"scene_id","value":"scene_ycb_workshop","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_075_magazine","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"magazine_index_station","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"magazine_target_page_card","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"rounded_page_lifter","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"nonadhesive_page_marker","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"magazine_page_log","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"physical_multipage_magazine_and_separate_leaves_verified","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"target_page_matches_index_card","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"pages_dry_and_intact","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"rounded_page_lifter_safe_for_paper","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"nonadhesive_marker_fit_checked_without_force","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"no_adhesive_or_crease_protocol_declared","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"magazine_page_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"deformable_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["The indexed page is exposed, the non-adhesive marker sits on its edge without covering text, and the magazine remains intact."],"setup":["Verify the physical issue and target page, check the rounded lifter and marker fit without force, stabilize the station, and stage the index card and log."],"reset":["Remove the marker, close the magazine without forcing pages, return the lifter and marker to labeled holders, and clear the station."],"quality_checks":["Confirm the target page number, marker attachment, text visibility, dry pages, and absence of creases or tears; do not infer page mechanics from a catalog mesh."],"failure_modes":["Reject missing or stuck pages, absent target page, damp or damaged paper, a marker that pinches or obscures text, adhesive use, creasing, or an unverified asset."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
+    {"id":"planning_task_ycb_round5_076_timer","task_id":"task_ycb_round5_076_timer","requirements":[{"key":"scene_id","value":"scene_ycb_workshop","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_076_timer","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"timer_setup_station","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"timer_control_card","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"timer_30_second_reference","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"timer_display_reference","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"timer_setup_log","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"physical_timer_powered_and_operational_check_passed","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"unit_specific_control_map_verified","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"timer_supports_30_second_setting","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"display_readable","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"timer_not_running_at_start","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"initial_timer_setting_recorded","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"timer_setup_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["The physical timer displays 00:30, remains stopped, and the setting is recorded for this unit."],"setup":["Check power and display, verify the control map against the physical unit, record its initial stopped setting, stabilize the station, and stage the 30-second reference and log."],"reset":["Using only the verified control map, stop the timer if needed and restore the recorded initial setting; confirm it is stopped and log any reset exception."],"quality_checks":["Read the display after setting, confirm no countdown is active, compare with the 30-second reference, and preserve the initial-setting record."],"failure_modes":["Reject an unpowered or unreadable timer, unknown control map, unsupported duration, active countdown, unexpected mode, or any need to guess a button function."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}},
+    {"id":"planning_task_ycb_round5_077_rubiks_cube","task_id":"task_ycb_round5_077_rubiks_cube","requirements":[{"key":"scene_id","value":"scene_ycb_playroom","reason":"The proposed collection is scoped to this declared YCB scene."},{"key":"object","value":"ycb_077_rubiks_cube","reason":"The catalog object is the primary item for this proposed collection design."},{"key":"object","value":"cube_turn_station","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"cube_turn_mat","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"cube_start_state_card","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"cube_quarter_turn_reference","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"cube_turn_force_limit_card","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"object","value":"cube_turn_log","reason":"This fixture, part, measurement aid, marker, or record is an explicit collection resource."},{"key":"condition","value":"physical_twisty_cube_present","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"top_layer_turning_function_checked_on_this_cube","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"start_state_and_quarter_turn_reference_recorded","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"cube_turn_mat_stable","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"surfaces_and_stickers_intact","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"force_limit_declared_and_no_solver_protocol","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"condition","value":"cube_turn_log_available","reason":"Confirm this physical, material, safety, or compatibility prerequisite before collection."},{"key":"capability","value":"rigid_manipulation","reason":"The proposed collection requires this declared capability."},{"key":"capability","value":"visual_inspection","reason":"The proposed collection requires this declared capability."},{"key":"role","value":"home_user","reason":"The activity is a supervised YCB task-design proposal."}],"procedures":[],"collection":{"success_criteria":["Exactly one clockwise 90-degree top-layer turn is visible, the other layers match the recorded start state, and the cube is intact."],"setup":["Confirm the physical twisty mechanism and start state, stabilize the turn mat, declare the quarter-turn reference and force limit, and stage the log."],"reset":["Return the top layer by one counterclockwise quarter-turn only if it moves freely within the same limit; verify the recorded start state or stop and quarantine the cube."],"quality_checks":["Compare all layers with the start card, confirm exactly one quarter-turn, verify the cube remained supported, and inspect for damage; do not claim puzzle-solving performance."],"failure_modes":["Reject a static mesh, binding layer, unknown starting state, missing force limit, more than one layer changing, sticker damage, or forced movement."],"consumables":[],"time_estimates":{"setup_minutes":null,"execution_minutes":null,"reset_minutes":null,"review_minutes":null}}}
   ],
   "claims": [
     {
@@ -3059,7 +3150,7 @@
       "id": "task_ycb_round5_056_tennis_ball_task_suitability",
       "subject_id": "task_ycb_round5_056_tennis_ball",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Measure controlled tennis-ball deflection against a soft limit.",
+      "statement": "This is a proposed candidate for collection design review: Record the tennis ball's response to one controlled low-height drop.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -3209,7 +3300,7 @@
       "id": "task_ycb_round5_059_chain_task_suitability",
       "subject_id": "task_ycb_round5_059_chain",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Align three chain links in a no-tension spacing gauge.",
+      "statement": "This is a proposed candidate for collection design review: Inspect three selected chain links for visible condition without tension.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -3309,7 +3400,7 @@
       "id": "task_ycb_round5_061_foam_brick_task_suitability",
       "subject_id": "task_ycb_round5_061_foam_brick",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Measure foam-brick recovery after a controlled compression.",
+      "statement": "This is a proposed candidate for collection design review: Measure foam-brick thickness at four points without contact.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -3559,7 +3650,7 @@
       "id": "task_ycb_round5_066_blank_credit_card_task_suitability",
       "subject_id": "task_ycb_round5_066_blank_credit_card",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed candidate for collection design review: Inspect blank-card edges and corners on a non-payment gauge.",
+      "statement": "This is a proposed candidate for collection design review: Hand the verified blank training card to a ready participant.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -3705,7 +3796,7 @@
       "scope": "YCB coverage round 5 proposal for ycb_068_clear_box.",
       "limitations": "Catalog identity does not establish functional, material, or simulator compatibility for the interaction."
     },
-    {"id":"task_ycb_round5_069_box_lid_task_suitability","subject_id":"task_ycb_round5_069_box_lid","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Inspect the box-lid rim on a padded condition frame.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_069_box_lid.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"id":"task_ycb_round5_069_box_lid_task_suitability","subject_id":"task_ycb_round5_069_box_lid","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Store the detached clear-box lid in a compatible padded rack slot.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_069_box_lid.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
     {"id":"task_ycb_round5_069_box_lid_population_frequency","subject_id":"task_ycb_round5_069_box_lid","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_069_box_lid.","limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
     {"id":"task_ycb_round5_069_box_lid_robot_execution","subject_id":"task_ycb_round5_069_box_lid","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_069_box_lid.","limitations":"The task definition does not establish successful execution, feasibility, or performance."},
     {"id":"task_ycb_round5_069_box_lid_asset_compatibility","subject_id":"task_ycb_round5_069_box_lid","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_069_box_lid.","limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
@@ -3713,17 +3804,33 @@
     {"id":"task_ycb_round5_070_colored_wood_blocks_population_frequency","subject_id":"task_ycb_round5_070_colored_wood_blocks","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_070_colored_wood_blocks.","limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
     {"id":"task_ycb_round5_070_colored_wood_blocks_robot_execution","subject_id":"task_ycb_round5_070_colored_wood_blocks","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_070_colored_wood_blocks.","limitations":"The task definition does not establish successful execution, feasibility, or performance."},
     {"id":"task_ycb_round5_070_colored_wood_blocks_asset_compatibility","subject_id":"task_ycb_round5_070_colored_wood_blocks","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_070_colored_wood_blocks.","limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
-    {"id":"task_ycb_round5_071_nine_hole_peg_test_task_suitability","subject_id":"task_ycb_round5_071_nine_hole_peg_test","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Seat one peg in a specified hole and record insertion alignment.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_071_nine_hole_peg_test.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"id":"task_ycb_round5_071_nine_hole_peg_test_task_suitability","subject_id":"task_ycb_round5_071_nine_hole_peg_test","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Measure the nine-hole peg grid without inserting pegs.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_071_nine_hole_peg_test.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
     {"id":"task_ycb_round5_071_nine_hole_peg_test_population_frequency","subject_id":"task_ycb_round5_071_nine_hole_peg_test","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_071_nine_hole_peg_test.","limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
     {"id":"task_ycb_round5_071_nine_hole_peg_test_robot_execution","subject_id":"task_ycb_round5_071_nine_hole_peg_test","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_071_nine_hole_peg_test.","limitations":"The task definition does not establish successful execution, feasibility, or performance."},
     {"id":"task_ycb_round5_071_nine_hole_peg_test_asset_compatibility","subject_id":"task_ycb_round5_071_nine_hole_peg_test","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_071_nine_hole_peg_test.","limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
-    {"id":"task_ycb_round5_072_toy_airplane_task_suitability","subject_id":"task_ycb_round5_072_toy_airplane","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Orient the toy airplane nose-forward on a marked runway.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_072_toy_airplane.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"id":"task_ycb_round5_072_toy_airplane_task_suitability","subject_id":"task_ycb_round5_072_toy_airplane","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Roll the toy airplane through a marked taxi lane to its stop.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_072_toy_airplane.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
     {"id":"task_ycb_round5_072_toy_airplane_population_frequency","subject_id":"task_ycb_round5_072_toy_airplane","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_072_toy_airplane.","limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
     {"id":"task_ycb_round5_072_toy_airplane_robot_execution","subject_id":"task_ycb_round5_072_toy_airplane","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_072_toy_airplane.","limitations":"The task definition does not establish successful execution, feasibility, or performance."},
     {"id":"task_ycb_round5_072_toy_airplane_asset_compatibility","subject_id":"task_ycb_round5_072_toy_airplane","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_072_toy_airplane.","limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
-    {"id":"task_ycb_round5_073_lego_duplo_task_suitability","subject_id":"task_ycb_round5_073_lego_duplo","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Join two Duplo bricks in a marked connection fixture and inspect the seam.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_073_lego_duplo.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"id":"task_ycb_round5_073_lego_duplo_task_suitability","subject_id":"task_ycb_round5_073_lego_duplo","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Separate a joined Duplo pair into two marked return slots.","status":"proposed","value":null,"unit":null,"source_ids":["evidence_ycb_task_design"],"scope":"YCB coverage round 5 proposal for ycb_073_lego_duplo.","limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
     {"id":"task_ycb_round5_073_lego_duplo_population_frequency","subject_id":"task_ycb_round5_073_lego_duplo","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_073_lego_duplo.","limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
     {"id":"task_ycb_round5_073_lego_duplo_robot_execution","subject_id":"task_ycb_round5_073_lego_duplo","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_073_lego_duplo.","limitations":"The task definition does not establish successful execution, feasibility, or performance."},
-    {"id":"task_ycb_round5_073_lego_duplo_asset_compatibility","subject_id":"task_ycb_round5_073_lego_duplo","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_073_lego_duplo.","limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."}
+    {"id":"task_ycb_round5_073_lego_duplo_asset_compatibility","subject_id":"task_ycb_round5_073_lego_duplo","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","value":null,"unit":null,"source_ids":[],"scope":"YCB coverage round 5 proposal for ycb_073_lego_duplo.","limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
+    {"subject_id":"task_ycb_round5_074_t_shirt","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_074_t_shirt.","id":"task_ycb_round5_074_t_shirt_task_suitability","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Hang a size-checked T-shirt on a stable hanger.","status":"proposed","source_ids":["evidence_ycb_task_design"],"limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"subject_id":"task_ycb_round5_074_t_shirt","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_074_t_shirt.","id":"task_ycb_round5_074_t_shirt_population_frequency","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
+    {"subject_id":"task_ycb_round5_074_t_shirt","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_074_t_shirt.","id":"task_ycb_round5_074_t_shirt_robot_execution","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"The task definition does not establish successful execution, feasibility, or performance."},
+    {"subject_id":"task_ycb_round5_074_t_shirt","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_074_t_shirt.","id":"task_ycb_round5_074_t_shirt_asset_compatibility","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
+    {"subject_id":"task_ycb_round5_075_magazine","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_075_magazine.","id":"task_ycb_round5_075_magazine_task_suitability","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Mark an indexed magazine page with a non-adhesive tab.","status":"proposed","source_ids":["evidence_ycb_task_design"],"limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"subject_id":"task_ycb_round5_075_magazine","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_075_magazine.","id":"task_ycb_round5_075_magazine_population_frequency","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
+    {"subject_id":"task_ycb_round5_075_magazine","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_075_magazine.","id":"task_ycb_round5_075_magazine_robot_execution","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"The task definition does not establish successful execution, feasibility, or performance."},
+    {"subject_id":"task_ycb_round5_075_magazine","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_075_magazine.","id":"task_ycb_round5_075_magazine_asset_compatibility","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
+    {"subject_id":"task_ycb_round5_076_timer","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_076_timer.","id":"task_ycb_round5_076_timer_task_suitability","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Set the kitchen timer to a verified 30-second duration.","status":"proposed","source_ids":["evidence_ycb_task_design"],"limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"subject_id":"task_ycb_round5_076_timer","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_076_timer.","id":"task_ycb_round5_076_timer_population_frequency","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
+    {"subject_id":"task_ycb_round5_076_timer","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_076_timer.","id":"task_ycb_round5_076_timer_robot_execution","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"The task definition does not establish successful execution, feasibility, or performance."},
+    {"subject_id":"task_ycb_round5_076_timer","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_076_timer.","id":"task_ycb_round5_076_timer_asset_compatibility","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."},
+    {"subject_id":"task_ycb_round5_077_rubiks_cube","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_077_rubiks_cube.","id":"task_ycb_round5_077_rubiks_cube_task_suitability","claim_type":"task_suitability","statement":"This is a proposed candidate for collection design review: Turn the Rubik's Cube top layer one quarter turn.","status":"proposed","source_ids":["evidence_ycb_task_design"],"limitations":"The design source establishes proposal provenance only; it does not establish population frequency, robot execution, or asset compatibility."},
+    {"subject_id":"task_ycb_round5_077_rubiks_cube","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_077_rubiks_cube.","id":"task_ycb_round5_077_rubiks_cube_population_frequency","claim_type":"population_frequency","statement":"Population frequency for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"No frequency, duration, or prevalence is inferred from the catalog asset or design proposal."},
+    {"subject_id":"task_ycb_round5_077_rubiks_cube","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_077_rubiks_cube.","id":"task_ycb_round5_077_rubiks_cube_robot_execution","claim_type":"robot_execution","statement":"Robot execution for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"The task definition does not establish successful execution, feasibility, or performance."},
+    {"subject_id":"task_ycb_round5_077_rubiks_cube","value":null,"unit":null,"scope":"YCB coverage round 5 proposal for ycb_077_rubiks_cube.","id":"task_ycb_round5_077_rubiks_cube_asset_compatibility","claim_type":"asset_compatibility","statement":"Asset compatibility for this proposed task is unknown.","status":"unknown","source_ids":[],"limitations":"Catalog identity does not establish functional, material, or simulator compatibility for the interaction."}
   ]
 }
