@@ -31,6 +31,7 @@ const SOURCE_ALLOWED_CLAIMS = Object.freeze({
   survey: new Set(["population_frequency"]),
 });
 const ROLES = new Set(["home_user", "customer", "staff"]);
+const GRANULARITIES = new Set(["atomic", "compound", "workflow"]);
 const CONTENTS = new Set(["full", "empty"]);
 const CAPABILITIES = new Set([
   "rigid_manipulation",
@@ -564,6 +565,8 @@ function validateData(data = defaultData()) {
     ])
       if (!map.has(task[field]))
         errors.push(`${task.id}: unknown ${field} ${task[field]}`);
+    if (Object.hasOwn(task, "granularity") && !GRANULARITIES.has(task.granularity))
+      errors.push(`${task.id}: granularity must be atomic, compound, or workflow`);
     for (const state of task.state_ids || [])
       if (!maps.states.has(state))
         errors.push(`${task.id}: unknown state ${state}`);

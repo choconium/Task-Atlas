@@ -1113,6 +1113,14 @@ test("seed validator rejects schema, graph-reference, claim, and measurement mut
     ),
   );
 
+  const unknownGranularity = cloneData();
+  unknownGranularity.tasks[0].granularity = "macro_activity";
+  assert.ok(
+    validateData(unknownGranularity).errors.some((error) =>
+      /granularity must be atomic, compound, or workflow/.test(error),
+    ),
+  );
+
   const rawCondition = cloneData();
   rawCondition.planning[0].requirements.find(
     (requirement) => requirement.key === "condition",
