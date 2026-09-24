@@ -9186,6 +9186,118 @@
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
       "limitations": "The drive scan has its cap fused on, so the USB-A connector that goes into the port is not in the mesh, and the laptop scan models its ports only as surface texture; insertion contact and keying cannot be represented by these scans."
+    },
+    {
+      "id": "claim_gso_object_jansport_school_backpack_blue_catalog_identity",
+      "subject_id": "gso_object_jansport_school_backpack_blue",
+      "claim_type": "catalog_identity",
+      "statement": "GSO JanSport school backpack (Blue Streak) is Google Scanned Objects model Jansport_School_Backpack_Blue_Streak on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_jansport_school_backpack_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Jansport_School_Backpack_Blue_Streak (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_gso_object_eat_to_live_paperback_catalog_identity",
+      "subject_id": "gso_object_eat_to_live_paperback",
+      "claim_type": "catalog_identity",
+      "statement": "GSO paperback book (Eat to Live, revised edition) is Google Scanned Objects model Eat_to_Live_The_Amazing_NutrientRich_Program_for_Fast_and_Sustained_Weight_Loss_Revised_Edition_Book on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_eat_to_live_paperback_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Eat_to_Live_The_Amazing_NutrientRich_Program_for_Fast_and_Sustained_Weight_Loss_Revised_Edition_Book (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_gso_object_woven_three_compartment_basket_tray_catalog_identity",
+      "subject_id": "gso_object_woven_three_compartment_basket_tray",
+      "claim_type": "catalog_identity",
+      "statement": "GSO Smith & Hawken woven three-compartment basket tray is Google Scanned Objects model Smith_Hawken_Woven_BasketTray_Organizer_with_3_Compartments_95_x_9_x_13 on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_woven_three_compartment_basket_tray_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Smith_Hawken_Woven_BasketTray_Organizer_with_3_Compartments_95_x_9_x_13 (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_gso_object_travelmate_p_series_laptop_catalog_identity",
+      "subject_id": "gso_object_travelmate_p_series_laptop",
+      "claim_type": "catalog_identity",
+      "statement": "GSO Acer TravelMate P-series laptop is Google Scanned Objects model Travel_Mate_P_series_Notebook on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_travelmate_p_series_laptop_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Travel_Mate_P_series_Notebook (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_gso_object_teddy_bear_beige_catalog_identity",
+      "subject_id": "gso_object_teddy_bear_beige",
+      "claim_type": "catalog_identity",
+      "statement": "GSO beige plush teddy bear is Google Scanned Objects model Lovable_Huggable_Cuddly_Boutique_Teddy_Bear_Beige on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_teddy_bear_beige_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Lovable_Huggable_Cuddly_Boutique_Teddy_Bear_Beige (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_gso_object_markings_desk_caddy_catalog_identity",
+      "subject_id": "gso_object_markings_desk_caddy",
+      "claim_type": "catalog_identity",
+      "statement": "GSO Markings faux-leather desk caddy is Google Scanned Objects model Markings_Desk_Caddy on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_markings_desk_caddy_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Markings_Desk_Caddy (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_gso_object_pony_c_clamp_catalog_identity",
+      "subject_id": "gso_object_pony_c_clamp",
+      "claim_type": "catalog_identity",
+      "statement": "GSO Pony 1440 C-clamp (4 in) is Google Scanned Objects model Pony_C_Clamp_1440 on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_pony_c_clamp_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Pony_C_Clamp_1440 (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_gso_object_kingston_usb_flash_drive_catalog_identity",
+      "subject_id": "gso_object_kingston_usb_flash_drive",
+      "claim_type": "catalog_identity",
+      "statement": "GSO Kingston DataTraveler 4000 G2 USB flash drive (64 GB) is Google Scanned Objects model Kingston_DT4000MR_G2_Management_Ready_USB_64GB on Gazebo Fuel.",
+      "status": "supported",
+      "value": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "unit": null,
+      "source_ids": [
+        "evidence_gso_kingston_usb_flash_drive_catalog"
+      ],
+      "scope": "Catalog identity of GSO model Kingston_DT4000MR_G2_Management_Ready_USB_64GB (CC BY 4.0), accessed 2026-09-25.",
+      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
     }
   ],
   "draft_notes": [
