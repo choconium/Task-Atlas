@@ -117,6 +117,8 @@ Both agents share one repository and push to `origin/main`.
 | `gso_round2` | B | 24 (12 atomic, 10 compound, 2 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |
 | `gso_round3` | B | 24 (9 atomic, 10 compound, 5 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |
 | `thor_round2` | B | 24 (9 atomic, 11 compound, 4 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |
+| `gso_round4` | B | 24 (9 atomic, 9 compound, 6 workflow) | **in review** — `data/drafts/gso_round4.json` | Codex |
+| `thor_round3` | B | 24 (9 atomic, 9 compound, 6 workflow) | **in review** — `data/drafts/thor_round3.json` | Codex |
 | `reference_gso_round1` (MuJoCo-converted GSO, 8 models) | A | 25 | draft in main checkout, not yet committed | Claude |
 | `thor_round1` (AI2-THOR / ProcTHOR, Apache-2.0) | B | 24 (10 atomic, 11 compound, 3 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |
 | Codex reference drafts in `data/drafts/` | A | see files | reviewed 2026-09-25: 4 revise, 2 time-use bundles not tasks, 7 already active (delete drafts); see `data/reviews/` | Claude |
