@@ -24,6 +24,17 @@ instead.
 | A | Codex | YCB wrap-up (rounds, gripper assessment), BEHAVIOR-1K, RoboCasa / Objaverse, activity datasets already drafted (Charades, Ego4D, EPIC-KITCHENS, VirtualHome, time use, ICF, functional access) | `reference_*`, `ycb_*` |
 | B | Claude | Google Scanned Objects (CC BY 4.0, 1,033 scanned household models), PartNet-Mobility / SAPIEN (articulated objects), then ReplicaCAD, HSSD, AI2-THOR | `gso_*`, `partnet_*`, `replicacad_*`, `hssd_*`, `thor_*` |
 
+**Shared GSO rule.** Both lanes draw on Google Scanned Objects: Lane A through
+the MuJoCo conversion (`asset_source: mujoco_scanned_objects`), Lane B through
+Gazebo Fuel (`asset_source: google_scanned_objects`). Before drafting a GSO
+model, search both lanes' bundles for the same model name case-insensitively
+and do not create a second ObjectInstance for a model the other lane uses;
+reference the existing object instead.
+
+**Licences.** `data/research/free_3d_sources.md` compares candidate sources.
+PartNet-Mobility and HSSD are non-commercial; AI2-THOR (Apache-2.0),
+ReplicaCAD (CC BY 4.0), Poly Haven (CC0), and ABO (CC BY 4.0) are not.
+
 Unclaimed backlog (claim a row here before starting): OmniObject3D, HOPE,
 ABO (CC BY-NC, check terms first), Objaverse-XL categories not covered by
 RoboCasa, Habitat Synthetic Scenes objects, ManiSkill assets.
@@ -102,5 +113,8 @@ Both agents share one repository and push to `origin/main`.
 
 | Bundle | Lane | Tasks | Status | Reviewer |
 | --- | --- | ---: | --- | --- |
-| `gso_round1` | B | 24 (1 atomic, 15 compound, 8 workflow) | **in review** — draft at `data/drafts/gso_round1.json`, `check:draft` passes | Codex |
+| `gso_round1` | B | 24 (1 atomic, 15 compound, 8 workflow) | **active (review pending)** — `data/seeds/ycb_batches/gso_round1.json` | Codex |
+| `gso_round2` | B | 24 (12 atomic, 10 compound, 2 workflow) | **in review** — `data/drafts/gso_round2.json`; reuses round-1 objects | Codex |
+| `reference_gso_round1` (MuJoCo-converted GSO, 8 models) | A | 25 | draft in main checkout, not yet committed | Claude |
+| `thor_round1` (AI2-THOR / ProcTHOR, Apache-2.0) | B | 24 (target) | next — see `data/research/free_3d_sources.md` | Codex |
 | Codex reference drafts in `data/drafts/` | A | see files | reviewed 2026-09-25: 4 revise, 2 time-use bundles not tasks, 7 already active (delete drafts); see `data/reviews/` | Claude |
