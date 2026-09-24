@@ -1,0 +1,3572 @@
+{
+  "source": "google_scanned_objects",
+  "source_url": "https://app.gazebosim.org/GoogleResearch/fuel/collections/Scanned%20Objects%20by%20Google%20Research",
+  "license": "CC BY 4.0",
+  "accessed": "2026-09-25",
+  "generated_by": "llm",
+  "model": "claude-opus-5-5",
+  "notes": "Brainstorm list; not reviewed tasks. Scenes prefixed \"new: \" are proposed scene ideas not yet in data/seeds/scenes.json; concepts with concept_is_new are proposed object_* concepts. GSO models are single rigid scanned meshes: lids, hinges, zippers, laces, and deformable textiles describe the real object, so asset_compatibility for those affordances must be claimed separately (often blocked or needing part splitting). Most GSO footwear scans are a single shoe, so pair goals need a mirrored or second asset. Powered, hot, sharp, and chemical items state unplugged/cool/closed setup conditions in the goal. verified_url is true only where https://fuel.gazebosim.org/1.0/GoogleResearch/models/<name> returned HTTP 200 on the access date.",
+  "candidates": [
+    {
+      "asset_source_id": "Chefmate_8_Frypan",
+      "group": "kitchen_cookware",
+      "canonical_name": "frying pan (8 in)",
+      "general_concept_id": "object_cookware",
+      "affordances": [
+        "graspable",
+        "handled",
+        "hangable",
+        "nestable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The cool frypan hangs by its handle hole on the marked pot-rack hook with its cooking face toward the wall.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The frypan is nested inside the cast-iron pan with a felt pan protector between them, and the stack sits on the lower cabinet shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Calphalon_Kitchen_Essentials_12_Cast_Iron_Fry_Pan_Black",
+      "group": "kitchen_cookware",
+      "canonical_name": "cast-iron skillet (12 in)",
+      "general_concept_id": "object_cookware",
+      "affordances": [
+        "graspable",
+        "handled",
+        "heavy",
+        "placeable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The cool cast-iron pan rests centred on a trivet on the counter with its handle turned inward, away from the counter edge.",
+          "granularity": "atomic",
+          "intent_id": "intent_serve_food"
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The cast-iron pan has been wiped dry with a cloth, coated with a marked oil surrogate film, and stored on a paper-towel liner on the bottom shelf.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Nordic_Ware_Original_Bundt_Pan",
+      "group": "kitchen_cookware",
+      "canonical_name": "bundt pan",
+      "general_concept_id": "object_cookware",
+      "affordances": [
+        "graspable",
+        "invertible",
+        "placeable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The empty bundt pan is inverted and centred over the marked footprint on a wire cooling rack.",
+          "granularity": "atomic",
+          "intent_id": "intent_prepare_food"
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The bundt pan sits on a sheet tray and both are centred on the middle rack of an unpowered oven with the door closed.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Wilton_Easy_Layers_Cake_Pan_Set",
+      "group": "kitchen_cookware",
+      "canonical_name": "layer cake pan set",
+      "general_concept_id": "object_cookware",
+      "affordances": [
+        "graspable",
+        "nestable",
+        "stackable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "All layer pans are nested concentrically in one stack and the stack stands in the bakeware cabinet slot.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "Each layer pan is lined with one pre-cut parchment round and the pans stand in a row on the counter.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Chef_Style_Round_Cake_Pan_9_inch_pan",
+      "group": "kitchen_cookware",
+      "canonical_name": "round cake pan (9 in)",
+      "general_concept_id": "object_cookware",
+      "affordances": [
+        "graspable",
+        "stackable",
+        "placeable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The round cake pan stands on edge in the vertical bakeware divider, flush with the neighbouring sheet pan.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Corningware_CW_by_Corningware_3qt_Oblong_Casserole_Dish_Blue",
+      "group": "kitchen_cookware",
+      "canonical_name": "oblong casserole dish",
+      "general_concept_id": "object_cookware",
+      "affordances": [
+        "graspable",
+        "handled",
+        "lidded",
+        "heavy"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The covered casserole dish sits level on the middle refrigerator shelf with the door closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "scene_dining_table",
+          "goal": "The casserole dish sits on a trivet at the table centre with a serving spoon resting on a spoon rest beside it.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "TriStar_Products_PPC_Power_Pressure_Cooker_XL_in_Black",
+      "group": "kitchen_cookware",
+      "canonical_name": "electric pressure cooker",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "lidded",
+        "lockable_lid",
+        "powered"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The unplugged, cool pressure cooker has its lid closed in the locked position and stands at the back of the counter with its cord coiled beside it.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Black_Decker_CM2035B_12Cup_Thermal_Coffeemaker",
+      "group": "kitchen_cookware",
+      "canonical_name": "thermal drip coffee maker",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "insertable_carafe",
+        "hinged_lid",
+        "powered"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The empty thermal carafe is seated fully in the unplugged coffee maker's brew slot with the carafe lid closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The used filter is in the compost bin, the filter basket is rinsed and back in the machine, and the carafe is reseated in the brew slot.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "similar to task_reference_robocasa_coffee_setup_mug (coffee station, but different object and goal)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Black_and_Decker_TR3500SD_2Slice_Toaster",
+      "group": "kitchen_cookware",
+      "canonical_name": "two-slice toaster",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "tippable",
+        "powered"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The unplugged, cool toaster has been tipped over a crumb bin and is back upright on its marked counter spot with the slots facing up.",
+          "granularity": "compound",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Black_and_Decker_PBJ2000_FusionBlade_Blender_Jars",
+      "group": "kitchen_cookware",
+      "canonical_name": "blender jar",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "handled",
+        "lidded",
+        "twist_mount"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The empty blender jar is seated on the unplugged base and its lid is pressed on.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Progressive_Rubber_Spatulas_3_count",
+      "group": "kitchen_cookware",
+      "canonical_name": "rubber spatula set",
+      "general_concept_id": "object_utensil",
+      "affordances": [
+        "graspable",
+        "elongated",
+        "sortable_by_size"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The three rubber spatulas stand head-up in the utensil crock, ordered small to large from left to right.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_spatula (spatula placement); goal here is size-ordered storage",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "OXO_Soft_Works_Can_Opener_SnapLock",
+      "group": "kitchen_cookware",
+      "canonical_name": "can opener",
+      "general_concept_id": "object_utensil",
+      "affordances": [
+        "graspable",
+        "articulated_handles",
+        "clampable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The can opener lies closed in the marked slot of the utensil drawer organizer with its cutting wheel toward the back.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "scene_pantry",
+          "goal": "The can opener is clamped onto the rim of a sealed training can, aligned with the opener guide, without the lid being cut.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "JA_Henckels_International_Premio_Cutlery_Block_Set_14Piece",
+      "group": "kitchen_cookware",
+      "canonical_name": "knife block set",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "slotted",
+        "heavy",
+        "sharp_contents"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The knife block with every handle seated flush in a slot sits at the back corner of the counter, handles facing away from the counter edge.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_knife (store knife in block); prefer block relocation goal",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Focus_8643_Lime_Squeezer_10x35x188_Enamelled_Aluminum_Light",
+      "group": "kitchen_cookware",
+      "canonical_name": "hinged lime squeezer",
+      "general_concept_id": "object_utensil",
+      "affordances": [
+        "graspable",
+        "hinged",
+        "squeezable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "A lime half is seated cut-side down in the open squeezer cup and the squeezer is positioned over a small bowl.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Bradshaw_International_11642_7_Qt_MP_Plastic_Bowl",
+      "group": "kitchen_cookware",
+      "canonical_name": "large mixing bowl (7 qt)",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "rimmed",
+        "nestable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The mixing bowl sits on a damp towel ring at the counter centre, holding a measured dry surrogate, with the rubber spatula resting inside and the empty measuring cup back in its drawer.",
+          "granularity": "workflow",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_bowl (bowl placement) at concept level; different scene and goal",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028",
+      "group": "kitchen_cookware",
+      "canonical_name": "utensil crock",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "open_top",
+        "insertable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The utensil crock sits beside the stove with a spatula, whisk, and ladle standing handle-down inside it.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Porcelain_Teapot_White",
+      "group": "dining_drinkware",
+      "canonical_name": "porcelain teapot",
+      "general_concept_id": "object_liquid_container",
+      "affordances": [
+        "graspable",
+        "handled",
+        "lidded",
+        "pourable",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The lidded teapot sits on a trivet at the table centre with its spout pointing away from the nearest seat and two cups on saucers beside it.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The empty teapot stands with its lid seated on the second cabinet shelf, handle turned to the front.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Porcelain_Coffee_Mug_All_Over_Bead_White",
+      "group": "dining_drinkware",
+      "canonical_name": "porcelain coffee mug",
+      "general_concept_id": "object_drinkware",
+      "affordances": [
+        "graspable",
+        "handled",
+        "hangable",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The clean mug hangs by its handle on the marked hook of an under-cabinet mug rack.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_mug (mug handover); hook storage goal differs",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "ACE_Coffee_Mug_Kristen_16_oz_cup",
+      "group": "dining_drinkware",
+      "canonical_name": "large coffee mug (16 oz)",
+      "general_concept_id": "object_drinkware",
+      "affordances": [
+        "graspable",
+        "handled",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The used mug has been emptied into the sink, rinsed, and stands mouth-down on the dish drainer, and its coaster is back in the coaster holder.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "similar to task_reference_robocasa_coffee_setup_mug",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Porcelain_Pitcher_White",
+      "group": "dining_drinkware",
+      "canonical_name": "porcelain pitcher",
+      "general_concept_id": "object_liquid_container",
+      "affordances": [
+        "graspable",
+        "handled",
+        "pourable",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The pitcher holds water to its marked line and sits on a coaster at the table centre with its handle toward the host seat.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_pitcher_base and task_ycb_round3_mug (pitcher pour)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Dinner_Plate_Square_Rim_White_Porcelain",
+      "group": "dining_drinkware",
+      "canonical_name": "square dinner plate",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "flat",
+        "stackable",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "Four square dinner plates are stacked with corners aligned on the cabinet shelf, each separated by a felt plate protector.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The square dinner plate stands upright in a dish-rack slot with its eating face toward the drain.",
+          "granularity": "atomic",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Salad_Plate_Square_Rim_Porcelain",
+      "group": "dining_drinkware",
+      "canonical_name": "square salad plate",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "flat",
+        "stackable",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The salad plate sits centred on the square dinner plate at a place setting with corners aligned and a fork to its left.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Bead_Cereal_Bowl_White",
+      "group": "dining_drinkware",
+      "canonical_name": "cereal bowl",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "rimmed",
+        "nestable",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "A breakfast setting is complete: the cereal bowl sits on a placemat with a spoon to its right, the cereal box is back in the pantry, and the milk carton is back in the refrigerator.",
+          "granularity": "workflow",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round4_plate_bowl_serving_pair",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Porcelain_Serving_Bowl_Coupe_White",
+      "group": "dining_drinkware",
+      "canonical_name": "coupe serving bowl",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "wide_rim",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The coupe serving bowl holds a salad surrogate with salad tongs resting across its rim at the table centre.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Ramekin_White_Porcelain",
+      "group": "dining_drinkware",
+      "canonical_name": "porcelain ramekin",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "small",
+        "stackable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "Three ramekins stand in a row on a sheet tray, each holding one measured ingredient surrogate, ready for a recipe.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        },
+        {
+          "scene": "scene_dining_table",
+          "goal": "A ramekin holding a dipping-sauce surrogate sits at the upper right of the plate at a place setting.",
+          "granularity": "atomic",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Tray_Rectangle_Porcelain",
+      "group": "dining_drinkware",
+      "canonical_name": "rectangular serving tray",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "flat",
+        "carry_platform"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "A tray loaded with two mugs and a sugar bowl has been carried from the counter to the table, and each item is set at its place with the empty tray returned to the counter.",
+          "granularity": "workflow",
+          "intent_id": "intent_transport"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Cole_Hardware_Butter_Dish_Square_Red",
+      "group": "dining_drinkware",
+      "canonical_name": "covered butter dish",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "lidded",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The butter dish lid is seated over the base and the covered dish sits in the refrigerator door dairy compartment.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Kotobuki_Saucer_Dragon_Fly",
+      "group": "dining_drinkware",
+      "canonical_name": "small saucer",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "flat",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The saucer sits under a teacup at the right of a place setting with the cup handle at the four o'clock position.",
+          "granularity": "atomic",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Sea_to_Summit_Xl_Bowl",
+      "group": "dining_drinkware",
+      "canonical_name": "collapsible camping bowl",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "deformable",
+        "collapsible"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The camping bowl is collapsed flat and stored in the marked slot of the camping-gear bin.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Dixie_10_ounce_Bowls_35_ct",
+      "group": "dining_drinkware",
+      "canonical_name": "disposable paper bowl pack",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "packaged",
+        "openable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_pantry",
+          "goal": "The opened paper-bowl sleeve is folded shut and stands on the party-supplies shelf beside the paper plates, label facing out.",
+          "granularity": "compound",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Top_Paw_Dog_Bowl_Blue_Paw_Bone_Ceramic_25_fl_oz_total",
+      "group": "dining_drinkware",
+      "canonical_name": "ceramic pet bowl",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "heavy_base",
+        "rimmed"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_pet_feeding_area",
+          "goal": "The pet bowl has been emptied, rinsed, filled to a marked line with water, and set back on its mat in the feeding area.",
+          "granularity": "workflow",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Grreat_Choice_Dog_Double_Dish_Plastic_Blue",
+      "group": "dining_drinkware",
+      "canonical_name": "double pet dish",
+      "general_concept_id": "object_dish",
+      "affordances": [
+        "graspable",
+        "two_compartment"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_pet_feeding_area",
+          "goal": "The double dish sits on the feeding mat with a measured kibble surrogate in the left well and water to the line in the right well.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Don_Franciscos_Gourmet_Coffee_Medium_Decaf_100_Colombian_12_oz_340_g",
+      "group": "packaged_food_pantry",
+      "canonical_name": "bagged ground coffee",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "deformable",
+        "foldable_top",
+        "resealable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_pantry",
+          "goal": "The opened coffee bag has its top rolled down three times and clipped, and it stands upright on the pantry coffee shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Vans_Cereal_Honey_Nut_Crunch_11_oz_box",
+      "group": "packaged_food_pantry",
+      "canonical_name": "cereal box",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "openable_flap"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_pantry",
+          "goal": "The cereal box has its inner bag folded and its top flaps tucked closed, and it stands on the breakfast shelf with the front panel facing out.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_cracker_box (box face-forward/storage)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Nestle_Nesquik_Chocolate_Powder_Flavored_Milk_Additive_109_Oz_Canister",
+      "group": "packaged_food_pantry",
+      "canonical_name": "powder canister",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "lidded",
+        "cylindrical"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The canister lid is snapped closed after a scoop has been taken, and the canister stands next to a mug holding the scoop.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        },
+        {
+          "scene": "scene_pantry",
+          "goal": "The closed cocoa canister stands on the beverage shelf between the coffee bag and the tea box.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Nescafe_Tasters_Choice_Instant_Coffee_Decaf_House_Blend_Light_7_oz",
+      "group": "packaged_food_pantry",
+      "canonical_name": "instant coffee jar",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "screw_lid",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The instant coffee jar has its screw lid fully tightened and stands in the marked spot of the coffee station.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Swiss_Miss_Hot_Cocoa_KCups_Milk_Chocolate_12_count",
+      "group": "packaged_food_pantry",
+      "canonical_name": "coffee pod box",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "dispensing_contents"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The pod drawer beside the brewer holds six cocoa pods in one row, the partly used pod box is closed and back in the pantry, and the empty sleeve is in recycling.",
+          "granularity": "workflow",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Nescafe_16Count_Dolce_Gusto_Cappuccino_Capsules",
+      "group": "packaged_food_pantry",
+      "canonical_name": "coffee capsule box",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "boxed"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_supermarket_shelf",
+          "goal": "The capsule box sits in the front row of its shelf facing with its barcode edge flush to the shelf lip.",
+          "granularity": "atomic",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Brisk_Iced_Tea_Lemon_12_12_fl_oz_355_ml_cans_144_fl_oz_426_lt",
+      "group": "packaged_food_pantry",
+      "canonical_name": "twelve-can drink carton",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "heavy",
+        "boxed",
+        "tear_open"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "Four cans from the carton stand in the refrigerator door rack, the opened carton with the remaining cans is on the pantry floor shelf, and the torn strip is in recycling.",
+          "granularity": "workflow",
+          "intent_id": "intent_restock"
+        },
+        {
+          "scene": "scene_checkout_counter",
+          "goal": "The twelve-can carton lies flat on the checkout belt with its barcode panel facing the scanner side.",
+          "granularity": "atomic",
+          "intent_id": "intent_transport"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Polar_Herring_Fillets_Smoked_Peppered_705_oz_total",
+      "group": "packaged_food_pantry",
+      "canonical_name": "tinned fish can",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "pull_tab",
+        "flat"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_pantry",
+          "goal": "The herring tin is stacked on top of two other flat tins in the canned-fish row with labels facing out.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_tuna_fish_can (tinned fish inspection/sorting)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Wilton_Pearlized_Sugar_Sprinkles_525_oz_Gold",
+      "group": "packaged_food_pantry",
+      "canonical_name": "sprinkle shaker bottle",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "flip_cap",
+        "shakeable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The sprinkle bottle cap is flipped closed after decorating and the bottle is back in the baking caddy beside the food colouring.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "ReadytoUse_Rolled_Fondant_Pure_White_24_oz_box",
+      "group": "packaged_food_pantry",
+      "canonical_name": "fondant box",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "openable_flap"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_pantry",
+          "goal": "The closed fondant box lies flat in the baking-supplies bin with the label facing up.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Wilton_PreCut_Parchment_Sheets_10_x_15_24_sheets",
+      "group": "packaged_food_pantry",
+      "canonical_name": "parchment sheet pack",
+      "general_concept_id": "object_paper_item",
+      "affordances": [
+        "graspable",
+        "flat",
+        "sheet_dispensing"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "One parchment sheet lies flat inside a sheet pan with no overhang past the rim, and the parchment pack is closed and back in the drawer.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Little_Debbie_Chocolate_Cupcakes_8_ct",
+      "group": "packaged_food_pantry",
+      "canonical_name": "snack cake box",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "multi_pack"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "One wrapped cupcake is in each of two lunch boxes and the snack box, flaps closed, is back on the pantry snack shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Black_Forest_Fruit_Snacks_28_Pack_Grape",
+      "group": "packaged_food_pantry",
+      "canonical_name": "fruit snack multipack",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "multi_pack"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_pantry",
+          "goal": "The fruit snack box stands in the kids' snack bin with its open end facing up.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "KS_Chocolate_Cube_Box_Assortment_By_Neuhaus_2010_Ounces",
+      "group": "packaged_food_pantry",
+      "canonical_name": "lidded chocolate gift box",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "lidded",
+        "fragile_contents"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The chocolate box lid is removed and stacked beneath the base, and the open box sits at the table centre beside a napkin stack.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Orbit_Bubblemint_Mini_Bottle_6_ct",
+      "group": "packaged_food_pantry",
+      "canonical_name": "gum mini bottle",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "flip_lid",
+        "small"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_checkout_counter",
+          "goal": "The mini gum bottle hangs in the checkout impulse rack slot with its label facing the customer lane.",
+          "granularity": "atomic",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Ocedar_Snap_On_Dust_Pan_And_Brush_1_ct",
+      "group": "cleaning_laundry",
+      "canonical_name": "dustpan and brush",
+      "general_concept_id": "object_cleaning_tool",
+      "affordances": [
+        "graspable",
+        "snap_fit_pair",
+        "sweeping"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "A marked patch of dry crumb surrogate is gone from the floor, the crumbs are in the trash bin, and the brush is snapped back onto the dustpan handle.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        },
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The brush is snapped onto the dustpan and the pair hangs on the utility-closet hook.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Big_O_Sponges_Assorted_Cellulose_12_pack",
+      "group": "cleaning_laundry",
+      "canonical_name": "cellulose sponge pack",
+      "general_concept_id": "object_cleaning_tool",
+      "affordances": [
+        "graspable",
+        "deformable",
+        "multi_pack"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "One new sponge from the pack sits in the sink caddy, the worn sponge is in the trash, and the pack is resealed under the sink.",
+          "granularity": "compound",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_sponge (sponge use); restocking goal differs",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Clorox_Premium_Choice_Gloves_SM_1_pair",
+      "group": "cleaning_laundry",
+      "canonical_name": "household rubber gloves",
+      "general_concept_id": "object_clothing",
+      "affordances": [
+        "deformable",
+        "hangable",
+        "pair"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The pair of rubber gloves hangs cuff-down over the edge of the sink caddy to drain.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Rexy_Glove_Heavy_Duty_Large",
+      "group": "cleaning_laundry",
+      "canonical_name": "heavy-duty work glove",
+      "general_concept_id": "object_clothing",
+      "affordances": [
+        "deformable",
+        "pair",
+        "hangable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_workshop",
+          "goal": "The two heavy-duty gloves are matched palm-to-palm and clipped together on the garage glove hook.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Tag_Dishtowel_Waffle_Gray_Checks_18_x_26",
+      "group": "cleaning_laundry",
+      "canonical_name": "waffle dish towel",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "foldable",
+        "hangable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The dish towel hangs folded in half over the oven door handle with both edges level.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "new: scene_laundry_area",
+          "goal": "Three dish towels are each folded in thirds and stacked with edges aligned in the linen drawer.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round5_table_cloth_fold_grid (folding textile)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Room_Essentials_Kitchen_Towels_16_x_26_2_count",
+      "group": "cleaning_laundry",
+      "canonical_name": "kitchen towel two-pack",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "packaged",
+        "foldable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_laundry_area",
+          "goal": "Two used kitchen towels are in the laundry basket, two fresh towels from the pack hang on the oven handle and towel bar, and the empty band is in recycling.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Envision_Home_Dish_Drying_Mat_Red_6_x_18",
+      "group": "cleaning_laundry",
+      "canonical_name": "dish drying mat",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "flat",
+        "rollable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The drying mat lies flat beside the sink with its long edge parallel to the counter edge and no folded corners.",
+          "granularity": "atomic",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Rubbermaid_Large_Drainer",
+      "group": "cleaning_laundry",
+      "canonical_name": "dish drainer rack",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "slotted",
+        "draining"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "Two plates stand in the drainer plate slots, two cups sit mouth-down on the rack, cutlery stands in the caddy, and the drainer sits on the drying mat.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Room_Essentials_Dish_Drainer_Collapsible_White",
+      "group": "cleaning_laundry",
+      "canonical_name": "collapsible dish drainer",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "collapsible",
+        "slotted"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The empty collapsible drainer is folded flat and stored upright in the gap beside the refrigerator.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Hefty_Waste_Basket_Decorative_Bronze_85_liter",
+      "group": "cleaning_laundry",
+      "canonical_name": "small waste basket",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "open_top",
+        "liner_fit"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The full liner has been tied and moved to the main trash, a new liner is fitted with its rim folded over the basket edge, and the basket is back under the desk.",
+          "granularity": "workflow",
+          "intent_id": "intent_discard"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Full_Circle_Happy_Scraps_Out_Collector_Gray",
+      "group": "cleaning_laundry",
+      "canonical_name": "counter scrap collector",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "hinged_lid",
+        "clip_on"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "Vegetable-peel surrogates are inside the scrap collector, its lid is closed, and the collector is clipped to the counter-drawer edge.",
+          "granularity": "compound",
+          "intent_id": "intent_discard"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Arm_Hammer_Diaper_Pail_Refills_12_Pack_MFWkmoweejt",
+      "group": "cleaning_laundry",
+      "canonical_name": "pail liner refill pack",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "multi_pack"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The refill pack stands on the nursery shelf next to the pail with its label facing out.",
+          "granularity": "atomic",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "INTERNATIONAL_PAPER_Willamette_4_Brown_Bag_500Count",
+      "group": "cleaning_laundry",
+      "canonical_name": "brown paper bag bundle",
+      "general_concept_id": "object_paper_item",
+      "affordances": [
+        "graspable",
+        "flat",
+        "openable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_checkout_counter",
+          "goal": "One brown bag is opened square on the bagging shelf with its bottom flat, holding two boxed items upright.",
+          "granularity": "compound",
+          "intent_id": "intent_transport"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Bamboo_Ceramic_Soap_Dish",
+      "group": "bathroom_personal_care",
+      "canonical_name": "soap dish",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "shallow",
+        "draining"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "A bar-soap surrogate rests in the soap dish and the dish sits on the marked sink-ledge spot, clear of the faucet splash zone.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        },
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The empty soap dish has been rinsed and stands on its edge on a towel to drain.",
+          "granularity": "atomic",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Circo_Fish_Toothbrush_Holder_14995988",
+      "group": "bathroom_personal_care",
+      "canonical_name": "toothbrush holder",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "slotted",
+        "open_top"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "Two toothbrushes stand head-up in separate holder slots and the holder is on the vanity beside the tap.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Sonicare_2_Series_Toothbrush_Plaque_Control",
+      "group": "bathroom_personal_care",
+      "canonical_name": "electric toothbrush",
+      "general_concept_id": "object_personal_care_tool",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "elongated",
+        "dockable",
+        "powered"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The electric toothbrush handle is seated upright on its charging stand with the brush head facing the wall.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The worn brush head is in the bin, a new head from the pack is pressed onto the handle, the cap is fitted, and the handle is back on its stand.",
+          "granularity": "workflow",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Philips_Sonicare_Tooth_Brush_2_count",
+      "group": "bathroom_personal_care",
+      "canonical_name": "toothbrush head pack",
+      "general_concept_id": "object_personal_care_tool",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "blister_pack"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_supermarket_shelf",
+          "goal": "The blister pack hangs on the peg hook in front of its shelf label with the product window facing out.",
+          "granularity": "atomic",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Remington_TStudio_Hair_Dryer",
+      "group": "bathroom_personal_care",
+      "canonical_name": "hair dryer",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "handled",
+        "corded",
+        "powered"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The unplugged, cool hair dryer hangs by its hanging loop on the vanity hook with its cord loosely coiled and secured with a tie.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Remington_1_12_inch_Hair_Straightener",
+      "group": "bathroom_personal_care",
+      "canonical_name": "hair straightener",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "hinged",
+        "corded",
+        "hot_surface"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The unplugged, cooled straightener is clipped closed and lying on a heat-resistant mat inside the vanity drawer.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Hand_Towel_Blue_Medallion_16_x_27",
+      "group": "bathroom_personal_care",
+      "canonical_name": "hand towel",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "hangable",
+        "foldable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The hand towel hangs on the towel ring with both ends level and its hem at the bottom.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Textured_Damask_Bath_Towel_Pink",
+      "group": "bathroom_personal_care",
+      "canonical_name": "bath towel",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "large",
+        "foldable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_laundry_area",
+          "goal": "The bath towel is folded in thirds lengthwise then in half and stacked on the bathroom shelf with the fold facing out.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        },
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The damp bath towel is in the laundry hamper, a fresh folded towel hangs on the bar, and the hamper lid is closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round5_table_cloth_fold_grid (textile folding)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Home_Fashions_Washcloth_Olive_Green",
+      "group": "bathroom_personal_care",
+      "canonical_name": "washcloth",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "small",
+        "rollable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "Three washcloths are rolled and standing side by side in the basket on the vanity shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Marc_Anthony_Skip_Professional_Oil_of_Morocco_Conditioner_with_Argan_Oil",
+      "group": "bathroom_personal_care",
+      "canonical_name": "conditioner bottle",
+      "general_concept_id": "object_personal_care_container",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "capped",
+        "squeezable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The capped conditioner bottle stands upside-down on its cap on the shower caddy shelf next to the shampoo.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_mustard_bottle cap tasks (cap closure) at skill level only",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Marc_Anthony_Strictly_Curls_Curl_Envy_Perfect_Curl_Cream_6_fl_oz_bottle",
+      "group": "bathroom_personal_care",
+      "canonical_name": "curl cream bottle",
+      "general_concept_id": "object_personal_care_container",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "capped",
+        "squeezable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The closed curl-cream bottle stands in the vanity organizer compartment with its label facing out.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Perricone_MD_Nutritive_Cleanser",
+      "group": "bathroom_personal_care",
+      "canonical_name": "facial cleanser bottle",
+      "general_concept_id": "object_personal_care_container",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "capped",
+        "boxed"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The vanity tray holds the cleanser, moisturiser, and serum in use-order from left to right, all caps closed, and the empty cleanser box is in recycling.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Just_For_Men_ShampooIn_Haircolor_Jet_Black_60",
+      "group": "bathroom_personal_care",
+      "canonical_name": "hair colour kit box",
+      "general_concept_id": "object_personal_care_container",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "boxed",
+        "chemical_contents"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The unopened hair-colour box lies flat on the top cabinet shelf, out of reach of the child-height marker.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "U_By_Kotex_Sleek_Regular_Unscented_Tampons_36_Ct_Box",
+      "group": "bathroom_personal_care",
+      "canonical_name": "personal-care product box",
+      "general_concept_id": "object_personal_care_container",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "boxed",
+        "openable_flap"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The product box stands upright in the under-sink bin with its opening flap facing up.",
+          "granularity": "atomic",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Mist_Wipe_Warmer",
+      "group": "bathroom_personal_care",
+      "canonical_name": "wipe warmer",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "hinged_lid",
+        "powered"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "The unplugged wipe warmer holds a wipe stack surrogate, its lid is latched shut, and it sits on the changing-table corner.",
+          "granularity": "compound",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "ASICS_GELChallenger_9_Royal_BlueWhiteBlack",
+      "group": "footwear_clothing",
+      "canonical_name": "laced tennis shoe",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "laced",
+        "deformable_upper",
+        "pair"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The shoe sits on the entryway shoe rack toe-in, with its laces tucked inside the collar.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        },
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The shoe and its mirrored partner sit side by side on the rack, heels aligned to the front edge and toes pointing inward.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Reebok_CLASSIC_JOGGER",
+      "group": "footwear_clothing",
+      "canonical_name": "running shoe",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "laced",
+        "pair"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_bedroom_closet",
+          "goal": "The shoe is stuffed with a tissue form, placed in its shoebox with the lid seated, and the box is on the closet shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Timberland_Mens_Earthkeepers_Newmarket_6Inch_Cupsole_Boot",
+      "group": "footwear_clothing",
+      "canonical_name": "lace-up ankle boot",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "laced",
+        "tall_shaft",
+        "heavy"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The boot sole is brushed free of a marked dirt surrogate over a boot tray, the brush is back on its hook, and the boot stands upright on the tray.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Tory_Burch_Kiernan_Riding_Boot",
+      "group": "footwear_clothing",
+      "canonical_name": "tall riding boot",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "tall_shaft",
+        "floppy"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_bedroom_closet",
+          "goal": "The riding boot has a boot shaper inserted and stands upright against the closet wall without its shaft folding.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Reef_Star_Cushion_Flipflops_Size_8_Black",
+      "group": "footwear_clothing",
+      "canonical_name": "flip-flop",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "flat",
+        "thong_strap"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The flip-flop lies sole-down in the entryway sandal bin with its toe pointing to the back.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Cream_Tieks_Italian_Leather_Ballet_Flats",
+      "group": "footwear_clothing",
+      "canonical_name": "foldable ballet flat",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "foldable",
+        "deformable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_bedroom_closet",
+          "goal": "The ballet flat is folded heel-to-toe and inserted into its travel pouch, and the pouch is in the suitcase side pocket.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Womens_Teva_Capistrano_Bootie",
+      "group": "footwear_clothing",
+      "canonical_name": "slip-on bootie",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "pull_tab",
+        "pair"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The bootie is held out by its pull tab at a seated person's hand height with the opening facing them.",
+          "granularity": "atomic",
+          "intent_id": "intent_handover"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Mens_Authentic_Original_Boat_Shoe_in_Navy_Leather_NHHQddDLQys",
+      "group": "footwear_clothing",
+      "canonical_name": "leather boat shoe",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "laced",
+        "leather"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "A cleaning-cloth pass has removed the marked scuff surrogate from the shoe toe, a shoe tree is inserted, and the shoe stands on the rack.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "adiZero_Slide_2_SC",
+      "group": "footwear_clothing",
+      "canonical_name": "slide sandal",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "flat",
+        "strap"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The slide sandal sits sole-down on the bath mat beside the shower with its opening toward the shower door.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "11pro_SL_TRX_FG",
+      "group": "footwear_clothing",
+      "canonical_name": "football boot with studs",
+      "general_concept_id": "object_footwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "laced",
+        "studded"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The football boot is in the ventilated section of the sports bag with its studs facing the waterproof divider and the bag zipped.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "DPC_Thinsulate_Isolate_Gloves_Brown",
+      "group": "footwear_clothing",
+      "canonical_name": "winter gloves",
+      "general_concept_id": "object_clothing",
+      "affordances": [
+        "deformable",
+        "pair",
+        "stuffable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "Both gloves are paired, palm-to-palm, and tucked into the coat pocket on the entryway hook.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "DPC_Handmade_Hat_Brown",
+      "group": "footwear_clothing",
+      "canonical_name": "brimmed hat",
+      "general_concept_id": "object_headwear",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "brimmed",
+        "deformable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The hat hangs by its crown on the entryway hat hook with the brim unbent.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Neat_Solutions_Character_Bib_2_pack",
+      "group": "footwear_clothing",
+      "canonical_name": "baby bib",
+      "general_concept_id": "object_clothing",
+      "affordances": [
+        "deformable",
+        "fastenable",
+        "flat"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "A clean bib lies flat at the high-chair tray with its fastener open, and the used bib is in the laundry bag.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Travel_Smart_Neck_Rest_Inflatable",
+      "group": "footwear_clothing",
+      "canonical_name": "inflatable neck pillow",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "deflatable",
+        "foldable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_bedroom_closet",
+          "goal": "The neck pillow valve is open, the pillow is flat and folded into its pouch, and the pouch is in the carry-on outer pocket.",
+          "granularity": "workflow",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Vtech_Stack_Sing_Rings_636_Months",
+      "group": "toys_games_puzzles",
+      "canonical_name": "stacking ring toy",
+      "general_concept_id": "object_toy",
+      "affordances": [
+        "graspable",
+        "stackable",
+        "size_ordered"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "All rings are on the post in size order, largest at the bottom, with the top cap seated.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "STACKING_RING",
+      "group": "toys_games_puzzles",
+      "canonical_name": "wooden stacking ring set",
+      "general_concept_id": "object_toy",
+      "affordances": [
+        "graspable",
+        "stackable",
+        "colour_coded"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "The scattered rings are recovered from the play mat, stacked on the post in size order, and the finished toy stands on the toy shelf.",
+          "granularity": "workflow",
+          "intent_id": "intent_recover_from_error"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round5_065_cups (nesting order) at skill level",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Baby_Elements_Stacking_Cups",
+      "group": "toys_games_puzzles",
+      "canonical_name": "nesting stacking cups",
+      "general_concept_id": "object_nested_container",
+      "affordances": [
+        "graspable",
+        "nestable",
+        "stackable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "The cups are stacked mouth-down into a tower in size order, largest at the base, standing without support.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round3_065_cups and task_ycb_round5_065_cups (YCB nesting cups)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "CHICKEN_NESTING",
+      "group": "toys_games_puzzles",
+      "canonical_name": "nesting toy set",
+      "general_concept_id": "object_nested_container",
+      "affordances": [
+        "graspable",
+        "nestable",
+        "sequence"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "The four nesting pieces are nested in size order and the nested set sits on its circle base.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "TOWER_TUMBLING",
+      "group": "toys_games_puzzles",
+      "canonical_name": "rod-and-disc stacking tower",
+      "general_concept_id": "object_block_set",
+      "affordances": [
+        "graspable",
+        "stackable",
+        "balance"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "A tower of alternating rods and discs stands at least five levels high with each disc on two rods, unsupported for ten seconds.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "2_of_Jenga_Classic_Game",
+      "group": "toys_games_puzzles",
+      "canonical_name": "stacking block tower game",
+      "general_concept_id": "object_block_set",
+      "affordances": [
+        "graspable",
+        "stackable",
+        "extractable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "The blocks form an 18-level tower of three-block layers, each layer rotated ninety degrees from the one below.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        },
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "After play, every block is back in the box sleeve in six stacked rows, the sleeve is closed, and the game is on the games shelf.",
+          "granularity": "workflow",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round2_070_colored_wood_blocks (block building)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Connect_4_Launchers",
+      "group": "toys_games_puzzles",
+      "canonical_name": "disc-drop grid game",
+      "general_concept_id": "object_game_piece",
+      "affordances": [
+        "graspable",
+        "slot_insertion",
+        "multi_piece"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "All discs are released from the grid into the tray, sorted into the two colour bins, and the grid and bins are in the game box.",
+          "granularity": "workflow",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Melissa_Doug_Jumbo_Knob_Puzzles_Barnyard_Animals",
+      "group": "toys_games_puzzles",
+      "canonical_name": "knob inset puzzle",
+      "general_concept_id": "object_puzzle",
+      "affordances": [
+        "graspable",
+        "knobbed_pieces",
+        "inset_fit"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "Every knobbed animal piece is seated flat in its matching recess on the puzzle board.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Melissa_Doug_Shape_Sorting_Clock",
+      "group": "toys_games_puzzles",
+      "canonical_name": "shape-sorting clock",
+      "general_concept_id": "object_puzzle",
+      "affordances": [
+        "graspable",
+        "shape_insertion",
+        "rotatable_hands"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "All twelve number shapes are in their matching clock-face slots and the hands point to 3:00.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "GEOMETRIC_SORTING_BOARD",
+      "group": "toys_games_puzzles",
+      "canonical_name": "geometric peg sorting board",
+      "general_concept_id": "object_pegboard",
+      "affordances": [
+        "graspable",
+        "peg_insertion",
+        "shape_matching"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "Each shape stack sits on its matching peg with pieces sorted by colour on each peg.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round2_071_nine_hole_peg_test (peg insertion) at skill level",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Melissa_Doug_Pattern_Blocks_and_Boards",
+      "group": "toys_games_puzzles",
+      "canonical_name": "pattern block set",
+      "general_concept_id": "object_block_set",
+      "affordances": [
+        "graspable",
+        "flat_tiles",
+        "pattern_matching"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "Pattern blocks fill the outline of one pattern board completely, each block matching its printed shape and colour.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "LACING_SHEEP",
+      "group": "toys_games_puzzles",
+      "canonical_name": "lacing toy",
+      "general_concept_id": "object_toy",
+      "affordances": [
+        "graspable",
+        "lacing",
+        "flexible_cord"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "The lace passes through three holes of the sheep in colour sequence and its tip is tucked through the last hole.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Thomas_Friends_Wooden_Railway_Deluxe_Track_Accessory_Pack",
+      "group": "toys_games_puzzles",
+      "canonical_name": "wooden train track set",
+      "general_concept_id": "object_construction_toy",
+      "affordances": [
+        "graspable",
+        "peg_and_socket",
+        "modular"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "Track pieces connect peg-to-socket into one closed loop on the play mat with no gaps at any joint.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Granimals_20_Wooden_ABC_Blocks_Wagon",
+      "group": "toys_games_puzzles",
+      "canonical_name": "block wagon",
+      "general_concept_id": "object_block_set",
+      "affordances": [
+        "graspable",
+        "wheeled",
+        "container"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "All twenty letter blocks are loaded into the wagon, the wagon has been rolled to the toy corner, and its handle rests against the wall.",
+          "granularity": "workflow",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Lovable_Huggable_Cuddly_Boutique_Teddy_Bear_Beige",
+      "group": "toys_games_puzzles",
+      "canonical_name": "plush teddy bear",
+      "general_concept_id": "object_toy",
+      "affordances": [
+        "graspable",
+        "deformable",
+        "soft"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "The teddy bear sits upright against the pillow at the head of the made bed, facing the room.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Hasbro_Monopoly_Hotels_Game",
+      "group": "toys_games_puzzles",
+      "canonical_name": "boxed board game",
+      "general_concept_id": "object_game_piece",
+      "affordances": [
+        "graspable",
+        "lidded_box",
+        "stackable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The game box lid is seated on the base and the box lies flat on top of a larger game box on the shelf, spine facing out.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Mattel_SKIP_BO_Card_Game",
+      "group": "toys_games_puzzles",
+      "canonical_name": "card game box",
+      "general_concept_id": "object_card",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "small"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The card deck is squared, inserted into its tuck box with the flap closed, and the box is in the games drawer.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_066_blank_credit_card (card storage) at concept level",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Squirtin_Barnyard_Friends_4pk",
+      "group": "toys_games_puzzles",
+      "canonical_name": "bath squirt toys",
+      "general_concept_id": "object_toy",
+      "affordances": [
+        "graspable",
+        "squeezable",
+        "multi_piece"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The four squirt toys have been squeezed empty, rinsed, and stand opening-down in the mesh bath-toy bag hung on the tub wall.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "HAMMER_PEG",
+      "group": "toys_games_puzzles",
+      "canonical_name": "hammer peg bench",
+      "general_concept_id": "object_toy",
+      "affordances": [
+        "graspable",
+        "peg_insertion",
+        "multi_piece"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_playroom",
+          "goal": "All pegs stand in their holes flush-up on the peg bench and the toy hammer lies alongside the bench.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Big_Dot_Pink_Pencil_Case",
+      "group": "office_stationery_books",
+      "canonical_name": "zippered pencil case",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "zippered",
+        "deformable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The pencil case holds two pencils, an eraser, and a ruler, its zipper is fully closed, and it is in the backpack front pocket.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Poppin_File_Sorter_White",
+      "group": "office_stationery_books",
+      "canonical_name": "desk file sorter",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "slotted",
+        "upright"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "Three folders stand in separate sorter slots with their labelled tabs visible, and the sorter sits at the back-right of the desk.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Markings_Desk_Caddy",
+      "group": "office_stationery_books",
+      "canonical_name": "desk caddy",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "compartmented"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "Pens stand tip-down in the tall compartment, a stapler sits in the wide compartment, and sticky notes are in the front tray of the caddy.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Markings_Letter_Holder",
+      "group": "office_stationery_books",
+      "canonical_name": "letter holder",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "slotted"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "Three envelopes stand upright in the letter holder with their addresses facing front.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Victor_Reversible_Bookend",
+      "group": "office_stationery_books",
+      "canonical_name": "bookend",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "l_shaped",
+        "heavy_base"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "Four books stand upright on the shelf between two bookends with no book leaning.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Eat_to_Live_The_Amazing_NutrientRich_Program_for_Fast_and_Sustained_Weight_Loss_Revised_Edition_Book",
+      "group": "office_stationery_books",
+      "canonical_name": "paperback book",
+      "general_concept_id": "object_paper_item",
+      "affordances": [
+        "graspable",
+        "openable",
+        "flat"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The book stands spine-out on the bookshelf in alphabetical position by author.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "scene_dining_table",
+          "goal": "The book is retrieved from the shelf and lies closed at the reader's seat with a bookmark protruding from the marked page.",
+          "granularity": "compound",
+          "intent_id": "intent_retrieve"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_075_magazine (reading item delivery) at concept level",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Crayola_Crayons_24_count",
+      "group": "office_stationery_books",
+      "canonical_name": "crayon box",
+      "general_concept_id": "object_writing_tool",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "many_small_parts"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "All 24 crayons are back in the box tip-up in their rows, the lid flap is tucked, and the box is in the art bin.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Crayola_Washable_Fingerpaint_Red_Blue_Yellow_3_count_8_fl_oz_bottes_each",
+      "group": "office_stationery_books",
+      "canonical_name": "paint bottle set",
+      "general_concept_id": "object_liquid_container",
+      "affordances": [
+        "graspable",
+        "capped",
+        "squeezable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "A craft setup is complete: a paper sheet is taped to the table, and the three uncapped paint bottles stand in a row on a tray at its top edge.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        },
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "The three paint bottles have their caps closed and stand upright in the art bin.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Leap_Frog_Paint_Dabber_Dot_Art_5_paint_bottles",
+      "group": "office_stationery_books",
+      "canonical_name": "paint dabber bottles",
+      "general_concept_id": "object_writing_tool",
+      "affordances": [
+        "graspable",
+        "capped",
+        "small"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "All five dabbers are capped and standing in the caddy slot, colours ordered light to dark.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Shurtape_Gaffers_Tape_Silver_2_x_60_yd",
+      "group": "office_stationery_books",
+      "canonical_name": "roll of gaffer tape",
+      "general_concept_id": "object_tape_roll",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "cylindrical",
+        "hangable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_workshop",
+          "goal": "The gaffer tape roll hangs on the pegboard tape rod with its loose end folded into a tab.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        },
+        {
+          "scene": "scene_ycb_workshop",
+          "goal": "Three tape rolls stand on edge in the drawer organizer, sorted by width, each with a tabbed end.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Epson_LabelWorks_LC5WBN9_Tape_reel_labels_071_x_295_Roll_Black_on_White",
+      "group": "office_stationery_books",
+      "canonical_name": "label tape cartridge",
+      "general_concept_id": "object_printer_consumable",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "insertable",
+        "small"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The label cartridge is seated in the label maker bay with its tape end through the exit slot and the cover closed.",
+          "granularity": "compound",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Magnifying_Glassassrt",
+      "group": "office_stationery_books",
+      "canonical_name": "handheld magnifier",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "handled",
+        "fragile_lens"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The magnifier is held over the marked small-print label at a height where the label text fills the lens.",
+          "granularity": "atomic",
+          "intent_id": "intent_inspect"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Jansport_School_Backpack_Blue_Streak",
+      "group": "office_stationery_books",
+      "canonical_name": "school backpack",
+      "general_concept_id": "object_bag",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "zippered",
+        "strapped",
+        "deformable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The backpack holds a lunch box, a pencil case, and two books, both zippers are closed, and it hangs by its top loop on the entryway hook.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Blue_Jasmine_Includes_Digital_Copy_UltraViolet_DVD",
+      "group": "office_stationery_books",
+      "canonical_name": "DVD case",
+      "general_concept_id": "object_paper_item",
+      "affordances": [
+        "graspable",
+        "hinged_case",
+        "flat"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The DVD case is closed with its disc inside and stands spine-out in alphabetical position on the media shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Crosley_Alarm_Clock_Vintage_Metal",
+      "group": "office_stationery_books",
+      "canonical_name": "twin-bell alarm clock",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "knobs",
+        "small"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "The alarm clock stands on the nightstand with its face toward the bed, within the marked reach zone.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round5_076_timer (setting a device) at skill level",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Razer_Taipan_White_Ambidextrous_Gaming_Mouse",
+      "group": "electronics_hardware",
+      "canonical_name": "computer mouse",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "corded",
+        "small"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The mouse sits centred on the mouse mat to the right of the keyboard with its cable routed behind the monitor stand.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Razer_Goliathus_Control_Edition_Small_Soft_Gaming_Mouse_Mat",
+      "group": "electronics_hardware",
+      "canonical_name": "soft mouse mat",
+      "general_concept_id": "object_textile",
+      "affordances": [
+        "deformable",
+        "flat",
+        "rollable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The mouse mat lies flat to the right of the keyboard with no curled corners and its edge parallel to the desk edge.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Kanex_MultiSync_Wireless_Keyboard",
+      "group": "electronics_hardware",
+      "canonical_name": "wireless keyboard",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "flat",
+        "fragile_keys"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The keyboard has been tipped over a tray to shed a crumb surrogate, wiped with a dry cloth, and set back centred in front of the monitor.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Razer_Kraken_Pro_headset_Full_size_Black",
+      "group": "electronics_hardware",
+      "canonical_name": "over-ear headset",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "flexible_band",
+        "corded",
+        "hangable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The headset hangs on the desk-edge hook by its headband with the cable coiled and secured by a tie.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Logitech_Ultimate_Ears_Boom_Wireless_Speaker_Night_Black",
+      "group": "electronics_hardware",
+      "canonical_name": "cylindrical wireless speaker",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "cylindrical",
+        "rollable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The speaker stands upright on its base at the marked shelf spot where it cannot roll off.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "JBL_Charge_Speaker_portable_wireless_wired_Green",
+      "group": "electronics_hardware",
+      "canonical_name": "portable speaker",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "cylindrical",
+        "port_cover"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The speaker lies in the beach-bag side pocket with its port cover closed and the pocket zipped.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Seagate_1TB_Backup_Plus_portable_drive_Silver",
+      "group": "electronics_hardware",
+      "canonical_name": "portable hard drive",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "flat",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The drive and its cable are in the padded drive case with the case zipped, and the case sits in the desk drawer.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Kingston_DT4000MR_G2_Management_Ready_USB_64GB",
+      "group": "electronics_hardware",
+      "canonical_name": "USB flash drive",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "small",
+        "capped",
+        "insertable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The capped USB drive sits in its labelled slot in the desk drawer tray.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Shaxon_100_Molded_Category_6_RJ45RJ45_Shielded_Patch_Cord_White",
+      "group": "electronics_hardware",
+      "canonical_name": "coiled network cable",
+      "general_concept_id": "object_flexible_line",
+      "affordances": [
+        "graspable",
+        "flexible",
+        "coilable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The patch cord is coiled into a loop of marked diameter, fastened with a hook-and-loop tie, and hung on the cable hook.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round3_064_rope (coil securing) at skill level",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Philips_60ct_Warm_White_LED_Smooth_Mini_String_Lights",
+      "group": "electronics_hardware",
+      "canonical_name": "string lights",
+      "general_concept_id": "object_flexible_line",
+      "affordances": [
+        "graspable",
+        "flexible",
+        "tangle_prone",
+        "powered"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The unplugged string lights are wound around a storage card without crossing, the plug end is tucked under the last turn, and the card is in the holiday bin.",
+          "granularity": "workflow",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Philips_EcoVantage_43_W_Light_Bulbs_Natural_Light_2_pack",
+      "group": "electronics_hardware",
+      "canonical_name": "light bulb two-pack",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "fragile_contents"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The bulb pack stands upright on the utility shelf in the bulbs section with its wattage panel facing out.",
+          "granularity": "atomic",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Canon_Pixma_Ink_Cartridge_Cyan_251",
+      "group": "electronics_hardware",
+      "canonical_name": "ink cartridge",
+      "general_concept_id": "object_printer_consumable",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "small",
+        "insertable",
+        "packaged"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The cyan cartridge is out of its blister and seated in the cyan printer slot, the blister is in recycling, and the printer cover is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_restock"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "BlueBlack_Nintendo_3DSXL",
+      "group": "electronics_hardware",
+      "canonical_name": "clamshell handheld console",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "hinged",
+        "fragile_screen"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "The console is closed with its hinge fully shut and is in its protective case on the shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Travel_Mate_P_series_Notebook",
+      "group": "electronics_hardware",
+      "canonical_name": "laptop",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "hinged",
+        "flat",
+        "fragile_screen"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The laptop lid is closed, the laptop is in the backpack laptop sleeve with its charger in the front pocket, and the backpack is zipped by the door.",
+          "granularity": "workflow",
+          "intent_id": "intent_transport"
+        },
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The laptop lies closed and centred on the desk with its hinge toward the back edge.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Pokémon_Yellow_Special_Pikachu_Edition_Nintendo_Game_Boy_Color",
+      "group": "electronics_hardware",
+      "canonical_name": "boxed game cartridge",
+      "general_concept_id": "object_game_piece",
+      "affordances": [
+        "graspable",
+        "boxed",
+        "small"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The game box stands in the game rack in release-year order with its title spine facing out.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "HeavyDuty_Flashlight",
+      "group": "electronics_hardware",
+      "canonical_name": "heavy-duty flashlight",
+      "general_concept_id": "object_electronic_device",
+      "affordances": [
+        "graspable",
+        "cylindrical",
+        "switch"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The flashlight stands lens-down in the emergency kit slot next to the spare batteries, and the kit lid is latched.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Pony_C_Clamp_1440",
+      "group": "electronics_hardware",
+      "canonical_name": "C-clamp",
+      "general_concept_id": "object_clamp",
+      "affordances": [
+        "graspable",
+        "threaded_screw",
+        "heavy"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_workshop",
+          "goal": "The C-clamp holds a protected wood strip to the bench edge with the screw pad centred on the strip.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_small_clamp and the YCB clamp series (clamp securing)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Craftsman_Grip_Screwdriver_Phillips_Cushion",
+      "group": "electronics_hardware",
+      "canonical_name": "Phillips screwdriver",
+      "general_concept_id": "object_screwdriver",
+      "affordances": [
+        "graspable",
+        "elongated",
+        "tip_tool"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_workshop",
+          "goal": "The screwdriver hangs tip-down in the pegboard holder labelled for Phillips drivers.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round1_phillips_screwdriver (handover) and task_ycb_round2_phillips_screwdriver",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Cole_Hardware_School_Bell_Solid_Brass_38",
+      "group": "electronics_hardware",
+      "canonical_name": "brass hand bell",
+      "general_concept_id": "object_toy",
+      "affordances": [
+        "graspable",
+        "handled",
+        "sound_producing"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The hand bell stands mouth-down on the marked spot at the host's place, handle up.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Sterilite_Caddy_Blue_Sky_17_58_x_12_58_x_9_14",
+      "group": "storage_containers",
+      "canonical_name": "carry caddy",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "handled",
+        "compartmented"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The caddy holds a spray bottle, a sponge, and a cloth in separate compartments, has been carried from under the sink to the bathroom, and sits on the bath mat.",
+          "granularity": "workflow",
+          "intent_id": "intent_transport"
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round3_windex_bottle (cleaning caddy slots)",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Curver_Storage_Bin_Black_Small",
+      "group": "storage_containers",
+      "canonical_name": "small storage bin",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "open_top",
+        "stackable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_ycb_storage_shelf",
+          "goal": "The bin holds three rolled cables and sits on the second shelf with its label side facing out.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Closetmaid_Premium_Fabric_Cube_Red",
+      "group": "storage_containers",
+      "canonical_name": "fabric storage cube",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "deformable",
+        "pull_handle"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_kids_bedroom",
+          "goal": "The fabric cube holds the plush toys from the floor, its handle faces out, and it is pushed fully into the cubby shelf.",
+          "granularity": "workflow",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Threshold_Basket_Natural_Finish_Fabric_Liner_Small",
+      "group": "storage_containers",
+      "canonical_name": "lined basket",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "lined",
+        "open_top"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The basket liner is folded over the rim evenly on all sides and the basket holds three rolled washcloths on the shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Target_Basket_Medium",
+      "group": "storage_containers",
+      "canonical_name": "medium storage basket",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "handled",
+        "open_top"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_entryway",
+          "goal": "The basket holds the pairs of winter gloves and hats and sits on the entryway bench under the coat hooks.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Smith_Hawken_Woven_BasketTray_Organizer_with_3_Compartments_95_x_9_x_13",
+      "group": "storage_containers",
+      "canonical_name": "three-compartment basket tray",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "compartmented",
+        "handled"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The basket tray holds napkins, cutlery, and condiment bottles in separate compartments and has been carried to the table centre.",
+          "granularity": "workflow",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Design_Ideas_Drawer_Store_Organizer",
+      "group": "storage_containers",
+      "canonical_name": "drawer organizer",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "compartmented",
+        "shallow"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_office_desk",
+          "goal": "The drawer organizer sits in the open desk drawer with paper clips, a USB drive, and sticky notes each in its own compartment, and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Spritz_Easter_Basket_Plastic_Teal",
+      "group": "storage_containers",
+      "canonical_name": "handled basket",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "bail_handle",
+        "open_top"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The basket holds four fruits without any overhanging the rim and has been carried by its handle from the counter to the dining table.",
+          "granularity": "compound",
+          "intent_id": "intent_transport"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "InterDesign_Over_Door",
+      "group": "storage_containers",
+      "canonical_name": "over-door hook rack",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "hookable",
+        "mountable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_home_bathroom",
+          "goal": "The over-door rack is hung on the bathroom door top edge with its hooks facing out, and a bath towel hangs from one hook.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Paul_Frank_Dot_Lunch_Box",
+      "group": "storage_containers",
+      "canonical_name": "hard-shell lunch box",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "hinged_lid",
+        "latchable",
+        "handled"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The lunch box holds a sandwich container, a fruit, and a drink box, its lid is latched, and it stands beside the backpack by the door.",
+          "granularity": "workflow",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Embark_Lunch_Cooler_Blue",
+      "group": "storage_containers",
+      "canonical_name": "soft lunch cooler",
+      "general_concept_id": "object_bag",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "zippered",
+        "insulated",
+        "deformable"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "An ice-pack surrogate and a drink bottle are inside the cooler, the zipper is fully closed, and the cooler is on the bottom refrigerator shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Digital_Camo_Double_Decker_Lunch_Bag",
+      "group": "storage_containers",
+      "canonical_name": "two-compartment lunch bag",
+      "general_concept_id": "object_bag",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "zippered",
+        "two_compartment"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The upper compartment holds a snack bag and the lower compartment holds a food container, with both zippers closed.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Now_Designs_Snack_Bags_Bicycle_2_count",
+      "group": "storage_containers",
+      "canonical_name": "reusable snack bag",
+      "general_concept_id": "object_bag",
+      "concept_is_new": true,
+      "affordances": [
+        "deformable",
+        "zippered",
+        "flat"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "A cracker surrogate fills the snack bag, its closure is sealed end to end, and the bag lies flat in the lunch bag.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Snack_Catcher_Snack_Dispenser",
+      "group": "storage_containers",
+      "canonical_name": "spill-resistant snack cup",
+      "general_concept_id": "object_food_container",
+      "affordances": [
+        "graspable",
+        "lidded",
+        "handled"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The snack cup holds a cereal surrogate to its fill line, the soft lid is snapped on, and it is handed to a seated child handle-first.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Ecoforms_Plant_Container_Quadra_Sand_QP6",
+      "group": "storage_containers",
+      "canonical_name": "square plant pot",
+      "general_concept_id": "object_planter",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "open_top",
+        "drainage_hole"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_potting_bench",
+          "goal": "The square pot sits centred in its matching saucer on the windowsill shelf with the drainage hole over the saucer well.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        },
+        {
+          "scene": "new: scene_potting_bench",
+          "goal": "The pot has a drainage mesh at the bottom, is filled with a soil surrogate to the marked line, and sits in its saucer on the potting bench.",
+          "granularity": "workflow",
+          "intent_id": "intent_prepare_food"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Ecoforms_Plant_Saucer_S14NATURAL",
+      "group": "storage_containers",
+      "canonical_name": "plant saucer",
+      "general_concept_id": "object_planter",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "flat",
+        "rimmed",
+        "stackable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_potting_bench",
+          "goal": "Five saucers are stacked in size order with the largest at the bottom on the potting-bench shelf.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Down_To_Earth_Orchid_Pot_Ceramic_Red",
+      "group": "storage_containers",
+      "canonical_name": "ceramic orchid pot",
+      "general_concept_id": "object_planter",
+      "concept_is_new": true,
+      "affordances": [
+        "graspable",
+        "slotted_sides",
+        "fragile"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_potting_bench",
+          "goal": "A plastic nursery pot sits inside the orchid pot with its rim below the orchid pot rim, and the pair sits on a saucer on the sill.",
+          "granularity": "compound",
+          "intent_id": "intent_organize"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    },
+    {
+      "asset_source_id": "Room_Essentials_Fabric_Cube_Lavender",
+      "group": "storage_containers",
+      "canonical_name": "fabric storage cube (collapsible)",
+      "general_concept_id": "object_receptacle",
+      "affordances": [
+        "graspable",
+        "collapsible",
+        "deformable"
+      ],
+      "ideas": [
+        {
+          "scene": "new: scene_bedroom_closet",
+          "goal": "The empty fabric cube is collapsed flat and stored upright between two cubbies on the closet shelf.",
+          "granularity": "atomic",
+          "intent_id": "intent_store"
+        }
+      ],
+      "duplicate_risk": "none",
+      "verified_url": true
+    }
+  ]
+}
