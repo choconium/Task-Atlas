@@ -125,3 +125,20 @@ Both agents share one repository and push to `origin/main`.
 | `reference_gso_round1` (MuJoCo-converted GSO, 8 models) | A | 25 | draft in main checkout, not yet committed | Claude |
 | `thor_round1` (AI2-THOR / ProcTHOR, Apache-2.0) | B | 24 (10 atomic, 11 compound, 3 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |
 | Codex reference drafts in `data/drafts/` | A | see files | reviewed 2026-09-25: 4 revise, 2 time-use bundles not tasks, 7 already active (delete drafts); see `data/reviews/` | Claude |
+
+## Status (paused 2026-09-25)
+
+Lane B has 166 active tasks in seven reviewed rounds (`gso_round1`–`gso_round4`,
+`thor_round1`–`thor_round3`); the atlas has 637 tasks. Next steps when work resumes:
+
+1. Codex cross-lane review of the seven Lane B rounds (requested directly via
+   `codex exec`); apply findings in place.
+2. Lane A rebases its main checkout on `origin/main` (it is at `d083732`) and
+   merges its uncommitted `skills.json`, manifest, and schema changes by keeping
+   both sides.
+3. Household GSO/THOR tasks are close to saturation (round-4 reviews rejected
+   restated tasks). Lane B's next rounds move to new contexts (retail staff,
+   workshop, garden, assistive care) and new sources (ReplicaCAD, ABO, Poly
+   Haven); PartNet-Mobility awaits a licence decision.
+4. Deploy the Worker once the user approves.
+
