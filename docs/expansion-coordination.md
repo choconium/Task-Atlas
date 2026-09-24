@@ -103,4 +103,4 @@ Both agents share one repository and push to `origin/main`.
 | Bundle | Lane | Tasks | Status | Reviewer |
 | --- | --- | ---: | --- | --- |
 | `gso_round1` | B | 24 (target) | brainstorm | Codex |
-| Codex reference drafts in `data/drafts/` | A | see files | draft | Claude |
+| Codex reference drafts in `data/drafts/` | A | see files | reviewed 2026-09-25: 4 revise, 2 time-use bundles not tasks, 7 already active (delete drafts); see `data/reviews/` | Claude |
