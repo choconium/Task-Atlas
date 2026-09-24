@@ -146,22 +146,6 @@
       "notes": "Google Scanned Objects models are distributed under CC BY 4.0 (Google Research); attribution is required when the mesh is reused."
     },
     {
-      "id": "evidence_gso_navy_moccasin_slipper_catalog",
-      "source_name": "Google Scanned Objects model record on Gazebo Fuel: Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae",
-      "source_type": "catalog",
-      "supported_claim_types": [
-        "catalog_identity"
-      ],
-      "source_version": "Gazebo Fuel GoogleResearch collection, accessed 2026-09-25",
-      "source_locator": "https://app.gazebosim.org/GoogleResearch/fuel/models/Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae",
-      "observed_count": null,
-      "scope": "The Gazebo Fuel GoogleResearch collection lists a scanned model named Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae.",
-      "limitations": "This supports GSO catalog identity only. It does not identify a YCB asset, describe articulation or contents, or establish Task Atlas, simulator, or robot compatibility.",
-      "reviewer": null,
-      "reviewed_at": null,
-      "notes": "Google Scanned Objects models are distributed under CC BY 4.0 (Google Research); attribution is required when the mesh is reused."
-    },
-    {
       "id": "evidence_gso_thinsulate_knit_gloves_brown_catalog",
       "source_name": "Google Scanned Objects model record on Gazebo Fuel: DPC_Thinsulate_Isolate_Gloves_Brown",
       "source_type": "catalog",
@@ -588,30 +572,6 @@
       "model": "claude-opus-5-5",
       "generation_version": "gso_round4",
       "notes": "Single rigid Google Scanned Objects scan (textured mesh) of a retail product; not a YCB object. The scan does not establish articulation, deformation, power behaviour, contents, or compatibility with Task Atlas, a simulator, or a robot setup. The Atlas concept link object_food_container is a curator grouping only. The thumbnail shows a closed, tall purple-and-white retail carton branded Decorator Preferred Fondant; the scan is the outer carton only, as one rigid box. The fondant inside is not scanned."
-    },
-    {
-      "id": "gso_object_navy_moccasin_slipper",
-      "node_type": "ObjectInstance",
-      "canonical_name": "moccasin slipper (single)",
-      "name_en": "GSO navy suede moccasin slipper",
-      "name_ja": "GSO ネイビースエードのモカシン型スリッパ",
-      "category": "moccasin slipper",
-      "general_concept_id": "object_footwear",
-      "asset_source": "google_scanned_objects",
-      "asset_source_version": "Gazebo Fuel GoogleResearch collection, accessed 2026-09-25",
-      "asset_source_id": "Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae",
-      "asset_source_url": "https://app.gazebosim.org/GoogleResearch/fuel/models/Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae",
-      "affordances": [
-        "graspable",
-        "placeable",
-        "handoverable",
-        "heel_collar_grip"
-      ],
-      "review_status": "proposed",
-      "generated_by": "llm",
-      "model": "claude-opus-5-5",
-      "generation_version": "gso_round4",
-      "notes": "Single rigid Google Scanned Objects scan (textured mesh); not a YCB object. The scan does not establish articulation, deformation, power behaviour, contents, or compatibility with Task Atlas, a simulator, or a robot setup. The Fuel model name reads Mens_Billfish_Slip_On_in_Coffee, but the thumbnail (checked 2026-09-25) shows one navy suede moccasin with light-blue stitching and a light-blue tie lace around the collar, not a coffee-brown slip-on; it is named here for what the scan shows. A sibling model with the same catalog name (Mens_Billfish_Slip_On_in_Coffee_e8bPKE9Lfgo) shows a brown slip-on boat shoe and is not used. Only one shoe is scanned. The Atlas concept object_footwear is a curator grouping only; GSO has no source taxonomy."
     },
     {
       "id": "gso_object_thinsulate_knit_gloves_brown",
@@ -1397,7 +1357,8 @@
         "freezer": "freezer_drawer",
         "fridge": "refrigerator_shelf",
         "pantry_a": "pantry_shelf",
-        "pantry_b": "pantry_canned_row"
+        "pantry_b": "pantry_canned_row",
+        "fridge_door": "refrigerator_door"
       },
       "compatible_scenes": [
         "scene_home_kitchen",
@@ -1409,7 +1370,7 @@
         "inside(chilled, bag)",
         "inside(canned, bag)",
         "closed(freezer)",
-        "closed(fridge)"
+        "closed(fridge_door)"
       ],
       "goals": [
         "inside(frozen, freezer)",
@@ -1440,61 +1401,7 @@
       ],
       "safety_tags": [
         "food",
-        "cold_items",
-        "heavy"
-      ],
-      "review_status": "proposed",
-      "generated_by": "llm",
-      "model": "claude-opus-5-5",
-      "generation_version": "gso_round4"
-    },
-    {
-      "id": "template_gso_r4b_handover_slipper_heel_first_to_armchair",
-      "node_type": "TaskTemplate",
-      "name_en": "Hand a slipper heel-first to a person seated in an armchair, on request",
-      "name_ja": "肘掛け椅子に座っている人に、頼まれたスリッパをかかと側から手渡す",
-      "verb": "handover",
-      "roles": {
-        "theme": "slipper",
-        "recipient": "seated_person",
-        "source": "floor_shoe_tray",
-        "seat": "armchair"
-      },
-      "compatible_scenes": [
-        "scene_home_living_room"
-      ],
-      "preconditions": [
-        "on_top_of(theme, source)",
-        "seated_on(recipient, seat)",
-        "requested(recipient, theme)",
-        "hand_free(recipient)"
-      ],
-      "goals": [
-        "held_by(theme, recipient)",
-        "heel_toward(theme, recipient)"
-      ],
-      "skills": [
-        "skill_locate",
-        "skill_grasp",
-        "skill_lift",
-        "skill_navigate_or_reach",
-        "skill_orient",
-        "skill_handover",
-        "skill_release",
-        "skill_verify"
-      ],
-      "failure_modes": [
-        "released_before_recipient_pull",
-        "offered_toe_first",
-        "offer_beyond_seated_reach",
-        "approach_too_fast",
-        "offer_above_shoulder"
-      ],
-      "safety_tags": [
-        "human_handover",
-        "footwear",
-        "hygiene",
-        "limited_reach_recipient"
+        "cold_items"
       ],
       "review_status": "proposed",
       "generated_by": "llm",
@@ -1877,42 +1784,42 @@
     {
       "id": "template_gso_r4c_pack_school_bag_from_timetable",
       "node_type": "TaskTemplate",
-      "name_en": "Pack a school bag from a timetable card and hang it by the door",
-      "name_ja": "時間割カードを見て通学かばんを用意し、玄関に掛ける",
+      "name_en": "Repack a school bag from one day's timetable row to the next day's, removing off-timetable items, and leave it ready on the desk chair",
+      "name_ja": "時間割カードを見て通学かばんの中身を翌日の分に入れ替え、時間割にない物を出して、机の椅子に用意しておく",
       "verb": "pack_from_schedule",
       "roles": {
         "theme": "school_backpack",
         "schedule": "timetable_card",
-        "item_1": "subject_workbook",
+        "item_1": "subject_workbook_kept",
         "item_2": "reading_book",
         "item_3": "art_supply",
         "item_4": "pencil_case",
-        "decoy": "off_timetable_item",
+        "decoy": "off_timetable_item_in_bag",
         "source_shelf": "bedroom_book_shelf",
         "staging": "bedroom_desk",
-        "hook": "entryway_hook"
+        "ready_spot": "desk_chair"
       },
       "compatible_scenes": [
-        "scene_multi_room_house",
-        "scene_kids_bedroom"
+        "scene_kids_bedroom",
+        "scene_multi_room_house"
       ],
       "preconditions": [
         "open(theme)",
         "on_top_of(theme, staging)",
         "readable(schedule)",
-        "on_top_of(item_1, source_shelf)",
+        "inside(item_1, theme)",
+        "inside(decoy, theme)",
         "on_top_of(item_2, source_shelf)",
         "on_top_of(item_3, source_shelf)",
-        "on_top_of(item_4, staging)",
-        "on_top_of(decoy, source_shelf)"
+        "on_top_of(item_4, staging)"
       ],
       "goals": [
-        "inside(item_1, theme)",
+        "on_top_of(decoy, source_shelf)",
         "inside(item_2, theme)",
         "inside(item_3, theme)",
         "in_compartment(item_4, theme, front_pocket)",
         "closed(theme)",
-        "hung_on(theme, hook)"
+        "upright_on(theme, ready_spot)"
       ],
       "skills": [
         "skill_locate",
@@ -1922,20 +1829,19 @@
         "skill_lift",
         "skill_place",
         "skill_close",
-        "skill_navigate_or_reach",
         "skill_release",
         "skill_verify"
       ],
       "failure_modes": [
-        "off_timetable_item_packed",
+        "off_timetable_item_left_in_bag",
         "timetable_item_missing",
+        "kept_item_removed",
         "pencil_case_in_main_compartment",
         "zip_left_open",
-        "bag_dropped_off_hook"
+        "bag_tipped_off_chair"
       ],
       "safety_tags": [
-        "child_items",
-        "carried_load"
+        "child_items"
       ],
       "review_status": "proposed",
       "generated_by": "llm",
@@ -2754,21 +2660,22 @@
       "id": "task_gso_r4_fondant_groceries_by_temperature_zone",
       "node_type": "TaskInstance",
       "template_id": "template_gso_r4a_put_away_groceries_by_temperature_zone",
-      "name_en": "Put away the grocery bag by storage temperature: frozen peas to the freezer first, yogurt to the refrigerator, then the fondant box and soup can to their pantry shelves",
-      "name_ja": "買い物袋の中身を保存温度別にしまう：まず冷凍のグリーンピースを冷凍庫へ、ヨーグルトを冷蔵庫へ、最後にフォンダンの箱とスープ缶をパントリーの棚へ",
+      "name_en": "Put away the grocery bag by storage temperature: the frozen peas bag into the freezer drawer first, the yogurt tub to the refrigerator, then the fondant box and soup can to their pantry shelves",
+      "name_ja": "買い物袋の中身を保存温度別にしまう：まず冷凍グリーンピースの袋を冷凍庫の引き出しへ、ヨーグルトのカップを冷蔵庫へ、最後にフォンダンの箱とスープ缶をパントリーの棚へ",
       "intent_id": "intent_store",
       "object_id": "gso_object_rolled_fondant_box",
       "scene_id": "scene_home_kitchen",
       "bindings": {
         "theme": "gso_object_rolled_fondant_box",
-        "frozen": "gso_resource_frozen_peas_bag",
-        "chilled": "gso_resource_yogurt_tub_500g",
+        "frozen": "gso_resource_frozen_peas_bag_gel_pack_surrogate",
+        "chilled": "gso_resource_yogurt_tub_water_filled_surrogate",
         "canned": "ycb_005_tomato_soup_can",
         "bag": "gso_resource_reusable_grocery_bag",
-        "freezer": "gso_resource_freezer_top_drawer",
+        "freezer": "gso_resource_freezer_drawer",
         "fridge": "gso_resource_refrigerator_dairy_shelf",
         "pantry_a": "gso_resource_pantry_baking_shelf",
-        "pantry_b": "gso_resource_pantry_canned_row"
+        "pantry_b": "gso_resource_pantry_canned_row",
+        "fridge_door": "gso_resource_refrigerator_door"
       },
       "state_ids": [
         "state_inside_receptacle",
@@ -2781,24 +2688,24 @@
       ],
       "initial_state": [
         "inside(gso_object_rolled_fondant_box, gso_resource_reusable_grocery_bag)",
-        "inside(gso_resource_frozen_peas_bag, gso_resource_reusable_grocery_bag)",
-        "inside(gso_resource_yogurt_tub_500g, gso_resource_reusable_grocery_bag)",
+        "inside(gso_resource_frozen_peas_bag_gel_pack_surrogate, gso_resource_reusable_grocery_bag)",
+        "inside(gso_resource_yogurt_tub_water_filled_surrogate, gso_resource_reusable_grocery_bag)",
         "inside(ycb_005_tomato_soup_can, gso_resource_reusable_grocery_bag)",
         "on_top_of(gso_resource_reusable_grocery_bag, gso_resource_kitchen_counter)",
-        "closed(gso_resource_freezer_door)",
+        "closed(gso_resource_freezer_drawer)",
         "closed(gso_resource_refrigerator_door)"
       ],
       "goal_state": [
-        "inside(gso_resource_frozen_peas_bag, gso_resource_freezer_top_drawer)",
-        "inside(gso_resource_yogurt_tub_500g, gso_resource_refrigerator_dairy_shelf)",
+        "inside(gso_resource_frozen_peas_bag_gel_pack_surrogate, gso_resource_freezer_drawer)",
+        "inside(gso_resource_yogurt_tub_water_filled_surrogate, gso_resource_refrigerator_dairy_shelf)",
         "on_top_of(gso_object_rolled_fondant_box, gso_resource_pantry_baking_shelf)",
         "on_top_of(ycb_005_tomato_soup_can, gso_resource_pantry_canned_row)",
         "empty(gso_resource_reusable_grocery_bag)"
       ],
       "instruction_variants": [
-        "Unpack the grocery bag: frozen peas into the freezer first, then the yogurt into the fridge, then the fondant and the soup can into the pantry. The fondant says store at room temperature, so it doesn't go in the fridge.",
+        "Unpack the grocery bag: the frozen peas into the freezer drawer first, then the yogurt into the fridge, then the fondant and the soup can into the pantry. The fondant says store at room temperature, so it doesn't go in the fridge.",
         "Put the shopping away where each thing keeps best, cold stuff first.",
-        "買い物袋の中身をしまってください。冷凍のグリーンピースを最初に冷凍庫へ、次にヨーグルトを冷蔵庫へ、最後にフォンダンとスープ缶をパントリーへ。フォンダンは常温保存なので冷蔵庫には入れないでください。"
+        "買い物袋の中身をしまってください。冷凍のグリーンピースを最初に冷凍庫の引き出しへ、次にヨーグルトを冷蔵庫へ、最後にフォンダンとスープ缶をパントリーへ。フォンダンは常温保存なので冷蔵庫には入れないでください。"
       ],
       "skills": [
         "skill_locate",
@@ -2818,58 +2725,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round4",
-      "notes": "Goal: each grocery item is in the storage zone for its temperature, and the bag is empty. Labelled workflow: four destinations in three temperature zones (freezer drawer, refrigerator dairy shelf, two pantry shelves) with timed checkpoints: the frozen peas are in the freezer within 2 minutes of the bag landing on the counter, and the yogurt is in the refrigerator within 4 minutes; the pantry items come last. The fondant box is the anchor because it is the item most easily mis-sorted: it is a white, dairy-looking soft food, but the physical box used states room-temperature storage, so on_top_of(fondant, pantry baking shelf) tests reading the label rather than guessing from appearance. The freezer and refrigerator doors start closed and must be closed again at the end; they are opened and closed during the task but their end state equals the start, so they are checked in the success criteria rather than counted as goal changes. Cross-link: the canned item is YCB ycb_005_tomato_soup_can, referenced and not redefined. Distinct from single-item storage tasks such as task_thor_r2_lettuce_fridge_shelf_door_closed and task_ycb_round1_sugar_box, which store one item in one known zone; here the robot must sort several items across temperature zones in time order."
-    },
-    {
-      "id": "task_gso_r4_moccasin_handover_armchair_heel_first",
-      "node_type": "TaskInstance",
-      "template_id": "template_gso_r4b_handover_slipper_heel_first_to_armchair",
-      "name_en": "Hand the requested moccasin slipper heel-first to the person sitting back in the living-room armchair, beside the armrest",
-      "name_ja": "リビングの肘掛け椅子に深く座っている人に、頼まれたモカシンのスリッパをかかと側から肘掛けの横で手渡す",
-      "intent_id": "intent_handover",
-      "object_id": "gso_object_navy_moccasin_slipper",
-      "scene_id": "scene_home_living_room",
-      "bindings": {
-        "theme": "gso_object_navy_moccasin_slipper",
-        "recipient": "gso_resource_armchair_seated_person",
-        "source": "gso_resource_living_room_shoe_tray",
-        "seat": "gso_resource_living_room_armchair"
-      },
-      "state_ids": [
-        "state_held",
-        "state_on_surface"
-      ],
-      "initial_state": [
-        "on_top_of(gso_object_navy_moccasin_slipper, gso_resource_living_room_shoe_tray)",
-        "seated_on(gso_resource_armchair_seated_person, gso_resource_living_room_armchair)",
-        "requested(gso_resource_armchair_seated_person, gso_object_navy_moccasin_slipper)",
-        "hand_free(gso_resource_armchair_seated_person)"
-      ],
-      "goal_state": [
-        "held_by(gso_object_navy_moccasin_slipper, gso_resource_armchair_seated_person)",
-        "heel_toward(gso_object_navy_moccasin_slipper, gso_resource_armchair_seated_person)"
-      ],
-      "instruction_variants": [
-        "You asked for your slipper: bring the navy moccasin from the tray and hold it out beside the armrest, heel toward the person's hand, so they can take it without leaning forward.",
-        "Pass the slipper to the person in the armchair heel-first, low by the armrest, and let go only when they pull it.",
-        "トレイにある紺色のモカシンを取り、肘掛け椅子に座っている人の手元へ、かかと側を向けて肘掛けの横で差し出し、相手が引いたら離してください。"
-      ],
-      "skills": [
-        "skill_locate",
-        "skill_grasp",
-        "skill_lift",
-        "skill_navigate_or_reach",
-        "skill_orient",
-        "skill_handover",
-        "skill_release",
-        "skill_verify"
-      ],
-      "granularity": "atomic",
-      "review_status": "proposed",
-      "generated_by": "llm",
-      "model": "claude-opus-5-5",
-      "generation_version": "gso_round4",
-      "notes": "Goal: the seated person holds the moccasin on their own, and it was offered with its heel collar toward their hand. Labelled atomic: one object and one goal change (held_by) in one uninterrupted reach, orient, and release; heel_toward is a pose qualifier of that single handover. heel_toward(slipper, person) means the heel collar points at the person's open hand within 30 degrees, with the sole horizontal within 20 degrees. The offer point is beside the armrest the person names, 45-65 cm above the floor and within 25 cm of their resting hand, so they take it without leaning forward; the gripper never passes above the person's shoulder height. The approach starts only after the person's spoken request, runs at no more than 0.2 m/s within 1 m of them, and the gripper opens only after a pull of at least 3 N away from the robot is sensed or the person's grip has been held for 0.5 s on video. Related active task: task_gso_r3_bootie_handover_seated_person hands an ankle bootie opening-first to a person on an entryway bench at bench hand height; this task differs in trigger (the person's own request), recipient posture (sitting back in an armchair with limited forward reach, so a lower, closer offer beside the armrest), grip (heel-first so the person holds the heel collar), and release rule (a measured pull threshold). Only one moccasin is scanned; the pair's other slipper is not part of the goal."
+      "notes": "Goal: each grocery item is in the storage zone for its temperature, and the bag is empty. Labelled workflow: four destinations in three temperature zones (freezer drawer, refrigerator dairy shelf, two pantry shelves) with timed checkpoints: the frozen peas bag is in the freezer drawer within 2 minutes of the grocery bag landing on the counter, and the yogurt tub is in the refrigerator within 4 minutes; the pantry items come last. The freezer is a pull-out bottom-freezer drawer with no separate door, modelled as one resource, gso_resource_freezer_drawer, which is opened, loaded, and pushed shut; the refrigerator above it has a hinged door (gso_resource_refrigerator_door) and the yogurt goes on its dairy shelf. Both closures start closed and must be closed again at the end; they are opened and closed during the task but their end state equals the start, so they are checked in the success criteria rather than counted as goal changes. The two cold items are non-food surrogates so that repeated trials never thaw and refreeze food: the peas bag is a retail-style peas bag with a reusable frozen gel pack sealed inside, labelled FROZEN, and the yogurt tub is a clean 500 g tub filled with water, sealed, and labelled KEEP REFRIGERATED. Both are kept at their storage temperature between trials and are never eaten. The fondant box and the soup can are sealed shelf-stable goods that are never chilled, so they may return to normal use. The fondant box is the anchor because it is the item most easily mis-sorted: it is a white, dairy-looking soft food, but the physical box used states room-temperature storage, so on_top_of(fondant, pantry baking shelf) tests reading the label rather than guessing from appearance. Cross-links: the canned item is YCB ycb_005_tomato_soup_can, referenced and not redefined. This task supersedes task_thor_r3_groceries_sort_fridge_or_pantry in the thor_round3 draft, which carries the bag in from the front door and sorts chilled versus shelf-stable items into one fridge and one pantry cabinet; that task is rejected in its review in favour of this one, which adds a frozen zone, time-ordered cold-chain checkpoints, and a label-reading decoy. Distinct from single-item storage tasks such as task_thor_r2_lettuce_fridge_shelf_door_closed and task_ycb_round1_sugar_box, which store one item in one known zone; here the robot must sort several items across temperature zones in time order."
     },
     {
       "id": "task_gso_r4_borrowed_gloves_return_owner_bin",
@@ -3136,7 +2992,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round4",
-      "notes": "Goal: both plates stand in separate slots of the drainer, both cups sit mouth-down on the wire base, and the fork, spoon and table knife stand handles-down in the cutlery caddy. Labelled compound: three goal predicates over seven items in one sitting at the sink; nothing is put away and there is no drying stage. in_slots means each plate stands between its own pair of plate wires within 15 degrees of vertical; mouth_down_on means each cup's rim rests on the wire base within 10 degrees of level, so no water pools inside; handles_down_in means each piece stands in a caddy compartment with its handle touching the caddy floor and the knife's blade edge facing away from the reach side. The drainer staying on the mat is a preserved constraint. Related active task: task_gso_r3_drying_rack_unload_bowl_plate_spoons unloads a drying rack into three cupboard stores after a dryness check; this task is the loading step that comes before it, on a different rack with a caddy."
+      "notes": "Goal: both plates stand in separate slots of the drainer, both cups sit mouth-down on the wire base, and the fork, spoon and table knife stand handles-down in the cutlery caddy. Labelled compound: three goal predicates over seven items in one sitting at the sink; nothing is put away and there is no drying stage. in_slots means each plate stands between its own pair of plate wires within 15 degrees of vertical; mouth_down_on means each cup's rim rests on the wire base within 10 degrees of level, so no water pools inside; handles_down_in means each piece stands in a caddy compartment with its handle touching the caddy floor and the knife's blade edge facing away from the reach side. The drainer staying on the mat is a preserved constraint. Related active task: task_gso_r3_drying_rack_unload_bowl_plate_spoons unloads a drying rack into three cupboard stores after a dryness check; this task is the loading step that comes before it, on a different rack with a caddy. Related draft task: task_thor_r3_plate_bowl_cup_rinse_load_cabinet_rack in the thor_round3 draft also stands a plate upright and puts cups mouth-down in a rack, but it is a workflow that fetches the plate from the dining table, rinses three items under the faucet with a residue checkpoint, and loads a pull-out rack inside a closed base cabinet; this task starts with items already rinsed in the sink, never runs the tap, loads an open in-sink-side drainer, and adds a cutlery caddy with a knife-orientation rule."
     },
     {
       "id": "task_gso_r4_gym_bag_pack_from_checklist_card",
@@ -3173,7 +3029,8 @@
         "empty(gso_resource_sports_duffel_bag)",
         "open(gso_resource_sports_duffel_bag)",
         "on_top_of(gso_resource_sports_duffel_bag, gso_resource_hall_staging_bench)",
-        "on_top_of(gso_resource_kit_checklist_card_football, gso_resource_hall_staging_bench)"
+        "on_top_of(gso_resource_kit_checklist_card_football, gso_resource_hall_staging_bench)",
+        "closed(gso_resource_kitchen_fridge_door)"
       ],
       "goal_state": [
         "inside(gso_object_studded_football_boot, gso_resource_drawstring_boot_bag)",
@@ -3206,7 +3063,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round4",
-      "notes": "Goal: both football boots are in the drawstring boot bag inside the duffel's bottom shoe compartment, the blue hand towel and the shin guards are in the main compartment, the capped water bottle stands upright in the side pocket, the duffel is zipped, and it hangs from the entryway hook. Labelled workflow: a gathering stage across three rooms (bedroom closet, bathroom, kitchen fridge) back to the hall staging bench, a checkpoint that lays all five checklist items out beside the card before anything is packed, a packing stage into three separate compartments, a second checkpoint that re-reads the card against the open compartments before zipping (the bag cannot be checked once closed without reopening), and a final carry to the entry hook, so there are several sources, destinations, and checkpoints. upright_in(bottle, pocket) means the bottle's axis is within 20 degrees of vertical with the cap up; closed(bag) means both zips run fully to their end stops; hanging_on means both carry handles are on the hook and the bag hangs clear of the floor. Cross-link: the towel is the active GSO hand towel gso_object_hand_towel_blue_medallion (gso_round2); it is referenced, not redefined. Related active task: task_gso_r3_washcloth_restock_travel_toiletry_kit restocks one toiletry kit against a card at one vanity; this task gathers from three rooms and packs a multi-compartment sports bag. Only one boot is scanned; its mate is a physical boot."
+      "notes": "Goal: both football boots are in the drawstring boot bag inside the duffel's bottom shoe compartment, the blue hand towel and the shin guards are in the main compartment, the capped water bottle stands upright in the side pocket, the duffel is zipped, and it hangs from the entryway hook. Labelled workflow: a gathering stage across three rooms (bedroom closet, bathroom, kitchen fridge) back to the hall staging bench, a checkpoint that lays all five checklist items out beside the card before anything is packed, a packing stage into three separate compartments, a second checkpoint that re-reads the card against the open compartments before zipping (the bag cannot be checked once closed without reopening), and a final carry to the entry hook, so there are several sources, destinations, and checkpoints. upright_in(bottle, pocket) means the bottle's axis is within 20 degrees of vertical with the cap up; closed(bag) means both zips run fully to their end stops; hanging_on means both carry handles are on the hook and the bag hangs clear of the floor. Cross-link: the towel is the active GSO hand towel gso_object_hand_towel_blue_medallion (gso_round2); it is referenced, not redefined. Related active task: task_gso_r3_washcloth_restock_travel_toiletry_kit restocks one toiletry kit against a card at one vanity; this task gathers from three rooms and packs a multi-compartment sports bag. Distinct from task_gso_r4_school_backpack_repack_from_timetable_on_desk_chair in this bundle, which repacks a partly packed school bag in one bedroom by the day row of a timetable, removing an off-timetable item, and leaves it on the desk chair: here the checklist is fixed, the bag starts empty, every item is gathered from a different room, the items go into three separate compartments, and the bag ends on the entryway hook. Only one boot is scanned; its mate is a physical boot."
     },
     {
       "id": "task_gso_r4_work_gloves_rinse_line_dry_clip_hook",
@@ -3266,14 +3123,14 @@
       "notes": "Goal: the large work gloves are free of the chalk soil marks, dry, clipped together as a pair, and hanging on the workshop glove hook. Labelled workflow: three stages at three places with a reset between them. Rinse at the utility sink with a clean checkpoint; hang both gloves cuff-down on the drying line and wait, with a dryness checkpoint before anything else; then carry the dry pair to the workshop, clip it, and hang it. The waiting stage separates the two sittings, which a single-sitting compound task would not have. clean(gloves) means none of the six water-soluble chalk marks drawn on the palms is visible in a close photograph. dry(gloves) means each glove's mass is within 5 percent of its dry mass recorded at setup; with a forced-air fan the wait is at least 60 min. clipped_together means one clip holds both cuffs, aligned within 2 cm; hanging_on means the clip loop is on the hook and the fingers point down. Soil is water-soluble chalk, not real mud or chemicals, and only cold water is used. Related active task: task_gso_r2_rubber_gloves_hang_to_drain drapes rinsed rubber kitchen gloves over a sink caddy to drain in one step; this task covers the full rinse, line-dry, and storage cycle for knit work gloves at a separate workshop hook."
     },
     {
-      "id": "task_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
+      "id": "task_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
       "node_type": "TaskInstance",
       "template_id": "template_gso_r4c_pack_school_bag_from_timetable",
-      "name_en": "Pack the school backpack for Tuesday from the timetable card, zip it, and hang it on the entryway hook",
-      "name_ja": "時間割カードの火曜日の欄を見て通学リュックに持ち物を入れ、ファスナーを閉めて玄関のフックに掛ける",
+      "name_en": "Repack the school backpack from Monday to Tuesday using the timetable card: take out the off-timetable recorder, add Tuesday's books and crayons, zip it, and stand it on the desk chair",
+      "name_ja": "時間割カードを見て通学リュックを月曜から火曜の中身に入れ替える：時間割にないリコーダーを出し、火曜の本とクレヨンを入れ、ファスナーを閉めて机の椅子に置く",
       "intent_id": "intent_organize",
       "object_id": "gso_object_jansport_school_backpack_blue",
-      "scene_id": "scene_multi_room_house",
+      "scene_id": "scene_kids_bedroom",
       "bindings": {
         "theme": "gso_object_jansport_school_backpack_blue",
         "schedule": "gso_resource_timetable_card_tuesday",
@@ -3284,39 +3141,38 @@
         "decoy": "gso_resource_recorder_in_bag_music",
         "source_shelf": "gso_resource_kids_book_shelf",
         "staging": "gso_resource_kids_desk",
-        "hook": "gso_resource_entryway_backpack_hook"
+        "ready_spot": "gso_resource_kids_desk_chair"
       },
       "state_ids": [
         "state_open",
         "state_closed",
         "state_inside_receptacle",
         "state_on_surface",
-        "state_empty"
+        "state_upright"
       ],
       "initial_state": [
-        "empty(gso_object_jansport_school_backpack_blue)",
         "open(gso_object_jansport_school_backpack_blue)",
         "on_top_of(gso_object_jansport_school_backpack_blue, gso_resource_kids_desk)",
+        "inside(gso_resource_maths_workbook, gso_object_jansport_school_backpack_blue)",
+        "inside(gso_resource_recorder_in_bag_music, gso_object_jansport_school_backpack_blue)",
         "on_top_of(gso_resource_timetable_card_tuesday, gso_resource_kids_desk)",
-        "on_top_of(gso_resource_maths_workbook, gso_resource_kids_book_shelf)",
         "on_top_of(gso_resource_reading_book_school, gso_resource_kids_book_shelf)",
         "on_top_of(gso_object_crayon_box_24, gso_resource_kids_book_shelf)",
-        "on_top_of(gso_resource_recorder_in_bag_music, gso_resource_kids_book_shelf)",
         "closed(gso_object_pencil_case_pink)",
         "on_top_of(gso_object_pencil_case_pink, gso_resource_kids_desk)"
       ],
       "goal_state": [
-        "inside(gso_resource_maths_workbook, gso_object_jansport_school_backpack_blue)",
+        "on_top_of(gso_resource_recorder_in_bag_music, gso_resource_kids_book_shelf)",
         "inside(gso_resource_reading_book_school, gso_object_jansport_school_backpack_blue)",
         "inside(gso_object_crayon_box_24, gso_object_jansport_school_backpack_blue)",
         "in_compartment(gso_object_pencil_case_pink, gso_object_jansport_school_backpack_blue, front_pocket)",
         "closed(gso_object_jansport_school_backpack_blue)",
-        "hung_on(gso_object_jansport_school_backpack_blue, gso_resource_entryway_backpack_hook)"
+        "upright_on(gso_object_jansport_school_backpack_blue, gso_resource_kids_desk_chair)"
       ],
       "instruction_variants": [
-        "Look at Tuesday on the timetable card, pack what it lists into the blue backpack, zip it up, and hang it on the hook by the front door.",
-        "Get the school bag ready for Tuesday: maths workbook, reading book, and crayons in the main part, pencil case in the front pocket, and leave anything that isn't on the card.",
-        "時間割カードの火曜日の欄を確認して、必要な物だけを青いリュックに入れ、ファスナーを閉めて玄関のフックに掛けてください。"
+        "The bag still has Monday's things in it. Check Tuesday on the timetable card, take out anything Tuesday doesn't need and put it back on the shelf, add what's missing, zip it, and stand it on the desk chair ready for the morning.",
+        "Swap the school bag over to Tuesday: the recorder comes out, the reading book and crayons go in, the maths workbook stays, pencil case in the front pocket.",
+        "リュックには月曜日の持ち物が入ったままです。時間割カードの火曜日の欄を確認し、火曜日に要らない物は棚に戻し、足りない物を入れて、ファスナーを閉め、机の椅子に立てて置いてください。"
       ],
       "skills": [
         "skill_locate",
@@ -3326,7 +3182,6 @@
         "skill_lift",
         "skill_place",
         "skill_close",
-        "skill_navigate_or_reach",
         "skill_release",
         "skill_verify"
       ],
@@ -3335,7 +3190,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round4",
-      "notes": "Goal: the backpack holds exactly the items the Tuesday row of the timetable card calls for (maths workbook, reading book, crayon box for Art; pencil case every day), with the pencil case in the front pocket, both zips closed, and the bag hanging on the entryway hook. Labelled workflow: three stages in two rooms with a checkpoint. Stage 1 in the child's bedroom reads the card and lays the selected items on the desk; checkpoint: the laid-out items are compared with the card and any extra item goes back to the shelf before packing. Stage 2 packs and zips the bag at the desk. Stage 3 carries it to a second destination, the entryway hook. The card's Tuesday row reads Maths, Reading, Art; Music (the recorder in its bag) is on Wednesday, so the recorder is a decoy that must stay on the shelf, which is a preservation check, not a goal change. Cross-links: gso_object_pencil_case_pink (gso_round1) and gso_object_crayon_box_24 (gso_round1) are referenced, not redefined. Similar active task: task_gso_r1_pencil_case_pack_and_stow packs pens into the pencil case and pockets it in a backpack resource at the desk; here the pencil case arrives already packed and closed, and the goal is schedule-driven selection of several items, rejection of an off-schedule item, and hanging the bag in another room."
+      "notes": "Goal: the backpack changes from Monday's contents to exactly what the Tuesday row of the timetable card calls for: the off-timetable recorder is taken out and back on the bedroom shelf, the reading book and crayon box are added to the main compartment beside the maths workbook that stays in, the pencil case is in the front pocket, both zips are closed, and the bag stands upright on the desk chair ready for the morning. The card's rows read Monday: Maths, Music; Tuesday: Maths, Reading, Art; Wednesday: Music, Maths, PE; the pencil case goes every day. Reading the card therefore changes the goal in both directions: one packed item must come out (the recorder, Music is not on Tuesday), one packed item must stay (the maths workbook, which is on both days and is a preservation check), and two items must go in. Labelled workflow: three stages with two checkpoints, all in the child's bedroom. Stage 1 unpacks: every item in the bag is compared with the Tuesday row and the recorder goes back to the shelf; checkpoint 1: the bag is photographed open and holds only Tuesday items. Stage 2 fetches the reading book and crayon box from the shelf and packs them and the pencil case; checkpoint 2: the open compartments are compared with the card before zipping, because the bag cannot be checked once closed. Stage 3 zips the bag and stands it on the desk chair. Distinct from task_gso_r4_gym_bag_pack_from_checklist_card in this bundle, which gathers a fixed checklist from three rooms into an empty sports bag and hangs it on the entryway hook: here nothing is gathered from other rooms, the bag starts partly packed, the card's day row decides what comes out as well as what goes in, and the bag ends on the bedroom desk chair, not on a hook. Also distinct from task_gso_r3_washcloth_restock_travel_toiletry_kit, which tops up one kit to a fixed list and never removes an item. Cross-links: gso_object_pencil_case_pink (gso_round1) and gso_object_crayon_box_24 (gso_round1) are referenced, not redefined. Similar active task: task_gso_r1_pencil_case_pack_and_stow packs pens into the pencil case and pockets it in a backpack resource at the desk; here the pencil case arrives already packed and closed, and the goal is the day-driven change of the bag's contents."
     },
     {
       "id": "task_gso_r4_library_books_stack_in_return_tote_by_due_date",
@@ -4925,7 +4780,7 @@
         {
           "key": "scene_id",
           "value": "scene_home_kitchen",
-          "reason": "Kitchen with a bottom-freezer refrigerator and a pantry cupboard."
+          "reason": "Kitchen with a bottom-freezer refrigerator (hinged refrigerator door above a pull-out freezer drawer) and a pantry cupboard."
         },
         {
           "key": "object",
@@ -4939,13 +4794,13 @@
         },
         {
           "key": "object",
-          "value": "gso_resource_frozen_peas_bag",
-          "reason": "Sealed 450 g bag of frozen peas, taken from the freezer 5 minutes before the trial."
+          "value": "gso_resource_frozen_peas_bag_gel_pack_surrogate",
+          "reason": "Surrogate for frozen peas: a peas bag with a reusable gel pack sealed inside, labelled FROZEN, stored at -18 degrees C and taken out 5 minutes before the trial; it is never eaten."
         },
         {
           "key": "object",
-          "value": "gso_resource_yogurt_tub_500g",
-          "reason": "Sealed 500 g yogurt tub, refrigerated until the trial."
+          "value": "gso_resource_yogurt_tub_water_filled_surrogate",
+          "reason": "Surrogate for yogurt: a clean 500 g tub filled with water, lid sealed, labelled KEEP REFRIGERATED, stored at 4 degrees C until the trial; it is never eaten."
         },
         {
           "key": "object",
@@ -4954,13 +4809,8 @@
         },
         {
           "key": "object",
-          "value": "gso_resource_freezer_top_drawer",
-          "reason": "Top drawer of the bottom freezer."
-        },
-        {
-          "key": "object",
-          "value": "gso_resource_freezer_door",
-          "reason": "Freezer drawer front, closed at the start."
+          "value": "gso_resource_freezer_drawer",
+          "reason": "Pull-out bottom-freezer drawer, the only freezer closure; closed at the start and pushed shut at the end."
         },
         {
           "key": "object",
@@ -5000,7 +4850,7 @@
         {
           "key": "capability",
           "value": "articulated_closure",
-          "reason": "Opening and closing the freezer drawer and refrigerator door."
+          "reason": "Pulling the freezer drawer open and pushing it shut, and opening and closing the refrigerator door."
         },
         {
           "key": "capability",
@@ -5024,8 +4874,8 @@
         },
         {
           "key": "condition",
-          "value": "all_groceries_sealed",
-          "reason": "Hygiene: nothing is opened and the items return to normal household use."
+          "value": "cold_items_are_non_food_surrogates",
+          "reason": "Hygiene: the frozen and chilled items are sealed non-food surrogates reused across trials, so no food is thawed and refrozen; the fondant box and soup can stay sealed and are never chilled."
         }
       ],
       "procedures": [
@@ -5043,7 +4893,7 @@
             },
             {
               "skill_id": "skill_grasp",
-              "description": "Grasp the frozen peas bag."
+              "description": "Grasp the frozen peas bag (gel-pack surrogate)."
             },
             {
               "skill_id": "skill_open",
@@ -5059,7 +4909,7 @@
             },
             {
               "skill_id": "skill_grasp",
-              "description": "Grasp the yogurt tub."
+              "description": "Grasp the yogurt tub (water-filled surrogate)."
             },
             {
               "skill_id": "skill_open",
@@ -5099,7 +4949,7 @@
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify each zone, both closed doors, and the empty bag."
+              "description": "Verify each zone, the shut freezer drawer and refrigerator door, and the empty bag."
             }
           ],
           "requirements": [],
@@ -5108,18 +4958,18 @@
       ],
       "collection": {
         "success_criteria": [
-          "The peas bag is inside the freezer top drawer, placed within 2 minutes of the bag landing on the counter, from video timestamps.",
+          "The peas bag is inside the freezer drawer, placed within 2 minutes of the grocery bag landing on the counter, from video timestamps.",
           "The yogurt tub stands upright on the refrigerator dairy shelf, placed within 4 minutes, from video timestamps.",
-          "The fondant box stands on the pantry baking shelf and was never placed inside the refrigerator or freezer, from video.",
+          "The fondant box stands on the pantry baking shelf and was never placed inside the refrigerator or freezer drawer, from video.",
           "The soup can stands in the pantry canned-goods row.",
           "The grocery bag holds nothing, from the photograph.",
           "At the end, the freezer drawer is shut flush within 3 mm and the refrigerator door is sealed, with its interior light off (preserved end condition)."
         ],
         "setup": [
-          "Take the peas from the freezer 5 minutes before the trial, pack the peas, yogurt, fondant box and soup can into the bag in random order, set the bag on the counter to start the timer, and close the freezer and refrigerator doors."
+          "Take the gel-pack peas surrogate from the freezer 5 minutes before the trial and the water-filled yogurt surrogate from the refrigerator, pack them with the fondant box and soup can into the bag in random order, make sure the freezer drawer and refrigerator door are shut, and set the bag on the counter to start the timer."
         ],
         "reset": [
-          "Return the peas to the freezer and the yogurt to the refrigerator between trials, repack the bag, and reset the timer."
+          "Return the peas surrogate to the freezer and the yogurt surrogate to the refrigerator between trials, repack the bag, and reset the timer."
         ],
         "quality_checks": [
           "Video with timestamps for the bag landing and each placement.",
@@ -5129,165 +4979,8 @@
           "Peas out of the freezer too long",
           "Fondant put in the refrigerator",
           "Yogurt put in the pantry",
-          "Door left open",
+          "Freezer drawer or refrigerator door left open",
           "Item left in the bag"
-        ],
-        "consumables": [
-          "Frozen peas bag (replaced if thawed)",
-          "Yogurt tub (replaced at its date)"
-        ],
-        "time_estimates": {
-          "setup_minutes": null,
-          "execution_minutes": null,
-          "reset_minutes": null,
-          "review_minutes": null
-        }
-      }
-    },
-    {
-      "id": "planning_gso_r4_moccasin_handover_armchair_heel_first",
-      "task_id": "task_gso_r4_moccasin_handover_armchair_heel_first",
-      "requirements": [
-        {
-          "key": "scene_id",
-          "value": "scene_home_living_room",
-          "reason": "Armchair in a living room with a small shoe tray by the doorway."
-        },
-        {
-          "key": "role",
-          "value": "home_user",
-          "reason": "The recipient is a home user seated in the armchair."
-        },
-        {
-          "key": "object",
-          "value": "gso_object_navy_moccasin_slipper",
-          "reason": "Primary GSO scan; a physical navy suede moccasin is used in the trial."
-        },
-        {
-          "key": "object",
-          "value": "gso_resource_armchair_seated_person",
-          "reason": "Briefed adult participant sitting back in the armchair with both feet on the floor."
-        },
-        {
-          "key": "object",
-          "value": "gso_resource_living_room_armchair",
-          "reason": "Upholstered armchair with armrests about 60 cm above the floor; not a rocking or swivel chair."
-        },
-        {
-          "key": "object",
-          "value": "gso_resource_living_room_shoe_tray",
-          "reason": "Low rubber shoe tray about 3 m from the armchair where the moccasin starts."
-        },
-        {
-          "key": "capability",
-          "value": "human_handover",
-          "reason": "Offering the slipper and releasing it into a person's hand."
-        },
-        {
-          "key": "capability",
-          "value": "rigid_manipulation",
-          "reason": "Lifting the slipper from the tray by its heel collar."
-        },
-        {
-          "key": "condition",
-          "value": "participant_briefed_and_consented",
-          "reason": "Safety: the participant knows the sequence, gives the spoken request that starts the approach, and can say stop at any time."
-        },
-        {
-          "key": "condition",
-          "value": "approach_speed_at_most_0_2_m_s_within_1_m",
-          "reason": "Safety: arm and base speed are limited to 0.2 m/s within 1 m of the person."
-        },
-        {
-          "key": "condition",
-          "value": "offer_point_below_shoulder_height",
-          "reason": "Safety: the gripper stays below the seated person's shoulder and away from their face."
-        },
-        {
-          "key": "condition",
-          "value": "release_on_pull_at_least_3_n",
-          "reason": "Safety: the gripper opens only after a wrist force-torque pull of 3 N or more away from the robot, or a 0.5 s visible grip."
-        },
-        {
-          "key": "condition",
-          "value": "armchair_non_rocking_non_swivel",
-          "reason": "The chair does not move when the person reaches."
-        },
-        {
-          "key": "condition",
-          "value": "moccasin_clean_and_dry",
-          "reason": "Hygiene: the sole is wiped before the trial."
-        }
-      ],
-      "procedures": [
-        {
-          "id": "procedure_gso_r4_moccasin_handover_armchair_heel_first",
-          "label": "Request, low heel-first offer, release on pull",
-          "steps": [
-            {
-              "skill_id": "skill_locate",
-              "description": "Locate the moccasin on the tray, the person, and the armrest they named."
-            },
-            {
-              "skill_id": "skill_grasp",
-              "description": "Grasp the moccasin across the toe box so the heel collar stays free."
-            },
-            {
-              "skill_id": "skill_lift",
-              "description": "Lift it clear of the tray."
-            },
-            {
-              "skill_id": "skill_navigate_or_reach",
-              "description": "After the spoken request, move toward the armchair at no more than 0.2 m/s inside 1 m."
-            },
-            {
-              "skill_id": "skill_orient",
-              "description": "Turn the heel collar toward the person's hand with the sole level."
-            },
-            {
-              "skill_id": "skill_handover",
-              "description": "Hold still at the offer point beside the armrest until the person grips the heel."
-            },
-            {
-              "skill_id": "skill_release",
-              "description": "Open the gripper once a pull of at least 3 N is sensed."
-            },
-            {
-              "skill_id": "skill_verify",
-              "description": "Verify the person holds the moccasin alone and withdraw the arm."
-            }
-          ],
-          "requirements": [],
-          "review_status": "proposed"
-        }
-      ],
-      "collection": {
-        "success_criteria": [
-          "The person holds the moccasin alone after release and it does not drop.",
-          "At the offer, the moccasin was 45-65 cm above the floor and within 25 cm of the person's resting hand, from side video with a height scale.",
-          "At the offer, the heel collar pointed at the person's hand within 30 degrees and the sole was level within 20 degrees.",
-          "The person did not lean forward more than 10 degrees from their seated posture to take it, from side video.",
-          "The gripper opened only after a pull of at least 3 N or a 0.5 s visible grip, from the force log or video.",
-          "The approach started after the spoken request, and speed inside 1 m stayed at or below 0.2 m/s, from the motion log."
-        ],
-        "setup": [
-          "Seat the briefed participant in the armchair with feet on the floor and one hand resting on the named armrest.",
-          "Place the moccasin on the shoe tray in a random orientation.",
-          "Mark the 45-65 cm height band on a side-view scale beside the armrest."
-        ],
-        "reset": [
-          "The participant hands the moccasin back or drops it into the tray; re-randomise its orientation on the tray."
-        ],
-        "quality_checks": [
-          "Side video with the height scale.",
-          "Force-torque and motion logs for release and speed."
-        ],
-        "failure_modes": [
-          "Moccasin released before the person pulls",
-          "Offered toe-first",
-          "Offered beyond seated reach so the person leans",
-          "Approach started before the request",
-          "Gripper passes above shoulder height"
         ],
         "consumables": [],
         "time_estimates": {
@@ -6493,13 +6186,13 @@
       }
     },
     {
-      "id": "planning_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
-      "task_id": "task_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
+      "id": "planning_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
+      "task_id": "task_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
       "requirements": [
         {
           "key": "scene_id",
-          "value": "scene_multi_room_house",
-          "reason": "The items are selected in the child's bedroom and the bag is hung in the entryway."
+          "value": "scene_kids_bedroom",
+          "reason": "Child's bedroom with a low bookshelf, a desk, and a desk chair; the whole task stays in this room."
         },
         {
           "key": "role",
@@ -6524,12 +6217,12 @@
         {
           "key": "object",
           "value": "gso_resource_timetable_card_tuesday",
-          "reason": "A5 printed timetable card with one row per weekday."
+          "reason": "A5 printed timetable card with one row per weekday; the Tuesday row is the target."
         },
         {
           "key": "object",
           "value": "gso_resource_maths_workbook",
-          "reason": "A4 softcover workbook labelled MATHS on the cover."
+          "reason": "A4 softcover workbook labelled MATHS on the cover, packed in the bag at the start; Maths is on both Monday and Tuesday, so it stays."
         },
         {
           "key": "object",
@@ -6539,7 +6232,7 @@
         {
           "key": "object",
           "value": "gso_resource_recorder_in_bag_music",
-          "reason": "Descant recorder in a cloth bag labelled MUSIC (decoy, Wednesday)."
+          "reason": "Descant recorder in a cloth bag labelled MUSIC, packed in the bag at the start as Monday's item; it must come out because Music is not on Tuesday."
         },
         {
           "key": "object",
@@ -6553,8 +6246,8 @@
         },
         {
           "key": "object",
-          "value": "gso_resource_entryway_backpack_hook",
-          "reason": "Wall hook 110-130 cm above the floor beside the front door."
+          "value": "gso_resource_kids_desk_chair",
+          "reason": "Child's four-legged desk chair (not a swivel chair) with a flat seat about 40 cm square, where the packed bag is left ready."
         },
         {
           "key": "capability",
@@ -6574,7 +6267,7 @@
         {
           "key": "condition",
           "value": "packed_backpack_mass_at_most_3_kg",
-          "reason": "Safety: the loaded bag stays within the carry and hook load of the setup."
+          "reason": "Safety: the loaded bag stays light enough to lift onto the chair seat without tipping the chair."
         },
         {
           "key": "condition",
@@ -6584,46 +6277,45 @@
         {
           "key": "condition",
           "value": "backpack_both_zips_fully_open_at_start",
-          "reason": "Setup fact: the main and front zips start at their open end stops."
-        },
-        {
-          "key": "condition",
-          "value": "route_bedroom_to_entryway_clear",
-          "reason": "Setup fact: the corridor is clear of toys and rugs that could snag the bag."
+          "reason": "Setup fact: the main and front zips start at their open end stops, with Monday's items inside the main compartment."
         }
       ],
       "procedures": [
         {
-          "id": "procedure_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
-          "label": "Select at the desk, check against the card, pack, hang",
+          "id": "procedure_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
+          "label": "Unpack off-timetable items, check, pack Tuesday's items, check, zip, leave on the chair",
           "steps": [
             {
               "skill_id": "skill_locate",
-              "description": "Locate the timetable card, the shelf items, the pencil case, and the open bag."
+              "description": "Locate the timetable card, the open bag and its contents, the shelf items, the pencil case, and the desk chair."
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Read the Tuesday row: Maths, Reading, Art."
+              "description": "Read the Tuesday row (Maths, Reading, Art) and compare it with each item in the bag."
             },
             {
               "skill_id": "skill_sort",
-              "description": "Pick the MATHS workbook, READING book, and crayon box off the shelf onto the desk; leave the MUSIC recorder."
+              "description": "Take the MUSIC recorder bag out and put it back on the shelf; leave the MATHS workbook in."
             },
             {
               "skill_id": "skill_verify",
-              "description": "Checkpoint: compare the laid-out items with the card and return any extra item to the shelf."
+              "description": "Checkpoint 1: the open bag holds only Tuesday items."
             },
             {
               "skill_id": "skill_grasp",
-              "description": "Grasp each book by its spine."
+              "description": "Grasp the READING book by its spine and then the crayon box."
             },
             {
               "skill_id": "skill_place",
-              "description": "Stand both books spine-down at the back of the main compartment and put the crayon box in front of them."
+              "description": "Stand the reading book beside the maths workbook at the back of the main compartment and put the crayon box in front of them."
             },
             {
               "skill_id": "skill_place",
               "description": "Put the closed pencil case in the front pocket."
+            },
+            {
+              "skill_id": "skill_inspect",
+              "description": "Checkpoint 2: compare the open compartments with the Tuesday row and the every-day pencil case."
             },
             {
               "skill_id": "skill_close",
@@ -6634,16 +6326,16 @@
               "description": "Lift the bag by its top grab loop."
             },
             {
-              "skill_id": "skill_navigate_or_reach",
-              "description": "Carry it to the entryway hook."
+              "skill_id": "skill_place",
+              "description": "Stand it upright on the desk chair seat, back panel against the chair back."
             },
             {
               "skill_id": "skill_release",
-              "description": "Hang the grab loop on the hook and release once the bag hangs free."
+              "description": "Release the loop once the bag stands on its own."
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify the bag hangs still and the recorder is still on the shelf."
+              "description": "Verify the bag stands still on the chair and the recorder is on the shelf."
             }
           ],
           "requirements": [],
@@ -6652,32 +6344,35 @@
       ],
       "collection": {
         "success_criteria": [
+          "Checkpoint 1 record: a photograph of the open bag after unpacking shows the maths workbook and no recorder.",
+          "Checkpoint 2 record: a photograph of the open compartments before zipping shows the maths workbook, reading book, and crayon box in the main compartment and the pencil case in the front pocket.",
           "Unpacking the bag after the trial finds exactly the maths workbook, the reading book, and the crayon box in the main compartment and the pencil case alone in the front pocket.",
-          "Checkpoint record: a desk photograph taken before packing shows the three card items and the pencil case and no other item.",
+          "The MUSIC recorder bag is on the bedroom shelf.",
           "Both zip pulls sit within 10 mm of their closed end stops, and no item edge shows through a zip gap.",
-          "The bag hangs by its grab loop on the entryway hook with no part touching the floor, and it is still hanging 30 s after release.",
-          "Preservation check: the MUSIC recorder bag is still on the bedroom shelf."
+          "The bag stands upright on the desk chair seat, within 15 degrees of vertical, and is still standing 30 s after release."
         ],
         "setup": [
-          "Print the timetable card with Tuesday reading Maths, Reading, Art and Wednesday reading Music, Maths, PE, and lay it face-up on the desk.",
-          "Put the workbook, reading book, crayon box, and recorder bag on the shelf in random order.",
-          "Lay the empty backpack on the desk with both zips at their open end stops, and the closed pencil case beside it."
+          "Print the timetable card with Monday reading Maths, Music; Tuesday reading Maths, Reading, Art; and Wednesday reading Music, Maths, PE, and lay it face-up on the desk.",
+          "Put the maths workbook and the recorder bag in the backpack's main compartment, leave both zips at their open end stops, and lay the bag on the desk.",
+          "Put the reading book and crayon box on the shelf in random order, the closed pencil case on the desk, and push the desk chair in with its seat clear."
         ],
         "reset": [
-          "Unpack the bag, return the items to the shelf in a new random order, reopen both zips, and bring the bag back to the desk."
+          "Unpack the bag, put the maths workbook and recorder back in it, return the reading book and crayon box to the shelf in a new random order, reopen both zips, and lay the bag on the desk."
         ],
         "quality_checks": [
-          "Desk photograph at the checkpoint.",
+          "Photograph of the open bag at checkpoint 1.",
+          "Photograph of the open compartments at checkpoint 2.",
           "Close-up photograph of both zip ends.",
-          "Entryway photograph of the hanging bag.",
+          "Photograph of the bag on the chair and of the shelf.",
           "Unpacking record listing each compartment's contents."
         ],
         "failure_modes": [
-          "Recorder packed",
+          "Recorder left in the bag",
+          "Maths workbook taken out",
           "Crayon box left on the shelf",
           "Pencil case in the main compartment",
           "Front zip left half open",
-          "Bag slips off the hook"
+          "Bag tips off the chair"
         ],
         "consumables": [],
         "time_estimates": {
@@ -8236,7 +7931,7 @@
       "source_ids": [
         "evidence_gso_task_design_round4"
       ],
-      "scope": "One home kitchen with a bottom-freezer refrigerator and pantry cupboard, anchored to GSO model ReadytoUse_Rolled_Fondant_Pure_White_24_oz_box with a YCB soup can and sealed frozen and chilled groceries.",
+      "scope": "One home kitchen with a bottom-freezer refrigerator (freezer drawer) and pantry cupboard, anchored to GSO model ReadytoUse_Rolled_Fondant_Pure_White_24_oz_box with a YCB soup can and sealed non-food surrogates for the frozen and chilled items.",
       "limitations": "The design seed supports proposed task design only; review and an actual collection trial are still required."
     },
     {
@@ -8273,71 +7968,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "The fondant scan is a closed retail carton as one rigid box; its storage instructions exist only as texture, so a simulator cannot read them as a rule, and the soft 680 g contents are not represented; the frozen and chilled items, the bag, and the freezer and refrigerator with their doors are not GSO models, and item temperatures cannot be represented by any scan."
-    },
-    {
-      "id": "claim_gso_object_navy_moccasin_slipper_catalog_identity",
-      "subject_id": "gso_object_navy_moccasin_slipper",
-      "claim_type": "catalog_identity",
-      "statement": "The Gazebo Fuel GoogleResearch collection lists a Google Scanned Objects model named Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae.",
-      "status": "supported",
-      "value": "Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae",
-      "unit": null,
-      "source_ids": [
-        "evidence_gso_navy_moccasin_slipper_catalog"
-      ],
-      "scope": "Google Scanned Objects model identity on Gazebo Fuel.",
-      "limitations": "This identifies a rigid scanned source model only; it does not establish YCB identity, part articulation, or compatibility with Task Atlas, a simulator, or a robot."
-    },
-    {
-      "id": "claim_gso_r4_moccasin_handover_armchair_heel_first_task_suitability",
-      "subject_id": "task_gso_r4_moccasin_handover_armchair_heel_first",
-      "claim_type": "task_suitability",
-      "statement": "This is a proposed atomic assistive handover: bring a requested moccasin slipper to a person sitting back in an armchair and hand it heel-first beside the armrest.",
-      "status": "proposed",
-      "value": null,
-      "unit": null,
-      "source_ids": [
-        "evidence_gso_task_design_round4"
-      ],
-      "scope": "One living-room armchair setup anchored to GSO model Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae with a briefed seated participant.",
-      "limitations": "The design seed supports proposed suitability only; review and an actual collection trial are still required."
-    },
-    {
-      "id": "claim_gso_r4_moccasin_handover_armchair_heel_first_population_frequency",
-      "subject_id": "task_gso_r4_moccasin_handover_armchair_heel_first",
-      "claim_type": "population_frequency",
-      "statement": "Population frequency for this specific task is unknown.",
-      "status": "unknown",
-      "value": null,
-      "unit": null,
-      "source_ids": [],
-      "scope": "No defined population or observation protocol is attached.",
-      "limitations": "A GSO catalog record and an LLM design proposal are not population-frequency measurements."
-    },
-    {
-      "id": "claim_gso_r4_moccasin_handover_armchair_heel_first_robot_execution",
-      "subject_id": "task_gso_r4_moccasin_handover_armchair_heel_first",
-      "claim_type": "robot_execution",
-      "statement": "Robot execution for this task is unknown.",
-      "status": "unknown",
-      "value": null,
-      "unit": null,
-      "source_ids": [],
-      "scope": "No robot platform or execution record is attached.",
-      "limitations": "A proposed procedure does not demonstrate robot execution."
-    },
-    {
-      "id": "claim_gso_r4_moccasin_handover_armchair_heel_first_asset_compatibility",
-      "subject_id": "task_gso_r4_moccasin_handover_armchair_heel_first",
-      "claim_type": "asset_compatibility",
-      "statement": "Compatibility of GSO model Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae with this armchair handover setup is unknown.",
-      "status": "unknown",
-      "value": null,
-      "unit": null,
-      "source_ids": [],
-      "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "The scan is one rigid moccasin whose catalog name describes a different brown slip-on, so identity must be checked against the physical slipper; the suede upper's give under the gripper and the person's pull on the heel are not represented."
+      "limitations": "The fondant scan is a closed retail carton as one rigid box; its storage instructions exist only as texture, so a simulator cannot read them as a rule, and the soft 680 g contents are not represented; the surrogate peas bag and yogurt tub, the grocery bag, and the refrigerator with its door and freezer drawer are not GSO models, and item temperatures cannot be represented by any scan."
     },
     {
       "id": "claim_gso_object_thinsulate_knit_gloves_brown_catalog_identity",
@@ -8788,22 +8419,22 @@
       "limitations": "The scan fuses the two gloves into one dry rigid mesh, so separating them, water uptake, wringing, drying mass, pegging, and clipping are not represented."
     },
     {
-      "id": "claim_gso_r4_school_backpack_pack_from_timetable_hang_by_door_task_suitability",
-      "subject_id": "task_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
+      "id": "claim_gso_r4_school_backpack_repack_from_timetable_on_desk_chair_task_suitability",
+      "subject_id": "task_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed household workflow that packs a school bag from a printed timetable card in a child's bedroom and hangs it by the front door, for collection design review.",
+      "statement": "This is a proposed household workflow that repacks a school bag from one day's contents to the next day's timetable row in a child's bedroom, removing an off-timetable item and adding the missing ones, and leaves it ready on the desk chair, for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_gso_task_design_round4"
       ],
-      "scope": "One backpack, three schedule items and a pencil case selected from a shelf and desk with one decoy, and one hook in the entryway.",
+      "scope": "One backpack that starts with Monday's items, a printed timetable card, two items added from a shelf, a pencil case from the desk, one off-timetable item removed, and one desk chair, in one child's bedroom.",
       "limitations": "The design seed supports proposed task design only; review and an actual collection trial are still required."
     },
     {
-      "id": "claim_gso_r4_school_backpack_pack_from_timetable_hang_by_door_population_frequency",
-      "subject_id": "task_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
+      "id": "claim_gso_r4_school_backpack_repack_from_timetable_on_desk_chair_population_frequency",
+      "subject_id": "task_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
       "claim_type": "population_frequency",
       "statement": "Population frequency for this specific task is unknown.",
       "status": "unknown",
@@ -8814,8 +8445,8 @@
       "limitations": "The GSO catalog and the design seed are not population-frequency measurements."
     },
     {
-      "id": "claim_gso_r4_school_backpack_pack_from_timetable_hang_by_door_robot_execution",
-      "subject_id": "task_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
+      "id": "claim_gso_r4_school_backpack_repack_from_timetable_on_desk_chair_robot_execution",
+      "subject_id": "task_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
       "claim_type": "robot_execution",
       "statement": "Robot execution for this task is unknown.",
       "status": "unknown",
@@ -8826,8 +8457,8 @@
       "limitations": "A proposed procedure does not demonstrate robot execution."
     },
     {
-      "id": "claim_gso_r4_school_backpack_pack_from_timetable_hang_by_door_asset_compatibility",
-      "subject_id": "task_gso_r4_school_backpack_pack_from_timetable_hang_by_door",
+      "id": "claim_gso_r4_school_backpack_repack_from_timetable_on_desk_chair_asset_compatibility",
+      "subject_id": "task_gso_r4_school_backpack_repack_from_timetable_on_desk_chair",
       "claim_type": "asset_compatibility",
       "statement": "Compatibility of GSO model Jansport_School_Backpack_Blue_Streak with this packing setup is unknown.",
       "status": "unknown",
@@ -8835,7 +8466,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "The backpack scan is a closed rigid shell: it has no opening compartments, zips, soft walls, or interior volume, so packing, zipping, and hanging by a flexing loop cannot be represented by the scan; the workbook, reading book, recorder, card, and hook are not GSO models in this task."
+      "limitations": "The backpack scan is a closed rigid shell: it has no opening compartments, zips, soft walls, or interior volume, so unpacking, packing, zipping, and a soft bag standing on a chair seat cannot be represented by the scan; the workbook, reading book, recorder, card, and chair are not GSO models in this task."
     },
     {
       "id": "claim_gso_r4_library_books_stack_in_return_tote_by_due_date_task_suitability",
@@ -9301,28 +8932,16 @@
     }
   ],
   "draft_notes": [
-    "gso_round4: 24 proposed tasks on 24 further Google Scanned Objects models, adding place setting from a card, leftovers, meal-kit preparation, temperature-zone grocery storage, handovers to seated people, checklist packing, pairing, and a children's school bag.",
-    "gso_round4: eight kitchen, dining, and pantry tasks on eight new Google Scanned Objects models (9-inch round cake pan, tall porcelain pitcher, white-and-yellow tumbler, square salad plate, coupe serving bowl, cocoa pod carton, lime squeezer, rolled fondant box).",
-    "Granularity: three atomic (filled cake pan onto a cold oven rack, water pitcher on a coaster with the handle to the host, drink handover to a seated person), three compound (breakfast place from a written mirrored card, leftovers into a latched container in the refrigerator, pod drawer row refill), two workflow (meal-kit mise en place with inventory and chill checkpoints, groceries put away by temperature zone with timed checkpoints).",
-    "New goals for the atlas: loading a pan into an oven, laying a place from a written card, storing leftovers in a lidded container, meal-kit mise en place, putting groceries away by temperature zone, and handing a filled open drink to a seated person.",
-    "Cross-links (referenced, not redefined): gso_object_bead_coffee_mug (gso_round2) and ycb_031_spoon in the breakfast card task; ycb_005_tomato_soup_can in the groceries task.",
-    "Catalog check: the Room_Essentials_Mug_White_Yellow scan is a handleless tumbler and is named as one; the pod carton and fondant box scans are closed retail cartons, stated in each object's notes and asset-compatibility limitation.",
-    "gso_round4 footwear, clothing, bathroom, and cleaning tasks: eight tasks on eight new Google Scanned Objects models (navy moccasin slipper, brown winter gloves, tall riding boot, turtle toothbrush holder, taupe slip-on shoe, dish drainer, studded football boot, large work gloves). Groups: cleaning_laundry, bathroom_personal_care, footwear_clothing.",
-    "Granularity: 3 atomic (heel-first slipper handover to an armchair, borrowed gloves to the owner's labelled bin, riding boot stood upright), 3 compound (vanity counter reset, six shoes matched into rack pairs, dish drainer loading), 2 workflow (football bag packed from a checklist across three rooms, work gloves rinsed, line-dried to a mass checkpoint, and hung in the workshop).",
-    "New goal families: assistive handover on request to a person with limited reach, returning a borrowed item by owner-name matching, matching mixed shoes into left-right pairs, a post-use bathroom counter reset, and packing a multi-compartment sports bag from a checklist.",
-    "Cross-links (referenced, not redefined): gso_object_curver_woven_storage_bin (gso_round3) is the owner's bin; gso_object_soap_dish (gso_round1) is reset on the vanity; gso_object_hand_towel_blue_medallion (gso_round2) is packed in the football bag. Similar active tasks are linked by ID in each task's notes with the difference stated.",
-    "Thumbnail checks (2026-09-25): Mens_Billfish_Slip_On_in_Coffee_nK6AJJAHOae shows a navy suede moccasin, not the coffee slip-on its name gives, and Circo_Fish_Toothbrush_Holder_14995988 shows a turtle, not a fish; both are named for what the scans show. The two glove models are fused pairs. None of the eight is a retail package.",
-    "Model-name check: all eight asset_source_id values were compared case-insensitively against every active bundle, the drafts in data/drafts, and Lane A's reference_gso_round1.json; none is used there.",
-    "Templates: eight new template_gso_r4b_* templates, each listing its task's scene. Scenes and concepts are all existing (scene_home_living_room, scene_home_entryway, scene_home_bedroom, scene_home_bathroom, scene_home_kitchen, scene_multi_room_house, scene_home_laundry_area; object_footwear, object_clothing, object_receptacle).",
-    "Safety: the handover starts only on the person's request, limits speed to 0.2 m/s within 1 m, keeps below shoulder height, and releases on a 3 N pull; the three wet tasks (counter reset, drainer loading, glove rinse) declare robot_electronics_splash_protected; dishes are melamine and plastic with a round-tipped knife; glove soil is water-soluble chalk rinsed with cold water only. No powered device is used.",
-    "Resource IDs beginning gso_resource_ are planning object requirements, not cataloged ObjectInstances. Every asset_compatibility claim stays unknown and names the task's own asset gap.",
-    "gso_round4 toys, office, electronics, and storage set: eight tasks on eight new Google Scanned Objects models (JanSport school backpack, Eat to Live paperback used as a library book, Smith & Hawken woven three-compartment basket tray, Acer TravelMate P-series laptop, beige plush teddy bear, Markings desk caddy, Pony 1440 C-clamp, Kingston DataTraveler USB drive). Mix: 3 atomic, 3 compound, 2 workflow.",
-    "New goal families: a school bag packed from a timetable card and hung by the door (workflow), library books stacked in a return tote by due date (compound), toys sorted by category with a count audit that gates shelving (workflow), a video-call corner set up with stand, cable, and lamp off (compound), and a soft-toy handover to a seated child-height recipient (atomic). Also a desk caddy sort with points and blades down (compound), a C-clamp tightened in place (atomic), and a USB drive inserted into a laptop port (atomic).",
-    "Cross-links (referenced, not redefined): gso_object_pencil_case_pink and gso_object_crayon_box_24 (gso_round1) are packed in the school bag; ycb_072_toy_airplane, ycb_073_lego_duplo, and ycb_057_racquetball are sorted in the toy tray; thor_object_desk_lamp_1 (thor_round1) is the video-call lamp, with its isToggled mapping stated in the task note. The USB task uses this round's laptop as its host.",
-    "Thumbnail checks (2026-09-25): all eight anchors are loose products, not retail packages. The laptop is scanned open with its hinge fused; the USB drive's cap is fused on; the C-clamp's screw and pad are fused; the teddy bear is scanned lying on its front. Granimals_20_Wooden_ABC_Blocks_Wagon was skipped because its thumbnail does not show a block wagon.",
-    "Model-name check: none of the eight asset_source_id values appears in an active bundle, in data/drafts, or in Lane A's reference_gso_round1.json (case-insensitive).",
-    "Eight new templates (template_gso_r4c_*), each listing its task's scene. No new concept or scene; objects use object_receptacle, object_paper_item, object_electronic_device, object_toy, and object_clamp.",
-    "Safety: the handover uses only an adult proxy or a mannequin, with consent, a 0.15 m/s approach cap, and release on grip or a sustained cradle load; the laptop is powered off and its charger brick sits in a switched-off strip; the lamp is unplugged with a dummy indicator; scissors are blunt-tip and closed; the clamp is torque-limited to hand-tight; toys are all larger than a small-parts cylinder. No task uses water.",
-    "Resource IDs beginning gso_resource_ are planning object requirements, not cataloged ObjectInstances; gso_resource_desk_surface reuses the round-3 name. Every GSO scan is a single rigid mesh, so every asset_compatibility claim stays unknown and names that task's own gap."
+    "gso_round4: 23 proposed tasks on 23 further Google Scanned Objects models, one task per model. Granularity: 8 atomic, 9 compound, 6 workflow.",
+    "Models: kitchen and dining (9-inch round cake pan, tall porcelain pitcher, white-and-yellow tumbler, square salad plate, coupe serving bowl, cocoa pod carton, lime squeezer, rolled fondant box, dish drainer); clothing, footwear, and bathroom (brown knit gloves, tall riding boot, turtle toothbrush holder, taupe slip-on shoe, studded football boot, large work gloves); children, study, office, and tools (JanSport school backpack, Eat to Live paperback used as a library book, woven three-compartment basket tray, Acer TravelMate P-series laptop, beige teddy bear, Markings desk caddy, Pony 1440 C-clamp, Kingston DataTraveler USB drive).",
+    "New goals for the atlas: loading a filled pan into an oven, laying a breakfast place from a mirrored card, storing leftovers in a lidded container, meal-kit mise en place, putting groceries away by temperature zone, handing an open drink or a soft toy to a seated recipient, returning a borrowed item by owner-name matching, matching mixed shoes into left-right pairs, a post-use vanity reset, loading a dish drainer, packing a sports bag from a checklist across rooms, rinsing and line-drying work gloves, repacking a school bag by the next day's timetable row, stacking library books by due date, a toy sort gated by a count audit, a video-call corner set-up, a desk caddy sort, tightening a C-clamp, and inserting a USB drive.",
+    "Cross-links (referenced, not redefined): gso_object_bead_coffee_mug (gso_round2) and ycb_031_spoon in the breakfast place task; ycb_005_tomato_soup_can in the grocery task; gso_object_curver_woven_storage_bin (gso_round3) as the owner's bin; gso_object_soap_dish (gso_round1) on the vanity; gso_object_hand_towel_blue_medallion (gso_round2) in the football bag; gso_object_pencil_case_pink and gso_object_crayon_box_24 (gso_round1) in the school bag; ycb_072_toy_airplane, ycb_073_lego_duplo, and ycb_057_racquetball in the toy tray; thor_object_desk_lamp_1 (thor_round1) as the video-call lamp, with its isToggled mapping stated in the task note. The USB task uses this bundle's laptop as its host.",
+    "Overlaps with similar tasks are stated in each task's notes with the difference. Within this bundle, the football bag and school bag tasks link to each other: the first gathers a fixed checklist from three rooms and hangs the bag by the front door, the second repacks a partly packed bag by the timetable's day row and leaves it on the bedroom desk chair. Against the thor_round3 draft, the grocery task supersedes task_thor_r3_groceries_sort_fridge_or_pantry, and the dish drainer task links task_thor_r3_plate_bowl_cup_rinse_load_cabinet_rack (rinse and cabinet rack versus a no-rinse drainer with a cutlery caddy).",
+    "Catalog and thumbnail check (2026-09-25): Room_Essentials_Mug_White_Yellow is a handleless tumbler and Circo_Fish_Toothbrush_Holder_14995988 is a turtle, and both are named for what the scans show; the cocoa pod carton and the fondant box are closed retail cartons, stated in each object's notes and asset-compatibility limitation; the two glove models are fused pairs, the laptop is scanned open with its hinge fused, the USB drive's cap, and the C-clamp's screw and pad are fused, and the teddy bear is scanned lying on its front. Every other anchor is a loose product. Granimals_20_Wooden_ABC_Blocks_Wagon was skipped because its thumbnail does not show a block wagon.",
+    "Model-name check: every asset_source_id was compared case-insensitively against every active bundle, the drafts in data/drafts, and Lane A's reference_gso_round1.json; none is used there.",
+    "Templates: 23 new templates, one per task, each listing its task's scene. No new scene or object concept is introduced; scenes are scene_dining_table, scene_home_bathroom, scene_home_bedroom, scene_home_entryway, scene_home_kitchen, scene_home_laundry_area, scene_home_living_room, scene_home_office_desk, scene_kids_bedroom, scene_kitchen_counter, scene_multi_room_house, scene_ycb_workshop.",
+    "Safety and hygiene: people take part only in the two seated handovers, both with consent and a briefing, a speed cap near the person (0.25 m/s for the drink, 0.15 m/s for the teddy bear), and release only after the recipient's grip; the teddy bear handover uses an adult proxy or a load-cell mannequin and no children. The drink and the pitcher hold water at or below room temperature. Wet tasks (pitcher, drink handover, vanity reset, dish drainer, glove rinse) declare robot_electronics_splash_protected. Dishes in the drainer are melamine and plastic with a round-tipped knife; glove soil is water-soluble chalk rinsed in cold water. The oven is off and cold with its door pre-opened; the brewer is unplugged; the laptop is powered off with its charger in a switched-off strip; the lamp is unplugged with a dummy indicator. Scissors are blunt-tip and closed, the clamp is torque-limited to hand-tight, and every toy is larger than a small-parts cylinder. Cooked leftovers are cooled and discarded after the trial, and the grocery task's frozen and chilled items are sealed non-food surrogates, so no food is thawed and refrozen.",
+    "Resource IDs beginning gso_resource_ are planning object requirements, not cataloged ObjectInstances. Every GSO scan is a single rigid mesh, so every asset_compatibility claim stays unknown and names that task's own gap.",
+    "Activated 2026-09-25 after an independent Claude review (data/reviews/gso_round4.md) with all findings addressed; the Codex cross-lane review is still pending."
   ]
 }

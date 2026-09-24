@@ -221,36 +221,6 @@
       "notes": "AI2-THOR / ProcTHOR asset Plate_1 of objectType Plate. Asset-database state flags: primaryProperty CanPickup; secondaryProperties Receptacle, CanBeDirty, CanBreak. AI2-THOR has no WordNet synsets, so source_taxonomy repeats the objectType as both category_id and synset_id. The asset ships inside the AI2-THOR Unity build with no per-object mesh download. The simulator's state model (boolean flags) does not establish how a physical product behaves, and does not establish compatibility with Task Atlas, another simulator, or a robot setup. The Atlas concept link object_dish is a curator grouping only. Bounding box about 20.7 x 2.5 x 21.1 cm; split test (listed in FloorPlan1, FloorPlan201). About 21 cm across, so a side plate rather than a dinner plate. Physical collection uses a melamine plate of the same diameter."
     },
     {
-      "id": "thor_object_fridge_7",
-      "node_type": "ObjectInstance",
-      "canonical_name": "wide two-door refrigerator",
-      "name_en": "AI2-THOR Fridge_7 refrigerator",
-      "name_ja": "AI2-THOR Fridge_7 冷蔵庫",
-      "category": "refrigerator",
-      "general_concept_id": "object_kitchen_appliance",
-      "asset_source": "ai2thor_procthor",
-      "asset_source_version": "allenai/procthor commit d4c4c6a9fdd9679c8b9343d771c510016cd310df",
-      "asset_source_id": "Fridge_7",
-      "asset_source_url": "https://raw.githubusercontent.com/allenai/procthor/d4c4c6a9fdd9679c8b9343d771c510016cd310df/procthor/databases/asset-database.json",
-      "source_taxonomy": {
-        "source": "ai2thor_procthor",
-        "category_id": "Fridge",
-        "synset_id": "Fridge"
-      },
-      "affordances": [
-        "openable",
-        "closable",
-        "receptacle",
-        "placeable_inside",
-        "hinged"
-      ],
-      "review_status": "proposed",
-      "generated_by": "llm",
-      "model": "claude-opus-5-5",
-      "generation_version": "thor_round3",
-      "notes": "AI2-THOR / ProcTHOR asset Fridge_7 of objectType Fridge. Asset-database state flags: primaryProperty Static; secondaryProperties Receptacle, CanOpen, isColdSource. AI2-THOR has no WordNet synsets, so source_taxonomy repeats the objectType as both category_id and synset_id. The asset ships inside the AI2-THOR Unity build with no per-object mesh download. The simulator's state model (boolean flags) does not establish how a physical product behaves, and does not establish compatibility with Task Atlas, another simulator, or a robot setup. The Atlas concept link object_kitchen_appliance is a curator grouping only. Bounding box about 116.5 x 202.0 x 79.4 cm closed, 180.1 cm deep with the door open; split train (listed in FloorPlan7). The 116.5 cm width suggests a two-door model, but the asset database does not list door count and THOR drives all doors with one isOpen flag. A second Fridge asset beside thor_object_fridge_1 (thor_round2), used here for sorting groceries between cold and room-temperature storage."
-    },
-    {
       "id": "thor_object_watch_1",
       "node_type": "ObjectInstance",
       "canonical_name": "analog wristwatch",
@@ -1085,74 +1055,6 @@
       "generation_version": "thor_round3"
     },
     {
-      "node_type": "TaskTemplate",
-      "id": "template_thor_r3a_sort_groceries_fridge_or_pantry",
-      "name_en": "Carry a grocery bag in and sort its items into the refrigerator or the pantry cabinet by storage temperature",
-      "name_ja": "買い物袋を運び込み、中身を保存温度に応じて冷蔵庫と食品棚に分けてしまう",
-      "verb": "sort_by_storage_temperature",
-      "roles": {
-        "theme": "refrigerator",
-        "bag": "grocery_bag",
-        "cold_item_1": "chilled_item",
-        "cold_item_2": "chilled_item",
-        "dry_item_1": "shelf_stable_item",
-        "dry_item_2": "shelf_stable_item",
-        "pantry": "pantry_cabinet",
-        "entry_spot": "entry_floor_spot",
-        "counter": "kitchen_counter_spot"
-      },
-      "compatible_scenes": [
-        "scene_multi_room_house"
-      ],
-      "preconditions": [
-        "on_top_of(bag, entry_spot)",
-        "inside(cold_item_1, bag)",
-        "inside(cold_item_2, bag)",
-        "inside(dry_item_1, bag)",
-        "inside(dry_item_2, bag)",
-        "closed(theme)",
-        "closed(pantry)"
-      ],
-      "goals": [
-        "inside(cold_item_1, theme)",
-        "inside(cold_item_2, theme)",
-        "closed(theme)",
-        "inside(dry_item_1, pantry)",
-        "inside(dry_item_2, pantry)",
-        "closed(pantry)",
-        "empty(bag)",
-        "on_top_of(bag, counter)"
-      ],
-      "skills": [
-        "skill_locate",
-        "skill_navigate_or_reach",
-        "skill_grasp",
-        "skill_lift",
-        "skill_place",
-        "skill_sort",
-        "skill_open",
-        "skill_release",
-        "skill_close",
-        "skill_verify"
-      ],
-      "failure_modes": [
-        "item_in_wrong_storage",
-        "fridge_left_open",
-        "cold_items_left_out_too_long",
-        "egg_carton_crushed",
-        "bag_not_emptied"
-      ],
-      "safety_tags": [
-        "food_contact",
-        "pinch_point",
-        "appliance"
-      ],
-      "review_status": "proposed",
-      "generated_by": "llm",
-      "model": "claude-opus-5-5",
-      "generation_version": "thor_round3"
-    },
-    {
       "id": "template_thor_r3b_retrieve_from_under_low_furniture",
       "node_type": "TaskTemplate",
       "name_en": "Retrieve a small item that slid under low furniture into its dish",
@@ -1341,12 +1243,11 @@
     {
       "id": "template_thor_r3b_power_down_desk_devices",
       "node_type": "TaskTemplate",
-      "name_en": "Power down every device on a home-office desk for the evening",
-      "name_ja": "在宅用デスクの機器を夕方にすべて電源オフにする",
+      "name_en": "Power down a home-office desk for the evening: computer off, phone screen off and face down",
+      "name_ja": "在宅用デスクを夕方に片付ける：パソコンを切り、スマートフォンの画面を消して伏せる",
       "verb": "power_down_desk",
       "roles": {
         "theme": "desktop_computer",
-        "lamp": "desk_lamp",
         "phone": "phone"
       },
       "compatible_scenes": [
@@ -1354,13 +1255,12 @@
       ],
       "preconditions": [
         "switched_on(theme)",
-        "switched_on(lamp)",
-        "switched_on(phone)"
+        "screen_lit(phone)",
+        "face_up(phone)"
       ],
       "goals": [
         "switched_off(theme)",
-        "switched_off(lamp)",
-        "switched_off(phone)",
+        "screen_off(phone)",
         "face_down(phone)"
       ],
       "skills": [
@@ -1378,7 +1278,7 @@
         "device_left_on",
         "wrong_button_pressed",
         "phone_dropped",
-        "lamp_knocked_over"
+        "phone_face_down_screen_lit"
       ],
       "safety_tags": [
         "powered",
@@ -1907,13 +1807,12 @@
     {
       "node_type": "TaskTemplate",
       "id": "template_thor_r3c_leave_house_check_doors_taps_light",
-      "name_en": "Walk a fixed leaving-the-house list of taps, door, and light",
-      "name_ja": "外出前の決まった点検リスト（蛇口・扉・照明）を回って確認する",
+      "name_en": "Walk a fixed leaving-the-house list: bathroom tap and light off, living-room double door latched",
+      "name_ja": "外出前の決まった点検リストを回る：洗面所の蛇口と照明を切り、リビングの両開きドアを閉める",
       "verb": "leave_house_check",
       "roles": {
         "theme": "door",
-        "tap_1": "faucet",
-        "tap_2": "faucet",
+        "tap": "faucet",
         "light": "light_switch"
       },
       "compatible_scenes": [
@@ -1921,14 +1820,12 @@
       ],
       "preconditions": [
         "open(theme)",
-        "switched_on(tap_1)",
-        "switched_on(tap_2)",
+        "switched_on(tap)",
         "switched_on(light)"
       ],
       "goals": [
         "closed(theme)",
-        "switched_off(tap_1)",
-        "switched_off(tap_2)",
+        "switched_off(tap)",
         "switched_off(light)"
       ],
       "skills": [
@@ -2151,7 +2048,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round3",
-      "notes": "Compound: four net changes (the front-left and back-right burners, the faucet, and the toaster go from on to off) plus two preserved end-state constraints (the front-right and back-left burners are checked and must stay off), over three devices in one kitchen and one sitting. The stove, sink, and toaster are within a few steps of each other with no reset between them, and checking the stove first is an ordering constraint, so this is not a workflow. Which burners start on is drawn at random per episode from the four; the example above is one draw. THOR mapping: switched_on/off(burner) <-> StoveBurner isToggled, which THOR drives through the paired StoveKnob, so the knob-to-burner pairing for all four positions must be confirmed (planning condition thor_all_four_knob_burner_pairings_confirmed_in_simulator); switched_off(thor_object_kitchen_faucet_3) <-> Faucet isToggled=false; switched_off(thor_object_toaster_1) <-> Toaster isToggled=false. StoveBurner and StoveKnob are iTHOR room-prefab parts, not asset-database entries, so they are planning resources. Cross-link: the toaster is thor_object_toaster_1 (thor_round1, anchor of task_thor_r1_toaster_bread_slice_switch_on). Related: task_thor_r1_house_lights_off_before_leaving switches off lights across three rooms; task_thor_r2_potato_slice_pan_cook_burner_off turns off the one burner it used; this task is a whole-stove check plus water and toaster in one kitchen. Physical collection: the hob is isolated (gas valve shut or breaker off) and each knob drives a battery dummy indicator that stands in for its burner; the toaster is unplugged, its lever held down by a latch clip that the cancel button releases, with a dummy indicator on the lever; the faucet runs cold."
+      "notes": "Compound: four net changes (the front-left and back-right burners, the faucet, and the toaster go from on to off) plus two preserved end-state constraints (the front-right and back-left burners are checked and must stay off), over three devices in one kitchen and one sitting. The stove, sink, and toaster are within a few steps of each other with no reset between them, and checking the stove first is an ordering constraint, so this is not a workflow. Which burners start on is drawn at random per episode from the four; the example above is one draw. THOR mapping: switched_on/off(burner) <-> StoveBurner isToggled, which THOR drives through the paired StoveKnob, so the knob-to-burner pairing for all four positions must be confirmed (planning condition thor_all_four_knob_burner_pairings_confirmed_in_simulator); switched_off(thor_object_kitchen_faucet_3) <-> Faucet isToggled=false; switched_off(thor_object_toaster_1) <-> Toaster isToggled=false. StoveBurner and StoveKnob are iTHOR room-prefab parts, not asset-database entries, so they are planning resources. Cross-link: the toaster is thor_object_toaster_1 (thor_round1, anchor of task_thor_r1_toaster_bread_slice_switch_on). Related: task_thor_r1_house_lights_off_before_leaving switches off lights across three rooms; task_thor_r2_potato_slice_pan_cook_burner_off turns off the one burner it used; this task is a whole-stove check plus water and toaster in one kitchen. task_thor_r3_leave_house_check_doors_taps_light is the matching check for the rest of the house (bathroom tap and light, living-room patio door) and deliberately leaves the kitchen to this task. Physical collection: the hob is isolated (gas valve shut or breaker off) and each knob drives a battery dummy indicator that stands in for its burner; the toaster is unplugged, its lever held down by a latch clip that the cancel button releases, with a dummy indicator on the lever; the faucet runs cold."
     },
     {
       "id": "task_thor_r3_bread_lettuce_sandwich_on_plate",
@@ -2341,78 +2238,6 @@
       "notes": "Workflow: three stages at three locations with a gate between rinsing and loading. Stage 1, fetch: the plate is carried from the dining table to the sink (3 m). Stage 2, rinse: the plate, bowl, and cup are rinsed under the faucet and the faucet is turned off; checkpoint: each item passes the residue check before it may be loaded, and an item that fails goes back under the faucet (a stage reset). Stage 3, load: the base cabinet is opened, the rack is pulled out, the plate goes upright into the plate tines and the bowl and cup mouth-down on the cup side, and the rack is pushed in and the cabinet closed. Net changes: three clean states, three rack placements, and the plate, bowl, and cup orientations; closed(cabinet) and switched_off(faucet) hold at start and end and are preserved end-state constraints with transient articulations. The rack in the base cabinet is a dishwasher-style surrogate: THOR has no Dishwasher or DishRack type, so the rack is a planning resource inside a THOR Cabinet. THOR mapping: dirty/clean <-> isDirty true/false (THOR clears isDirty for an object in a SinkBasin under a toggled-on Faucet, or by CleanObject; the mechanism must be confirmed, planning condition thor_isdirty_cleared_by_running_faucet_confirmed_in_simulator); inside(x, rack) <-> x's parentReceptacles contains the Cabinet (the rack itself has no THOR counterpart); upright and mouth_down have no THOR state and are read from rotation; closed(cabinet) <-> Cabinet isOpen=false; switched_off(faucet) <-> Faucet isToggled=false. Cross-links: the table is thor_object_dining_table_16_1 and the faucet thor_object_kitchen_faucet_1. Related: task_thor_r2_dining_table_clear_to_sink_and_cabinet ends with dishes in the sink, still dirty; this task continues from there to rinsing and racking. task_gso_r3_drying_rack_unload_bowl_plate_spoons is the reverse direction (unloading a drying rack), and task_ycb_round5_plate_rim_separation checks one plate in a rack slot. Physical collection uses melamine dishes, a water-soluble UV-fluorescent residue surrogate, cold water, and a pull-out wire rack on the base-cabinet floor."
     },
     {
-      "id": "task_thor_r3_groceries_sort_fridge_or_pantry",
-      "node_type": "TaskInstance",
-      "template_id": "template_thor_r3a_sort_groceries_fridge_or_pantry",
-      "name_en": "Bring the grocery bag in from the front door and put the milk and eggs in the fridge and the canned soup and bread in the pantry cabinet",
-      "name_ja": "玄関の買い物袋をキッチンに運び、牛乳と卵は冷蔵庫へ、缶詰とパンは食品棚へしまう",
-      "intent_id": "intent_store",
-      "object_id": "thor_object_fridge_7",
-      "scene_id": "scene_multi_room_house",
-      "bindings": {
-        "theme": "thor_object_fridge_7",
-        "bag": "thor_resource_grocery_bag",
-        "cold_item_1": "thor_resource_milk_carton",
-        "cold_item_2": "thor_resource_egg_carton",
-        "dry_item_1": "ycb_002_master_chef_can",
-        "dry_item_2": "thor_resource_bagged_bread",
-        "pantry": "thor_resource_pantry_cabinet",
-        "entry_spot": "thor_resource_front_door_bag_spot",
-        "counter": "thor_resource_kitchen_bag_spot"
-      },
-      "state_ids": [
-        "state_inside_receptacle",
-        "state_on_surface",
-        "state_open",
-        "state_closed",
-        "state_empty",
-        "state_upright"
-      ],
-      "initial_state": [
-        "on_top_of(thor_resource_grocery_bag, thor_resource_front_door_bag_spot)",
-        "inside(thor_resource_milk_carton, thor_resource_grocery_bag)",
-        "inside(thor_resource_egg_carton, thor_resource_grocery_bag)",
-        "inside(ycb_002_master_chef_can, thor_resource_grocery_bag)",
-        "inside(thor_resource_bagged_bread, thor_resource_grocery_bag)",
-        "closed(thor_object_fridge_7)",
-        "closed(thor_resource_pantry_cabinet)"
-      ],
-      "goal_state": [
-        "inside(thor_resource_milk_carton, thor_object_fridge_7)",
-        "upright(thor_resource_milk_carton)",
-        "inside(thor_resource_egg_carton, thor_object_fridge_7)",
-        "closed(thor_object_fridge_7)",
-        "inside(ycb_002_master_chef_can, thor_resource_pantry_cabinet)",
-        "inside(thor_resource_bagged_bread, thor_resource_pantry_cabinet)",
-        "closed(thor_resource_pantry_cabinet)",
-        "empty(thor_resource_grocery_bag)",
-        "on_top_of(thor_resource_grocery_bag, thor_resource_kitchen_bag_spot)"
-      ],
-      "instruction_variants": [
-        "Bring the shopping in from the front door. Milk and eggs go in the fridge, the can and the bread in the pantry cupboard. Close both.",
-        "Put the groceries away: cold stuff in the fridge first, then the shelf-stable things in the pantry.",
-        "玄関の買い物袋をキッチンに運んで、牛乳と卵は冷蔵庫に、缶詰とパンは食品棚にしまってください。どちらの扉も閉めてください。"
-      ],
-      "skills": [
-        "skill_locate",
-        "skill_navigate_or_reach",
-        "skill_grasp",
-        "skill_lift",
-        "skill_place",
-        "skill_sort",
-        "skill_open",
-        "skill_release",
-        "skill_close",
-        "skill_verify"
-      ],
-      "granularity": "workflow",
-      "review_status": "proposed",
-      "generated_by": "llm",
-      "model": "claude-opus-5-5",
-      "generation_version": "thor_round3",
-      "notes": "Workflow: two rooms and three destinations in three stages with a timed checkpoint. Stage 1, carry: the bag goes from the front-door spot to the kitchen counter spot. Stage 2, cold storage: the milk carton (upright) and the egg carton go into the fridge and the fridge is closed; checkpoint: the fridge door is closed within 5 minutes of the bag reaching the counter, and total door-open time is under 90 s. Stage 3, pantry: the can and the bagged bread go into the pantry cabinet and it is closed; the bag ends empty on the counter. Storage rule, given in setup: items the shop sold chilled (milk, eggs) go in the fridge; shelf-stable items (canned soup, bread) go in the pantry. refrigerated is not a goal: it takes time and is not observable at episode end. Net changes: the bag moved to the counter spot and emptied, four item placements, and the milk's upright pose; closed(fridge) and closed(pantry) hold at start and end and are preserved end-state constraints with transient articulations. THOR mapping: inside(x, thor_object_fridge_7) <-> x's parentReceptacles contains the Fridge; closed(thor_object_fridge_7) <-> Fridge isOpen=false, which covers every door of the wide two-door model at once (planning condition thor_fridge_7_one_isopen_for_all_doors); inside(x, pantry cabinet) <-> x's parentReceptacles contains the Cabinet; closed(pantry) <-> Cabinet isOpen=false. THOR has no milk carton, egg carton, canned food, bagged bread, or shopping bag types, so those items are planning resources (or the YCB can) placed as generic pickups or not simulated (planning condition thor_has_no_grocery_item_or_shopping_bag_types). Cross-link: the can is ycb_002_master_chef_can. Related: task_ycb_round1_master_chef_can restocks the can on a pantry shelf, and task_thor_r2_lettuce_fridge_shelf_door_closed puts one item on a fridge shelf; this task sorts a mixed bag between cold and room-temperature storage after carrying it in. Physical collection uses a real refrigerator, empty rinsed cartons weighted to their full mass with sealed water pouches, and plastic eggs in the egg carton."
-    },
-    {
       "id": "task_thor_r3_watch_under_sofa_into_trinket_dish",
       "node_type": "TaskInstance",
       "template_id": "template_thor_r3b_retrieve_from_under_low_furniture",
@@ -2599,20 +2424,19 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round3",
-      "notes": "Goal: the alarm clock's alarm is off (not snoozed), the bedside lamp is off, and the blinds are raised with the bottom rail at least 1.2 m above the sill, i.e. the window is uncovered. Labelled compound: three device and fixture state changes on three objects in one room and one sitting, with no ordering gate between them. on_top_of(clock, nightstand) holds at start and end and is a preserved constraint. Cross-link: the blinds are the thor_round1 ObjectInstance thor_object_blinds_1. Related active tasks: task_thor_r1_blinds_close lowers the same blinds (the opposite state); task_gso_r3_alarm_clock_set_six_thirty sets an alarm pointer on a different clock, while this task silences a sounding alarm; task_thor_r1_desk_lamp_switch_off is a single lamp. Power policy: the clock is a battery clock whose buzzer is disconnected and whose alarm-active LED stands in for the sound; the lamp is a battery LED lamp; nothing is on mains. THOR mapping: switched_off(lamp) <-> DeskLamp isToggled=false. AlarmClock has no toggle flag, so alarm_off has no THOR equivalent and is judged only by the dummy LED. open(blinds) is unresolved: the asset database gives Blinds_1 a 0.20 m tall default box and a 1.47 m tall 'open' box, so raised blinds are probably isOpen=false in THOR, the reverse of the Atlas predicate. Both mappings are planning conditions and asset_compatibility limitations."
+      "notes": "Goal: the alarm clock's alarm is off (not snoozed), the bedside lamp is off, and the blinds are raised with the bottom rail at least 1.2 m above the sill, i.e. the window is uncovered. Labelled compound: three device and fixture state changes on three objects in one room and one sitting, with no ordering gate between them. on_top_of(clock, nightstand) holds at start and end and is a preserved constraint. Cross-link: the blinds are the thor_round1 ObjectInstance thor_object_blinds_1. Related active tasks: task_thor_r1_blinds_close lowers the same blinds (the opposite state); task_gso_r3_alarm_clock_set_six_thirty sets an alarm pointer on a different clock, while this task silences a sounding alarm; task_thor_r1_desk_lamp_switch_off is a single lamp. Power policy: the clock is a battery clock whose buzzer is disconnected and whose alarm-active LED stands in for the sound; the lamp is a battery LED lamp; nothing is on mains. THOR mapping: switched_off(lamp) <-> DeskLamp isToggled=false. AlarmClock has no toggle flag, so alarm_off has no THOR equivalent and is judged only by the dummy LED. open(blinds) has no confirmed THOR value: which isOpen value is the raised pose is unresolved, so this task gates on the thor_round1 planning condition thor_blinds_isopen_pose_confirmed_in_simulator, the same check as task_thor_r1_blinds_close, and the bounding-box reasoning is kept in the asset_compatibility limitation. The alarm mapping is the planning condition thor_alarm_clock_has_no_toggle_state and a limitation."
     },
     {
       "id": "task_thor_r3_office_desk_power_down_evening",
       "node_type": "TaskInstance",
       "template_id": "template_thor_r3b_power_down_desk_devices",
-      "name_en": "Power down the home-office desk for the evening: desktop computer off, desk lamp off, and the phone off and face down",
-      "name_ja": "夕方に在宅デスクの電源を落とす：デスクトップパソコンとデスクランプを消し、スマートフォンも電源を切って伏せて置く",
+      "name_en": "Power down the home-office desk for the evening: desktop computer off, and the phone's screen off with the phone face down",
+      "name_ja": "夕方に在宅デスクの電源を落とす：デスクトップパソコンを切り、スマートフォンの画面を消して伏せて置く",
       "intent_id": "intent_set_device_state",
       "object_id": "thor_object_desktop_316_1",
       "scene_id": "scene_home_office_desk",
       "bindings": {
         "theme": "thor_object_desktop_316_1",
-        "lamp": "thor_object_desk_lamp_1",
         "phone": "thor_resource_desk_phone"
       },
       "state_ids": [
@@ -2620,22 +2444,20 @@
       ],
       "initial_state": [
         "switched_on(thor_object_desktop_316_1)",
-        "switched_on(thor_object_desk_lamp_1)",
-        "switched_on(thor_resource_desk_phone)",
+        "screen_lit(thor_resource_desk_phone)",
         "face_up(thor_resource_desk_phone)",
         "on_top_of(thor_resource_desk_phone, thor_resource_home_office_desk_top)"
       ],
       "goal_state": [
         "switched_off(thor_object_desktop_316_1)",
-        "switched_off(thor_object_desk_lamp_1)",
-        "switched_off(thor_resource_desk_phone)",
+        "screen_off(thor_resource_desk_phone)",
         "face_down(thor_resource_desk_phone)",
         "on_top_of(thor_resource_desk_phone, thor_resource_home_office_desk_top)"
       ],
       "instruction_variants": [
-        "End of the work day: switch off the computer and the desk lamp, and turn the phone off and lay it face down.",
-        "Shut the desk down for the night: PC off, lamp off, phone off and screen down.",
-        "仕事終わりなので、パソコンとデスクランプを消して、スマホも電源を切って伏せておいてください。"
+        "End of the work day: switch off the computer, then lock the phone so its screen goes dark and lay it face down.",
+        "Shut the desk down for the night: PC off, phone screen off and screen down.",
+        "仕事終わりなので、パソコンを切って、スマホの画面を消して伏せておいてください。"
       ],
       "skills": [
         "skill_locate",
@@ -2653,7 +2475,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round3",
-      "notes": "Goal: the desktop computer, the desk lamp, and the phone are all off, and the phone lies face down on the desk. Labelled compound: four predicates on three devices at one desk in one sitting; the only object handled is the phone, which is turned over in place. on_top_of(phone, desk) is a preserved constraint. Cross-link: the lamp is the thor_round1 ObjectInstance thor_object_desk_lamp_1. Related active task: task_thor_r1_desk_clear_for_night closes a laptop, stows a pen and pencil in a mug, and switches the same kind of lamp off; this task stows nothing and instead sets three device power states, including a desktop computer and a phone. Power policy: the desktop is a decommissioned unit or dummy whose power button drives a battery power LED, the lamp is battery powered, and the phone is a wiped decommissioned handset or dummy whose battery screen-LED stands in for power; nothing is on mains and no operating system is shut down. THOR mapping: switched_off(desktop) <-> Desktop isToggled=false; switched_off(lamp) <-> DeskLamp isToggled=false; switched_off(phone) <-> CellPhone isToggled=false, which THOR defines as the screen, not device power, so the Atlas predicate is judged on the dummy's LED; face_down has no flag and is read from the phone's rotation (screen normal pointing down within 15 degrees). These mappings are planning conditions and asset_compatibility limitations."
+      "notes": "Goal: the desktop computer is off, and the phone's screen is off with the phone lying face down on the desk. The phone goal is screen off (locked), not device power off, because that is what the THOR mapping can check. Labelled compound: three net changes on two devices at one desk in one sitting; the only object handled is the phone, which is turned over in place. on_top_of(phone, desk) is a preserved end-state constraint. The desk lamp is deliberately not part of this task: thor_object_desk_lamp_1 is already switched off in task_thor_r1_desk_lamp_switch_off, task_thor_r1_house_lights_off_before_leaving, and task_thor_r1_desk_clear_for_night. Related active task: task_thor_r1_desk_clear_for_night closes a laptop, stows a pen and pencil in a mug, and switches the lamp off; this task stows nothing and instead powers down a desktop computer and sets a phone screen-off and face down. Power policy: the desktop is a decommissioned unit or dummy whose power button drives a battery power LED, and the phone is a wiped decommissioned handset or dummy whose battery screen LED stands in for the screen; nothing is on mains and no operating system is shut down. THOR mapping: switched_off(desktop) <-> Desktop isToggled=false; screen_off(phone) <-> CellPhone isToggled=false, which THOR defines as the screen, matching this goal; THOR has no device-power state for the phone. face_down has no flag and is read from the phone's rotation (screen normal pointing down within 15 degrees). These mappings are planning conditions and asset_compatibility limitations."
     },
     {
       "id": "task_thor_r3_guest_bed_pillows_towel_lamp",
@@ -3205,15 +3027,14 @@
       "id": "task_thor_r3_leave_house_check_doors_taps_light",
       "node_type": "TaskInstance",
       "template_id": "template_thor_r3c_leave_house_check_doors_taps_light",
-      "name_en": "Before the resident leaves, walk the fixed check list: kitchen tap off, bathroom tap off, bathroom light off, and the living-room double door closed",
-      "name_ja": "住人の外出前に決まった点検リストを回る：台所の蛇口、洗面所の蛇口、浴室の照明を切り、リビングの両開きドアを閉める",
+      "name_en": "Before the resident leaves, walk the fixed check list: bathroom tap off, bathroom light off, and the living-room patio double door closed and latched",
+      "name_ja": "住人の外出前に決まった点検リストを回る：洗面所の蛇口と浴室の照明を切り、リビングの掃き出し両開きドアを閉めて施錠位置までかける",
       "intent_id": "intent_set_device_state",
       "object_id": "thor_object_doorway_double_1",
       "scene_id": "scene_multi_room_house",
       "bindings": {
         "theme": "thor_object_doorway_double_1",
-        "tap_1": "thor_object_kitchen_faucet_1",
-        "tap_2": "thor_resource_sink_faucet_lever",
+        "tap": "thor_resource_sink_faucet_lever",
         "light": "thor_object_light_switch_25"
       },
       "state_ids": [
@@ -3222,20 +3043,18 @@
       ],
       "initial_state": [
         "open(thor_object_doorway_double_1)",
-        "switched_on(thor_object_kitchen_faucet_1)",
         "switched_on(thor_resource_sink_faucet_lever)",
         "switched_on(thor_object_light_switch_25)"
       ],
       "goal_state": [
         "closed(thor_object_doorway_double_1)",
-        "switched_off(thor_object_kitchen_faucet_1)",
         "switched_off(thor_resource_sink_faucet_lever)",
         "switched_off(thor_object_light_switch_25)"
       ],
       "instruction_variants": [
         "I'm heading out; do the leaving check.",
-        "Turn off the kitchen and bathroom taps, switch off the bathroom light, and close both leaves of the living-room double door.",
-        "出かけるので、台所と洗面所の蛇口、浴室の電気を切り、リビングの両開きドアを閉めておいてください。"
+        "Turn off the bathroom tap, switch off the bathroom light, and close and latch both leaves of the living-room patio door.",
+        "出かけるので、洗面所の蛇口と浴室の電気を切って、リビングの両開きの掃き出しドアを閉めておいてください。"
       ],
       "skills": [
         "skill_navigate_or_reach",
@@ -3250,7 +3069,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round3",
-      "notes": "Workflow: four goal changes at four destinations in three rooms (kitchen, bathroom, living room), with an inspection checkpoint per room before moving on and a final report of the four items. Scope is exactly this list; the front door the resident leaves by is theirs to lock and is not part of the task. Tolerances: a tap is off when no drop falls from the spout for 30 s; the double door is closed when both leaves are latched flush with no more than 5 mm gap at the meeting stiles. Atlas-to-THOR mapping: switched_on/off = isToggled on the Faucets and the LightSwitch; open/closed = isOpen on the Doorway. Doorway_Double_1 has one isOpen flag for both leaves and no latch state, and whether CloseObject acts on a generated doorway is unconfirmed; this is the planning condition thor_double_doorway_single_isopen_flag and an asset_compatibility limitation. Cross-links: thor_object_kitchen_faucet_1 (thor_round1) and thor_object_light_switch_25 (task_thor_r3_bathroom_light_switch_on_for_night_visit). Differs from task_thor_r1_house_lights_off_before_leaving (four lights only) and task_thor_r2_bathroom_close_left_open_items (openables in one room): this list mixes water, a light, and a door across three rooms. Safety: taps run cold at a low flow; the robot must navigate with the bathroom light going off, so it switches that light off last in the bathroom and uses its own light or depth sensing; the double door has a clear pinch zone at the meeting stiles and hinges."
+      "notes": "Workflow: three goal changes in two rooms (bathroom, then living room), with an inspection checkpoint per room before moving on, an ordering rule inside the bathroom (tap first, light last), and a final report of the three items. Scope is exactly this list; the front door the resident leaves by is theirs to lock and is not part of the task. Tolerances: the tap is off when no drop falls from the spout for 30 s; the patio double door is closed when both leaves are latched flush with no more than 5 mm gap at the meeting stiles. Atlas-to-THOR mapping: switched_on/off = isToggled on the Faucet and the LightSwitch; open/closed = isOpen on the Doorway. Doorway_Double_1 has one isOpen flag for both leaves and no latch state, and whether CloseObject acts on a generated doorway is unconfirmed; this is the planning condition thor_double_doorway_single_isopen_flag and an asset_compatibility limitation. Cross-link: thor_object_light_switch_25 is anchored in task_thor_r3_bathroom_light_switch_on_for_night_visit. How this differs from the other leaving and switch-off sweeps: task_thor_r1_house_lights_off_before_leaving switches off four lights (desk lamp, bedroom, kitchen, living room) and touches no water or door; task_thor_r2_bathroom_close_left_open_items closes the bathroom door, vanity cabinet and drawer, and toilet lid in one room and touches no tap or light; task_thor_r3_kitchen_burners_faucet_toaster_off_before_leaving is the kitchen's heat-and-water check (stove, kitchen faucet, toaster), so the kitchen is deliberately left out of this list. This task covers what those leave open: the bathroom's running water and light, and the living room's outside-facing double door. Safety: the tap runs cold at a low flow; the robot must navigate with the bathroom light going off, so it switches that light off last in the bathroom and uses its own light or depth sensing; the double door has a clear pinch zone at the meeting stiles and hinges."
     }
   ],
   "planning": [
@@ -4518,254 +4337,6 @@
       }
     },
     {
-      "id": "planning_thor_r3_groceries_sort_fridge_or_pantry",
-      "task_id": "task_thor_r3_groceries_sort_fridge_or_pantry",
-      "requirements": [
-        {
-          "key": "scene_id",
-          "value": "scene_multi_room_house",
-          "reason": "House with the front door 6-10 m from a kitchen that has a refrigerator and a pantry cabinet."
-        },
-        {
-          "key": "object",
-          "value": "thor_object_fridge_7",
-          "reason": "Primary THOR asset; a real two-door refrigerator for physical collection."
-        },
-        {
-          "key": "object",
-          "value": "thor_resource_grocery_bag",
-          "reason": "Reusable shopping bag with two handles, holding the four items."
-        },
-        {
-          "key": "object",
-          "value": "thor_resource_milk_carton",
-          "reason": "1 L milk carton, emptied and weighted with a sealed water pouch, cap taped."
-        },
-        {
-          "key": "object",
-          "value": "thor_resource_egg_carton",
-          "reason": "Six-egg carton holding plastic eggs."
-        },
-        {
-          "key": "object",
-          "value": "ycb_002_master_chef_can",
-          "reason": "The YCB Master Chef can as the canned item."
-        },
-        {
-          "key": "object",
-          "value": "thor_resource_bagged_bread",
-          "reason": "Bagged sliced loaf, bag closed with a clip."
-        },
-        {
-          "key": "object",
-          "value": "thor_resource_pantry_cabinet",
-          "reason": "Wall or tall cabinet with a hinged door and a free shelf area at least 30 x 25 cm."
-        },
-        {
-          "key": "object",
-          "value": "thor_resource_front_door_bag_spot",
-          "reason": "Floor spot inside the front door where the bag starts."
-        },
-        {
-          "key": "object",
-          "value": "thor_resource_kitchen_bag_spot",
-          "reason": "Counter spot where the bag is set down and left empty."
-        },
-        {
-          "key": "capability",
-          "value": "rigid_manipulation",
-          "reason": "Carrying the bag and placing boxed and canned items."
-        },
-        {
-          "key": "capability",
-          "value": "deformable_manipulation",
-          "reason": "Handling the soft bread bag and the bag handles."
-        },
-        {
-          "key": "capability",
-          "value": "articulated_closure",
-          "reason": "Opening and closing the fridge and pantry doors."
-        },
-        {
-          "key": "capability",
-          "value": "visual_inspection",
-          "reason": "Checking each item's destination and the doors."
-        },
-        {
-          "key": "condition",
-          "value": "hinge_side_pinch_zone_clear",
-          "reason": "Safety: no hand or cable in a hinge gap while either door closes."
-        },
-        {
-          "key": "condition",
-          "value": "plastic_eggs_in_carton",
-          "reason": "The egg carton holds plastic eggs, so a squeeze or drop leaves no raw egg."
-        },
-        {
-          "key": "condition",
-          "value": "weighted_empty_milk_carton",
-          "reason": "The milk carton is empty and weighted to about 1 kg with a sealed water pouch, so it cannot spill."
-        },
-        {
-          "key": "condition",
-          "value": "route_clear_between_rooms",
-          "reason": "The route from the front door to the kitchen is free of obstacles and people."
-        },
-        {
-          "key": "condition",
-          "value": "thor_fridge_7_one_isopen_for_all_doors",
-          "reason": "Fridge_7 is wide enough for two doors, but THOR has one isOpen flag; a simulated check cannot tell which door was used or whether one was left ajar."
-        },
-        {
-          "key": "condition",
-          "value": "thor_has_no_grocery_item_or_shopping_bag_types",
-          "reason": "THOR has no milk carton, egg carton, canned food, bagged bread, or shopping bag types; in simulation these are stand-in pickups or are left out."
-        }
-      ],
-      "procedures": [
-        {
-          "id": "procedure_thor_r3_groceries_sort_fridge_or_pantry",
-          "label": "Carry, cold first, then pantry",
-          "steps": [
-            {
-              "skill_id": "skill_locate",
-              "description": "Locate the bag at the front door."
-            },
-            {
-              "skill_id": "skill_grasp",
-              "description": "Grasp both bag handles."
-            },
-            {
-              "skill_id": "skill_navigate_or_reach",
-              "description": "Carry the bag to the kitchen counter spot."
-            },
-            {
-              "skill_id": "skill_sort",
-              "description": "Take items out one at a time and sort them by the storage rule."
-            },
-            {
-              "skill_id": "skill_open",
-              "description": "Open the fridge door on the side with free shelf space."
-            },
-            {
-              "skill_id": "skill_place",
-              "description": "Stand the milk carton upright on a shelf or in the door bin, and put the egg carton on a shelf."
-            },
-            {
-              "skill_id": "skill_close",
-              "description": "Close the fridge."
-            },
-            {
-              "skill_id": "skill_open",
-              "description": "Open the pantry cabinet."
-            },
-            {
-              "skill_id": "skill_place",
-              "description": "Put the can and the bread on the free shelf area."
-            },
-            {
-              "skill_id": "skill_close",
-              "description": "Close the pantry cabinet."
-            },
-            {
-              "skill_id": "skill_release",
-              "description": "Leave the empty bag on the counter spot."
-            },
-            {
-              "skill_id": "skill_verify",
-              "description": "Verify each item is in the right storage and both doors are closed."
-            }
-          ],
-          "requirements": [],
-          "review_status": "proposed"
-        },
-        {
-          "id": "procedure_thor_r3_groceries_sort_fridge_or_pantry_alt1",
-          "label": "Carry items loose in two trips",
-          "steps": [
-            {
-              "skill_id": "skill_navigate_or_reach",
-              "description": "Carry the cold items by hand from the bag to the fridge first."
-            },
-            {
-              "skill_id": "skill_open",
-              "description": "Open the fridge."
-            },
-            {
-              "skill_id": "skill_place",
-              "description": "Place the milk and eggs."
-            },
-            {
-              "skill_id": "skill_close",
-              "description": "Close the fridge."
-            },
-            {
-              "skill_id": "skill_navigate_or_reach",
-              "description": "Return for the can and bread."
-            },
-            {
-              "skill_id": "skill_open",
-              "description": "Open the pantry."
-            },
-            {
-              "skill_id": "skill_place",
-              "description": "Place them."
-            },
-            {
-              "skill_id": "skill_close",
-              "description": "Close the pantry."
-            },
-            {
-              "skill_id": "skill_verify",
-              "description": "Verify the goal state and bring the empty bag to the counter spot."
-            }
-          ],
-          "requirements": [
-            {
-              "key": "condition",
-              "value": "robot_cannot_lift_loaded_bag",
-              "reason": "The loaded bag is above the robot's payload, so items are carried in two trips."
-            }
-          ],
-          "review_status": "proposed"
-        }
-      ],
-      "collection": {
-        "success_criteria": [
-          "The milk carton stands upright (tilt under 10 degrees) and the egg carton lies flat, both inside the fridge (in simulation their stand-ins' parentReceptacles contain the Fridge).",
-          "The fridge is closed within 5 minutes of the bag reaching the counter, total door-open time is under 90 s, and at the end the door-edge marker is within 3 mm of the cabinet marker (in simulation Fridge isOpen=false).",
-          "The can and the bread are inside the pantry cabinet and its door is closed with no gap wider than 5 mm.",
-          "No item is in the wrong storage, no plastic egg is out of the carton, and the bag is empty on the counter spot."
-        ],
-        "setup": [
-          "Pack the four items in the bag and set it on the front-door spot.",
-          "Close the fridge and the pantry cabinet, each with a marked free area.",
-          "Post the storage rule (chilled items to the fridge, shelf-stable items to the pantry) where the operator reads it to the robot."
-        ],
-        "reset": [
-          "Repack the bag, return it to the front-door spot, and close both doors."
-        ],
-        "quality_checks": [
-          "Timestamps for bag arrival and fridge door open and close (door sensor or side camera).",
-          "Images into the fridge and pantry after scoring."
-        ],
-        "failure_modes": [
-          "Item in the wrong storage",
-          "Fridge left open or over the time limit",
-          "Egg carton crushed or opened",
-          "Milk carton on its side",
-          "Bag left with an item in it"
-        ],
-        "consumables": [],
-        "time_estimates": {
-          "setup_minutes": null,
-          "execution_minutes": null,
-          "reset_minutes": null,
-          "review_minutes": null
-        }
-      }
-    },
-    {
       "id": "planning_thor_r3_watch_under_sofa_into_trinket_dish",
       "task_id": "task_thor_r3_watch_under_sofa_into_trinket_dish",
       "requirements": [
@@ -5189,8 +4760,8 @@
         },
         {
           "key": "condition",
-          "value": "thor_blinds_raised_pose_is_0_20_m_default_box",
-          "reason": "Simulation: raised blinds correspond to the 0.20 m default box, which the asset database lists as the non-'open' state, so the Atlas open(blinds) is isOpen=false in THOR."
+          "value": "thor_blinds_isopen_pose_confirmed_in_simulator",
+          "reason": "Simulation: the same gate as task_thor_r1_blinds_close. Before any simulated goal check, confirm in AI2-THOR which isOpen value of Blinds_1 is the raised, window-uncovering pose; the mapping is unresolved (see the asset_compatibility limitation)."
         },
         {
           "key": "condition",
@@ -5288,28 +4859,23 @@
         },
         {
           "key": "object",
-          "value": "thor_object_desk_lamp_1",
-          "reason": "The thor_round1 desk lamp; battery powered for collection."
-        },
-        {
-          "key": "object",
           "value": "thor_resource_desk_phone",
-          "reason": "Wiped decommissioned phone or same-size dummy with a side power button and a battery screen LED."
+          "reason": "Wiped decommissioned phone or same-size dummy with a side button and a battery screen LED."
         },
         {
           "key": "object",
           "value": "thor_resource_home_office_desk_top",
-          "reason": "Desk top holding the desktop, lamp, and phone, 72-76 cm high."
+          "reason": "Desk top holding the desktop and the phone, 72-76 cm high."
         },
         {
           "key": "capability",
           "value": "rigid_manipulation",
-          "reason": "Pressing power buttons and turning a phone over; proposed design requirement only."
+          "reason": "Pressing buttons and turning a phone over; proposed design requirement only."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "Reading three power indicators."
+          "reason": "Reading the desktop power LED and the phone screen LED."
         },
         {
           "key": "condition",
@@ -5318,18 +4884,13 @@
         },
         {
           "key": "condition",
-          "value": "desk_lamp_battery_powered_no_mains",
-          "reason": "Powered device: the desk lamp runs from a battery pack."
-        },
-        {
-          "key": "condition",
-          "value": "phone_dummy_power_button_2_s_hold",
-          "reason": "The phone dummy's LED turns off after its side button is held for 2 s, like a real power-off."
+          "value": "phone_dummy_side_button_press_turns_screen_led_off",
+          "reason": "One short press of the phone dummy's side button turns its screen LED off, like locking a real phone."
         },
         {
           "key": "condition",
           "value": "thor_cellphone_istoggled_is_screen_flag",
-          "reason": "Simulation: CellPhone isToggled is the screen flag, so switched_off(phone) in THOR means screen off only."
+          "reason": "Simulation: CellPhone isToggled is the screen flag, which matches the screen_off goal; THOR has no device-power state for the phone."
         },
         {
           "key": "condition",
@@ -5340,12 +4901,8 @@
       "procedures": [
         {
           "id": "procedure_thor_r3_office_desk_power_down_evening",
-          "label": "Desktop, lamp, phone",
+          "label": "Desktop, then phone",
           "steps": [
-            {
-              "skill_id": "skill_locate",
-              "description": "Locate the desktop's power button, the lamp switch, and the phone."
-            },
             {
               "skill_id": "skill_reach",
               "description": "Reach to the desktop's power button."
@@ -5355,16 +4912,12 @@
               "description": "Press it; the power LED goes out."
             },
             {
-              "skill_id": "skill_toggle",
-              "description": "Press the desk lamp switch off."
-            },
-            {
               "skill_id": "skill_grasp",
               "description": "Grasp the phone by its long edges."
             },
             {
               "skill_id": "skill_toggle",
-              "description": "Hold the side button for 2 s until the screen LED goes out."
+              "description": "Press the side button once until the screen LED goes out."
             },
             {
               "skill_id": "skill_orient",
@@ -5380,11 +4933,11 @@
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Check all three indicators."
+              "description": "Check the desktop power LED and the phone screen LED."
             },
             {
               "skill_id": "skill_verify",
-              "description": "Verify every device is off and the phone is face down."
+              "description": "Verify the desktop is off and the phone's screen is off and face down."
             }
           ],
           "requirements": [],
@@ -5394,26 +4947,25 @@
       "collection": {
         "success_criteria": [
           "The desktop's power LED is off.",
-          "The desk lamp is dark.",
           "The phone's screen LED is off, and the phone lies screen down on the desk top with its screen within 15 degrees of facing straight down.",
-          "No device has been knocked over or moved more than 5 cm, apart from the phone being turned over."
+          "No device has been knocked over or moved more than 5 cm, apart from the phone being turned over.",
+          "In simulation, the Desktop and the CellPhone report isToggled=false."
         ],
         "setup": [
-          "Switch the desktop dummy, the lamp, and the phone dummy on; lay the phone face up 20-30 cm in front of the monitor."
+          "Switch the desktop dummy on and light the phone dummy's screen LED; lay the phone face up 20-30 cm in front of the monitor."
         ],
         "reset": [
-          "Switch all three back on and lay the phone face up at its start mark."
+          "Switch the desktop back on, relight the phone screen, and lay the phone face up at its start mark."
         ],
         "quality_checks": [
           "Photograph the desk from above at the start and end.",
-          "Check all three battery packs before each session."
+          "Check both battery packs before each session."
         ],
         "failure_modes": [
           "Desktop left on",
-          "Lamp left on",
-          "Phone turned face down but left on",
+          "Phone turned face down with its screen still lit",
           "Phone dropped off the desk",
-          "Lamp knocked over"
+          "Monitor or desktop knocked when reaching for the phone"
         ],
         "consumables": [],
         "time_estimates": {
@@ -5849,11 +5401,6 @@
           "key": "condition",
           "value": "route_clear_through_four_rooms",
           "reason": "The route from the kitchen through the living room, bedroom, and office is free of rugs, cables, and closed doors."
-        },
-        {
-          "key": "condition",
-          "value": "watering_band_200_300_g_saucer_max_30_ml",
-          "reason": "The dose band per plant is 200-300 g of water with no more than 30 mL left in the saucer."
         }
       ],
       "procedures": [
@@ -6013,11 +5560,6 @@
         },
         {
           "key": "condition",
-          "value": "clean_threshold_2mm_under_uv",
-          "reason": "Clean means no tracer patch larger than 2 mm across under a 365 nm UV lamp."
-        },
-        {
-          "key": "condition",
           "value": "thor_sink_has_no_dirty_state",
           "reason": "THOR's Sink lacks CanBeDirty, so a simulated clean check is not available; cleanliness is judged physically."
         }
@@ -6123,11 +5665,6 @@
           "key": "condition",
           "value": "battery_dummy_switch_panel_drives_led_lamp",
           "reason": "The switch is a battery-powered dummy panel that drives an LED lamp; no mains wiring is exposed."
-        },
-        {
-          "key": "condition",
-          "value": "switch_panel_lit_threshold_50_lux",
-          "reason": "On means at least 50 lux at the toilet-front floor spot."
         },
         {
           "key": "condition",
@@ -6944,17 +6481,12 @@
         {
           "key": "scene_id",
           "value": "scene_multi_room_house",
-          "reason": "House with a kitchen, a bathroom, and a living room with a double door."
+          "reason": "House with a bathroom and a living room whose patio double door opens to a balcony or garden."
         },
         {
           "key": "object",
           "value": "thor_object_doorway_double_1",
-          "reason": "Primary AI2-THOR asset, Doorway_Double_1; a physical two-leaf interior or patio door about 2 m wide."
-        },
-        {
-          "key": "object",
-          "value": "thor_object_kitchen_faucet_1",
-          "reason": "Kitchen faucet from thor_round1, running cold at the start."
+          "reason": "Primary AI2-THOR asset, Doorway_Double_1; a physical two-leaf patio door about 2 m wide with a latch on the active leaf."
         },
         {
           "key": "object",
@@ -6974,12 +6506,12 @@
         {
           "key": "capability",
           "value": "rigid_manipulation",
-          "reason": "Moving tap levers and pressing the switch."
+          "reason": "Moving the tap lever and pressing the switch."
         },
         {
           "key": "capability",
           "value": "visual_inspection",
-          "reason": "Checking each spout for drips and the door gap."
+          "reason": "Checking the spout for drips and the door gap."
         },
         {
           "key": "condition",
@@ -6988,8 +6520,8 @@
         },
         {
           "key": "condition",
-          "value": "taps_cold_low_flow_below_2l_per_min",
-          "reason": "Both taps run cold at under 2 L/min at the start."
+          "value": "tap_cold_low_flow_below_2l_per_min",
+          "reason": "The bathroom tap runs cold at under 2 L/min at the start."
         },
         {
           "key": "condition",
@@ -7015,20 +6547,8 @@
       "procedures": [
         {
           "id": "procedure_thor_r3_leave_house_check_doors_taps_light",
-          "label": "Kitchen, bathroom, living room, report",
+          "label": "Bathroom, living room, report",
           "steps": [
-            {
-              "skill_id": "skill_navigate_or_reach",
-              "description": "Go to the kitchen sink."
-            },
-            {
-              "skill_id": "skill_toggle",
-              "description": "Turn the kitchen tap off."
-            },
-            {
-              "skill_id": "skill_inspect",
-              "description": "Checkpoint 1: no drop from the kitchen spout for 30 s."
-            },
             {
               "skill_id": "skill_navigate_or_reach",
               "description": "Go to the bathroom basin."
@@ -7039,7 +6559,7 @@
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Checkpoint 2: no drop from the bathroom spout for 30 s."
+              "description": "Checkpoint 1: no drop from the bathroom spout for 30 s."
             },
             {
               "skill_id": "skill_toggle",
@@ -7047,7 +6567,7 @@
             },
             {
               "skill_id": "skill_navigate_or_reach",
-              "description": "Go to the living-room double door."
+              "description": "Go to the living-room patio double door."
             },
             {
               "skill_id": "skill_close",
@@ -7055,11 +6575,11 @@
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Checkpoint 3: both leaves flush, gap no more than 5 mm."
+              "description": "Checkpoint 2: both leaves latched flush, gap no more than 5 mm."
             },
             {
               "skill_id": "skill_verify",
-              "description": "Report the four items as off or closed."
+              "description": "Report the three items as off or closed."
             }
           ],
           "requirements": [],
@@ -7068,17 +6588,17 @@
       ],
       "collection": {
         "success_criteria": [
-          "Neither spout drips for 30 s after the check (kitchen and bathroom).",
+          "The bathroom spout does not drip for 30 s after the check.",
           "The bathroom lamp is off: the lux meter at the toilet-front spot reads the dark baseline (below 5 lux with the room darkened).",
-          "Both leaves of the double door are latched with no more than 5 mm gap at the meeting stiles.",
-          "The robot's report lists all four items with their final state.",
-          "In simulation, both Faucets and the LightSwitch report isToggled=false and the Doorway reports isOpen=false."
+          "Both leaves of the patio double door are latched with no more than 5 mm gap at the meeting stiles.",
+          "The robot's report lists all three items with their final state.",
+          "In simulation, the Faucet and the LightSwitch report isToggled=false and the Doorway reports isOpen=false."
         ],
         "setup": [
-          "Open both leaves of the double door; run both taps cold at low flow; switch the bathroom light on; start the robot in the kitchen doorway."
+          "Open both leaves of the patio double door; run the bathroom tap cold at low flow; switch the bathroom light on; start the robot in the hallway outside the bathroom."
         ],
         "reset": [
-          "Reopen the double door; restart the taps; switch the bathroom light on; return the robot to the kitchen."
+          "Reopen the double door; restart the bathroom tap; switch the bathroom light on; return the robot to the hallway start."
         ],
         "quality_checks": [
           "Log each checkpoint with a photo of the spout or door.",
@@ -7552,70 +7072,6 @@
       "limitations": "Plate_1 and the Cabinet carry isDirty and isOpen, but THOR has no Dishwasher or DishRack type, so the rack is a resource scored only as inside the Cabinet, and the plate-upright and mouth-down orientations have no THOR state; whether a running faucet clears isDirty for items in the basin must be confirmed, and the cleanliness test uses a UV residue surrogate with no simulated counterpart."
     },
     {
-      "id": "claim_thor_object_fridge_7_catalog_identity",
-      "subject_id": "thor_object_fridge_7",
-      "claim_type": "catalog_identity",
-      "statement": "The ProcTHOR asset database at the cited commit lists asset Fridge_7 under objectType Fridge.",
-      "status": "supported",
-      "value": "Fridge_7",
-      "unit": null,
-      "source_ids": [
-        "evidence_procthor_asset_database"
-      ],
-      "scope": "AI2-THOR / ProcTHOR simulator asset identity and state flags at the cited commit.",
-      "limitations": "This identifies a simulator asset and its state flags only; it does not establish physical product behaviour, articulation geometry, or compatibility with Task Atlas, another simulator, or a robot."
-    },
-    {
-      "id": "claim_thor_r3_groceries_sort_fridge_or_pantry_task_suitability",
-      "subject_id": "task_thor_r3_groceries_sort_fridge_or_pantry",
-      "claim_type": "task_suitability",
-      "statement": "This is a proposed storage workflow that carries a grocery bag in from the front door and sorts its items into the refrigerator or the pantry cabinet by storage temperature, for collection design review.",
-      "status": "proposed",
-      "value": null,
-      "unit": null,
-      "source_ids": [
-        "evidence_thor_task_design_round3"
-      ],
-      "scope": "One bag with two chilled and two shelf-stable items, one refrigerator, one pantry cabinet, in a house with the kitchen 6-10 m from the front door.",
-      "limitations": "The design seed supports proposed task design only; AI2-THOR state flags do not establish physical feasibility, and review and a collection trial are still required."
-    },
-    {
-      "id": "claim_thor_r3_groceries_sort_fridge_or_pantry_population_frequency",
-      "subject_id": "task_thor_r3_groceries_sort_fridge_or_pantry",
-      "claim_type": "population_frequency",
-      "statement": "Population frequency for this specific task is unknown.",
-      "status": "unknown",
-      "value": null,
-      "unit": null,
-      "source_ids": [],
-      "scope": "No defined population or observation protocol is attached.",
-      "limitations": "The ProcTHOR asset database and the design seed are not population-frequency measurements."
-    },
-    {
-      "id": "claim_thor_r3_groceries_sort_fridge_or_pantry_robot_execution",
-      "subject_id": "task_thor_r3_groceries_sort_fridge_or_pantry",
-      "claim_type": "robot_execution",
-      "statement": "Robot execution for this task is unknown.",
-      "status": "unknown",
-      "value": null,
-      "unit": null,
-      "source_ids": [],
-      "scope": "No robot platform, simulator rollout, or execution record is attached.",
-      "limitations": "A proposed procedure, or an AI2-THOR action that sets the state, does not demonstrate robot execution."
-    },
-    {
-      "id": "claim_thor_r3_groceries_sort_fridge_or_pantry_asset_compatibility",
-      "subject_id": "task_thor_r3_groceries_sort_fridge_or_pantry",
-      "claim_type": "asset_compatibility",
-      "statement": "Compatibility of the AI2-THOR assets with this task's physical or simulated collection setup is unknown.",
-      "status": "unknown",
-      "value": null,
-      "unit": null,
-      "source_ids": [],
-      "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "Fridge_7 exposes one isOpen flag for a wide two-door body, so a simulated check cannot see which door was opened or whether one is ajar; THOR has no grocery item or shopping-bag types, so the four items and the bag are stand-ins in simulation, and the fridge-within-5-minutes checkpoint has no simulated timing counterpart."
-    },
-    {
       "id": "claim_thor_object_watch_1_catalog_identity",
       "subject_id": "thor_object_watch_1",
       "claim_type": "catalog_identity",
@@ -7925,20 +7381,20 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "Alarm_Clock_3 has no toggle or alarm state, so the alarm-off goal cannot be checked in THOR, and Blinds_1's isOpen flag appears to mean lowered, so the raised goal must be read as isOpen=false and confirmed against the asset's two bounding boxes."
+      "limitations": "Alarm_Clock_3 has no toggle or alarm state, so the alarm-off goal cannot be checked in THOR. Which isOpen value of Blinds_1 is the raised pose is unresolved: the asset database gives a 0.20 m tall default box and a 1.47 m tall 'open' box, which suggests isOpen=true may be the lowered pose, the reverse of the Atlas predicate, but this is not confirmed and must be checked in the simulator (thor_blinds_isopen_pose_confirmed_in_simulator) before any simulated goal check."
     },
     {
       "id": "claim_thor_r3_office_desk_power_down_evening_task_suitability",
       "subject_id": "task_thor_r3_office_desk_power_down_evening",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed home-office task that powers down a desktop computer, a desk lamp, and a phone for the evening, for collection design review.",
+      "statement": "This is a proposed home-office task that powers down a desktop computer and turns a phone's screen off and face down for the evening, for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_thor_task_design_round3"
       ],
-      "scope": "One home-office desk with three battery dummy devices set to off, and the phone turned face down in place.",
+      "scope": "One home-office desk with a battery dummy desktop set to off and a phone dummy whose screen is turned off and which is turned face down in place.",
       "limitations": "The design seed supports proposed task design only; AI2-THOR state flags do not establish physical feasibility, and review and a collection trial are still required."
     },
     {
@@ -7969,13 +7425,13 @@
       "id": "claim_thor_r3_office_desk_power_down_evening_asset_compatibility",
       "subject_id": "task_thor_r3_office_desk_power_down_evening",
       "claim_type": "asset_compatibility",
-      "statement": "Compatibility of the AI2-THOR Desktop_316_1 and Desk_Lamp_1 assets with a physical desk power-down setup is unknown.",
+      "statement": "Compatibility of the AI2-THOR Desktop_316_1 asset and THOR's CellPhone type with a physical desk power-down setup is unknown.",
       "status": "unknown",
       "value": null,
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "Desktop_316_1 is one mesh with a single isToggled flag, so the physical sequence of monitor and tower buttons is not represented, and THOR's CellPhone isToggled is a screen flag, so the phone's power-off must be judged on the dummy's LED rather than in simulation."
+      "limitations": "Desktop_316_1 is one mesh with a single isToggled flag, so the physical sequence of monitor and tower buttons is not represented; THOR's CellPhone isToggled is a screen flag with no device-power state, which is why the goal is screen off; and THOR has no face-down flag, so orientation is read from rotation."
     },
     {
       "id": "claim_thor_r3_guest_bed_pillows_towel_lamp_task_suitability",
@@ -8593,14 +8049,14 @@
       "id": "claim_thor_r3_leave_house_check_doors_taps_light_task_suitability",
       "subject_id": "task_thor_r3_leave_house_check_doors_taps_light",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed device-state task that works through a fixed leaving-the-house list of two taps, one light, and one double door across three rooms.",
+      "statement": "This is a proposed device-state task that works through a fixed leaving-the-house list of the bathroom tap, the bathroom light, and the living-room patio double door across two rooms, for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_thor_task_design_round3"
       ],
-      "scope": "One kitchen tap, one bathroom tap, one bathroom light switch, and one living-room double door in one house; the exit door is excluded.",
+      "scope": "One bathroom tap, one bathroom light switch, and one living-room patio double door in one house; the kitchen (covered by the kitchen sweep) and the exit door are excluded.",
       "limitations": "The design seed supports proposed task design only; AI2-THOR state flags do not establish physical feasibility, and review and an actual collection trial are still required."
     },
     {
@@ -8641,34 +8097,19 @@
     }
   ],
   "draft_notes": [
-    "thor_round3: 24 proposed tasks on 24 further AI2-THOR / ProcTHOR assets across kitchen, living room, bedroom, bathroom, laundry, and multi-room contexts.",
-    "thor_round3 kitchen set: eight kitchen tasks anchored to AI2-THOR / ProcTHOR assets Pan_1, Microwave_12, Knife_1, Kitchen_Faucet_3, Bread_5, Toaster_15, Plate_1, and Fridge_7, drafted from data/research/thor_candidates.json (3 atomic, 3 compound, 2 workflow).",
-    "Evidence evidence_thor_task_design_round3 is defined in the skeleton data/drafts/thor_round3.json; catalog_identity claims cite the existing active evidence_procthor_asset_database from thor_round1. Neither is redefined here, and no scenes are added.",
-    "Asset IDs, objectTypes, state flags, split values, scene listings, and bounding boxes were checked against the asset database at commit d4c4c6a9fdd9679c8b9343d771c510016cd310df on 2026-09-25. None of the eight assets is an ObjectInstance in an active bundle or in Lane A's reference_gso_round1.json (case-insensitive asset_source_id check). Microwave_12, Kitchen_Faucet_3, Bread_5, Toaster_15, and Fridge_7 are second variants of types already in the atlas and are used only for goals the atlas does not yet have.",
-    "Goals new to the atlas: dry-wiping a dirty pan in place with a cloth, stopping a microwave started empty without opening it, clearing a knife from the sink with its edge toward the wall, a whole-stove burner check with faucet and toaster before leaving the kitchen, a sliced bread-and-lettuce sandwich (simulation only), unloading a toaster after switching it off, rinsing and loading dishes into a dishwasher-style rack in a base cabinet, and sorting groceries between the fridge and a pantry cabinet by storage temperature.",
-    "Cross-links: thor_object_cloth_1 (pan wipe), thor_object_toaster_1 (kitchen sweep), thor_object_lettuce_1 (sandwich), thor_object_dining_table_16_1 and thor_object_kitchen_faucet_1 (dish rack), and ycb_002_master_chef_can (groceries). Resemblances to active tasks are named by ID in each task's notes with the difference stated.",
-    "Safety: the sandwich task is simulation-only (knife). The knife-from-sink task uses a blunt training knife. The microwave and toaster are unplugged with battery dummy indicators (the toaster with a mechanical latch); the hob is isolated with a dummy indicator per knob. Wet tasks (sweep, dish rack) run cold water and declare robot_electronics_splash_protected. Dishes are melamine or polycarbonate; the egg carton holds plastic eggs and the milk carton is empty and weighted.",
-    "Uncertain THOR mappings are planning conditions and task-specific asset_compatibility limitations: isDirty cleared without cloth contact (pan) or by running faucet (dishes), microwave toggle versus door independence, knife edge direction from rotation only, the four knob-burner pairings, sliced pieces not being Receptacles, pickup from a toaster that is still on, no Dishwasher or DishRack type, one isOpen flag for the two-door Fridge_7, and no grocery or shopping-bag types.",
-    "Concepts: all reused (object_cookware, object_kitchen_appliance, object_utensil, object_home_fixture, object_food_item, object_dish). Eight new templates with the template_thor_r3a_ prefix, one per task; each lists the scene it is used in.",
-    "New resources (thor_resource_*, planning object requirements only): microwave stop button, drying mat, backsplash wall, four named stove burners and the knob row, top and bottom bread slices and a lettuce slice, dirty bowl, cabinet dish rack and its base cabinet, grocery bag, milk carton, egg carton, bagged bread, pantry cabinet. Reused: counter work zone, kitchen sink basin, plate, bread slice, dirty cup, knife or blunt surrogate, cutting board, guarded knife holder, front-door and kitchen bag spots.",
-    "thor_round3 living-room, bedroom, and home-office tasks (8 tasks: 3 atomic, 3 compound, 2 workflow) anchored to AI2-THOR / ProcTHOR assets Watch_1, Waving_Statue_2, Wall_Decor_Painting_8, Alarm_Clock_3, Desktop_316_1, pillow_2, RoboTHOR_shelving_unit_kallax_large, and Houseplant_2.",
-    "Scenes scene_home_living_room, scene_home_bedroom, scene_multi_room_house, and scene_home_office_desk already exist. evidence_thor_task_design_round3 is defined in data/drafts/thor_round3.json and evidence_procthor_asset_database in thor_round1; neither is redefined here, and no per-object evidence is created.",
-    "Asset IDs, objectTypes, state flags, bounding boxes, split values, and scene listings were checked against the asset database at commit d4c4c6a9fdd9679c8b9343d771c510016cd310df on 2026-09-25. Candidates came from data/research/thor_candidates.json (Statue, AlarmClock, Pillow, HousePlant, ShelvingUnit, Desktop, Watch) and, for Painting, directly from the asset database. None of the eight assets is an ObjectInstance in an active bundle or in Lane A's reference_gso_round1.json.",
-    "Goal families new to the atlas: under-furniture retrieval, righting an ornament in place, levelling a wall frame, a bedroom morning switchover, a desk power-down, guest-bed preparation, multi-room book return with sorting, and a multi-plant watering route.",
-    "Cross-links to thor_round1 ObjectInstances: thor_object_blinds_1 (morning switchover), thor_object_desk_lamp_1 (desk power-down), and thor_object_watering_can_1 with thor_object_kitchen_faucet_1 (watering route). Related active tasks are named by ID in each task's notes with the difference stated.",
-    "Resource IDs beginning thor_resource_ are planning object requirements (sofa underside, trinket dish, shelf, picture hook, lamps, phone dummy, second pillow, towel, books, cubes, plants, can home spot), not cataloged ObjectInstances.",
-    "Power policy: every powered device is a battery dummy or battery unit with no mains supply (alarm clock with disconnected buzzer and LED, battery bedside and desk lamps, decommissioned desktop with a battery power LED, phone dummy). The watering route is the only wet task and declares robot_electronics_splash_protected.",
-    "Uncertain THOR mappings are planning conditions and asset_compatibility limitations: no under-furniture relation (Floor receptacle); no upright flag on Statue; Painting is Static with no tilt; AlarmClock has no toggle; Blinds_1 isOpen probably means lowered; CellPhone isToggled is a screen flag; no head or foot end on Bed; ShelvingUnit cubes may not be separate receptacles; HousePlant watering is one boolean with no dose.",
-    "Eight new templates with the template_thor_r3b_ prefix, one per task.",
-    "thor_round3 bathroom and multi-room tasks (8 tasks: 3 atomic, 3 compound, 2 workflow): basin wiping, a bathroom light for a night visit, starting a latched dryer, bath preparation with water-safety limits, carrying a full hamper to the washer, fetching tissues and a bin for a seated person, restocking an under-sink cabinet from a storage closet, and a bounded leaving-the-house check.",
-    "Evidence is not redefined here: evidence_thor_task_design_round3 comes from the skeleton data/drafts/thor_round3.json and evidence_procthor_asset_database from thor_round1. Scenes scene_home_bathroom, scene_home_laundry_area, and scene_multi_room_house are existing active scenes.",
-    "Assets: Tissue_Box_1, Soap_Bar_1, Bathtub_Faucet_1, Laundry_Hamper_1_3, and Clothes_Dryer_1 come from data/research/thor_candidates.json (Bathtub_Faucet_1 and Laundry_Hamper_1_3 as unused siblings of listed assets); Sink_4, Light_Switch_25, and Doorway_Double_1 were taken directly from the asset database. All IDs, objectTypes, state flags, split values, and bounding boxes were checked against the asset database at commit d4c4c6a9fdd9679c8b9343d771c510016cd310df on 2026-09-25. None is an ObjectInstance in an active bundle or in Lane A's reference_gso_round1.json.",
-    "The ProcTHOR database has no Mirror, so the cleaning task uses a Sink; Sink has no CanBeDirty flag, which is stated as a planning condition and limitation.",
-    "Cross-links: thor_object_bath_towel_1 (thor_round2) in the bath task, thor_object_washing_machine_1 (thor_round1) as the hamper landmark, and thor_object_kitchen_faucet_1 (thor_round1) in the leaving check. thor_object_light_switch_25 is anchored in the night-light task and reused in the leaving check.",
-    "Resource IDs beginning thor_resource_ are planning object requirements, not ObjectInstances. New: damp microfibre cloth, toilet floor zone, damp towel load, bathtub drain stopper, bathside stool, worn clothes load, bedroom hamper corner, washer-side floor mark, seated person, sofa foot spot, bathroom floor by toilet, spare toilet rolls, storage closet shelf and door, carry basket. Reused: sink faucet lever, bathroom countertop, bathtub, bath towel bar, bathroom garbage can, toilet tank lid, sofa, under-sink cabinet and door.",
-    "Safety: the sink, bath, and leaving-check tasks are wet and declare robot_electronics_splash_protected; the bath is capped at 42 °C at the spout with the robot attending the fill and no person in the tub; the dryer is unplugged with a battery dummy indicator; the light switch is a battery dummy panel; the handover declares consent, speed, and release-after-grip conditions.",
-    "Uncertain THOR mappings are planning conditions and asset_compatibility limitations: thor_sink_has_no_dirty_state, thor_switch_25_in_bathroom_of_generated_house, thor_clothes_dryer_1_present_in_generated_house, thor_bathtub_level_and_plug_not_simulated, thor_laundry_hamper_moveable_not_pickupable, thor_has_no_human_recipient, thor_bathroom_cabinet_and_closet_not_in_procthor_db, thor_double_doorway_single_isopen_flag.",
-    "Concepts: object_home_fixture, object_household_appliance, object_receptacle, and object_paper_item already exist; object_toiletry (soap bar) is proposed as new.",
-    "Eight new templates (template_thor_r3c_*), one per task; each lists the scene it is used in."
+    "thor_round3: 23 proposed tasks on 23 further AI2-THOR / ProcTHOR assets, one task per asset (9 atomic, 9 compound, 5 workflow): 7 kitchen, 8 living-room, bedroom, and home-office, and 8 bathroom, laundry, and multi-room tasks.",
+    "Review outcome (data/reviews/thor_round3.md): task_thor_r3_groceries_sort_fridge_or_pantry was rejected as a duplicate of task_gso_r4_fondant_groceries_by_temperature_zone and removed together with its planning record, its claims, its only object Fridge_7, and its template. The morning, desk power-down, and leaving-check tasks were revised, and success thresholds were moved out of planning conditions.",
+    "Assets. Kitchen: Pan_1, Microwave_12, Knife_1, Kitchen_Faucet_3, Bread_5, Toaster_15, Plate_1. Living room, bedroom, and office: Watch_1, Waving_Statue_2, Wall_Decor_Painting_8, Alarm_Clock_3, Desktop_316_1, pillow_2, RoboTHOR_shelving_unit_kallax_large, Houseplant_2. Bathroom, laundry, and multi-room: Sink_4, Light_Switch_25, Clothes_Dryer_1, Bathtub_Faucet_1, Laundry_Hamper_1_3, Tissue_Box_1, Soap_Bar_1, Doorway_Double_1. Most come from data/research/thor_candidates.json; Wall_Decor_Painting_8, Sink_4, Light_Switch_25, and Doorway_Double_1 were taken directly from the asset database, and Bathtub_Faucet_1 and Laundry_Hamper_1_3 are unused siblings of listed candidates.",
+    "Asset IDs, objectTypes, state flags, split values, scene listings, and bounding boxes were checked against the ProcTHOR asset database at commit d4c4c6a9fdd9679c8b9343d771c510016cd310df on 2026-09-25. None of the assets is an ObjectInstance in an active bundle or in Lane A's reference_gso_round1.json (case-insensitive asset_source_id check). Microwave_12, Kitchen_Faucet_3, Bread_5, and Toaster_15 are second variants of types already in the atlas and are used only for goals the atlas does not yet have.",
+    "Evidence: evidence_thor_task_design_round3 is defined in this bundle and supports only the proposed task_suitability claims; catalog_identity claims cite evidence_procthor_asset_database from thor_round1, which is not redefined. Frequency, robot execution, and asset compatibility are unknown for every task. No scenes are added; the tasks use the existing scenes scene_kitchen_counter, scene_home_kitchen, scene_home_living_room, scene_home_bedroom, scene_home_office_desk, scene_home_bathroom, scene_home_laundry_area, and scene_multi_room_house.",
+    "Cross-links to earlier ObjectInstances: thor_object_cloth_1 (pan wipe), thor_object_toaster_1 (kitchen sweep), thor_object_lettuce_1 (sandwich), thor_object_dining_table_16_1 and thor_object_kitchen_faucet_1 (dish rack), thor_object_blinds_1 (morning switchover), thor_object_watering_can_1 with thor_object_kitchen_faucet_1 (watering route), thor_object_bath_towel_1 (bath), and thor_object_washing_machine_1 (hamper landmark). thor_object_light_switch_25 is anchored in the night-light task and reused in the leaving check. Resemblances to active tasks are named by ID in each task's notes with the difference stated.",
+    "Switch-off and leaving sweeps are kept distinct: task_thor_r3_kitchen_burners_faucet_toaster_off_before_leaving covers the kitchen's heat and water, task_thor_r3_leave_house_check_doors_taps_light covers the bathroom tap and light and the living-room patio door, task_thor_r1_house_lights_off_before_leaving covers lights only, and task_thor_r2_bathroom_close_left_open_items covers bathroom openables only. The desk power-down does not use thor_object_desk_lamp_1, which three thor_round1 tasks already switch off.",
+    "Resource IDs beginning thor_resource_ are planning object requirements, not cataloged ObjectInstances.",
+    "Safety and power: every powered device is unplugged or a battery dummy with an indicator and no mains supply (microwave, toaster with a mechanical latch, hob isolated with a dummy indicator per knob, alarm clock with a disconnected buzzer, battery lamps, desktop, phone, dryer, and light-switch panel). The sandwich task is simulation-only (knife); the knife-from-sink task uses a blunt training knife with nobody within 1 m; dishes are melamine or polycarbonate. Wet tasks (kitchen sweep, dish rack, watering route, basin wipe, bath, leaving check) run cold water, except the bath, which is capped at 42 °C at the spout with the robot attending the fill and nobody in the tub, and declare robot_electronics_splash_protected. The tissue handover declares consent, a speed cap, and release after grip.",
+    "Planning conditions are setup states and uncertain THOR mappings only; pass thresholds (the watering dose band and saucer limit, the 2 mm UV clean threshold, the 50 lux lit threshold) live only in each task's success_criteria.",
+    "Uncertain THOR mappings are planning conditions and task-specific asset_compatibility limitations: isDirty cleared without cloth contact (pan) or by running water (dishes); microwave toggle versus door independence; knife edge direction from rotation only; the four knob-burner pairings; sliced pieces not being Receptacles; pickup from a toaster that is still on; no Dishwasher or DishRack type; no under-furniture relation; no upright flag on Statue; Painting is Static with no tilt; AlarmClock has no toggle; the raised pose of Blinds_1 is unconfirmed (thor_blinds_isopen_pose_confirmed_in_simulator, shared with thor_round1); CellPhone isToggled is a screen flag; Bed has no head or foot end; ShelvingUnit cubes may not be separate receptacles; HousePlant watering is one boolean with no dose; Sink has no dirty state; Light_Switch_25 and Clothes_Dryer_1 must be placed in the right room of a generated house; bathtub level and plug are not simulated; the hamper is moveable but not pickupable; there is no human recipient; the bathroom cabinet and closet are not in the database; Doorway_Double_1 has one isOpen flag for both leaves.",
+    "Concepts: every object reuses an existing Atlas concept (object_clothing, object_cookware, object_decor, object_dish, object_electronic_device, object_food_item, object_furniture, object_home_fixture, object_household_appliance, object_kitchen_appliance, object_paper_item, object_plant, object_receptacle, object_textile, object_utensil), except Soap_Bar_1, which uses object_toiletry, proposed as a new concept because a soap bar is neither a container (object_personal_care_container) nor a tool (object_personal_care_tool).",
+    "Templates: 23 new, one per task, with the prefixes template_thor_r3a_ (kitchen), template_thor_r3b_ (living room, bedroom, office), and template_thor_r3c_ (bathroom, laundry, multi-room); each lists the scene it is used in.",
+    "Activated 2026-09-25 after an independent Claude review (data/reviews/thor_round3.md) with all findings addressed; the Codex cross-lane review is still pending."
   ]
 }
