@@ -61,6 +61,19 @@ Round 4 keeps task-suitability claims proposed and population-frequency, robot-e
 
 Plans declare required catalog objects when an interaction needs them and may include collection fixtures. Those links are explicit collection prerequisites; shared scenes, intents, templates, skills, and resource edges continue to provide graph connectivity. They do not establish that every Round 4 task is a catalog-partner activity or that any such relationship was measured.
 
+## Fifth coverage round
+
+Round 5 adds 77 proposed tasks, one for each of the 77 catalog entries. Each task
+has one planning record and four claim records, for 77 new tasks, 77 plans, and
+308 claims. With Round 5 active, the catalog-wide totals are 453 tasks, 453
+planning records, and 1,813 claims.
+
+Round 5 task-suitability claims remain `proposed`; population-frequency,
+robot-execution, and asset-compatibility claims remain `unknown`. All Round 5
+time estimates are null until measured. Activating the bundles makes these
+proposed designs available to the runtime and coverage report; it does not
+establish physical feasibility or demonstrate robot execution.
+
 ## Graph connections
 
 Tasks share scene, intent, skill, and template nodes. This supports paths such as object → task → intent → another task → another object, without imposing one hierarchy or claiming that tasks must occur in sequence. Graph neighborhoods support reverse traversal. The coverage regression checks connectivity using these concepts, excluding shared sources and claims so that provenance alone cannot make the graph appear connected.
