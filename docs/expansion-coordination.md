@@ -116,5 +116,5 @@ Both agents share one repository and push to `origin/main`.
 | `gso_round1` | B | 24 (1 atomic, 15 compound, 8 workflow) | **active (review pending)** — `data/seeds/ycb_batches/gso_round1.json` | Codex |
 | `gso_round2` | B | 24 (12 atomic, 10 compound, 2 workflow) | **in review** — `data/drafts/gso_round2.json`; reuses round-1 objects | Codex |
 | `reference_gso_round1` (MuJoCo-converted GSO, 8 models) | A | 25 | draft in main checkout, not yet committed | Claude |
-| `thor_round1` (AI2-THOR / ProcTHOR, Apache-2.0) | B | 24 (target) | next — see `data/research/free_3d_sources.md` | Codex |
+| `thor_round1` (AI2-THOR / ProcTHOR, Apache-2.0) | B | 24 (10 atomic, 11 compound, 3 workflow) | **in review** — `data/drafts/thor_round1.json` | Codex |
 | Codex reference drafts in `data/drafts/` | A | see files | reviewed 2026-09-25: 4 revise, 2 time-use bundles not tasks, 7 already active (delete drafts); see `data/reviews/` | Claude |
