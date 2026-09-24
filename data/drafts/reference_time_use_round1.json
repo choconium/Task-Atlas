@@ -1,0 +1,432 @@
+{
+  "templates": [
+    {
+      "id": "template_reference_atus_food_drink_preparation_macro",
+      "node_type": "TaskTemplate",
+      "name_en": "ATUS macro activity mapping: food and drink preparation",
+      "name_ja": "ATUS粗粒度活動対応：食品・飲料の準備",
+      "verb": "classify_primary_activity",
+      "roles": {
+        "activity_category": "atus_2024_food_and_drink_preparation",
+        "atlas_hierarchy_anchor": "ycb_025_mug"
+      },
+      "compatible_scenes": ["scene_home_kitchen"],
+      "preconditions": [
+        "sampled_diary_day_available",
+        "official_atus_activity_category_definition_available"
+      ],
+      "goals": [
+        "primary_activity_category_recorded(atus_2024_food_and_drink_preparation)"
+      ],
+      "skills": ["skill_inspect"],
+      "failure_modes": [
+        "macro_category_mistaken_for_atomic_object_manipulation",
+        "population_estimate_misattributed_to_mug_specific_action",
+        "primary_activity_confused_with_secondary_simultaneous_activity"
+      ],
+      "safety_tags": ["survey_crosswalk", "macro_activity", "not_robot_execution_evidence"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_atus_kitchen_food_cleanup_macro",
+      "node_type": "TaskTemplate",
+      "name_en": "ATUS macro activity mapping: kitchen and food cleanup",
+      "name_ja": "ATUS粗粒度活動対応：台所・食品の片付け",
+      "verb": "classify_primary_activity",
+      "roles": {
+        "activity_category": "atus_2024_kitchen_and_food_cleanup",
+        "atlas_hierarchy_anchor": "ycb_025_mug"
+      },
+      "compatible_scenes": ["scene_home_kitchen"],
+      "preconditions": [
+        "sampled_diary_day_available",
+        "official_atus_activity_category_definition_available"
+      ],
+      "goals": [
+        "primary_activity_category_recorded(atus_2024_kitchen_and_food_cleanup)"
+      ],
+      "skills": ["skill_inspect"],
+      "failure_modes": [
+        "macro_category_mistaken_for_atomic_object_manipulation",
+        "population_estimate_misattributed_to_mug_specific_action",
+        "primary_activity_confused_with_secondary_simultaneous_activity"
+      ],
+      "safety_tags": ["survey_crosswalk", "macro_activity", "not_robot_execution_evidence"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_atus_food_drink_preparation_macro",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_atus_food_drink_preparation_macro",
+      "name_en": "Represent the ATUS food and drink preparation category",
+      "name_ja": "ATUSの食品・飲料の準備カテゴリを表す",
+      "intent_id": "intent_prepare_food",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "activity_category": "atus_2024_food_and_drink_preparation",
+        "atlas_hierarchy_anchor": "ycb_025_mug"
+      },
+      "state_ids": [],
+      "initial_state": [
+        "sampled_diary_day_available",
+        "primary_activity_not_yet_crosswalked(atus_2024_food_and_drink_preparation)"
+      ],
+      "goal_state": [
+        "primary_activity_category_recorded(atus_2024_food_and_drink_preparation)",
+        "category_scope_and_population_metadata_retained"
+      ],
+      "instruction_variants": [
+        "Classify the sampled diary day using the ATUS primary activity category Food and drink preparation.",
+        "Record the broad ATUS food and drink preparation category and retain its survey scope.",
+        "抽出された日記日の主行動をATUSの「Food and drink preparation」カテゴリに対応づけ、調査対象と範囲を記録してください。"
+      ],
+      "skills": ["skill_inspect"],
+      "granularity": "macro_activity",
+      "source_activity_category": {
+        "source": "ATUS",
+        "year": 2024,
+        "category_name": "Food and drink preparation",
+        "lexicon_hierarchy": "Food & Drink Prep., Presentation, & Clean-up > Food and drink preparation"
+      },
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_time_use_round1",
+      "notes": "This TaskInstance represents an ATUS diary coding category at macro-activity granularity, not a single manipulation, a fixed procedure, or an event count. The 2024 ATUS lexicon includes cooking, preparing food, making coffee/tea, mixing drinks, and getting a drink/pouring water in a glass among examples for the category. The existing YCB mug is only the curator-selected Atlas ObjectInstance anchor needed for the two-edge hierarchy traversal; neither the BLS category nor its statistics assert that an activity involved this mug or any specific object. The scene_home_kitchen link is a representative Atlas context, not a claim that every sampled activity occurred in that scene. Hierarchy path: this TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware. Its distinct sibling is task_reference_atus_kitchen_food_cleanup_macro at the same ObjectClass. ATUS reports whether this broad primary-activity category was engaged in on a diary day and time spent, not how many discrete actions occurred."
+    },
+    {
+      "id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_atus_kitchen_food_cleanup_macro",
+      "name_en": "Represent the ATUS kitchen and food cleanup category",
+      "name_ja": "ATUSの台所・食品の片付けカテゴリを表す",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "activity_category": "atus_2024_kitchen_and_food_cleanup",
+        "atlas_hierarchy_anchor": "ycb_025_mug"
+      },
+      "state_ids": [],
+      "initial_state": [
+        "sampled_diary_day_available",
+        "primary_activity_not_yet_crosswalked(atus_2024_kitchen_and_food_cleanup)"
+      ],
+      "goal_state": [
+        "primary_activity_category_recorded(atus_2024_kitchen_and_food_cleanup)",
+        "category_scope_and_population_metadata_retained"
+      ],
+      "instruction_variants": [
+        "Classify the sampled diary day using the ATUS primary activity category Kitchen and food cleanup.",
+        "Record the broad ATUS kitchen and food cleanup category and retain its survey scope.",
+        "抽出された日記日の主行動をATUSの「Kitchen and food cleanup」カテゴリに対応づけ、調査対象と範囲を記録してください。"
+      ],
+      "skills": ["skill_inspect"],
+      "granularity": "macro_activity",
+      "source_activity_category": {
+        "source": "ATUS",
+        "year": 2024,
+        "category_name": "Kitchen and food cleanup",
+        "lexicon_hierarchy": "Food & Drink Prep., Presentation, & Clean-up > Kitchen and food cleanup"
+      },
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_time_use_round1",
+      "notes": "This TaskInstance represents an ATUS diary coding category at macro-activity granularity, not a single manipulation, a fixed procedure, or an event count. The 2024 ATUS lexicon lists clearing the table, loading or emptying a dishwasher, washing/drying dishes, putting leftovers away, wiping the table, and putting dishes away as examples for the category. The existing YCB mug is only the curator-selected Atlas ObjectInstance anchor needed for the two-edge hierarchy traversal; neither the BLS category nor its statistics assert that an activity involved this mug or any specific object. The scene_home_kitchen link is a representative Atlas context, not a claim that every sampled activity occurred in that scene. Hierarchy path: this TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware. This is a distinct sibling to task_reference_atus_food_drink_preparation_macro at the same ObjectClass. ATUS reports whether this broad primary-activity category was engaged in on a diary day and time spent, not how many discrete actions occurred."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_atus_food_drink_preparation_macro",
+      "task_id": "task_reference_atus_food_drink_preparation_macro",
+      "requirements": [
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "This is an Atlas hierarchy anchor for a proposed ObjectClass crosswalk; it is not an object identified in the ATUS records."
+        },
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Representative Atlas context for the mapping only; the survey category is not restricted to this scene."
+        },
+        {
+          "key": "condition",
+          "value": "atus_primary_activity_category",
+          "reason": "Preserve the official time-use category as the macro activity definition; do not decompose it into object-level actions."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The ATUS category name, population, year, participation percentage, and duration unit remain attached to the macro activity record.",
+          "No published category estimate is re-labeled as a mug-specific, primitive-action, or robot-task frequency."
+        ],
+        "setup": [
+          "Use the official ATUS table and lexicon as a survey crosswalk; no physical manipulation setup is defined by this record.",
+          "Keep the YCB mug link explicitly marked as an Atlas hierarchy anchor rather than a survey-observed object."
+        ],
+        "reset": [
+          "No physical reset applies to this survey-category representation."
+        ],
+        "quality_checks": [
+          "Retain the table's 2024 annual-average period and civilian noninstitutional population aged 15 years and over.",
+          "Treat percent engaged as participation on an average diary day, not number of episodes per day.",
+          "Do not infer exact primitive-task frequency, execution duration, or robot feasibility from this category."
+        ],
+        "failure_modes": [
+          "macro_category_mistaken_for_atomic_object_manipulation",
+          "population_estimate_misattributed_to_mug_specific_action",
+          "primary_activity_confused_with_secondary_simultaneous_activity"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_atus_kitchen_food_cleanup_macro",
+      "task_id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "requirements": [
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "This is an Atlas hierarchy anchor for a proposed ObjectClass crosswalk; it is not an object identified in the ATUS records."
+        },
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Representative Atlas context for the mapping only; the survey category is not restricted to this scene."
+        },
+        {
+          "key": "condition",
+          "value": "atus_primary_activity_category",
+          "reason": "Preserve the official time-use category as the macro activity definition; do not decompose it into object-level actions."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The ATUS category name, population, year, participation percentage, and duration unit remain attached to the macro activity record.",
+          "No published category estimate is re-labeled as a mug-specific, primitive-action, or robot-task frequency."
+        ],
+        "setup": [
+          "Use the official ATUS table and lexicon as a survey crosswalk; no physical manipulation setup is defined by this record.",
+          "Keep the YCB mug link explicitly marked as an Atlas hierarchy anchor rather than a survey-observed object."
+        ],
+        "reset": [
+          "No physical reset applies to this survey-category representation."
+        ],
+        "quality_checks": [
+          "Retain the table's 2024 annual-average period and civilian noninstitutional population aged 15 years and over.",
+          "Treat percent engaged as participation on an average diary day, not number of episodes per day.",
+          "Do not infer exact primitive-task frequency, execution duration, or robot feasibility from this category."
+        ],
+        "failure_modes": [
+          "macro_category_mistaken_for_atomic_object_manipulation",
+          "population_estimate_misattributed_to_mug_specific_action",
+          "primary_activity_confused_with_secondary_simultaneous_activity"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_atus_2024_table_a1_food_preparation_cleanup",
+      "source_name": "U.S. Bureau of Labor Statistics, American Time Use Survey 2024 Table A-1",
+      "source_type": "survey",
+      "supported_claim_types": ["population_frequency"],
+      "source_version": "2024 ATUS annual averages; accessed 2026-09-25",
+      "source_locator": "https://www.bls.gov/tus/tables/a1-2024.pdf",
+      "observed_count": null,
+      "scope": "Table A-1 reports averages per day for the U.S. civilian noninstitutional population aged 15 years and over, by sex, for 2024. For Food and drink preparation it reports 0.53 average hours per person-day, 60.3 percent average participation per day, and 0.88 average hours among persons who engaged. For Kitchen and food cleanup it reports 0.13 hours per person-day, 22.4 percent participation, and 0.58 hours among persons who engaged. These are annual-average diary-day estimates.",
+      "limitations": "The table concerns primary activities: simultaneous secondary activities are excluded. Percent engaged is the share of the population engaging in a category on an average diary day, not a count of events per person or a frequency of any specific primitive action. Published category averages cannot support an object-specific, YCB-specific, robot-task, or execution-time estimate. Values are rounded as published.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary BLS ATUS table A-1. The official tables index identifies this as the table for the civilian noninstitutional population age 15 and over. Table A-1 headers distinguish average hours per day for the population, average percent engaged per day, and average hours for persons who engaged. The table footnote states that a primary activity is the individual's main activity and does not include simultaneous activities. Official index: https://www.bls.gov/tus/tables.htm."
+    },
+    {
+      "id": "evidence_atus_2024_activity_lexicon_food_cleanup",
+      "source_name": "U.S. Bureau of Labor Statistics, 2024 ATUS Activity Lexicon with examples",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "ATUS 2024 Lexicon; accessed 2026-09-25",
+      "source_locator": "https://www.bls.gov/tus/lexicons/lexiconwex2024.pdf",
+      "observed_count": null,
+      "scope": "The Food & Drink Prep., Presentation, & Clean-up grouping has the distinct categories Food and drink preparation, Food presentation, and Kitchen and food clean-up. Preparation examples include cooking, making coffee/tea, mixing drinks, and getting a drink or pouring water into a glass. Cleanup examples include clearing the table, loading/emptying a dishwasher, washing/drying dishes, putting leftovers away, wiping a table, and putting dishes away.",
+      "limitations": "The lexicon is a survey coding aid and its examples describe a broad activity code; they are not exhaustive task definitions, robot procedures, or proof that an activity involved any particular object. It provides no population frequency, execution success, asset compatibility, or primitive manipulation duration.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary BLS ATUS 2024 coding lexicon, Food & Drink Prep., Presentation, & Clean-up hierarchy. Used only to justify representing these two source-defined categories as proposed macro-activity crosswalks."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_atus_food_preparation_macro_task_suitability",
+      "subject_id": "task_reference_atus_food_drink_preparation_macro",
+      "claim_type": "task_suitability",
+      "statement": "Proposed macro-activity crosswalk to the ATUS 2024 Food and drink preparation category for preserving a survey activity class in the Task Atlas.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_atus_2024_activity_lexicon_food_cleanup"],
+      "scope": "A category-level diary coding representation, not one physical action, one object-specific task, or one robot procedure.",
+      "limitations": "The ATUS lexicon defines a coding category and examples but does not prescribe or validate a Task Atlas manipulation. The mapping to ycb_025_mug is only a hierarchy anchor and is not an assertion about source observations."
+    },
+    {
+      "id": "claim_atus_food_preparation_macro_daily_participation",
+      "subject_id": "task_reference_atus_food_drink_preparation_macro",
+      "claim_type": "population_frequency",
+      "statement": "In the 2024 ATUS annual average, 60.3 percent of the covered population engaged in Food and drink preparation on an average diary day.",
+      "status": "supported",
+      "value": 60.3,
+      "unit": "percent of U.S. civilian noninstitutional population aged 15 years and over per average diary day; 2024 annual average",
+      "source_ids": ["evidence_atus_2024_table_a1_food_preparation_cleanup"],
+      "scope": "ATUS Table A-1 category Food and drink preparation; United States; 2024; civilian noninstitutional population age 15+; average percent engaged per day.",
+      "limitations": "This is category-level daily participation, not a count of episodes and not the frequency of preparing a drink in a mug, a particular primitive task, or a robot action. Values are rounded as published."
+    },
+    {
+      "id": "claim_atus_food_preparation_macro_population_duration",
+      "subject_id": "task_reference_atus_food_drink_preparation_macro",
+      "claim_type": "population_frequency",
+      "statement": "The 2024 ATUS annual average for Food and drink preparation was 0.53 hours per person-day across the covered population.",
+      "status": "supported",
+      "value": 0.53,
+      "unit": "hours per person-day averaged over the U.S. civilian noninstitutional population aged 15+; 2024 annual average",
+      "source_ids": ["evidence_atus_2024_table_a1_food_preparation_cleanup"],
+      "scope": "ATUS Table A-1 category Food and drink preparation; United States; 2024; civilian noninstitutional population age 15+; average hours per day for the population.",
+      "limitations": "This aggregate category duration is not the duration of one episode, object manipulation, mug-related action, or robot task. Values are rounded as published."
+    },
+    {
+      "id": "claim_atus_food_preparation_macro_participant_duration",
+      "subject_id": "task_reference_atus_food_drink_preparation_macro",
+      "claim_type": "population_frequency",
+      "statement": "For persons who engaged in Food and drink preparation, the 2024 ATUS annual average was 0.88 hours on an average diary day.",
+      "status": "supported",
+      "value": 0.88,
+      "unit": "hours per diary day among persons who engaged; U.S. civilian noninstitutional population aged 15+; 2024 annual average",
+      "source_ids": ["evidence_atus_2024_table_a1_food_preparation_cleanup"],
+      "scope": "ATUS Table A-1 category Food and drink preparation; conditional average for persons who engaged; United States; 2024; civilian noninstitutional population age 15+.",
+      "limitations": "This is total primary-activity time within a broad category for participants, not the duration of one discrete event, one primitive action, or a robot task. Values are rounded as published."
+    },
+    {
+      "id": "claim_atus_food_preparation_macro_robot_execution",
+      "subject_id": "task_reference_atus_food_drink_preparation_macro",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this macro-activity representation is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, policy, or execution trial is represented by the ATUS activity category.",
+      "limitations": "Human time-use estimates do not establish robot execution feasibility or performance."
+    },
+    {
+      "id": "claim_atus_food_preparation_macro_asset_compatibility",
+      "subject_id": "task_reference_atus_food_drink_preparation_macro",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the representative YCB mug with any robot, simulator, or particular preparation activity is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "The mug is included only as an Atlas hierarchy anchor; no execution stack or source-object identity is specified.",
+      "limitations": "The ATUS category and the selected Atlas anchor establish no physical, visual, simulator, or task compatibility."
+    },
+    {
+      "id": "claim_atus_kitchen_cleanup_macro_task_suitability",
+      "subject_id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "claim_type": "task_suitability",
+      "statement": "Proposed macro-activity crosswalk to the ATUS 2024 Kitchen and food cleanup category for preserving a survey activity class in the Task Atlas.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_atus_2024_activity_lexicon_food_cleanup"],
+      "scope": "A category-level diary coding representation, not one physical action, one object-specific task, or one robot procedure.",
+      "limitations": "The ATUS lexicon defines a coding category and examples but does not prescribe or validate a Task Atlas manipulation. The mapping to ycb_025_mug is only a hierarchy anchor and is not an assertion about source observations."
+    },
+    {
+      "id": "claim_atus_kitchen_cleanup_macro_daily_participation",
+      "subject_id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "claim_type": "population_frequency",
+      "statement": "In the 2024 ATUS annual average, 22.4 percent of the covered population engaged in Kitchen and food cleanup on an average diary day.",
+      "status": "supported",
+      "value": 22.4,
+      "unit": "percent of U.S. civilian noninstitutional population aged 15 years and over per average diary day; 2024 annual average",
+      "source_ids": ["evidence_atus_2024_table_a1_food_preparation_cleanup"],
+      "scope": "ATUS Table A-1 category Kitchen and food cleanup; United States; 2024; civilian noninstitutional population age 15+; average percent engaged per day.",
+      "limitations": "This is category-level daily participation, not a count of episodes and not the frequency of washing a particular mug, a particular primitive task, or a robot action. Values are rounded as published."
+    },
+    {
+      "id": "claim_atus_kitchen_cleanup_macro_population_duration",
+      "subject_id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "claim_type": "population_frequency",
+      "statement": "The 2024 ATUS annual average for Kitchen and food cleanup was 0.13 hours per person-day across the covered population.",
+      "status": "supported",
+      "value": 0.13,
+      "unit": "hours per person-day averaged over the U.S. civilian noninstitutional population aged 15+; 2024 annual average",
+      "source_ids": ["evidence_atus_2024_table_a1_food_preparation_cleanup"],
+      "scope": "ATUS Table A-1 category Kitchen and food cleanup; United States; 2024; civilian noninstitutional population age 15+; average hours per day for the population.",
+      "limitations": "This aggregate category duration is not the duration of one episode, washing one mug, another object manipulation, or a robot task. Values are rounded as published."
+    },
+    {
+      "id": "claim_atus_kitchen_cleanup_macro_participant_duration",
+      "subject_id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "claim_type": "population_frequency",
+      "statement": "For persons who engaged in Kitchen and food cleanup, the 2024 ATUS annual average was 0.58 hours on an average diary day.",
+      "status": "supported",
+      "value": 0.58,
+      "unit": "hours per diary day among persons who engaged; U.S. civilian noninstitutional population aged 15+; 2024 annual average",
+      "source_ids": ["evidence_atus_2024_table_a1_food_preparation_cleanup"],
+      "scope": "ATUS Table A-1 category Kitchen and food cleanup; conditional average for persons who engaged; United States; 2024; civilian noninstitutional population age 15+.",
+      "limitations": "This is total primary-activity time within a broad category for participants, not the duration of one discrete cleanup event, washing one object, or a robot task. Values are rounded as published."
+    },
+    {
+      "id": "claim_atus_kitchen_cleanup_macro_robot_execution",
+      "subject_id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this macro-activity representation is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, policy, or execution trial is represented by the ATUS activity category.",
+      "limitations": "Human time-use estimates do not establish robot execution feasibility or performance."
+    },
+    {
+      "id": "claim_atus_kitchen_cleanup_macro_asset_compatibility",
+      "subject_id": "task_reference_atus_kitchen_food_cleanup_macro",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the representative YCB mug with any robot, simulator, or particular cleanup activity is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "The mug is included only as an Atlas hierarchy anchor; no execution stack or source-object identity is specified.",
+      "limitations": "The ATUS category and the selected Atlas anchor establish no physical, visual, simulator, or task compatibility."
+    }
+  ],
+  "draft_notes": [
+    "This round creates two distinct sibling macro-activity TaskInstances, not primitive robot tasks: task_reference_atus_food_drink_preparation_macro --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware, and task_reference_atus_kitchen_food_cleanup_macro --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware. Each graph walk contains exactly the two existing Atlas hierarchy edges from a TaskInstance through an ObjectInstance to an ObjectClass; the same mug is only a proposed anchor for sibling crosswalks.",
+    "ATUS 2024 Table A-1 supplies interpretable category-level annual-average daily participation and duration values for the covered U.S. civilian noninstitutional population aged 15+: Food and drink preparation (60.3% engaged on an average diary day; 0.53 average hours per person-day; 0.88 average hours among persons who engaged) and Kitchen and food cleanup (22.4%; 0.13; 0.58 respectively). The table reports rounded averages and primary activities, excluding simultaneous secondary activities.",
+    "The BLS lexicon's categories encompass heterogeneous activities and examples. The percent-engaged figure is not events per day, the hours are not single-event durations, and neither statistic estimates a primitive robot manipulation or an action involving the selected YCB mug. Any such downscaling would need direct object/action-level observations and an explicitly labeled inference model.",
+    "Source links: https://www.bls.gov/tus/tables/a1-2024.pdf ; https://www.bls.gov/tus/lexicons/lexiconwex2024.pdf ; official table index and covered population description: https://www.bls.gov/tus/tables.htm . All Task Atlas task-suitability mappings remain proposed; robot execution, physical assets, and execution times remain unknown or null."
+  ]
+}

@@ -1,0 +1,412 @@
+{
+  "templates": [
+    {
+      "id": "template_reference_access_bowl_lift_return",
+      "node_type": "TaskTemplate",
+      "name_en": "Briefly lift an empty bowl and return it to its marked area",
+      "name_ja": "空のボウルを少し持ち上げ、印の範囲に戻す",
+      "verb": "grip_and_release",
+      "roles": {
+        "object": "ycb_024_bowl",
+        "start_zone": "bowl_start_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "compatible_scenes": ["scene_dining_table"],
+      "preconditions": [
+        "empty(ycb_024_bowl)",
+        "upright(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, dining_table)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "reachable(ycb_024_bowl)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goals": [
+        "pickup_and_grasp_observed(ycb_024_bowl)",
+        "released(ycb_024_bowl)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "upright(ycb_024_bowl)",
+        "stable(ycb_024_bowl)"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "bowl_slips_before_release",
+        "bowl_ends_outside_marked_area",
+        "bowl_ends_unstable"
+      ],
+      "safety_tags": ["optional_interaction", "participant_selected_cue", "no_clinical_inference"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_access_plate_transfer",
+      "node_type": "TaskTemplate",
+      "name_en": "Move an empty plate from a far mark to a near mark",
+      "name_ja": "空の皿を奥の印から手前の印へ移す",
+      "verb": "pick_and_place",
+      "roles": {
+        "object": "ycb_029_plate",
+        "start_zone": "plate_far_zone",
+        "target_zone": "plate_near_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "compatible_scenes": ["scene_dining_table"],
+      "preconditions": [
+        "empty(ycb_029_plate)",
+        "flat(ycb_029_plate)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "inside_zone(ycb_029_plate, plate_far_zone)",
+        "clear_path(plate_far_zone, plate_near_zone)",
+        "reachable(ycb_029_plate)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goals": [
+        "inside_zone(ycb_029_plate, plate_near_zone)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "flat(ycb_029_plate)",
+        "stable(ycb_029_plate)",
+        "released(ycb_029_plate)"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "plate_slips_during_transfer",
+        "plate_leaves_clear_transfer_path",
+        "plate_ends_outside_near_zone",
+        "plate_ends_unstable"
+      ],
+      "safety_tags": ["optional_interaction", "participant_selected_cue", "no_clinical_inference"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_access_bowl_lift_return",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_access_bowl_lift_return",
+      "name_en": "Briefly lift the empty bowl and return it to its marked area",
+      "name_ja": "空のボウルを少し持ち上げ、印の範囲に戻す",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_024_bowl",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_024_bowl",
+        "start_zone": "bowl_start_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "state_ids": ["state_empty", "state_upright", "state_on_surface"],
+      "initial_state": [
+        "empty(ycb_024_bowl)",
+        "upright(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, dining_table)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "reachable(ycb_024_bowl)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goal_state": [
+        "pickup_and_grasp_observed(ycb_024_bowl)",
+        "released(ycb_024_bowl)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "upright(ycb_024_bowl)",
+        "stable(ycb_024_bowl)"
+      ],
+      "instruction_variants": [
+        "If you choose, briefly lift the empty bowl and set it back inside its marked area. You may choose the visual cue, the tactile cue, or no added cue; you do not need to explain your choice.",
+        "Optionally pick up the empty bowl, lift it just clear of the table, and release it upright within the same marked area.",
+        "よろしければ、空のボウルを少し持ち上げ、同じ印の範囲に戻して放してください。視覚的な手がかり、触れて分かる手がかり、追加の手がかりなしから選べます。選んだ理由を説明する必要はありません。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_functional_access_round1",
+      "notes": "Atlas proposal for an optional, bounded bowl-handling primitive. Offer a removable high-contrast zone outline, a low-profile tactile boundary outside the bowl's contact path, or no added marker, and let the participant choose without recording a reason. These marker choices are curator-designed setup options; WHO ICF e115 classifies products and technology for daily living but does not prescribe these markers or this action. UNICEF/Washington Group CFM describes population-survey domains and is not an individual screening or task protocol. WHODAS 2.0 is an adult health/functioning assessment, not a robot-task source. Do not infer ability, disability, diagnosis, or accommodation outcome from opting in or from task performance. Graph path: this TaskInstance --acts_on--> ycb_024_bowl --instance_of--> concept:object_dish (exactly two Atlas hierarchy edges). Its distinct sibling primitive is the plate-transfer task under the same ObjectClass."
+    },
+    {
+      "id": "task_reference_access_plate_transfer",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_access_plate_transfer",
+      "name_en": "Move the empty plate from the far mark to the near mark",
+      "name_ja": "空の皿を奥の印から手前の印へ移す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_029_plate",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_029_plate",
+        "start_zone": "plate_far_zone",
+        "target_zone": "plate_near_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "state_ids": ["state_empty", "state_on_surface"],
+      "initial_state": [
+        "empty(ycb_029_plate)",
+        "flat(ycb_029_plate)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "inside_zone(ycb_029_plate, plate_far_zone)",
+        "clear_path(plate_far_zone, plate_near_zone)",
+        "reachable(ycb_029_plate)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goal_state": [
+        "inside_zone(ycb_029_plate, plate_near_zone)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "flat(ycb_029_plate)",
+        "stable(ycb_029_plate)",
+        "released(ycb_029_plate)"
+      ],
+      "instruction_variants": [
+        "If you choose, move the empty plate from the far mark to the near mark. You may choose the visual cue, the tactile cue, or no added cue; you do not need to explain your choice.",
+        "Optionally carry the empty plate level from the far tabletop mark and set it down inside the near mark.",
+        "よろしければ、空の皿を奥の印から手前の印まで移してください。視覚的な手がかり、触れて分かる手がかり、追加の手がかりなしから選べます。選んだ理由を説明する必要はありません。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_functional_access_round1",
+      "notes": "Atlas proposal for an optional plate-transfer primitive, distinct from the bowl lift-and-return objective. Offer a removable high-contrast zone outline, a low-profile tactile boundary outside the clear transfer path, or no added marker, and let the participant choose without recording a reason. These marker choices are curator-designed setup options; WHO ICF e115 classifies products and technology for daily living but does not prescribe these markers or this action. UNICEF/Washington Group CFM describes population-survey domains and is not an individual screening or task protocol. WHODAS 2.0 is an adult health/functioning assessment, not a robot-task source. Do not infer ability, disability, diagnosis, or accommodation outcome from opting in or from task performance. Graph path: this TaskInstance --acts_on--> ycb_029_plate --instance_of--> concept:object_dish (exactly two Atlas hierarchy edges). Its distinct sibling primitive is the bowl lift-and-return task under the same ObjectClass."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_access_bowl_lift_return",
+      "task_id": "task_reference_access_bowl_lift_return",
+      "requirements": [
+        {"key": "scene_id", "value": "scene_dining_table", "reason": "A stable, clear tabletop supports an observable lift-and-return setup."},
+        {"key": "object", "value": "ycb_024_bowl", "reason": "Reusable YCB dish instance; using it is an Atlas proposal and does not establish robot or simulator compatibility."},
+        {"key": "condition", "value": "empty_bowl", "reason": "An empty bowl keeps contents handling outside this primitive."},
+        {"key": "condition", "value": "marked_bowl_start_zone", "reason": "The marked area makes the return position observable."},
+        {"key": "condition", "value": "participant_selected_or_declined_optional_cue", "reason": "Offer an optional high-contrast outline, a low-profile tactile boundary outside the object path, or no added marker; record no reason or health information."}
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the interaction is accepted, observe pickup/grasp, brief clearance from the surface, release, and stable final placement inside the original marked area.",
+          "Report the object event and selected setup option only if the participant chooses to share it; do not score performance as a measure of functioning, ability, or disability."
+        ],
+        "setup": [
+          "Explain the optional interaction and data to be recorded; allow a no-cue option, declining, or stopping without giving a reason.",
+          "Set one empty YCB bowl upright in a clear dining-table start zone and, if selected, add only a removable visual outline or low-profile tactile boundary outside the bowl's placement path."
+        ],
+        "reset": [
+          "Return the empty bowl upright to the original marked area and remove or restore the optional cue to the participant-selected state."
+        ],
+        "quality_checks": [
+          "Keep the same start and return zone, bowl, and task goal across cue options; record only observable task events.",
+          "Do not administer ICF, WHODAS 2.0, or CFM items as part of this Atlas task and do not infer a participant's functioning or diagnosis."
+        ],
+        "failure_modes": ["bowl_slips_before_release", "bowl_outside_start_zone", "bowl_unstable_after_release"],
+        "consumables": [],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    },
+    {
+      "id": "planning_reference_access_plate_transfer",
+      "task_id": "task_reference_access_plate_transfer",
+      "requirements": [
+        {"key": "scene_id", "value": "scene_dining_table", "reason": "A clear tabletop provides a stable start, transfer lane, and target."},
+        {"key": "object", "value": "ycb_029_plate", "reason": "Reusable YCB dish instance; using it is an Atlas proposal and does not establish robot or simulator compatibility."},
+        {"key": "condition", "value": "empty_plate", "reason": "An empty plate keeps food and liquid handling outside this primitive."},
+        {"key": "condition", "value": "clear_marked_plate_transfer_lane", "reason": "A clear path makes the far-to-near transfer bounded and observable."},
+        {"key": "condition", "value": "participant_selected_or_declined_optional_cue", "reason": "Offer an optional high-contrast outline, a low-profile tactile boundary outside the transfer path, or no added marker; record no reason or health information."}
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the interaction is accepted, observe the empty plate move from the far marked zone to the near marked zone and finish flat, stable, and released.",
+          "Report the object event and selected setup option only if the participant chooses to share it; do not score performance as a measure of functioning, ability, or disability."
+        ],
+        "setup": [
+          "Explain the optional interaction and data to be recorded; allow a no-cue option, declining, or stopping without giving a reason.",
+          "Place one empty YCB plate flat in the far zone, keep the lane clear, and add only a removable visual outline or low-profile tactile boundary outside the object path if selected."
+        ],
+        "reset": [
+          "Return the empty plate flat to the far zone and remove or restore the optional cue to the participant-selected state."
+        ],
+        "quality_checks": [
+          "Keep the same plate, far/near zones, transfer lane, and task goal across cue options; record only observable task events.",
+          "Do not administer ICF, WHODAS 2.0, or CFM items as part of this Atlas task and do not infer a participant's functioning or diagnosis."
+        ],
+        "failure_modes": ["plate_slips_during_transfer", "plate_leaves_transfer_lane", "plate_outside_near_zone", "plate_unstable_after_release"],
+        "consumables": [],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_reference_functional_access_icf_environment",
+      "source_name": "WHO ICF Browser: Environmental Factors and e115 Products and technology for personal use in daily living",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "WHO ICF Browser accessed 2026-09-25",
+      "source_locator": "https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=e115&hsr=1",
+      "observed_count": null,
+      "scope": "The ICF describes e115 as equipment, products, and technologies used in daily activities, including adapted or specially designed products. The Environmental Factors introduction says factors are considered from the perspective of the person whose situation is described and that facilitator coding considers resource accessibility and dependability.",
+      "limitations": "ICF is a classification, not an access-design standard or robot-task procedure. It does not prescribe high-contrast outlines, tactile boundaries, this object handling, a participant choice protocol, prevalence, individual ability, diagnosis, or task performance. The marker choices and tasks are curator proposals only.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source pages: https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=e115&hsr=1 and https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=e."
+    },
+    {
+      "id": "evidence_reference_functional_access_whodas",
+      "source_name": "WHO WHODAS 2.0 overview and manual record",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "WHO publication page accessed 2026-09-25; manual published 2012",
+      "source_locator": "https://www.who.int/standards/classifications/international-classification-of-functioning-disability-and-health/who-disability-assessment-schedule",
+      "observed_count": null,
+      "scope": "WHO describes WHODAS 2.0 as a generic instrument for assessing health status and disability across cultures and settings, with six functioning domains, including mobility, life activities, and participation; the page describes adult-population applicability and questionnaire versions.",
+      "limitations": "WHODAS 2.0 is an assessment instrument, not a source for object-manipulation tasks, access-marker specifications, or robot execution. This draft does not administer WHODAS, use its items or scores, or interpret participation in the proposed task as health or disability evidence. It supplies a boundary on claims, not validation of these proposed tasks.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "WHO manual record: https://www.who.int/publications/i/item/measuring-health-and-disability-manual-for-who-disability-assessment-schedule-%28-whodas-2.0%29."
+    },
+    {
+      "id": "evidence_reference_functional_access_unicef_cfm",
+      "source_name": "UNICEF/Washington Group Module on Child Functioning",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "UNICEF Data page accessed 2026-09-25; module finalized 2016",
+      "source_locator": "https://data.unicef.org/resources/module-child-functioning/",
+      "observed_count": null,
+      "scope": "UNICEF describes the CFM as a household-survey and census module for children aged 2 to 17 years. It covers domains including seeing, hearing, communication/comprehension, mobility, learning, and emotions, and is intended to identify population subgroups at risk of limited participation in an unaccommodating environment.",
+      "limitations": "CFM questions are survey measures, not individual diagnoses, access requirements, task instructions, or robot procedures. They do not prescribe the proposed tactile/visual markers or validate these bowl and plate actions; no CFM item, response, child record, or frequency statistic is used by this draft. Do not screen or infer an individual child's or adult's functioning from task choice or performance.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Related primary Washington Group question-set index: https://www.washingtongroup-disability.com/question-sets/ (lists the WG/UNICEF CFM and age-specific analysis syntax)."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_access_bowl_task_suitability",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional bowl-handling primitive for collection-design review with a participant-selected or declined visual/tactile setup cue.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_reference_functional_access_icf_environment", "evidence_reference_functional_access_unicef_cfm"],
+      "scope": "One empty YCB bowl is briefly lifted and returned to its marked dining-table area; the cue choice is an unvalidated Atlas setup proposal.",
+      "limitations": "ICF and CFM do not prescribe or validate this task or its visual/tactile choices. WHODAS/CFM are not task-performance measures. Do not infer ability, disability, diagnosis, accommodation outcome, or clinical status."
+    },
+    {
+      "id": "claim_reference_access_bowl_population_frequency",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional bowl lift-and-return task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or event-frequency protocol is attached to the Atlas proposal.",
+      "limitations": "ICF, WHODAS 2.0, and CFM do not report frequency for this specific YCB object task."
+    },
+    {
+      "id": "claim_reference_access_bowl_robot_execution",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed bowl interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, execution trial, or success measurement is specified.",
+      "limitations": "A task design proposal and functioning classification provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_access_bowl_asset_compatibility",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the YCB bowl asset with a particular robot, simulator, or marker setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, bowl model configuration, or marker implementation is attached.",
+      "limitations": "YCB catalog identity and ICF product classification do not establish compatibility or safety for an execution setup."
+    },
+    {
+      "id": "claim_reference_access_plate_task_suitability",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional plate-transfer primitive for collection-design review with a participant-selected or declined visual/tactile setup cue.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_reference_functional_access_icf_environment", "evidence_reference_functional_access_unicef_cfm"],
+      "scope": "One empty YCB plate is moved from a far to a near marked dining-table zone; the cue choice is an unvalidated Atlas setup proposal.",
+      "limitations": "ICF and CFM do not prescribe or validate this task or its visual/tactile choices. WHODAS/CFM are not task-performance measures. Do not infer ability, disability, diagnosis, accommodation outcome, or clinical status."
+    },
+    {
+      "id": "claim_reference_access_plate_population_frequency",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional plate-transfer task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or event-frequency protocol is attached to the Atlas proposal.",
+      "limitations": "ICF, WHODAS 2.0, and CFM do not report frequency for this specific YCB object task."
+    },
+    {
+      "id": "claim_reference_access_plate_robot_execution",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed plate interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, execution trial, or success measurement is specified.",
+      "limitations": "A task design proposal and functioning classification provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_access_plate_asset_compatibility",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the YCB plate asset with a particular robot, simulator, or marker setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, plate model configuration, or marker implementation is attached.",
+      "limitations": "YCB catalog identity and ICF product classification do not establish compatibility or safety for an execution setup."
+    }
+  ],
+  "draft_notes": [
+    "Two primitive siblings are proposed with reusable YCB dish assets: task_reference_access_bowl_lift_return --acts_on--> ycb_024_bowl --instance_of--> concept:object_dish, and task_reference_access_plate_transfer --acts_on--> ycb_029_plate --instance_of--> concept:object_dish. Each TaskInstance ascends exactly two existing Atlas hierarchy edges and both terminate at the same ObjectClass.",
+    "WHO ICF/WHODAS and UNICEF/Washington Group CFM are classification/assessment or survey resources, not robot-task catalogs. The CFM is a population survey module for children aged 2-17, WHODAS 2.0 is an adult functioning/health assessment, and ICF environmental factors classify contextual facilitators/barriers. They do not specify the authored task, cue design, prevalence, robot execution, or compatibility.",
+    "High-contrast and tactile marker options are unvalidated curator proposals offered optionally; allow choosing neither and never require a reason. Do not administer the instruments, request health/disability disclosures, or infer any individual's functioning, diagnosis, or accommodation outcome. Frequency, robot execution, asset compatibility, timing, and task suitability beyond proposed review remain unestablished; all time estimates are null."
+  ]
+}

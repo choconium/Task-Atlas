@@ -1,0 +1,428 @@
+{
+  "templates": [
+    {
+      "id": "template_reference_charades_put_food_surface_round1",
+      "node_type": "TaskTemplate",
+      "name_en": "Place one food item on a designated surface",
+      "name_ja": "食品を一つ指定面に置く",
+      "verb": "place",
+      "roles": {
+        "theme": "food_item",
+        "destination": "clear_stable_surface"
+      },
+      "compatible_scenes": ["scene_home_kitchen"],
+      "preconditions": [
+        "held_by(theme, robot)",
+        "reachable(destination)",
+        "clear(destination)",
+        "stable(destination)"
+      ],
+      "goals": ["on_top_of(theme, destination)", "stable(theme)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": ["missed_placement", "food_item_dropped", "unstable_placement"],
+      "safety_tags": ["food_contact", "rigid_manipulation"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_charades_take_food_surface_round1",
+      "node_type": "TaskTemplate",
+      "name_en": "Take one food item from a designated surface",
+      "name_ja": "食品を一つ指定面から取る",
+      "verb": "take",
+      "roles": {
+        "theme": "food_item",
+        "source": "stable_surface"
+      },
+      "compatible_scenes": ["scene_home_kitchen"],
+      "preconditions": [
+        "on_top_of(theme, source)",
+        "reachable(theme)",
+        "stable(source)",
+        "one_hand_free(robot)"
+      ],
+      "goals": ["held_by(theme, robot)", "clear_of_surface(theme, source)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "failure_modes": ["missed_grasp", "food_item_dropped", "contact_damage"],
+      "safety_tags": ["food_contact", "rigid_manipulation"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_charades_put_banana_on_surface_round1",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_charades_put_food_surface_round1",
+      "name_en": "Place the banana on a clear kitchen surface",
+      "name_ja": "バナナを空いたキッチン面に置く",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_011_banana",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_011_banana",
+        "destination": "charades_resource_designated_kitchen_surface"
+      },
+      "state_ids": ["state_held", "state_on_surface"],
+      "initial_state": [
+        "held_by(ycb_011_banana, robot)",
+        "reachable(charades_resource_designated_kitchen_surface)",
+        "clear(charades_resource_designated_kitchen_surface)",
+        "stable(charades_resource_designated_kitchen_surface)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_011_banana, charades_resource_designated_kitchen_surface)",
+        "stable(ycb_011_banana)"
+      ],
+      "instruction_variants": [
+        "Place the banana on the designated clear kitchen surface.",
+        "Set the banana down so it rests stably on the marked surface.",
+        "バナナを指定された空き面に、安定するように置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_charades_round1",
+      "notes": "Grounding source: official Charades action class c062 is ‘Putting some food somewhere’; the official mapping file maps c062 to source object class o016 (‘food’) and verb v016. Choosing one YCB banana and a clear kitchen surface makes a bounded Atlas collection proposal; neither that particular fruit identity nor the target surface is stated by the broad class label. The Charades-to-YCB mapping is proposed, with model equivalence and asset compatibility unknown. Atlas graph walk (exactly two local edges): this TaskInstance --acts_on--> ycb_011_banana (ObjectInstance) --instance_of--> concept:object_fruit (ObjectClass). This is the first of two distinct sibling primitives under object_fruit; its companion is task_reference_charades_take_apple_from_surface_round1. Charades scripted video labels are dataset evidence only, not population frequency or physical robot execution."
+    },
+    {
+      "id": "task_reference_charades_take_apple_from_surface_round1",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_charades_take_food_surface_round1",
+      "name_en": "Take the apple from a kitchen surface",
+      "name_ja": "キッチン面からリンゴを取る",
+      "intent_id": "intent_retrieve",
+      "object_id": "ycb_013_apple",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_013_apple",
+        "source": "charades_resource_marked_kitchen_surface"
+      },
+      "state_ids": ["state_on_surface", "state_held"],
+      "initial_state": [
+        "on_top_of(ycb_013_apple, charades_resource_marked_kitchen_surface)",
+        "reachable(ycb_013_apple)",
+        "stable(charades_resource_marked_kitchen_surface)",
+        "one_hand_free(robot)"
+      ],
+      "goal_state": [
+        "held_by(ycb_013_apple, robot)",
+        "clear_of_surface(ycb_013_apple, charades_resource_marked_kitchen_surface)"
+      ],
+      "instruction_variants": [
+        "Take the apple from the marked kitchen surface.",
+        "Pick up the apple and hold it securely clear of the surface.",
+        "指定されたキッチン面からリンゴを取り、安定して持ってください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_charades_round1",
+      "notes": "Grounding source: official Charades action class c063 is ‘Taking food from somewhere’; the official mapping file maps c063 to source object class o016 (‘food’) and verb v023. Choosing one YCB apple and a marked kitchen surface narrows the broad source label into a bounded Atlas collection proposal; neither that particular fruit identity nor the exact source surface is given by the class label. The Charades-to-YCB mapping is proposed, with model equivalence and asset compatibility unknown. Atlas graph walk (exactly two local edges): this TaskInstance --acts_on--> ycb_013_apple (ObjectInstance) --instance_of--> concept:object_fruit (ObjectClass). This is a distinct sibling primitive to task_reference_charades_put_banana_on_surface_round1 under the same ObjectClass. Charades scripted video labels are dataset evidence only, not population frequency or physical robot execution."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_charades_put_banana_on_surface_round1",
+      "task_id": "task_reference_charades_put_banana_on_surface_round1",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Use the existing kitchen scene type as the proposed indoor context for the generic Charades food-placement class."
+        },
+        {
+          "key": "object",
+          "value": "ycb_011_banana",
+          "reason": "Proposed reusable YCB candidate for the Charades source class ‘food’; no source video-to-YCB model identity is asserted."
+        },
+        {
+          "key": "object",
+          "value": "charades_resource_designated_kitchen_surface",
+          "reason": "External target-surface requirement introduced to bound the source label’s unspecified destination."
+        },
+        {
+          "key": "condition",
+          "value": "banana_held_surface_clear_and_stable",
+          "reason": "Proposed observable initial setup for a single placement primitive."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design capability requirement only; it is not evidence that a robot executed the task."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_charades_put_banana_on_surface_round1",
+          "label": "Place and verify one banana on the surface",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the held banana and designated surface."},
+            {"skill_id": "skill_approach", "description": "Move toward the clear target area without contacting nearby items."},
+            {"skill_id": "skill_place", "description": "Lower the banana onto the designated surface."},
+            {"skill_id": "skill_release", "description": "Release the banana without pushing or rolling it."},
+            {"skill_id": "skill_verify", "description": "Verify the banana rests stably on the surface."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_011_banana", "reason": "Proposed primary object for the task."},
+            {"key": "object", "value": "charades_resource_designated_kitchen_surface", "reason": "External target surface required by the Atlas operationalization."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The banana is released, supported by the designated surface, and stable without visible damage."
+        ],
+        "setup": [
+          "Stage one clean, intact YCB banana in the declared held initial condition and mark a clear, level target area.",
+          "Record the banana as a proposed re-grounding of generic Charades ‘food’; separately check the selected asset and robot setup before collection."
+        ],
+        "reset": [
+          "Return the banana to the declared initial held condition and restore the marked surface area."
+        ],
+        "quality_checks": [
+          "Confirm the banana is fully supported, stable, intact, and placed within the marked area."
+        ],
+        "failure_modes": [
+          "Banana misses the target surface or rolls away.",
+          "Banana is dropped, compressed, or visibly damaged.",
+          "Target surface is obstructed or unstable."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_charades_take_apple_from_surface_round1",
+      "task_id": "task_reference_charades_take_apple_from_surface_round1",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Use the existing kitchen scene type as the proposed indoor context for the generic Charades food-retrieval class."
+        },
+        {
+          "key": "object",
+          "value": "ycb_013_apple",
+          "reason": "Proposed reusable YCB candidate for the Charades source class ‘food’; no source video-to-YCB model identity is asserted."
+        },
+        {
+          "key": "object",
+          "value": "charades_resource_marked_kitchen_surface",
+          "reason": "External source-surface requirement introduced to bound the source label’s unspecified origin."
+        },
+        {
+          "key": "condition",
+          "value": "apple_stable_on_reachable_surface",
+          "reason": "Proposed observable initial setup for one take/pick-up primitive."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design capability requirement only; it is not evidence that a robot executed the task."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_charades_take_apple_from_surface_round1",
+          "label": "Take and verify one apple from the surface",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the apple on the marked surface."},
+            {"skill_id": "skill_approach", "description": "Approach the apple without contacting nearby items."},
+            {"skill_id": "skill_grasp", "description": "Acquire a stable grasp on the apple."},
+            {"skill_id": "skill_lift", "description": "Lift the apple clear of the surface."},
+            {"skill_id": "skill_verify", "description": "Verify the apple is held and clear of the support surface."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_013_apple", "reason": "Proposed primary object for the task."},
+            {"key": "object", "value": "charades_resource_marked_kitchen_surface", "reason": "External starting surface required by the Atlas operationalization."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The apple is lifted clear of the marked surface and remains securely held without visible damage."
+        ],
+        "setup": [
+          "Stage one clean, intact YCB apple on a level, reachable marked surface with a clear approach path.",
+          "Record the apple as a proposed re-grounding of generic Charades ‘food’; separately check the selected asset and robot setup before collection."
+        ],
+        "reset": [
+          "Return the apple to its marked surface position and verify that it is stable and undamaged."
+        ],
+        "quality_checks": [
+          "Confirm that the apple cleared the surface, stayed controlled, and shows no visible damage."
+        ],
+        "failure_modes": [
+          "Grasp is missed or unstable.",
+          "Apple is dropped, rolled away, or visibly damaged.",
+          "Approach collides with nearby objects or the surface is unstable."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_charades_official_food_action_classes_round1",
+      "source_name": "Charades official v1 action classes, object classes, and activity mapping",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "Charades initial release, June 2016; official dataset page and archive accessed 2026-09-25",
+      "source_locator": "https://ai2-public-datasets.s3-us-west-2.amazonaws.com/charades/Charades.zip",
+      "observed_count": null,
+      "scope": "The official Charades_v1_classes.txt defines c062 as ‘Putting some food somewhere’ and c063 as ‘Taking food from somewhere’. Charades_v1_mapping.txt maps both action IDs to source object class o016 (‘food’), with verbs v016 and v023 respectively. The official README lists these classes, mappings, and temporal train/test annotation files as contents of the release archive.",
+      "limitations": "These are dataset action classes and source object labels, not evidence of population-level task frequency or physical robot execution. The labels do not identify an individual apple, banana, YCB model, exact support surface, or asset compatibility. The Atlas fruit instances, kitchen context, and marked surface conditions are proposed operationalizations of a broad source label; object-model equivalence and compatibility remain unknown.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source: official Charades dataset page https://prior.allenai.org/projects/charades and official README https://prior.allenai.org/projects/data/charades/README.txt. The archive was read directly to verify Charades_v1_classes.txt rows c062/c063 and Charades_v1_mapping.txt rows c062/c063. No individual annotation row ID, source-object identity, or count is asserted. The source describes crowd-recorded videos acting out scripts, so dataset labels must not be read as household prevalence."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_charades_put_banana_task_suitability_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "task_suitability",
+      "statement": "The Charades class ‘Putting some food somewhere’ supports proposing a bounded food-placement primitive, operationalized here with one YCB banana and a designated surface.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_charades_official_food_action_classes_round1"],
+      "scope": "Candidate collection-design task derived from Charades action class c062 and object class food.",
+      "limitations": "The surface, banana identity, exact setup, and goal-state details are Atlas design choices. Charades does not identify the YCB model or establish equivalence, asset compatibility, robot execution, or population frequency."
+    },
+    {
+      "id": "claim_reference_charades_put_banana_population_frequency_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for placing a YCB banana on a designated kitchen surface is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No representative population denominator or observation protocol is attached to this Atlas proposal.",
+      "limitations": "Charades action labels and video counts are dataset-specific; they are not household prevalence estimates."
+    },
+    {
+      "id": "claim_reference_charades_put_banana_robot_execution_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific YCB banana placement task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Task Atlas execution record is attached.",
+      "limitations": "Charades records scripted human-performed videos, not robot execution of the proposed task."
+    },
+    {
+      "id": "claim_reference_charades_put_banana_asset_compatibility_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected YCB banana model with the proposed setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No physical fit, grasp, simulator import, or rendering check is attached.",
+      "limitations": "The Charades source class ‘food’ does not identify a banana model or establish compatibility with any robot, scene, or simulator."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_task_suitability_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "task_suitability",
+      "statement": "The Charades class ‘Taking food from somewhere’ supports proposing a bounded food pick-up primitive, operationalized here with one YCB apple and a designated surface.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_charades_official_food_action_classes_round1"],
+      "scope": "Candidate collection-design task derived from Charades action class c063 and object class food.",
+      "limitations": "The surface, apple identity, exact setup, and held endpoint are Atlas design choices. Charades does not identify the YCB model or establish equivalence, asset compatibility, robot execution, or population frequency."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_population_frequency_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for taking a YCB apple from a designated kitchen surface is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No representative population denominator or observation protocol is attached to this Atlas proposal.",
+      "limitations": "Charades action labels and video counts are dataset-specific; they are not household prevalence estimates."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_robot_execution_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific YCB apple pick-up task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Task Atlas execution record is attached.",
+      "limitations": "Charades records scripted human-performed videos, not robot execution of the proposed task."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_asset_compatibility_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected YCB apple model with the proposed setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No physical grasp, simulator import, or rendering check is attached.",
+      "limitations": "The Charades source class ‘food’ does not identify an apple model or establish compatibility with any robot, scene, or simulator."
+    }
+  ],
+  "draft_notes": [
+    "This is an isolated proposed bundle. It adds two source-grounded primitive proposals and does not modify active seeds or YCB coverage batches.",
+    "The official Charades v1 class list defines c062 as ‘Putting some food somewhere’ and c063 as ‘Taking food from somewhere’. The official class-to-object/verb mapping gives o016 (‘food’) for each, with verbs v016 and v023 respectively. The official README documents the action classes, mapping file, and temporal annotations. These exact source classes—not an invented annotation row—ground the two tasks.",
+    "The source label ‘food’ is broader than Task Atlas concept:object_fruit. Selecting YCB banana for c062 and YCB apple for c063 is a curator-proposed narrowing to reusable objects already in the YCB catalog. Charades provides no evidence that either recorded video object is the selected YCB model; equivalence and physical/simulator compatibility are unknown.",
+    "Each local hierarchy walk has exactly two edges: task_reference_charades_put_banana_on_surface_round1 --acts_on--> ycb_011_banana --instance_of--> concept:object_fruit; task_reference_charades_take_apple_from_surface_round1 --acts_on--> ycb_013_apple --instance_of--> concept:object_fruit. The second task is a distinct sibling primitive under the same ObjectClass.",
+    "The two candidate tasks are not represented as observed population frequencies or robot demonstrations. Charades is a crowdsourced scripted video dataset; no video/action-class prevalence is reported as human household frequency, and no task is claimed as physically executed by a robot.",
+    "The scene, specified surface, initial/goal states, safety checks, and collection steps narrow generic action classes into proposed data-collection procedures. All setup, execution, reset, and review times remain null because no Task Atlas collection trial was measured."
+  ]
+}

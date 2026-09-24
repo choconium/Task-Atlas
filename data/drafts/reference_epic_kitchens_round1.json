@@ -1,0 +1,465 @@
+{
+  "templates": [
+    {
+      "id": "template_reference_epic_take_bowl",
+      "node_type": "TaskTemplate",
+      "name_en": "Take a bowl from a kitchen surface",
+      "name_ja": "キッチンの面からボウルを取る",
+      "verb": "take",
+      "roles": {
+        "theme": "bowl",
+        "source": "stable_kitchen_surface"
+      },
+      "compatible_scenes": ["scene_home_kitchen"],
+      "preconditions": [
+        "on_top_of(theme, source)",
+        "reachable(theme)",
+        "stable(source)"
+      ],
+      "goals": ["held(theme)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "failure_modes": ["miss_grasp", "drop_object", "chip_or_tip_bowl"],
+      "safety_tags": ["rigid_object", "dishware"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_epic_wash_bowl",
+      "node_type": "TaskTemplate",
+      "name_en": "Wash one bowl at a kitchen wash station",
+      "name_ja": "キッチンの洗い場でボウルを一つ洗う",
+      "verb": "wash",
+      "roles": {
+        "theme": "dirty_bowl",
+        "wash_station": "sink_and_safe_water_supply",
+        "tool": "wash_tool",
+        "staging_surface": "stable_wash_station_surface"
+      },
+      "compatible_scenes": ["scene_home_kitchen"],
+      "preconditions": [
+        "dirty(theme)",
+        "reachable(theme)",
+        "wash_station_ready(wash_station)",
+        "tool_available(tool)",
+        "stable(staging_surface)"
+      ],
+      "goals": ["clean(theme)", "soil_removed(theme)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_wipe",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "drop_or_chip_bowl",
+        "incomplete_cleaning",
+        "water_spill",
+        "contact_with_unsafe_water"
+      ],
+      "safety_tags": ["hygiene", "water", "dishware"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_epic_kitchens_take_bowl_round1",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_epic_take_bowl",
+      "name_en": "Take one bowl from a kitchen work surface",
+      "name_ja": "キッチンの作業面からボウルを一つ取る",
+      "intent_id": "intent_retrieve",
+      "object_id": "ycb_024_bowl",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_024_bowl",
+        "source": "epic_bowl_take_surface"
+      },
+      "state_ids": ["state_on_surface", "state_held"],
+      "initial_state": [
+        "on_top_of(ycb_024_bowl, epic_bowl_take_surface)",
+        "reachable(ycb_024_bowl)",
+        "stable(epic_bowl_take_surface)",
+        "gripper_empty"
+      ],
+      "goal_state": [
+        "held(ycb_024_bowl)",
+        "clear_of_surface(ycb_024_bowl, epic_bowl_take_surface)"
+      ],
+      "instruction_variants": [
+        "Take the bowl from the kitchen work surface.",
+        "Pick up the bowl and hold it securely.",
+        "キッチンの作業面からボウルを取り、安定して持ってください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_epic_kitchens_round1",
+      "notes": "Source example: the EPIC-KITCHENS VISOR supplementary material uses the illustrative sequence ‘take bowl’ then ‘wash bowl’ to explain continuity between adjacent action clips. It does not provide an annotation row ID or exact starting surface; a stable reachable work surface and held-bowl endpoint are explicit Task Atlas collection-design assumptions that operationalize the verb label. Proposed cross-resource mapping: the EPIC noun class ‘bowl’ is associated here with the existing reusable YCB instance ycb_024_bowl. This is a proposal for a candidate object, not an assertion that the recorded bowl is the YCB model or that the model is visually, physically, or simulator compatible. Atlas graph walk: this TaskInstance --acts_on--> ycb_024_bowl --instance_of--> concept:object_dish (two existing Atlas relation edges). This is the first of two distinct sibling primitives under object_dish; its documented companion is task_reference_epic_kitchens_wash_bowl_round1."
+    },
+    {
+      "id": "task_reference_epic_kitchens_wash_bowl_round1",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_epic_wash_bowl",
+      "name_en": "Wash one bowl at a kitchen wash station",
+      "name_ja": "キッチンの洗い場でボウルを一つ洗う",
+      "intent_id": "intent_clean",
+      "object_id": "ycb_024_bowl",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_024_bowl",
+        "wash_station": "epic_kitchen_wash_station",
+        "tool": "ycb_026_sponge",
+        "staging_surface": "epic_wash_station_staging_surface"
+      },
+      "state_ids": ["state_dirty", "state_clean", "state_on_surface"],
+      "initial_state": [
+        "dirty(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, epic_wash_station_staging_surface)",
+        "reachable(ycb_024_bowl)",
+        "wash_station_ready(epic_kitchen_wash_station)",
+        "tool_available(ycb_026_sponge)",
+        "stable(epic_wash_station_staging_surface)"
+      ],
+      "goal_state": [
+        "clean(ycb_024_bowl)",
+        "soil_removed(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, epic_wash_station_staging_surface)"
+      ],
+      "instruction_variants": [
+        "Wash the bowl at the kitchen sink and leave it on the wash-station surface.",
+        "Clean the bowl with the wash tool, then check that visible soil is gone.",
+        "ボウルを洗い場で洗い、目に見える汚れが落ちたことを確認してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_wipe",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_epic_kitchens_round1",
+      "notes": "Source example: the EPIC-KITCHENS VISOR supplementary material explicitly gives ‘take bowl’ followed by ‘wash bowl’ as an example of object continuity across adjacent clips. It does not specify dirt state, exact wash procedure, sink setup, cleaning tool, or endpoint; those are bounded collection-design assumptions in this proposal. The YCB sponge is an Atlas helper-object choice and is not a tool identity reported by that example. Proposed cross-resource mapping: the EPIC noun class ‘bowl’ is associated with existing reusable YCB instance ycb_024_bowl, without claiming that the recorded object is the YCB model or that it is compatible with a water-based wash setup, robot, or simulator. Atlas graph walk: this TaskInstance --acts_on--> ycb_024_bowl --instance_of--> concept:object_dish (two existing Atlas relation edges). This is a distinct sibling primitive to task_reference_epic_kitchens_take_bowl_round1 under the same existing ObjectClass."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_epic_kitchens_take_bowl_round1",
+      "task_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Use the existing kitchen scene type for the proposed source-surface pick-up episode."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "Candidate reusable object mapped from the EPIC bowl label; matching the recorded bowl and model has not been established."
+        },
+        {
+          "key": "object",
+          "value": "epic_bowl_take_surface",
+          "reason": "External stable source-surface resource; the cited example does not specify the starting surface."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_stable_bowl",
+          "reason": "Proposed observable setup for isolating the take/pick-up primitive."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design capability requirement for grasping and lifting a rigid bowl; it is not evidence of robot execution."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_epic_kitchens_take_bowl_round1",
+          "label": "Pick up and hold one bowl",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the bowl on the declared stable source surface."},
+            {"skill_id": "skill_approach", "description": "Approach without contacting nearby objects."},
+            {"skill_id": "skill_grasp", "description": "Establish a stable grasp on the bowl."},
+            {"skill_id": "skill_lift", "description": "Lift the bowl clear of the surface."},
+            {"skill_id": "skill_verify", "description": "Verify the bowl is held and no longer supported by the source surface."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_024_bowl", "reason": "Primary task object."},
+            {"key": "condition", "value": "reachable_stable_source_surface", "reason": "Required initial condition."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The bowl is lifted clear of the source surface and remains securely held without visible damage."
+        ],
+        "setup": [
+          "Use a level, stable kitchen work surface with clear access around the candidate bowl.",
+          "Record that the candidate YCB bowl is a proposed cross-resource mapping, then confirm its physical geometry and grasp suitability separately before any collection trial."
+        ],
+        "reset": [
+          "Return the bowl to its marked source position and verify that it is stable and undamaged."
+        ],
+        "quality_checks": [
+          "Confirm the bowl cleared the surface, remained controlled, and was not chipped or dropped."
+        ],
+        "failure_modes": [
+          "Missed or unstable grasp",
+          "Bowl slips or is dropped",
+          "Collision with adjacent objects or bowl damage"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_epic_kitchens_wash_bowl_round1",
+      "task_id": "task_reference_epic_kitchens_wash_bowl_round1",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Use the existing kitchen scene type for a separately staged bowl-washing episode."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "Candidate reusable object mapped from the EPIC bowl label; matching the recorded bowl and model has not been established."
+        },
+        {
+          "key": "object",
+          "value": "ycb_026_sponge",
+          "reason": "Proposed reusable helper object for a controlled wash trial; it is not identified by the cited example."
+        },
+        {
+          "key": "object",
+          "value": "epic_kitchen_wash_station",
+          "reason": "External sink and safe-water resource; no particular fixture is specified by the cited action example."
+        },
+        {
+          "key": "object",
+          "value": "epic_wash_station_staging_surface",
+          "reason": "External stable surface where the bowl can be supported during setup and post-wash inspection."
+        },
+        {
+          "key": "condition",
+          "value": "initial_visible_soil_and_safe_water",
+          "reason": "Proposed observable setup to define a measurable wash goal; the source does not describe soil or water state."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design requirement for holding and manipulating the bowl; no platform execution evidence is claimed."
+        },
+        {
+          "key": "capability",
+          "value": "wiping",
+          "reason": "Collection-design requirement for the proposed bowl/tool contact phase."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_epic_kitchens_wash_bowl_round1",
+          "label": "Wash one bowl and verify visible soil removal",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the bowl, wash tool, and declared wash station."},
+            {"skill_id": "skill_grasp", "description": "Hold or stabilize the bowl safely over the wash station."},
+            {"skill_id": "skill_wipe", "description": "Apply the wash tool to the bowl surfaces under the declared water conditions."},
+            {"skill_id": "skill_verify", "description": "Check the bowl for visible remaining soil and record the result."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_024_bowl", "reason": "Primary task object."},
+            {"key": "object", "value": "ycb_026_sponge", "reason": "Proposed wash helper object."},
+            {"key": "object", "value": "epic_kitchen_wash_station", "reason": "External sink and safe-water resource."},
+            {"key": "condition", "value": "initial_visible_soil_and_safe_water", "reason": "Required proposed measurable wash setup."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "Visible soil is removed from the bowl, and the bowl remains intact on the stable wash-station surface."
+        ],
+        "setup": [
+          "Provide a stable basin-side staging surface, safe water supply, and the YCB sponge as a proposed helper; do not assume compatibility with the source video object.",
+          "Use only a controlled, documented, non-hazardous removable soil surrogate; protect nearby electrical equipment and the work area from water.",
+          "Verify that the selected bowl, sponge, and wash setup tolerate water contact before the trial."
+        ],
+        "reset": [
+          "Return the bowl and sponge to their recorded staging positions, drain and dry the station, and remove the soil surrogate."
+        ],
+        "quality_checks": [
+          "Record visible soil before and after, water containment, bowl stability, and any damage."
+        ],
+        "failure_modes": [
+          "Remaining soil after the wash episode",
+          "Bowl dropped, chipped, or left unstable",
+          "Water escapes the controlled wash area",
+          "Candidate bowl or tool proves unsuitable for water contact"
+        ],
+        "consumables": ["documented_non_hazardous_soil_surrogate", "safe_water"],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_epic_kitchens_visorsupp_bowl_sequence_round1",
+      "source_name": "EPIC-KITCHENS VISOR Benchmark supplementary material",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "VISOR / NeurIPS 2022 supplementary material",
+      "source_locator": "https://openreview.net/attachment?id=djnKHOjpb7I&name=supplementary_material",
+      "observed_count": null,
+      "scope": "The official VISOR supplementary material describes adjacent action clips using the example ‘take bowl’ followed by ‘wash bowl’. This supports two candidate bowl-focused interaction labels and their proposed adjacency.",
+      "limitations": "This is an illustrative example in the dataset-method supplementary material, not an identified annotation-row ID. It does not specify exact initial or goal states, a robotic procedure, a YCB object identity, asset compatibility, robot execution, or population frequency. EPIC-KITCHENS is a selected egocentric video dataset; action examples or counts must not be interpreted as household prevalence.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source supplementary material hosted by OpenReview for the VISOR paper. It explicitly mentions the take-bowl then wash-bowl continuity example. No annotation ID is inferred or invented."
+    },
+    {
+      "id": "evidence_epic_kitchens100_annotations_readme_round1",
+      "source_name": "EPIC-KITCHENS-100 official annotation release README",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "epic-kitchens/epic-kitchens-100-annotations @ ea8b40457a400c3fffa1c7f406ef3dc169cc2522",
+      "source_locator": "https://github.com/epic-kitchens/epic-kitchens-100-annotations/blob/ea8b40457a400c3fffa1c7f406ef3dc169cc2522/README.md",
+      "observed_count": null,
+      "scope": "The official release describes ground-truth action segments with action/verb/noun labels and start/end times; it gives ‘take plate’ as a train annotation-format example. The official noun-class table includes the noun key bowl in the crockery category.",
+      "limitations": "The README format example is ‘take plate’, not a bowl annotation row. It establishes how source action labels are represented but does not identify an instance of the YCB bowl, define robot feasibility, or estimate household task frequency.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary release documentation. Relevant official files: https://github.com/epic-kitchens/epic-kitchens-100-annotations/blob/master/EPIC_100_noun_classes.csv and https://github.com/epic-kitchens/epic-kitchens-100-annotations/blob/master/EPIC_100_train.csv. The annotation CSV was not retrieved in this draft workflow, so no specific annotation row or count is asserted."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_epic_take_bowl_task_suitability_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "task_suitability",
+      "statement": "The source documents ‘take bowl’ as an example action label suitable for proposing a bounded bowl pick-up task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_epic_kitchens_visorsupp_bowl_sequence_round1", "evidence_epic_kitchens100_annotations_readme_round1"],
+      "scope": "Proposal based on EPIC-KITCHENS VISOR's illustrative adjacent action sequence.",
+      "limitations": "It does not specify the source surface or prove an exact match to YCB ycb_024_bowl, robot execution, physical or simulator compatibility, or population frequency."
+    },
+    {
+      "id": "claim_reference_epic_take_bowl_population_frequency_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for taking a bowl is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population, denominator, or representative sampling protocol is defined.",
+      "limitations": "An egocentric video dataset is not a population prevalence study."
+    },
+    {
+      "id": "claim_reference_epic_take_bowl_robot_execution_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for taking this bowl is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution run is attached.",
+      "limitations": "Human video annotations do not demonstrate robot task completion."
+    },
+    {
+      "id": "claim_reference_epic_take_bowl_asset_compatibility_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the proposed YCB bowl mapping with the EPIC-KITCHENS bowl instance and any robot or simulator is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No matching source object model, physical test, or simulator configuration is available.",
+      "limitations": "The shared label ‘bowl’ is a candidate mapping, not evidence of model equivalence or compatibility."
+    },
+    {
+      "id": "claim_reference_epic_wash_bowl_task_suitability_round1",
+      "subject_id": "task_reference_epic_kitchens_wash_bowl_round1",
+      "claim_type": "task_suitability",
+      "statement": "The source documents ‘wash bowl’ as the next example action in a bowl-focused sequence, supporting a separate bounded wash-task proposal.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_epic_kitchens_visorsupp_bowl_sequence_round1", "evidence_epic_kitchens100_annotations_readme_round1"],
+      "scope": "Proposal based on the source example's washing label; the proposed wash station and measurable clean endpoint are Atlas design assumptions.",
+      "limitations": "The example does not specify tool, water, soil, exact procedure, or endpoint, and does not establish YCB equivalence, robot execution, asset compatibility, or population frequency."
+    },
+    {
+      "id": "claim_reference_epic_wash_bowl_population_frequency_round1",
+      "subject_id": "task_reference_epic_kitchens_wash_bowl_round1",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for washing a bowl is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population, denominator, or representative sampling protocol is defined.",
+      "limitations": "An egocentric video dataset is not a population prevalence study."
+    },
+    {
+      "id": "claim_reference_epic_wash_bowl_robot_execution_round1",
+      "subject_id": "task_reference_epic_kitchens_wash_bowl_round1",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for washing this bowl is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution run is attached.",
+      "limitations": "Human video annotations do not demonstrate robot task completion."
+    },
+    {
+      "id": "claim_reference_epic_wash_bowl_asset_compatibility_round1",
+      "subject_id": "task_reference_epic_kitchens_wash_bowl_round1",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the proposed YCB bowl mapping with the EPIC-KITCHENS bowl instance, wet cleaning, or any robot or simulator is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No matching source object model, water-contact test, robot platform, or simulator configuration is available.",
+      "limitations": "The shared label ‘bowl’ is a candidate mapping, not evidence of model equivalence or compatibility."
+    }
+  ],
+  "draft_notes": "EPIC-KITCHENS round 1 contains two distinct proposed primitive tasks: take bowl, then wash bowl. Their shared local Atlas path is TaskInstance --acts_on--> ycb_024_bowl --instance_of--> concept:object_dish, so they are sibling task instances at the same ObjectClass after ascending two hierarchy edges. The source supplementary material explicitly uses these labels in an adjacent-action continuity example, but does not expose a specific annotation-row ID in that example. The official release README provides the action/verb/noun annotation format and a separate ‘take plate’ format example; no row-level annotation or count was retrieved here. Mapping the source noun bowl to YCB ycb_024_bowl is proposed only; the YCB bowl and helper sponge are candidate reusable assets, not source object matches. Task suitability remains proposed; population frequency, robot execution, asset compatibility, and all durations remain unknown/null. Do not interpret EPIC dataset activity counts or examples as household prevalence."
+}

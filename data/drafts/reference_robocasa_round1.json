@@ -1,0 +1,550 @@
+{
+  "tasks": [
+    {
+      "id": "task_reference_robocasa_coffee_setup_mug",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_transport_object",
+      "name_en": "Move the mug from the counter under the coffee-machine dispenser",
+      "name_ja": "マグカップをカウンターからコーヒーマシンのディスペンサー下へ移す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_025_mug",
+        "source": "robocasa_resource_coffee_machine_counter",
+        "destination": "robocasa_resource_coffee_dispenser_zone",
+        "coffee_machine": "robocasa_resource_coffee_machine"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_clean",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_025_mug, robocasa_resource_coffee_machine_counter)",
+        "empty(ycb_025_mug)",
+        "clean(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "reachable(ycb_025_mug)",
+        "coffee_station_unpowered_and_cool(robocasa_resource_coffee_machine)",
+        "dispenser_zone_under_machine(robocasa_resource_coffee_dispenser_zone, robocasa_resource_coffee_machine)",
+        "dispenser_placement_zone_available(robocasa_resource_coffee_dispenser_zone)"
+      ],
+      "goal_state": [
+        "under_dispenser(ycb_025_mug, robocasa_resource_coffee_dispenser_zone)",
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)",
+        "gripper_clear_of(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "Pick the mug from the counter and place it under the coffee machine dispenser.",
+        "Move the empty mug from the marked counter position to the placement zone under the dispenser.",
+        "マグカップをカウンターから取り、コーヒーマシンのディスペンサー下へ置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_robocasa_round1",
+      "notes": "Source task: RoboCasa CoffeeSetupMug, which uses obj_groups=\"mug\", places it on the counter at initialization, and checks placement under the coffee-machine dispenser. This Atlas record is deliberately re-grounded to the real catalog object ycb_025_mug as a proposal; no individual RoboCasa mug asset ID is exposed by the cited object documentation, and model equivalence and compatibility remain unknown. The empty, clean, unpowered, and cool setup conditions are conservative Atlas collection-design assumptions, not source task requirements. Atlas graph walk: this TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware (two existing Atlas relation edges). The coffee-machine fixture, under-dispenser placement zone, and associated counter are explicit external resource requirements; the zone ID names the source placement area, not a separate asset. No brewing, button press, or liquid handling is included."
+    },
+    {
+      "id": "task_reference_robocasa_coffee_serve_mug",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_transport_object",
+      "name_en": "Move the mug from under the coffee-machine dispenser to the counter",
+      "name_ja": "マグカップをコーヒーマシンのディスペンサー下からカウンターへ移す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_025_mug",
+        "source": "robocasa_resource_coffee_dispenser_zone",
+        "destination": "robocasa_resource_coffee_machine_counter",
+        "coffee_machine": "robocasa_resource_coffee_machine"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_clean",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "under_dispenser(ycb_025_mug, robocasa_resource_coffee_dispenser_zone)",
+        "empty(ycb_025_mug)",
+        "clean(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "reachable(ycb_025_mug)",
+        "coffee_station_unpowered_and_cool(robocasa_resource_coffee_machine)",
+        "dispenser_placement_zone_available(robocasa_resource_coffee_dispenser_zone)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_025_mug, robocasa_resource_coffee_machine_counter)",
+        "empty(ycb_025_mug)",
+        "clean(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)",
+        "gripper_clear_of(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "Pick the mug from under the coffee machine dispenser and place it on the counter.",
+        "Move the empty mug from the placement zone beneath the dispenser to the marked counter position.",
+        "マグカップをディスペンサー下から取り、カウンターへ置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_robocasa_round1",
+      "notes": "Source task: RoboCasa CoffeeServeMug, which uses obj_groups=\"mug\", initializes it under the coffee-machine dispenser, and checks placement on the associated counter. This is a distinct reverse pick-and-place primitive at the same Atlas class as CoffeeSetupMug. The YCB ycb_025_mug substitution is proposed; no individual RoboCasa mug asset ID, model equivalence, or compatibility is established. The empty, clean, unpowered, and cool setup conditions are conservative Atlas collection-design assumptions, not source task requirements. Atlas graph walk: this TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware (two existing Atlas relation edges). The coffee-machine fixture, under-dispenser placement zone, and associated counter are explicit external resource requirements; the zone ID names the source placement area, not a separate asset. The task only moves the mug; it does not claim coffee was brewed or served, and excludes button operation and liquid handling."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_robocasa_coffee_setup_mug",
+      "task_id": "task_reference_robocasa_coffee_setup_mug",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "Use the existing kitchen-counter scene type for the source and coffee-machine-adjacent counter."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "This is the proposed Task Atlas re-grounding object; compatibility with the source mug group is unknown."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine",
+          "reason": "External fixture requirement corresponding to the RoboCasa coffee-machine fixture."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_dispenser_zone",
+          "reason": "External target-zone requirement corresponding to the source location under the dispenser."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine_counter",
+          "reason": "External source-surface requirement for the counter associated with the coffee-machine fixture."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_clean_ycb_025_mug",
+          "reason": "Conservative proposed setup condition for a cool, empty, non-liquid collection trial."
+        },
+        {
+          "key": "condition",
+          "value": "coffee_station_unpowered_and_cool",
+          "reason": "Conservative proposed setup condition; the task does not activate or operate the coffee machine."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design requirement for moving a rigid mug; no robot capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_robocasa_coffee_setup_mug",
+          "label": "Move the mug from the counter under the dispenser",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the marked mug, coffee-machine counter, and designated dispenser placement zone."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the mug while keeping clear of the machine and dispenser."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable hold on the empty mug."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the mug clear of the counter."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Place the mug in the designated dispenser placement zone beneath the dispenser."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release the mug after stable placement."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the mug is under the dispenser, stable, upright, and still empty."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_025_mug",
+              "reason": "Primary Atlas object for the proposed re-grounding."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_machine",
+              "reason": "Required external fixture."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_dispenser_zone",
+              "reason": "Required external target receptacle/dispenser placement zone."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The empty mug is stable and upright in the declared dispenser placement zone beneath the dispenser, and the gripper is clear."
+        ],
+        "setup": [
+          "Provide the YCB ycb_025_mug and separately verify that it fits in the selected dispenser placement zone; the RoboCasa mug-group count does not identify or validate an individual matching model.",
+          "Provide the coffee-machine fixture, its under-dispenser placement zone, and associated counter as external resources; verify them unpowered, cool, stable, and clear.",
+          "Stage the mug empty and clean on its marked counter start area. Do not add liquid, heat, or machine operation."
+        ],
+        "reset": [
+          "Return the empty mug to its marked counter start area and restore the dispenser placement zone and fixture to the recorded safe initial condition.",
+          "Confirm the mug remains upright, clean, empty, and undamaged."
+        ],
+        "quality_checks": [
+          "Verify the mug is fully supported in the declared dispenser placement zone beneath the dispenser, stable, upright, and empty.",
+          "Verify the coffee machine remained unpowered and cool and no liquid was introduced."
+        ],
+        "failure_modes": [
+          "YCB mug does not fit or is unstable in the selected dispenser placement zone.",
+          "Mug contacts the dispenser or fixture, tips, or is dropped.",
+          "Coffee machine is powered, hot, or not in the recorded initial condition.",
+          "Liquid is present or introduced, or the placement cannot be verified."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_robocasa_coffee_serve_mug",
+      "task_id": "task_reference_robocasa_coffee_serve_mug",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "Use the existing kitchen-counter scene type for the machine-side start and associated counter."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "This is the proposed Task Atlas re-grounding object; compatibility with the source mug group is unknown."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine",
+          "reason": "External fixture requirement corresponding to the RoboCasa coffee-machine fixture."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_dispenser_zone",
+          "reason": "External start-zone requirement corresponding to the source location under the dispenser."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine_counter",
+          "reason": "External destination-surface requirement for the counter associated with the coffee-machine fixture."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_clean_ycb_025_mug",
+          "reason": "Conservative proposed setup condition for a cool, empty, non-liquid collection trial."
+        },
+        {
+          "key": "condition",
+          "value": "coffee_station_unpowered_and_cool",
+          "reason": "Conservative proposed setup condition; the task does not activate or operate the coffee machine."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design requirement for moving a rigid mug; no robot capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_robocasa_coffee_serve_mug",
+          "label": "Move the mug from under the dispenser to the counter",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the marked mug, dispenser placement zone, and associated counter."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the mug while keeping clear of the machine and dispenser."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable hold on the empty mug."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the mug clear of the dispenser placement zone."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Place the mug on its marked counter destination."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release the mug after stable placement."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the mug is on the counter, stable, upright, and still empty."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_025_mug",
+              "reason": "Primary Atlas object for the proposed re-grounding."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_machine",
+              "reason": "Required external fixture."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_dispenser_zone",
+              "reason": "Required external start receptacle/dispenser placement zone."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The empty mug is stable and upright on the declared counter destination, and the gripper is clear."
+        ],
+        "setup": [
+          "Provide the YCB ycb_025_mug and separately verify that it fits in the selected dispenser placement zone; the RoboCasa mug-group count does not identify or validate an individual matching model.",
+          "Provide the coffee-machine fixture, its under-dispenser placement zone, and associated counter as external resources; verify them unpowered, cool, stable, and clear.",
+          "Stage the mug empty, clean, and upright in the dispenser placement zone beneath the dispenser. Do not add liquid, heat, or machine operation."
+        ],
+        "reset": [
+          "Return the empty mug to its marked dispenser-zone start state and restore the associated counter and fixture to the recorded safe initial condition.",
+          "Confirm the mug remains upright, clean, empty, and undamaged."
+        ],
+        "quality_checks": [
+          "Verify the mug is fully supported on the counter, stable, upright, and empty.",
+          "Verify the coffee machine remained unpowered and cool and no liquid was introduced."
+        ],
+        "failure_modes": [
+          "YCB mug does not fit or is unstable in the selected dispenser placement zone.",
+          "Mug contacts the dispenser or fixture, tips, or is dropped.",
+          "Coffee machine is powered, hot, or not in the recorded initial condition.",
+          "Liquid is present or introduced, or the final placement cannot be verified."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_robocasa_coffee_atomic_round1",
+      "source_name": "RoboCasa kitchen_coffee.py: CoffeeSetupMug and CoffeeServeMug",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "RoboCasa repository @ 4f8a2980def75a55dff96b990745b83540425f09",
+      "source_locator": "https://github.com/robocasa/robocasa/blob/4f8a2980def75a55dff96b990745b83540425f09/robocasa/environments/kitchen/atomic/kitchen_coffee.py",
+      "observed_count": null,
+      "scope": "The shared PickPlaceCoffee implementation selects obj_groups=\"mug\" for both directions, uses the coffee-machine fixture and its associated counter, specifies counter-to-under-dispenser and under-dispenser-to-counter language, and checks placement plus gripper clearance; the exact classes are CoffeeSetupMug and CoffeeServeMug.",
+      "limitations": "This is a simulator task definition, not evidence that a YCB mug is one of the sampled RoboCasa mug models or that the proposed Atlas setup is compatible, safe on a particular platform, or successfully executed. The branch URL is not pinned to a commit.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary task-code locator. CoffeeSetupMug class is at lines 100-107; CoffeeServeMug at 109-114; shared mug-group selection and directional placement/success logic are at lines 14-98."
+    },
+    {
+      "id": "evidence_robocasa_coffee_registry_round1",
+      "source_name": "RoboCasa dataset_registry.py: CoffeeSetupMug and CoffeeServeMug entries",
+      "source_type": "catalog",
+      "supported_claim_types": [
+        "catalog_identity"
+      ],
+      "source_version": "RoboCasa repository @ 4f8a2980def75a55dff96b990745b83540425f09",
+      "source_locator": "https://github.com/robocasa/robocasa/blob/4f8a2980def75a55dff96b990745b83540425f09/robocasa/utils/dataset_registry.py",
+      "observed_count": null,
+      "scope": "The registry records CoffeeServeMug pretraining at v1.0/pretrain/atomic/CoffeeServeMug/20250819 and CoffeeSetupMug pretraining at v1.0/pretrain/atomic/CoffeeSetupMug/20250819; it also lists benchmark horizons of 450 and 600 respectively.",
+      "limitations": "Registry entries establish source task and dataset-path identity only. The horizon values are benchmark limits, not measured execution or collection times; registry presence does not establish object-model identity, Atlas asset compatibility, population frequency, or robot execution.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary dataset registry locator. The dataset paths are retained as provenance; no horizon value is used as an Atlas time estimate."
+    },
+    {
+      "id": "evidence_robocasa_mug_object_group_docs_round1",
+      "source_name": "RoboCasa 1.0.1 Objects documentation: mug category row",
+      "source_type": "catalog",
+      "supported_claim_types": [
+        "catalog_identity"
+      ],
+      "source_version": "RoboCasa documentation 1.0.1, accessed 2026-09-25",
+      "source_locator": "https://robocasa.ai/docs/build/html/assets/objects.html",
+      "observed_count": null,
+      "scope": "The official object catalog lists a mug group with 17 Objaverse, 0 Lightwheel, and 10 AI-generated models.",
+      "limitations": "The category counts do not expose a selected individual model ID, identify a YCB model, establish model equivalence, or establish fit, graspability, simulator compatibility, or robot compatibility.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "This locator supports the group-level limitation only. No per-model RoboCasa mug identity is invented or stored in this draft."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_robocasa_coffee_setup_task_suitability",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "task_suitability",
+      "statement": "Moving the proposed YCB mug from the counter to the zone beneath a coffee-machine dispenser is a source-derived collection-design candidate.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_robocasa_coffee_atomic_round1"
+      ],
+      "scope": "Atlas proposal anchored to ycb_025_mug from the CoffeeSetupMug primitive and its RoboCasa registry entry.",
+      "limitations": "The source samples the generic RoboCasa mug group. Re-grounding that role to ycb_025_mug is proposed, and individual model equivalence and compatibility are unknown. This is not evidence of robot execution or task frequency."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_setup_population_frequency",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Atlas mug-to-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population or observation protocol is attached to this Atlas proposal.",
+      "limitations": "RoboCasa task and dataset registry entries are not population-frequency measurements."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_setup_robot_execution",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific Atlas mug-to-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Atlas execution record is attached.",
+      "limitations": "A simulator task definition and proposed procedure do not demonstrate execution by a robot."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_setup_asset_compatibility",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_025_mug with the proposed coffee-machine, dispenser, and dispenser-zone setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No selected RoboCasa mug model, Atlas fixture instance, simulator configuration, or physical fit check is attached.",
+      "limitations": "The RoboCasa mug group count does not identify an individual model, and it does not establish equivalence or fit with the YCB mug."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_task_suitability",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "task_suitability",
+      "statement": "Moving the proposed YCB mug from beneath the dispenser to the associated counter is a source-derived collection-design candidate.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_robocasa_coffee_atomic_round1"
+      ],
+      "scope": "Atlas proposal anchored to ycb_025_mug from the CoffeeServeMug primitive and its RoboCasa registry entry.",
+      "limitations": "The source samples the generic RoboCasa mug group. Re-grounding that role to ycb_025_mug is proposed, and individual model equivalence and compatibility are unknown. This is not evidence that coffee was brewed or served, nor evidence of robot execution or task frequency."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_population_frequency",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Atlas mug-from-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population or observation protocol is attached to this Atlas proposal.",
+      "limitations": "RoboCasa task and dataset registry entries are not population-frequency measurements."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_robot_execution",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific Atlas mug-from-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Atlas execution record is attached.",
+      "limitations": "A simulator task definition and proposed procedure do not demonstrate execution by a robot."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_asset_compatibility",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_025_mug with the proposed coffee-machine, dispenser, and dispenser-zone setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No selected RoboCasa mug model, Atlas fixture instance, simulator configuration, or physical fit check is attached.",
+      "limitations": "The RoboCasa mug group count does not identify an individual model, and it does not establish equivalence or fit with the YCB mug."
+    }
+  ],
+  "draft_notes": [
+    "This is an isolated proposed bundle. Its two task IDs are unique reference_robocasa records and are not an active YCB batch.",
+    "The source primitives are exactly CoffeeSetupMug (counter to under the coffee-machine dispenser) and CoffeeServeMug (under the dispenser to the associated counter), declared in the official RoboCasa kitchen_coffee.py. Both source configurations use obj_groups=\"mug\".",
+    "Each task uses the real Atlas object ycb_025_mug, whose existing general_concept_id is object_drinkware. Requested two-edge Atlas walk for each task: TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware. CoffeeServeMug is the second distinct primitive at that same ObjectClass.",
+    "Reviewed active YCB mug tasks in rounds 1-5: handover, interior/handle inspection, pouring a cool surrogate into the mug, place-setting preparation, and handle-clearance measurement. Neither source primitive duplicates these goals: both move the mug between the counter and the dispenser-side placement zone, and neither transfers liquid, brews coffee, or serves a person.",
+    "Cross-resource note: RoboCasa samples a generic mug group. This draft proposes re-grounding that role to ycb_025_mug; no individual RoboCasa mug model ID is available in the cited docs, and equivalence, fit, and asset compatibility remain unknown.",
+    "External resource requirements are expressed by stable snake_case IDs in task bindings, state predicates, and planning requirements: robocasa_resource_coffee_machine (source fixture), robocasa_resource_coffee_dispenser_zone (the described under-dispenser placement area), and robocasa_resource_coffee_machine_counter (the counter associated with the machine fixture). The maintained Atlas contract represents such resources as planning requirements; this schema has no standalone resource-node collection.",
+    "Both tasks are movement-only: no coffee-machine button operation, brewing, hot liquid, or serving claim is included. Empty/clean/unpowered/cool checks are explicit conservative Atlas design assumptions, not RoboCasa source requirements. All time estimates remain null because no Atlas collection times were measured.",
+    "The official RoboCasa code and registry URLs are pinned to repository commit 4f8a2980def75a55dff96b990745b83540425f09. Registry horizon values are benchmark limits and are not used as task time estimates."
+  ]
+}

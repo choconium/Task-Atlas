@@ -1,0 +1,4153 @@
+{
+  "external_objects": [
+    {
+      "id": "behavior_object_bowl_byzaxy",
+      "node_type": "ObjectInstance",
+      "canonical_name": "bowl",
+      "name_en": "BEHAVIOR bowl model bowl-byzaxy",
+      "name_ja": "BEHAVIOR ボウルモデル bowl-byzaxy",
+      "category": "bowl",
+      "general_concept_id": "object_dish",
+      "asset_source": "behavior",
+      "asset_source_version": "Knowledgebase accessed 2026-09-25",
+      "asset_source_id": "bowl-byzaxy",
+      "asset_source_url": "https://behavior.stanford.edu/knowledgebase/objects/byzaxy.html",
+      "source_taxonomy": {
+        "source": "behavior",
+        "category_id": "bowl",
+        "synset_id": "bowl.n.01",
+        "parent_synset_ids": [
+          "vessel.n.03"
+        ]
+      },
+      "source_taxonomy_url": "https://behavior.stanford.edu/knowledgebase/synsets/bowl.n.01.html",
+      "asset_ready_in_source": true,
+      "affordances": [],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "A generic BEHAVIOR source model, not a YCB asset and not verified compatible with Task Atlas, a robot, or any simulator. The BEHAVIOR bowl.n.01 page lists bowl-byzaxy in category bowl with Ready=True; the source task uses synset-level bowl roles and does not bind them to this individual model. Atlas concept object_dish is a curator cross-link only, not an equivalence claim for BEHAVIOR bowl.n.01 or its parent vessel.n.03."
+    },
+    {
+      "id": "behavior_object_plate_aewthq",
+      "node_type": "ObjectInstance",
+      "canonical_name": "plate",
+      "name_en": "BEHAVIOR plate model plate-aewthq",
+      "name_ja": "BEHAVIOR 皿モデル plate-aewthq",
+      "category": "plate",
+      "general_concept_id": "object_dish",
+      "asset_source": "behavior",
+      "asset_source_version": "Knowledgebase accessed 2026-09-25",
+      "asset_source_id": "plate-aewthq",
+      "asset_source_url": "https://behavior.stanford.edu/knowledgebase/objects/aewthq.html",
+      "source_taxonomy": {
+        "source": "behavior",
+        "category_id": "plate",
+        "synset_id": "plate.n.04",
+        "parent_synset_ids": [
+          "flatware.n.01"
+        ]
+      },
+      "source_taxonomy_url": "https://behavior.stanford.edu/knowledgebase/synsets/plate.n.04.html",
+      "asset_ready_in_source": true,
+      "affordances": [],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "A generic BEHAVIOR source model, not a YCB asset and not verified compatible with Task Atlas, a robot, or any simulator. The BEHAVIOR plate.n.04 page lists plate-aewthq in category plate with Ready=True; the source task uses synset-level plate roles and does not bind them to this individual model. Atlas concept object_dish is a curator cross-link only, not an equivalence claim for BEHAVIOR plate.n.04 or its parent flatware.n.01."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_behavior_dirty_dishes_round2",
+      "node_type": "SceneType",
+      "name_en": "Dining booth and adjacent kitchen sink",
+      "name_ja": "飲食ブースと隣接するキッチンシンク",
+      "description": "Proposed Atlas collection context for one bowl transfer. It abstracts the dining-room booth and kitchen sink required by BEHAVIOR putting_dirty_dishes_in_sink-0; it is not a claim that an available Atlas, robot, or simulator scene matches a BEHAVIOR scene.",
+      "tags": [
+        "dining",
+        "kitchen",
+        "dish-transfer"
+      ],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2"
+    },
+    {
+      "id": "scene_behavior_plate_wash_round2",
+      "node_type": "SceneType",
+      "name_en": "Bathroom sink and work surface",
+      "name_ja": "洗面所のシンクと作業面",
+      "description": "Proposed Atlas collection context for one plate-cleaning primitive. It reflects the bathroom floor, sink, and countertop locations in BEHAVIOR washing_plates-0; it is not a claim of scene-model or asset compatibility.",
+      "tags": [
+        "bathroom",
+        "sink",
+        "cleaning"
+      ],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2"
+    },
+    {
+      "id": "scene_woodworking_bench",
+      "node_type": "SceneType",
+      "name_en": "Woodworking bench",
+      "name_ja": "木工作業台",
+      "description": "Proposed controlled workbench context for two source-derived wood-block interaction tasks. This is an Atlas scene proposal, not a scene or asset identifier published by Ego4D.",
+      "tags": [
+        "workshop",
+        "woodworking",
+        "bench",
+        "clamping"
+      ],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_ego4d_round1"
+    },
+    {
+      "id": "scene_tabletop_ball_play_area",
+      "node_type": "SceneType",
+      "name_en": "Tabletop ball play area",
+      "name_ja": "卓上ボール遊びエリア",
+      "description": "Proposed controlled surface with marked start and target zones and a padded return tray; not a scene from the Japan survey.",
+      "tags": [
+        "sports",
+        "tabletop",
+        "proposed_atlas_scene"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "template_behavior_move_bowl_to_sink_round2",
+      "node_type": "TaskTemplate",
+      "name_en": "Move one bowl from a dining booth to the sink",
+      "name_ja": "飲食ブースからボウル1個をシンクへ移す",
+      "verb": "transfer",
+      "roles": {
+        "theme": "selected_bowl",
+        "origin": "dining_booth",
+        "destination": "kitchen_sink"
+      },
+      "compatible_scenes": [
+        "scene_behavior_dirty_dishes_round2"
+      ],
+      "preconditions": [
+        "on_top_of(theme, origin)",
+        "reachable(theme)",
+        "destination_accessible(destination)"
+      ],
+      "goals": [
+        "inside(theme, destination)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "dropped_bowl",
+        "collision_during_transfer",
+        "bowl_not_inside_sink"
+      ],
+      "safety_tags": [
+        "dish-handling",
+        "transport"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_behavior_remove_residue_from_plate_round2",
+      "node_type": "TaskTemplate",
+      "name_en": "Remove the selected source residue from one plate",
+      "name_ja": "皿1枚から対象の残留物を取り除く",
+      "verb": "clean",
+      "roles": {
+        "target": "selected_plate",
+        "residue": "source_listed_residue",
+        "tool": "scrub_brush",
+        "work_area": "sink_and_countertop"
+      },
+      "compatible_scenes": [
+        "scene_behavior_plate_wash_round2"
+      ],
+      "preconditions": [
+        "covered(target, residue)",
+        "tool_available(tool)",
+        "water_available(work_area)"
+      ],
+      "goals": [
+        "not_covered(target, residue)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_wipe",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "residue_remains",
+        "plate_slips",
+        "plate_damage",
+        "water_or_soap_spill"
+      ],
+      "safety_tags": [
+        "dishwashing",
+        "water",
+        "cleaning-agent"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_charades_put_food_surface_round1",
+      "node_type": "TaskTemplate",
+      "name_en": "Place one food item on a designated surface",
+      "name_ja": "食品を一つ指定面に置く",
+      "verb": "place",
+      "roles": {
+        "theme": "food_item",
+        "destination": "clear_stable_surface"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen"
+      ],
+      "preconditions": [
+        "held_by(theme, robot)",
+        "reachable(destination)",
+        "clear(destination)",
+        "stable(destination)"
+      ],
+      "goals": [
+        "on_top_of(theme, destination)",
+        "stable(theme)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "missed_placement",
+        "food_item_dropped",
+        "unstable_placement"
+      ],
+      "safety_tags": [
+        "food_contact",
+        "rigid_manipulation"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_charades_take_food_surface_round1",
+      "node_type": "TaskTemplate",
+      "name_en": "Take one food item from a designated surface",
+      "name_ja": "食品を一つ指定面から取る",
+      "verb": "take",
+      "roles": {
+        "theme": "food_item",
+        "source": "stable_surface"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen"
+      ],
+      "preconditions": [
+        "on_top_of(theme, source)",
+        "reachable(theme)",
+        "stable(source)",
+        "one_hand_free(robot)"
+      ],
+      "goals": [
+        "held_by(theme, robot)",
+        "clear_of_surface(theme, source)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "missed_grasp",
+        "food_item_dropped",
+        "contact_damage"
+      ],
+      "safety_tags": [
+        "food_contact",
+        "rigid_manipulation"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ego4d_put_down_wood",
+      "node_type": "TaskTemplate",
+      "name_en": "Put down a held wood workpiece",
+      "name_ja": "手に持った木材を置く",
+      "verb": "put_down",
+      "roles": {
+        "theme": "wood_workpiece",
+        "support_surface": "stable_workbench"
+      },
+      "compatible_scenes": [
+        "scene_woodworking_bench"
+      ],
+      "preconditions": [
+        "held_by(theme, operator)",
+        "reachable(support_surface)",
+        "clear(support_surface)"
+      ],
+      "goals": [
+        "on_top_of(theme, support_surface)",
+        "stable(theme)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "missed_surface",
+        "dropped_workpiece",
+        "unstable_placement"
+      ],
+      "safety_tags": [
+        "workpiece",
+        "stable_support"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_epic_take_bowl",
+      "node_type": "TaskTemplate",
+      "name_en": "Take a bowl from a kitchen surface",
+      "name_ja": "キッチンの面からボウルを取る",
+      "verb": "take",
+      "roles": {
+        "theme": "bowl",
+        "source": "stable_kitchen_surface"
+      },
+      "compatible_scenes": [
+        "scene_home_kitchen"
+      ],
+      "preconditions": [
+        "on_top_of(theme, source)",
+        "reachable(theme)",
+        "stable(source)"
+      ],
+      "goals": [
+        "held(theme)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "miss_grasp",
+        "drop_object",
+        "chip_or_tip_bowl"
+      ],
+      "safety_tags": [
+        "rigid_object",
+        "dishware"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_access_bowl_lift_return",
+      "node_type": "TaskTemplate",
+      "name_en": "Briefly lift an empty bowl and return it to its marked area",
+      "name_ja": "空のボウルを少し持ち上げ、印の範囲に戻す",
+      "verb": "grip_and_release",
+      "roles": {
+        "object": "ycb_024_bowl",
+        "start_zone": "bowl_start_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "compatible_scenes": [
+        "scene_dining_table"
+      ],
+      "preconditions": [
+        "empty(ycb_024_bowl)",
+        "upright(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, dining_table)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "reachable(ycb_024_bowl)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goals": [
+        "pickup_and_grasp_observed(ycb_024_bowl)",
+        "released(ycb_024_bowl)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "upright(ycb_024_bowl)",
+        "stable(ycb_024_bowl)"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "bowl_slips_before_release",
+        "bowl_ends_outside_marked_area",
+        "bowl_ends_unstable"
+      ],
+      "safety_tags": [
+        "optional_interaction",
+        "participant_selected_cue",
+        "no_clinical_inference"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_access_plate_transfer",
+      "node_type": "TaskTemplate",
+      "name_en": "Move an empty plate from a far mark to a near mark",
+      "name_ja": "空の皿を奥の印から手前の印へ移す",
+      "verb": "pick_and_place",
+      "roles": {
+        "object": "ycb_029_plate",
+        "start_zone": "plate_far_zone",
+        "target_zone": "plate_near_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "compatible_scenes": [
+        "scene_dining_table"
+      ],
+      "preconditions": [
+        "empty(ycb_029_plate)",
+        "flat(ycb_029_plate)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "inside_zone(ycb_029_plate, plate_far_zone)",
+        "clear_path(plate_far_zone, plate_near_zone)",
+        "reachable(ycb_029_plate)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goals": [
+        "inside_zone(ycb_029_plate, plate_near_zone)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "flat(ycb_029_plate)",
+        "stable(ycb_029_plate)",
+        "released(ycb_029_plate)"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "plate_slips_during_transfer",
+        "plate_leaves_clear_transfer_path",
+        "plate_ends_outside_near_zone",
+        "plate_ends_unstable"
+      ],
+      "safety_tags": [
+        "optional_interaction",
+        "participant_selected_cue",
+        "no_clinical_inference"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_icf_mug_grip_release",
+      "node_type": "TaskTemplate",
+      "name_en": "Grip, briefly lift, and release a mug within its starting area",
+      "name_ja": "マグカップを把持し、少し持ち上げて同じ開始位置に戻す",
+      "verb": "grip_and_release",
+      "roles": {
+        "object": "ycb_025_mug",
+        "start_zone": "marked_mug_start_zone"
+      },
+      "compatible_scenes": [
+        "scene_dining_table"
+      ],
+      "preconditions": [
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "on_top_of(ycb_025_mug, dining_table)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "reachable(ycb_025_mug)"
+      ],
+      "goals": [
+        "pickup_and_grasp_observed(ycb_025_mug)",
+        "released(ycb_025_mug)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "mug_slips_before_release",
+        "mug_ends_outside_start_zone",
+        "mug_ends_unstable"
+      ],
+      "safety_tags": [
+        "optional_interaction",
+        "breakable_object",
+        "no_clinical_inference"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_icf_wine_glass_reach_pull",
+      "node_type": "TaskTemplate",
+      "name_en": "Reach to and pull an upright wine glass along the tabletop",
+      "name_ja": "テーブル上のワイングラスに手を伸ばし、立てたまま手前へ引く",
+      "verb": "reach_and_pull",
+      "roles": {
+        "object": "ycb_023_wine_glass",
+        "start_zone": "marked_wine_glass_far_zone",
+        "target_zone": "marked_wine_glass_near_zone"
+      },
+      "compatible_scenes": [
+        "scene_dining_table"
+      ],
+      "preconditions": [
+        "empty(ycb_023_wine_glass)",
+        "upright(ycb_023_wine_glass)",
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_far_zone)",
+        "clear_path(marked_wine_glass_far_zone, marked_wine_glass_near_zone)",
+        "reachable(ycb_023_wine_glass)"
+      ],
+      "goals": [
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_near_zone)",
+        "on_top_of(ycb_023_wine_glass, dining_table)",
+        "upright(ycb_023_wine_glass)",
+        "stable(ycb_023_wine_glass)",
+        "released(ycb_023_wine_glass)"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "wine_glass_tips_during_pull",
+        "wine_glass_ends_outside_target_zone",
+        "path_is_obstructed"
+      ],
+      "safety_tags": [
+        "optional_interaction",
+        "breakable_object",
+        "no_clinical_inference"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_japan_sports_soccer_kickoff_place",
+      "node_type": "TaskTemplate",
+      "name_en": "Place the mini soccer ball on a marked kickoff spot",
+      "name_ja": "ミニサッカーボールを印のキックオフ位置に置く",
+      "verb": "place",
+      "roles": {
+        "object": "ycb_053_mini_soccer_ball",
+        "target_zone": "marked_kickoff_spot"
+      },
+      "compatible_scenes": [
+        "scene_tabletop_ball_play_area"
+      ],
+      "preconditions": [
+        "ycb_053_mini_soccer_ball_stable_in_start_zone",
+        "marked_kickoff_spot_clear",
+        "object_reachable"
+      ],
+      "goals": [
+        "ycb_053_mini_soccer_ball_on_marked_kickoff_spot",
+        "ycb_053_mini_soccer_ball_stable",
+        "gripper_released"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "ball_rolls_outside_marked_spot",
+        "ball_does_not_remain_stable",
+        "grasp_slips"
+      ],
+      "safety_tags": [
+        "controlled_tabletop_setup",
+        "no_throwing",
+        "no_human_contact",
+        "frequency_unknown_at_primitive_level"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_japan_sports_softball_recovery",
+      "node_type": "TaskTemplate",
+      "name_en": "Recover the softball from outside the play lane to a padded return tray",
+      "name_ja": "プレイレーン外のソフトボールを緩衝付き返却トレーへ回収する",
+      "verb": "recover",
+      "roles": {
+        "object": "ycb_054_softball",
+        "source_zone": "outside_play_lane",
+        "target_zone": "padded_return_tray"
+      },
+      "compatible_scenes": [
+        "scene_tabletop_ball_play_area"
+      ],
+      "preconditions": [
+        "ycb_054_softball_resting_in_outside_lane_zone",
+        "padded_return_tray_clear",
+        "path_clear",
+        "object_reachable"
+      ],
+      "goals": [
+        "ycb_054_softball_inside_padded_return_tray",
+        "ycb_054_softball_stable",
+        "gripper_released"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "softball_rolls_out_of_target_tray",
+        "softball_contacts_person",
+        "grasp_slips",
+        "tray_is_not_stable"
+      ],
+      "safety_tags": [
+        "controlled_tabletop_recovery",
+        "padded_target",
+        "no_throwing",
+        "no_human_contact",
+        "frequency_unknown_at_primitive_level"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_virtualhome_pick_up_drinkware",
+      "node_type": "TaskTemplate",
+      "name_en": "Pick up drinkware from a table",
+      "name_ja": "テーブルから飲料容器を持ち上げる",
+      "verb": "pick_up",
+      "roles": {
+        "theme": "drinkware",
+        "source": "table_surface"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen"
+      ],
+      "preconditions": [
+        "on_top_of(theme, source)",
+        "reachable(theme)",
+        "one_hand_free(robot)"
+      ],
+      "goals": [
+        "held_by(theme, robot)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "missed_grasp",
+        "dropped_drinkware",
+        "contact_damage"
+      ],
+      "safety_tags": [
+        "rigid_object",
+        "fragile_object"
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_virtualhome_put_back_drinkware",
+      "node_type": "TaskTemplate",
+      "name_en": "Put held drinkware back on a table",
+      "name_ja": "手に持った飲料容器をテーブルに戻す",
+      "verb": "put_back",
+      "roles": {
+        "theme": "drinkware",
+        "destination": "table_surface"
+      },
+      "compatible_scenes": [
+        "scene_dining_table",
+        "scene_home_kitchen"
+      ],
+      "preconditions": [
+        "held_by(theme, robot)",
+        "reachable(destination)",
+        "clear(destination)"
+      ],
+      "goals": [
+        "on_top_of(theme, destination)",
+        "stable(theme)"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "collision",
+        "dropped_drinkware",
+        "unstable_placement"
+      ],
+      "safety_tags": [
+        "rigid_object",
+        "fragile_object"
+      ],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_behavior_bowl_to_sink_round2",
+      "node_type": "TaskInstance",
+      "template_id": "template_behavior_move_bowl_to_sink_round2",
+      "name_en": "Move one dirty bowl from the dining booth into the kitchen sink",
+      "name_ja": "汚れたボウルを飲食ブースからキッチンシンクへ1個移す",
+      "intent_id": "intent_transport",
+      "object_id": "behavior_object_bowl_byzaxy",
+      "scene_id": "scene_behavior_dirty_dishes_round2",
+      "bindings": {
+        "theme": "behavior_object_bowl_byzaxy",
+        "origin": "behavior_resource_dining_booth",
+        "destination": "behavior_resource_kitchen_sink"
+      },
+      "state_ids": [
+        "state_on_surface",
+        "state_dirty",
+        "state_inside_receptacle"
+      ],
+      "initial_state": [
+        "on_top_of(behavior_object_bowl_byzaxy, behavior_resource_dining_booth)",
+        "covered(behavior_object_bowl_byzaxy, behavior_resource_source_dirt)",
+        "reachable(behavior_object_bowl_byzaxy)"
+      ],
+      "goal_state": [
+        "inside(behavior_object_bowl_byzaxy, behavior_resource_kitchen_sink)"
+      ],
+      "instruction_variants": [
+        "Move the selected dirty bowl from the dining booth into the kitchen sink.",
+        "Put one bowl from the booth inside the sink.",
+        "飲食ブースにある汚れたボウルを1個、キッチンシンクへ移してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "Scoped from BEHAVIOR putting_dirty_dishes_in_sink-0: the BDDL source has two bowls initially on a dining booth, both covered with dirt.n.02, and the goal places every bowl inside a kitchen sink. This instance narrows the source to one selected bowl and its source-supported transfer goal; it does not claim to perform washing. The source task does not identify bowl-byzaxy specifically: that BEHAVIOR model is a curator-selected candidate within source category bowl / synset bowl.n.01, so asset identity equivalence and compatibility are unverified. Atlas graph walk: this TaskInstance --acts_on--> behavior_object_bowl_byzaxy --instance_of--> concept:object_dish (exactly two Atlas relation edges). The Atlas class is a curator grouping, not equivalent to the source synset."
+    },
+    {
+      "id": "task_reference_behavior_clean_plate_round2",
+      "node_type": "TaskInstance",
+      "template_id": "template_behavior_remove_residue_from_plate_round2",
+      "name_en": "Clean one plate by removing its source-listed food residue",
+      "name_ja": "皿1枚からソース記載の食品残留物を取り除く",
+      "intent_id": "intent_clean",
+      "object_id": "behavior_object_plate_aewthq",
+      "scene_id": "scene_behavior_plate_wash_round2",
+      "bindings": {
+        "target": "behavior_object_plate_aewthq",
+        "residue": "behavior_resource_source_breadcrumb_and_pesto",
+        "tool": "behavior_resource_scrub_brush",
+        "work_area": "behavior_resource_bathroom_sink_and_countertop"
+      },
+      "state_ids": [
+        "state_on_surface",
+        "state_dirty",
+        "state_clean"
+      ],
+      "initial_state": [
+        "on_top_of(behavior_object_plate_aewthq, behavior_resource_bathroom_floor)",
+        "covered(behavior_object_plate_aewthq, behavior_resource_source_breadcrumb)",
+        "covered(behavior_object_plate_aewthq, behavior_resource_source_pesto)",
+        "reachable(behavior_object_plate_aewthq)"
+      ],
+      "goal_state": [
+        "not_covered(behavior_object_plate_aewthq, behavior_resource_source_breadcrumb)",
+        "not_covered(behavior_object_plate_aewthq, behavior_resource_source_pesto)"
+      ],
+      "instruction_variants": [
+        "Clean the selected plate until neither the listed breadcrumb nor pesto residue remains.",
+        "Remove the source-listed food residue from one plate.",
+        "対象の皿1枚から、パン粉とペストの残留物を取り除いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_grasp",
+        "skill_wipe",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "Scoped from BEHAVIOR washing_plates-0: the source initializes one plate with breadcrumb and pesto coverage, places plates on a bathroom floor, provides a scrub brush on the countertop and liquid soap/water resources, and sets goals removing both covered relations from every plate. This task keeps one plate and its two listed residues only. Atlas skill_wipe is a proposed local action-family mapping for the source scrub-brush task; BEHAVIOR specifies symbolic states and listed objects, not a robot motion sequence. The task source does not identify plate-aewthq specifically: this is a candidate BEHAVIOR model from source category plate / synset plate.n.04, and its compatibility is unknown. Atlas graph walk: this TaskInstance --acts_on--> behavior_object_plate_aewthq --instance_of--> concept:object_dish (exactly two Atlas relation edges). The Atlas class is a curator grouping, not equivalent to plate.n.04 or its parent flatware.n.01."
+    },
+    {
+      "id": "task_reference_charades_put_banana_on_surface_round1",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_charades_put_food_surface_round1",
+      "name_en": "Place the banana on a clear kitchen surface",
+      "name_ja": "バナナを空いたキッチン面に置く",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_011_banana",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_011_banana",
+        "destination": "charades_resource_designated_kitchen_surface"
+      },
+      "state_ids": [
+        "state_held",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "held_by(ycb_011_banana, robot)",
+        "reachable(charades_resource_designated_kitchen_surface)",
+        "clear(charades_resource_designated_kitchen_surface)",
+        "stable(charades_resource_designated_kitchen_surface)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_011_banana, charades_resource_designated_kitchen_surface)",
+        "stable(ycb_011_banana)"
+      ],
+      "instruction_variants": [
+        "Place the banana on the designated clear kitchen surface.",
+        "Set the banana down so it rests stably on the marked surface.",
+        "バナナを指定された空き面に、安定するように置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_charades_round1",
+      "notes": "Grounding source: official Charades action class c062 is ‘Putting some food somewhere’; the official mapping file maps c062 to source object class o016 (‘food’) and verb v016. Choosing one YCB banana and a clear kitchen surface makes a bounded Atlas collection proposal; neither that particular fruit identity nor the target surface is stated by the broad class label. The Charades-to-YCB mapping is proposed, with model equivalence and asset compatibility unknown. Atlas graph walk (exactly two local edges): this TaskInstance --acts_on--> ycb_011_banana (ObjectInstance) --instance_of--> concept:object_fruit (ObjectClass). This is the first of two distinct sibling primitives under object_fruit; its companion is task_reference_charades_take_apple_from_surface_round1. Charades scripted video labels are dataset evidence only, not population frequency or physical robot execution."
+    },
+    {
+      "id": "task_reference_charades_take_apple_from_surface_round1",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_charades_take_food_surface_round1",
+      "name_en": "Take the apple from a kitchen surface",
+      "name_ja": "キッチン面からリンゴを取る",
+      "intent_id": "intent_retrieve",
+      "object_id": "ycb_013_apple",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_013_apple",
+        "source": "charades_resource_marked_kitchen_surface"
+      },
+      "state_ids": [
+        "state_on_surface",
+        "state_held"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_013_apple, charades_resource_marked_kitchen_surface)",
+        "reachable(ycb_013_apple)",
+        "stable(charades_resource_marked_kitchen_surface)",
+        "one_hand_free(robot)"
+      ],
+      "goal_state": [
+        "held_by(ycb_013_apple, robot)",
+        "clear_of_surface(ycb_013_apple, charades_resource_marked_kitchen_surface)"
+      ],
+      "instruction_variants": [
+        "Take the apple from the marked kitchen surface.",
+        "Pick up the apple and hold it securely clear of the surface.",
+        "指定されたキッチン面からリンゴを取り、安定して持ってください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_charades_round1",
+      "notes": "Grounding source: official Charades action class c063 is ‘Taking food from somewhere’; the official mapping file maps c063 to source object class o016 (‘food’) and verb v023. Choosing one YCB apple and a marked kitchen surface narrows the broad source label into a bounded Atlas collection proposal; neither that particular fruit identity nor the exact source surface is given by the class label. The Charades-to-YCB mapping is proposed, with model equivalence and asset compatibility unknown. Atlas graph walk (exactly two local edges): this TaskInstance --acts_on--> ycb_013_apple (ObjectInstance) --instance_of--> concept:object_fruit (ObjectClass). This is a distinct sibling primitive to task_reference_charades_put_banana_on_surface_round1 under the same ObjectClass. Charades scripted video labels are dataset evidence only, not population frequency or physical robot execution."
+    },
+    {
+      "id": "task_reference_ego4d_put_down_wood_block",
+      "node_type": "TaskInstance",
+      "template_id": "template_ego4d_put_down_wood",
+      "name_en": "Put the held wood block down on the workbench",
+      "name_ja": "手に持った木製ブロックを作業台に置く",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_036_wood_block",
+      "scene_id": "scene_woodworking_bench",
+      "bindings": {
+        "theme": "ycb_036_wood_block",
+        "support_surface": "ego4d_resource_workbench_surface"
+      },
+      "state_ids": [
+        "state_held",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "held_by(ycb_036_wood_block, operator)",
+        "reachable(ego4d_resource_workbench_surface)",
+        "clear(ego4d_resource_workbench_surface)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_036_wood_block, ego4d_resource_workbench_surface)",
+        "stable(ycb_036_wood_block)"
+      ],
+      "instruction_variants": [
+        "Put the wood block down on the clear workbench.",
+        "Set the held wood block onto the stable work surface and verify that it rests securely.",
+        "手に持った木製ブロックを空いている作業台に置き、安定していることを確認してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_ego4d_round1",
+      "notes": "The official Ego4D FHO annotation guidelines use “put down wood” as an example action and note that the object is already in the person's hands, so the example has no CONTACT frame. This proposal bounds that label to placing the existing Task Atlas YCB wood block on a stable bench. Ego4D supplies no exact video UID, annotation-row ID, wood model, destination surface, or evidence that the recorded wood was this YCB model; the bench, block selection, and stable-placement endpoint are Atlas collection-design choices. Exact two-edge Atlas walk: this TaskInstance --acts_on--> ycb_036_wood_block --instance_of--> concept:object_block. This is the first of two different sibling primitives attached to that same existing ObjectClass. Ego4D egocentric labels are task-design evidence only; they do not establish population frequency, robot execution, or YCB/asset compatibility."
+    },
+    {
+      "id": "task_reference_epic_kitchens_take_bowl_round1",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_epic_take_bowl",
+      "name_en": "Take one bowl from a kitchen work surface",
+      "name_ja": "キッチンの作業面からボウルを一つ取る",
+      "intent_id": "intent_retrieve",
+      "object_id": "ycb_024_bowl",
+      "scene_id": "scene_home_kitchen",
+      "bindings": {
+        "theme": "ycb_024_bowl",
+        "source": "epic_bowl_take_surface"
+      },
+      "state_ids": [
+        "state_on_surface",
+        "state_held"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_024_bowl, epic_bowl_take_surface)",
+        "reachable(ycb_024_bowl)",
+        "stable(epic_bowl_take_surface)",
+        "gripper_empty"
+      ],
+      "goal_state": [
+        "held(ycb_024_bowl)",
+        "clear_of_surface(ycb_024_bowl, epic_bowl_take_surface)"
+      ],
+      "instruction_variants": [
+        "Take the bowl from the kitchen work surface.",
+        "Pick up the bowl and hold it securely.",
+        "キッチンの作業面からボウルを取り、安定して持ってください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_epic_kitchens_round1",
+      "notes": "Source example: the EPIC-KITCHENS VISOR supplementary material uses the illustrative sequence ‘take bowl’ then ‘wash bowl’ to explain continuity between adjacent action clips. It does not provide an annotation row ID or exact starting surface; a stable reachable work surface and held-bowl endpoint are explicit Task Atlas collection-design assumptions that operationalize the verb label. Proposed cross-resource mapping: the EPIC noun class ‘bowl’ is associated here with the existing reusable YCB instance ycb_024_bowl. This is a proposal for a candidate object, not an assertion that the recorded bowl is the YCB model or that the model is visually, physically, or simulator compatible. Atlas graph walk: this TaskInstance --acts_on--> ycb_024_bowl --instance_of--> concept:object_dish (two existing Atlas relation edges). This is the first of two distinct sibling primitives under object_dish; its documented companion is task_reference_epic_kitchens_wash_bowl_round1."
+    },
+    {
+      "id": "task_reference_access_bowl_lift_return",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_access_bowl_lift_return",
+      "name_en": "Briefly lift the empty bowl and return it to its marked area",
+      "name_ja": "空のボウルを少し持ち上げ、印の範囲に戻す",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_024_bowl",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_024_bowl",
+        "start_zone": "bowl_start_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_024_bowl)",
+        "upright(ycb_024_bowl)",
+        "on_top_of(ycb_024_bowl, dining_table)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "reachable(ycb_024_bowl)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goal_state": [
+        "pickup_and_grasp_observed(ycb_024_bowl)",
+        "released(ycb_024_bowl)",
+        "inside_zone(ycb_024_bowl, bowl_start_zone)",
+        "upright(ycb_024_bowl)",
+        "stable(ycb_024_bowl)"
+      ],
+      "instruction_variants": [
+        "If you choose, briefly lift the empty bowl and set it back inside its marked area. You may choose the visual cue, the tactile cue, or no added cue; you do not need to explain your choice.",
+        "Optionally pick up the empty bowl, lift it just clear of the table, and release it upright within the same marked area.",
+        "よろしければ、空のボウルを少し持ち上げ、同じ印の範囲に戻して放してください。視覚的な手がかり、触れて分かる手がかり、追加の手がかりなしから選べます。選んだ理由を説明する必要はありません。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_functional_access_round1",
+      "notes": "Atlas proposal for an optional, bounded bowl-handling primitive. Offer a removable high-contrast zone outline, a low-profile tactile boundary outside the bowl's contact path, or no added marker, and let the participant choose without recording a reason. These marker choices are curator-designed setup options; WHO ICF e115 classifies products and technology for daily living but does not prescribe these markers or this action. UNICEF/Washington Group CFM describes population-survey domains and is not an individual screening or task protocol. WHODAS 2.0 is an adult health/functioning assessment, not a robot-task source. Do not infer ability, disability, diagnosis, or accommodation outcome from opting in or from task performance. Graph path: this TaskInstance --acts_on--> ycb_024_bowl --instance_of--> concept:object_dish (exactly two Atlas hierarchy edges). Its distinct sibling primitive is the plate-transfer task under the same ObjectClass."
+    },
+    {
+      "id": "task_reference_access_plate_transfer",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_access_plate_transfer",
+      "name_en": "Move the empty plate from the far mark to the near mark",
+      "name_ja": "空の皿を奥の印から手前の印へ移す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_029_plate",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_029_plate",
+        "start_zone": "plate_far_zone",
+        "target_zone": "plate_near_zone",
+        "cue_mode": "participant_selected_or_declined"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_029_plate)",
+        "flat(ycb_029_plate)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "inside_zone(ycb_029_plate, plate_far_zone)",
+        "clear_path(plate_far_zone, plate_near_zone)",
+        "reachable(ycb_029_plate)",
+        "cue_mode_selected_or_declined"
+      ],
+      "goal_state": [
+        "inside_zone(ycb_029_plate, plate_near_zone)",
+        "on_top_of(ycb_029_plate, dining_table)",
+        "flat(ycb_029_plate)",
+        "stable(ycb_029_plate)",
+        "released(ycb_029_plate)"
+      ],
+      "instruction_variants": [
+        "If you choose, move the empty plate from the far mark to the near mark. You may choose the visual cue, the tactile cue, or no added cue; you do not need to explain your choice.",
+        "Optionally carry the empty plate level from the far tabletop mark and set it down inside the near mark.",
+        "よろしければ、空の皿を奥の印から手前の印まで移してください。視覚的な手がかり、触れて分かる手がかり、追加の手がかりなしから選べます。選んだ理由を説明する必要はありません。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_functional_access_round1",
+      "notes": "Atlas proposal for an optional plate-transfer primitive, distinct from the bowl lift-and-return objective. Offer a removable high-contrast zone outline, a low-profile tactile boundary outside the clear transfer path, or no added marker, and let the participant choose without recording a reason. These marker choices are curator-designed setup options; WHO ICF e115 classifies products and technology for daily living but does not prescribe these markers or this action. UNICEF/Washington Group CFM describes population-survey domains and is not an individual screening or task protocol. WHODAS 2.0 is an adult health/functioning assessment, not a robot-task source. Do not infer ability, disability, diagnosis, or accommodation outcome from opting in or from task performance. Graph path: this TaskInstance --acts_on--> ycb_029_plate --instance_of--> concept:object_dish (exactly two Atlas hierarchy edges). Its distinct sibling primitive is the bowl lift-and-return task under the same ObjectClass."
+    },
+    {
+      "id": "task_reference_icf_d440_mug_grip_release",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_icf_mug_grip_release",
+      "name_en": "Grip and release the mug within its marked starting area",
+      "name_ja": "マグカップを把持し、印の範囲内で放す",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_025_mug",
+        "start_zone": "marked_mug_start_zone"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "on_top_of(ycb_025_mug, dining_table)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "reachable(ycb_025_mug)"
+      ],
+      "goal_state": [
+        "pickup_and_grasp_observed(ycb_025_mug)",
+        "released(ycb_025_mug)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "If you choose, pick up the empty mug, lift it just clear of the tabletop, and set it back within its marked starting area.",
+        "Optionally grip the empty mug, briefly lift it, then release it upright inside the marked starting area.",
+        "よろしければ、空のマグカップを持ち上げ、テーブルの印の範囲内に戻して放してください。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_icf_function_round1",
+      "notes": "Optional, neutral interaction proposal whose observable events are mug pickup/grasp, brief clearance from the surface, release, and final pose within the original marked area. It is scoped to handling rather than carrying the mug to a different location, reflecting the WHO ICF d440 definition and its exclusion for lifting and carrying (d430). The ICF code classifies a functioning domain; it does not prescribe this task or a procedure. Do not infer ability, disability, diagnosis, or accommodation outcome from participation or performance."
+    },
+    {
+      "id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_icf_wine_glass_reach_pull",
+      "name_en": "Reach to and pull the wine glass toward the near marked area",
+      "name_ja": "ワイングラスに手を伸ばし、手前の印まで引き寄せる",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_023_wine_glass",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_023_wine_glass",
+        "start_zone": "marked_wine_glass_far_zone",
+        "target_zone": "marked_wine_glass_near_zone"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "empty(ycb_023_wine_glass)",
+        "upright(ycb_023_wine_glass)",
+        "on_top_of(ycb_023_wine_glass, dining_table)",
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_far_zone)",
+        "clear_path(marked_wine_glass_far_zone, marked_wine_glass_near_zone)",
+        "reachable(ycb_023_wine_glass)"
+      ],
+      "goal_state": [
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_near_zone)",
+        "on_top_of(ycb_023_wine_glass, dining_table)",
+        "upright(ycb_023_wine_glass)",
+        "stable(ycb_023_wine_glass)",
+        "released(ycb_023_wine_glass)"
+      ],
+      "instruction_variants": [
+        "If you choose, reach to the empty wine glass at the far mark and pull it along the tabletop to the near mark, keeping it upright.",
+        "Optionally move the empty wine glass from the far tabletop mark to the near mark by pulling it without lifting it.",
+        "よろしければ、空のワイングラスを立てたまま、テーブル上で奥の印から手前の印まで引き寄せてください。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_icf_function_round1",
+      "notes": "Optional, neutral interaction proposal with observable reaching/contact, pulling displacement, release, and final stability. Its d445 relation is a curator mapping to the WHO definition and listed pulling/reaching activities, not an ICF-prescribed procedure or exclusive classification; the action can involve fine hand use as well. Do not infer ability, disability, diagnosis, or accommodation outcome from participation or performance."
+    },
+    {
+      "id": "task_reference_robocasa_coffee_setup_mug",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_transport_object",
+      "name_en": "Move the mug from the counter under the coffee-machine dispenser",
+      "name_ja": "マグカップをカウンターからコーヒーマシンのディスペンサー下へ移す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_025_mug",
+        "source": "robocasa_resource_coffee_machine_counter",
+        "destination": "robocasa_resource_coffee_dispenser_zone",
+        "coffee_machine": "robocasa_resource_coffee_machine"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_clean",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_025_mug, robocasa_resource_coffee_machine_counter)",
+        "empty(ycb_025_mug)",
+        "clean(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "reachable(ycb_025_mug)",
+        "coffee_station_unpowered_and_cool(robocasa_resource_coffee_machine)",
+        "dispenser_zone_under_machine(robocasa_resource_coffee_dispenser_zone, robocasa_resource_coffee_machine)",
+        "dispenser_placement_zone_available(robocasa_resource_coffee_dispenser_zone)"
+      ],
+      "goal_state": [
+        "under_dispenser(ycb_025_mug, robocasa_resource_coffee_dispenser_zone)",
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)",
+        "gripper_clear_of(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "Pick the mug from the counter and place it under the coffee machine dispenser.",
+        "Move the empty mug from the marked counter position to the placement zone under the dispenser.",
+        "マグカップをカウンターから取り、コーヒーマシンのディスペンサー下へ置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_robocasa_round1",
+      "notes": "Source task: RoboCasa CoffeeSetupMug, which uses obj_groups=\"mug\", places it on the counter at initialization, and checks placement under the coffee-machine dispenser. This Atlas record is deliberately re-grounded to the real catalog object ycb_025_mug as a proposal; no individual RoboCasa mug asset ID is exposed by the cited object documentation, and model equivalence and compatibility remain unknown. The empty, clean, unpowered, and cool setup conditions are conservative Atlas collection-design assumptions, not source task requirements. Atlas graph walk: this TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware (two existing Atlas relation edges). The coffee-machine fixture, under-dispenser placement zone, and associated counter are explicit external resource requirements; the zone ID names the source placement area, not a separate asset. No brewing, button press, or liquid handling is included."
+    },
+    {
+      "id": "task_reference_robocasa_coffee_serve_mug",
+      "node_type": "TaskInstance",
+      "template_id": "template_ycb_transport_object",
+      "name_en": "Move the mug from under the coffee-machine dispenser to the counter",
+      "name_ja": "マグカップをコーヒーマシンのディスペンサー下からカウンターへ移す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_kitchen_counter",
+      "bindings": {
+        "theme": "ycb_025_mug",
+        "source": "robocasa_resource_coffee_dispenser_zone",
+        "destination": "robocasa_resource_coffee_machine_counter",
+        "coffee_machine": "robocasa_resource_coffee_machine"
+      },
+      "state_ids": [
+        "state_empty",
+        "state_clean",
+        "state_upright",
+        "state_on_surface"
+      ],
+      "initial_state": [
+        "under_dispenser(ycb_025_mug, robocasa_resource_coffee_dispenser_zone)",
+        "empty(ycb_025_mug)",
+        "clean(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "reachable(ycb_025_mug)",
+        "coffee_station_unpowered_and_cool(robocasa_resource_coffee_machine)",
+        "dispenser_placement_zone_available(robocasa_resource_coffee_dispenser_zone)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_025_mug, robocasa_resource_coffee_machine_counter)",
+        "empty(ycb_025_mug)",
+        "clean(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)",
+        "gripper_clear_of(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "Pick the mug from under the coffee machine dispenser and place it on the counter.",
+        "Move the empty mug from the placement zone beneath the dispenser to the marked counter position.",
+        "マグカップをディスペンサー下から取り、カウンターへ置いてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_robocasa_round1",
+      "notes": "Source task: RoboCasa CoffeeServeMug, which uses obj_groups=\"mug\", initializes it under the coffee-machine dispenser, and checks placement on the associated counter. This is a distinct reverse pick-and-place primitive at the same Atlas class as CoffeeSetupMug. The YCB ycb_025_mug substitution is proposed; no individual RoboCasa mug asset ID, model equivalence, or compatibility is established. The empty, clean, unpowered, and cool setup conditions are conservative Atlas collection-design assumptions, not source task requirements. Atlas graph walk: this TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware (two existing Atlas relation edges). The coffee-machine fixture, under-dispenser placement zone, and associated counter are explicit external resource requirements; the zone ID names the source placement area, not a separate asset. The task only moves the mug; it does not claim coffee was brewed or served, and excludes button operation and liquid handling."
+    },
+    {
+      "id": "task_reference_japan_sports_kickoff_place_soccer_ball",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_japan_sports_soccer_kickoff_place",
+      "name_en": "Place the mini soccer ball on the marked kickoff spot",
+      "name_ja": "ミニサッカーボールを印のキックオフ位置に置く",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_053_mini_soccer_ball",
+      "scene_id": "scene_tabletop_ball_play_area",
+      "bindings": {
+        "activity_category": "japan_2021_sports",
+        "object": "ycb_053_mini_soccer_ball"
+      },
+      "state_ids": [],
+      "initial_state": [
+        "ycb_053_mini_soccer_ball_stable_in_start_zone",
+        "marked_kickoff_spot_clear",
+        "object_reachable"
+      ],
+      "goal_state": [
+        "ycb_053_mini_soccer_ball_on_marked_kickoff_spot",
+        "ycb_053_mini_soccer_ball_stable",
+        "gripper_released"
+      ],
+      "instruction_variants": [
+        "Place the mini soccer ball on the marked kickoff spot.",
+        "Place the mini soccer ball at the kickoff mark; the survey category is context only.",
+        "ミニサッカーボールを印のキックオフ位置に置いてください。調査統計は個別操作の頻度を示しません。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "source_activity_category": {
+        "source": "Statistics Bureau of Japan, 2021 Survey on Time Use and Leisure Activities, Questionnaire A",
+        "year": 2021,
+        "category_name": "Sports",
+        "mapping_status": "curator_proposed_context_only"
+      },
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_time_use_round2",
+      "notes": "Proposed tabletop setup primitive inspired by the broad Sports category; it is not an activity or object reported by the survey. Place the YCB mini soccer ball from a marked start zone onto the kickoff mark and verify stability. Hierarchy: this TaskInstance --acts_on--> ycb_053_mini_soccer_ball --instance_of--> concept:object_ball. Sibling primitive: task_reference_japan_sports_softball_return_recovery on ycb_054_softball under the same ObjectClass. Exact primitive population frequency is unknown; the macro 13-minute average is not assigned here. Survey context is the official broad Sports category only; the 13-minute macro average is not assigned to this primitive."
+    },
+    {
+      "id": "task_reference_japan_sports_softball_return_recovery",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_japan_sports_softball_recovery",
+      "name_en": "Recover the softball from outside the play lane to a padded return tray",
+      "name_ja": "プレイレーン外のソフトボールを緩衝付き返却トレーへ回収する",
+      "intent_id": "intent_recover_from_error",
+      "object_id": "ycb_054_softball",
+      "scene_id": "scene_tabletop_ball_play_area",
+      "bindings": {
+        "activity_category": "japan_2021_sports",
+        "object": "ycb_054_softball"
+      },
+      "state_ids": [],
+      "initial_state": [
+        "ycb_054_softball_resting_in_outside_lane_zone",
+        "padded_return_tray_clear",
+        "path_clear",
+        "object_reachable"
+      ],
+      "goal_state": [
+        "ycb_054_softball_inside_padded_return_tray",
+        "ycb_054_softball_stable",
+        "gripper_released"
+      ],
+      "instruction_variants": [
+        "Recover the softball from outside the play lane to the padded return tray.",
+        "Move the resting softball into the padded tray without throwing or contacting a person.",
+        "プレイレーン外のソフトボールを緩衝付きトレーへ回収してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "source_activity_category": {
+        "source": "Statistics Bureau of Japan, 2021 Survey on Time Use and Leisure Activities, Questionnaire A",
+        "year": 2021,
+        "category_name": "Sports",
+        "mapping_status": "curator_proposed_context_only"
+      },
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_time_use_round2",
+      "notes": "Proposed recovery primitive inspired by the broad Sports category; not a recorded sports episode, standard procedure or assertion that respondents used a YCB asset. Move the stationary softball into a padded tray without throwing or contacting a person. Hierarchy: this TaskInstance --acts_on--> ycb_054_softball --instance_of--> concept:object_ball. Sibling primitive: task_reference_japan_sports_kickoff_place_soccer_ball on ycb_053_mini_soccer_ball under the same ObjectClass. Exact primitive population frequency is unknown; the macro 13-minute average is not assigned here. Survey context is the official broad Sports category only; the 13-minute macro average is not assigned to this primitive."
+    },
+    {
+      "id": "task_reference_virtualhome_pick_up_wine_glass",
+      "node_type": "TaskInstance",
+      "template_id": "template_virtualhome_pick_up_drinkware",
+      "name_en": "Pick up the wine glass from the dining table",
+      "name_ja": "食卓からワイングラスを持ち上げる",
+      "intent_id": "intent_retrieve",
+      "object_id": "ycb_023_wine_glass",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_023_wine_glass",
+        "source": "virtualhome_resource_dining_table"
+      },
+      "state_ids": [
+        "state_on_surface",
+        "state_upright"
+      ],
+      "initial_state": [
+        "on_top_of(ycb_023_wine_glass, virtualhome_resource_dining_table)",
+        "reachable(ycb_023_wine_glass)",
+        "one_hand_free(robot)",
+        "upright(ycb_023_wine_glass)"
+      ],
+      "goal_state": [
+        "held_by(ycb_023_wine_glass, robot)",
+        "upright(ycb_023_wine_glass)"
+      ],
+      "instruction_variants": [
+        "Pick up the wine glass from the dining table.",
+        "Grasp the designated glass and lift it clear of the table.",
+        "食卓にあるワイングラスを持ち上げてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_virtualhome_round1",
+      "notes": "VirtualHome's official dataset README uses the exact illustrative program [Walk] <glass> (1), [Grab] <glass> (1) and explains that both actions target the same glass instance. This Task Atlas collection proposal narrows that generic simulator program to ycb_023_wine_glass. The VirtualHome class-name resource maps the noun glass to waterglass/wineglass scene names, but that alias list is not a taxonomy and does not identify a VirtualHome model or establish equivalence or compatibility with this YCB asset. Atlas graph walk: TaskInstance --acts_on--> ycb_023_wine_glass --instance_of--> concept:object_drinkware (exactly two existing Atlas relation edges). The dining-table resource is an external scene requirement. A VirtualHome avatar program is simulator evidence, not a physical-robot execution result."
+    },
+    {
+      "id": "task_reference_virtualhome_put_back_mug",
+      "node_type": "TaskInstance",
+      "template_id": "template_virtualhome_put_back_drinkware",
+      "name_en": "Put the mug back on the dining table",
+      "name_ja": "マグカップを食卓に戻す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_025_mug",
+        "destination": "virtualhome_resource_dining_table"
+      },
+      "state_ids": [
+        "state_upright"
+      ],
+      "initial_state": [
+        "held_by(ycb_025_mug, robot)",
+        "reachable(virtualhome_resource_dining_table)",
+        "clear(virtualhome_resource_dining_table)",
+        "upright(ycb_025_mug)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_025_mug, virtualhome_resource_dining_table)",
+        "stable(ycb_025_mug)",
+        "upright(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "Put the mug back on the dining table.",
+        "Place the held mug upright on the clear table surface.",
+        "手に持っているマグカップを食卓に戻してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_virtualhome_round1",
+      "notes": "VirtualHome's official simulation action documentation gives [PutBack] <glass> (1) <table> (1) as its two-object program form and defines PutBack as placing a held object on a nearby target; the resource alias file also maps the script noun mug to scene names including waterglass and wineglass. This Task Atlas record is a distinct sibling primitive from picking up a wine glass, proposed for the existing ycb_025_mug instance. Re-grounding from VirtualHome's generic object labels to the YCB mug is an Atlas design proposal only: the source publishes no corresponding model ID or object-equivalence/compatibility claim. The alias list is not a taxonomy. Atlas graph walk: TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware (exactly two existing Atlas relation edges). VirtualHome's avatar/action model does not demonstrate physical robot execution."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_behavior_bowl_to_sink_round2",
+      "task_id": "task_reference_behavior_bowl_to_sink_round2",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_behavior_dirty_dishes_round2",
+          "reason": "Proposed context for the source dining booth and kitchen sink locations."
+        },
+        {
+          "key": "object",
+          "value": "behavior_object_bowl_byzaxy",
+          "reason": "Selected generic BEHAVIOR bowl model; source does not bind its bowl role to this individual model."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_dining_booth",
+          "reason": "Unresolved external source resource: a dining booth model is required; no compatible asset is cataloged in this draft."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_kitchen_sink",
+          "reason": "Unresolved external source resource: a kitchen sink model is required; no compatible asset is cataloged in this draft."
+        },
+        {
+          "key": "condition",
+          "value": "selected_bowl_starts_on_booth_and_is_dirty",
+          "reason": "Narrowed source initial state for one bowl, including its bowl-on-booth and dirt-covered relations."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design requirement only; no robot platform or capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_behavior_bowl_to_sink_round2",
+          "label": "Transfer one bowl into the kitchen sink",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the selected bowl on the booth."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the selected bowl."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable hold on the bowl."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the bowl clear of the booth."
+            },
+            {
+              "skill_id": "skill_navigate_or_reach",
+              "description": "Move the held bowl to the sink area."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Place the bowl inside the sink basin."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release the bowl after placement."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Check that the bowl is inside the sink."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "behavior_object_bowl_byzaxy",
+              "reason": "Primary proposed task object."
+            },
+            {
+              "key": "object",
+              "value": "behavior_resource_dining_booth",
+              "reason": "Unresolved source support surface model."
+            },
+            {
+              "key": "object",
+              "value": "behavior_resource_kitchen_sink",
+              "reason": "Unresolved source destination model."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The selected bowl is inside the sink; this transfer task does not score cleanliness."
+        ],
+        "setup": [
+          "Use the cited BEHAVIOR task only as a symbolic source; first supply and review compatible booth and sink resources, then place one selected bowl on the booth."
+        ],
+        "reset": [
+          "Return the bowl to the recorded booth location and restore any disturbed source condition."
+        ],
+        "quality_checks": [
+          "Confirm the bowl is contained by the sink basin and remains intact."
+        ],
+        "failure_modes": [
+          "Dropped bowl",
+          "Bowl placed outside basin",
+          "Collision during transfer"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_behavior_clean_plate_round2",
+      "task_id": "task_reference_behavior_clean_plate_round2",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_behavior_plate_wash_round2",
+          "reason": "Proposed bathroom wash-area context from the source floor, sink, and countertop locations."
+        },
+        {
+          "key": "object",
+          "value": "behavior_object_plate_aewthq",
+          "reason": "Selected generic BEHAVIOR plate model; source does not bind its plate role to this individual model."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_scrub_brush",
+          "reason": "Unresolved external tool resource listed by the source task; no compatible asset is cataloged in this draft."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_bathroom_sink",
+          "reason": "Unresolved external sink resource listed by the source task."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_liquid_soap_and_water",
+          "reason": "Unresolved external consumable resources represented in the source task; this draft does not specify quantities or a dispensing procedure."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_bathroom_countertop_and_floor",
+          "reason": "Unresolved external support surfaces from the source task layout."
+        },
+        {
+          "key": "condition",
+          "value": "one_plate_starts_covered_by_breadcrumb_and_pesto",
+          "reason": "Narrowed source initial state for the selected plate; the proposed task targets the two source-listed covered relations."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design requirement only; no robot platform or capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_behavior_clean_plate_round2",
+          "label": "Remove the listed residues from one plate",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the selected plate and source-listed cleaning tool."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable hold on the tool or plate as required by the selected collection setup."
+            },
+            {
+              "skill_id": "skill_wipe",
+              "description": "Use the source-listed scrub-brush resource in a yet-to-be-reviewed collection procedure to remove the selected residues."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Check that neither source-listed covered relation remains."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "behavior_object_plate_aewthq",
+              "reason": "Primary proposed task object."
+            },
+            {
+              "key": "object",
+              "value": "behavior_resource_scrub_brush",
+              "reason": "Unresolved source-listed cleaning tool."
+            },
+            {
+              "key": "object",
+              "value": "behavior_resource_bathroom_sink",
+              "reason": "Unresolved source support/cleaning resource."
+            },
+            {
+              "key": "object",
+              "value": "behavior_resource_liquid_soap_and_water",
+              "reason": "Unresolved source-listed cleaning resources."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The selected plate no longer has either source-listed breadcrumb or pesto covered relation."
+        ],
+        "setup": [
+          "Provide and review compatible plate, scrub-brush, sink, water, and soap resources; configure the selected plate with the source-listed residue state. The detailed cleaning procedure remains a collection-design proposal."
+        ],
+        "reset": [
+          "Restore the selected plate to the recorded residue state and reset the sink and cleaning resources according to the approved setup."
+        ],
+        "quality_checks": [
+          "Check the two source-listed residue relations independently and inspect the plate for damage."
+        ],
+        "failure_modes": [
+          "Residue remains",
+          "Plate slips",
+          "Plate damage",
+          "Uncontrolled soap or water spill"
+        ],
+        "consumables": [
+          "Liquid soap",
+          "Water"
+        ],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_charades_put_banana_on_surface_round1",
+      "task_id": "task_reference_charades_put_banana_on_surface_round1",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Use the existing kitchen scene type as the proposed indoor context for the generic Charades food-placement class."
+        },
+        {
+          "key": "object",
+          "value": "ycb_011_banana",
+          "reason": "Proposed reusable YCB candidate for the Charades source class ‘food’; no source video-to-YCB model identity is asserted."
+        },
+        {
+          "key": "object",
+          "value": "charades_resource_designated_kitchen_surface",
+          "reason": "External target-surface requirement introduced to bound the source label’s unspecified destination."
+        },
+        {
+          "key": "condition",
+          "value": "banana_held_surface_clear_and_stable",
+          "reason": "Proposed observable initial setup for a single placement primitive."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design capability requirement only; it is not evidence that a robot executed the task."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_charades_put_banana_on_surface_round1",
+          "label": "Place and verify one banana on the surface",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the held banana and designated surface."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Move toward the clear target area without contacting nearby items."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Lower the banana onto the designated surface."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release the banana without pushing or rolling it."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the banana rests stably on the surface."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_011_banana",
+              "reason": "Proposed primary object for the task."
+            },
+            {
+              "key": "object",
+              "value": "charades_resource_designated_kitchen_surface",
+              "reason": "External target surface required by the Atlas operationalization."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The banana is released, supported by the designated surface, and stable without visible damage."
+        ],
+        "setup": [
+          "Stage one clean, intact YCB banana in the declared held initial condition and mark a clear, level target area.",
+          "Record the banana as a proposed re-grounding of generic Charades ‘food’; separately check the selected asset and robot setup before collection."
+        ],
+        "reset": [
+          "Return the banana to the declared initial held condition and restore the marked surface area."
+        ],
+        "quality_checks": [
+          "Confirm the banana is fully supported, stable, intact, and placed within the marked area."
+        ],
+        "failure_modes": [
+          "Banana misses the target surface or rolls away.",
+          "Banana is dropped, compressed, or visibly damaged.",
+          "Target surface is obstructed or unstable."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_charades_take_apple_from_surface_round1",
+      "task_id": "task_reference_charades_take_apple_from_surface_round1",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Use the existing kitchen scene type as the proposed indoor context for the generic Charades food-retrieval class."
+        },
+        {
+          "key": "object",
+          "value": "ycb_013_apple",
+          "reason": "Proposed reusable YCB candidate for the Charades source class ‘food’; no source video-to-YCB model identity is asserted."
+        },
+        {
+          "key": "object",
+          "value": "charades_resource_marked_kitchen_surface",
+          "reason": "External source-surface requirement introduced to bound the source label’s unspecified origin."
+        },
+        {
+          "key": "condition",
+          "value": "apple_stable_on_reachable_surface",
+          "reason": "Proposed observable initial setup for one take/pick-up primitive."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design capability requirement only; it is not evidence that a robot executed the task."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_charades_take_apple_from_surface_round1",
+          "label": "Take and verify one apple from the surface",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the apple on the marked surface."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the apple without contacting nearby items."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable grasp on the apple."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the apple clear of the surface."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the apple is held and clear of the support surface."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_013_apple",
+              "reason": "Proposed primary object for the task."
+            },
+            {
+              "key": "object",
+              "value": "charades_resource_marked_kitchen_surface",
+              "reason": "External starting surface required by the Atlas operationalization."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The apple is lifted clear of the marked surface and remains securely held without visible damage."
+        ],
+        "setup": [
+          "Stage one clean, intact YCB apple on a level, reachable marked surface with a clear approach path.",
+          "Record the apple as a proposed re-grounding of generic Charades ‘food’; separately check the selected asset and robot setup before collection."
+        ],
+        "reset": [
+          "Return the apple to its marked surface position and verify that it is stable and undamaged."
+        ],
+        "quality_checks": [
+          "Confirm that the apple cleared the surface, stayed controlled, and shows no visible damage."
+        ],
+        "failure_modes": [
+          "Grasp is missed or unstable.",
+          "Apple is dropped, rolled away, or visibly damaged.",
+          "Approach collides with nearby objects or the surface is unstable."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_ego4d_put_down_wood_block",
+      "task_id": "task_reference_ego4d_put_down_wood_block",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_woodworking_bench",
+          "reason": "Use the proposed stable workbench scene for the bounded put-down primitive."
+        },
+        {
+          "key": "object",
+          "value": "ycb_036_wood_block",
+          "reason": "Existing reusable YCB ObjectInstance selected as an Atlas proposal for Ego4D's generic wood example; it is not identified as the source-video object."
+        },
+        {
+          "key": "object",
+          "value": "ego4d_resource_workbench_surface",
+          "reason": "External stable support-surface requirement introduced to operationalize the source example; no matching Ego4D or YCB asset is claimed."
+        },
+        {
+          "key": "condition",
+          "value": "wood_block_held_and_surface_clear",
+          "reason": "Proposed observable setup for the held-to-supported transition."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Task-design capability requirement only; it is not evidence of robot execution."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_ego4d_put_down_wood_block",
+          "label": "Place the held wood block on the workbench",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the clear, stable workbench area."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the support area while maintaining a secure hold."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Lower the block onto the marked support area."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release after the support surface carries the block."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the block rests stably on the workbench."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_036_wood_block",
+              "reason": "Primary object for this proposed Atlas task."
+            },
+            {
+              "key": "object",
+              "value": "ego4d_resource_workbench_surface",
+              "reason": "External stable support surface."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The block is released onto the marked workbench area and remains stably supported without visible damage."
+        ],
+        "setup": [
+          "Start with the selected YCB wood block held securely and the marked workbench area clear and stable.",
+          "Record the block as a proposed generic representative for Ego4D's wood label; do not describe it as the recorded video object."
+        ],
+        "reset": [
+          "Return the block to the declared held initial condition using a separately reviewed setup."
+        ],
+        "quality_checks": [
+          "Confirm that the block is fully supported, stable, and free of visible damage."
+        ],
+        "failure_modes": [
+          "The block misses the marked support area.",
+          "The block slips or is dropped.",
+          "The block rests unstably or contacts nearby equipment."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_epic_kitchens_take_bowl_round1",
+      "task_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_home_kitchen",
+          "reason": "Use the existing kitchen scene type for the proposed source-surface pick-up episode."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "Candidate reusable object mapped from the EPIC bowl label; matching the recorded bowl and model has not been established."
+        },
+        {
+          "key": "object",
+          "value": "epic_bowl_take_surface",
+          "reason": "External stable source-surface resource; the cited example does not specify the starting surface."
+        },
+        {
+          "key": "condition",
+          "value": "initial_reachable_stable_bowl",
+          "reason": "Proposed observable setup for isolating the take/pick-up primitive."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Collection-design capability requirement for grasping and lifting a rigid bowl; it is not evidence of robot execution."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_epic_kitchens_take_bowl_round1",
+          "label": "Pick up and hold one bowl",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the bowl on the declared stable source surface."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach without contacting nearby objects."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Establish a stable grasp on the bowl."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the bowl clear of the surface."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the bowl is held and no longer supported by the source surface."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_024_bowl",
+              "reason": "Primary task object."
+            },
+            {
+              "key": "condition",
+              "value": "reachable_stable_source_surface",
+              "reason": "Required initial condition."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The bowl is lifted clear of the source surface and remains securely held without visible damage."
+        ],
+        "setup": [
+          "Use a level, stable kitchen work surface with clear access around the candidate bowl.",
+          "Record that the candidate YCB bowl is a proposed cross-resource mapping, then confirm its physical geometry and grasp suitability separately before any collection trial."
+        ],
+        "reset": [
+          "Return the bowl to its marked source position and verify that it is stable and undamaged."
+        ],
+        "quality_checks": [
+          "Confirm the bowl cleared the surface, remained controlled, and was not chipped or dropped."
+        ],
+        "failure_modes": [
+          "Missed or unstable grasp",
+          "Bowl slips or is dropped",
+          "Collision with adjacent objects or bowl damage"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_access_bowl_lift_return",
+      "task_id": "task_reference_access_bowl_lift_return",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "A stable, clear tabletop supports an observable lift-and-return setup."
+        },
+        {
+          "key": "object",
+          "value": "ycb_024_bowl",
+          "reason": "Reusable YCB dish instance; using it is an Atlas proposal and does not establish robot or simulator compatibility."
+        },
+        {
+          "key": "condition",
+          "value": "empty_bowl",
+          "reason": "An empty bowl keeps contents handling outside this primitive."
+        },
+        {
+          "key": "condition",
+          "value": "marked_bowl_start_zone",
+          "reason": "The marked area makes the return position observable."
+        },
+        {
+          "key": "condition",
+          "value": "participant_selected_or_declined_optional_cue",
+          "reason": "Offer an optional high-contrast outline, a low-profile tactile boundary outside the object path, or no added marker; record no reason or health information."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the interaction is accepted, observe pickup/grasp, brief clearance from the surface, release, and stable final placement inside the original marked area.",
+          "Report the object event and selected setup option only if the participant chooses to share it; do not score performance as a measure of functioning, ability, or disability."
+        ],
+        "setup": [
+          "Explain the optional interaction and data to be recorded; allow a no-cue option, declining, or stopping without giving a reason.",
+          "Set one empty YCB bowl upright in a clear dining-table start zone and, if selected, add only a removable visual outline or low-profile tactile boundary outside the bowl's placement path."
+        ],
+        "reset": [
+          "Return the empty bowl upright to the original marked area and remove or restore the optional cue to the participant-selected state."
+        ],
+        "quality_checks": [
+          "Keep the same start and return zone, bowl, and task goal across cue options; record only observable task events.",
+          "Do not administer ICF, WHODAS 2.0, or CFM items as part of this Atlas task and do not infer a participant's functioning or diagnosis."
+        ],
+        "failure_modes": [
+          "bowl_slips_before_release",
+          "bowl_outside_start_zone",
+          "bowl_unstable_after_release"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_access_plate_transfer",
+      "task_id": "task_reference_access_plate_transfer",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "A clear tabletop provides a stable start, transfer lane, and target."
+        },
+        {
+          "key": "object",
+          "value": "ycb_029_plate",
+          "reason": "Reusable YCB dish instance; using it is an Atlas proposal and does not establish robot or simulator compatibility."
+        },
+        {
+          "key": "condition",
+          "value": "empty_plate",
+          "reason": "An empty plate keeps food and liquid handling outside this primitive."
+        },
+        {
+          "key": "condition",
+          "value": "clear_marked_plate_transfer_lane",
+          "reason": "A clear path makes the far-to-near transfer bounded and observable."
+        },
+        {
+          "key": "condition",
+          "value": "participant_selected_or_declined_optional_cue",
+          "reason": "Offer an optional high-contrast outline, a low-profile tactile boundary outside the transfer path, or no added marker; record no reason or health information."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the interaction is accepted, observe the empty plate move from the far marked zone to the near marked zone and finish flat, stable, and released.",
+          "Report the object event and selected setup option only if the participant chooses to share it; do not score performance as a measure of functioning, ability, or disability."
+        ],
+        "setup": [
+          "Explain the optional interaction and data to be recorded; allow a no-cue option, declining, or stopping without giving a reason.",
+          "Place one empty YCB plate flat in the far zone, keep the lane clear, and add only a removable visual outline or low-profile tactile boundary outside the object path if selected."
+        ],
+        "reset": [
+          "Return the empty plate flat to the far zone and remove or restore the optional cue to the participant-selected state."
+        ],
+        "quality_checks": [
+          "Keep the same plate, far/near zones, transfer lane, and task goal across cue options; record only observable task events.",
+          "Do not administer ICF, WHODAS 2.0, or CFM items as part of this Atlas task and do not infer a participant's functioning or diagnosis."
+        ],
+        "failure_modes": [
+          "plate_slips_during_transfer",
+          "plate_leaves_transfer_lane",
+          "plate_outside_near_zone",
+          "plate_unstable_after_release"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_icf_d440_mug_grip_release",
+      "task_id": "task_reference_icf_d440_mug_grip_release",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The tabletop supplies a stable starting surface and clearly marked return area."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "Reusable YCB drinkware object instance; its use here is a proposed interaction mapping."
+        },
+        {
+          "key": "condition",
+          "value": "empty_mug",
+          "reason": "An empty vessel avoids making liquid handling part of the proposed primitive."
+        },
+        {
+          "key": "condition",
+          "value": "visible_marked_mug_start_zone",
+          "reason": "The return footprint makes final placement observable without requiring transfer to another location."
+        },
+        {
+          "key": "condition",
+          "value": "clear_hand_path_to_mug",
+          "reason": "The setup should not add unrelated obstacles to the optional handling interaction."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the participant opts in, record whether pickup/grasp and release events occurred, and whether the mug ended upright and stable within its original marked area.",
+          "Do not score or label the result as a measure of an individual's ability or disability."
+        ],
+        "setup": [
+          "Offer the interaction as optional and explain what interaction data would be recorded before any recording begins.",
+          "Place one empty YCB mug upright within a visible tabletop start-area outline; keep the short lift-and-return area clear."
+        ],
+        "reset": [
+          "Return the empty mug upright to the marked start area and confirm that the area is clear."
+        ],
+        "quality_checks": [
+          "Record only task events and final object pose needed to describe this setup; do not infer clinical status, ability, or accommodation outcome.",
+          "Confirm that the mug did not need to travel to another location; if carrying is introduced, treat that as a changed task scope."
+        ],
+        "failure_modes": [
+          "mug_slips_before_release",
+          "mug_ends_outside_start_zone",
+          "mug_ends_unstable"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_icf_d445_wine_glass_reach_pull",
+      "task_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "The task is scoped to a clear tabletop surface with two visible marked zones."
+        },
+        {
+          "key": "object",
+          "value": "ycb_023_wine_glass",
+          "reason": "Reusable YCB drinkware object instance; its use here is a proposed interaction mapping."
+        },
+        {
+          "key": "condition",
+          "value": "empty_wine_glass",
+          "reason": "An empty vessel avoids making liquid handling part of the proposed primitive."
+        },
+        {
+          "key": "condition",
+          "value": "visible_far_and_near_table_marks",
+          "reason": "Distinct zones make reaching direction and tabletop displacement observable."
+        },
+        {
+          "key": "condition",
+          "value": "clear_tabletop_pull_path",
+          "reason": "The wine glass is intended to remain supported by the surface throughout the pull."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the participant opts in, record whether reaching/contact and a pull toward the near mark occurred, and whether the glass ended upright and stable in that zone.",
+          "Do not score or label the result as a measure of an individual's ability or disability."
+        ],
+        "setup": [
+          "Offer the interaction as optional and explain what interaction data would be recorded before any recording begins.",
+          "Place one empty YCB wine glass upright at the far tabletop mark; keep the surface path to the near mark clear."
+        ],
+        "reset": [
+          "Return the empty wine glass upright to the far mark and confirm that the path and target area are clear."
+        ],
+        "quality_checks": [
+          "Record the interaction and final object pose only; do not infer clinical status, ability, or accommodation outcome.",
+          "Confirm that the glass remained supported by the tabletop; lifting or carrying would change this proposed scope."
+        ],
+        "failure_modes": [
+          "wine_glass_tips_during_pull",
+          "wine_glass_ends_outside_target_zone",
+          "path_is_obstructed"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_robocasa_coffee_setup_mug",
+      "task_id": "task_reference_robocasa_coffee_setup_mug",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "Use the existing kitchen-counter scene type for the source and coffee-machine-adjacent counter."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "This is the proposed Task Atlas re-grounding object; compatibility with the source mug group is unknown."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine",
+          "reason": "External fixture requirement corresponding to the RoboCasa coffee-machine fixture."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_dispenser_zone",
+          "reason": "External target-zone requirement corresponding to the source location under the dispenser."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine_counter",
+          "reason": "External source-surface requirement for the counter associated with the coffee-machine fixture."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_clean_ycb_025_mug",
+          "reason": "Conservative proposed setup condition for a cool, empty, non-liquid collection trial."
+        },
+        {
+          "key": "condition",
+          "value": "coffee_station_unpowered_and_cool",
+          "reason": "Conservative proposed setup condition; the task does not activate or operate the coffee machine."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design requirement for moving a rigid mug; no robot capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_robocasa_coffee_setup_mug",
+          "label": "Move the mug from the counter under the dispenser",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the marked mug, coffee-machine counter, and designated dispenser placement zone."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the mug while keeping clear of the machine and dispenser."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable hold on the empty mug."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the mug clear of the counter."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Place the mug in the designated dispenser placement zone beneath the dispenser."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release the mug after stable placement."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the mug is under the dispenser, stable, upright, and still empty."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_025_mug",
+              "reason": "Primary Atlas object for the proposed re-grounding."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_machine",
+              "reason": "Required external fixture."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_dispenser_zone",
+              "reason": "Required external target receptacle/dispenser placement zone."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The empty mug is stable and upright in the declared dispenser placement zone beneath the dispenser, and the gripper is clear."
+        ],
+        "setup": [
+          "Provide the YCB ycb_025_mug and separately verify that it fits in the selected dispenser placement zone; the RoboCasa mug-group count does not identify or validate an individual matching model.",
+          "Provide the coffee-machine fixture, its under-dispenser placement zone, and associated counter as external resources; verify them unpowered, cool, stable, and clear.",
+          "Stage the mug empty and clean on its marked counter start area. Do not add liquid, heat, or machine operation."
+        ],
+        "reset": [
+          "Return the empty mug to its marked counter start area and restore the dispenser placement zone and fixture to the recorded safe initial condition.",
+          "Confirm the mug remains upright, clean, empty, and undamaged."
+        ],
+        "quality_checks": [
+          "Verify the mug is fully supported in the declared dispenser placement zone beneath the dispenser, stable, upright, and empty.",
+          "Verify the coffee machine remained unpowered and cool and no liquid was introduced."
+        ],
+        "failure_modes": [
+          "YCB mug does not fit or is unstable in the selected dispenser placement zone.",
+          "Mug contacts the dispenser or fixture, tips, or is dropped.",
+          "Coffee machine is powered, hot, or not in the recorded initial condition.",
+          "Liquid is present or introduced, or the placement cannot be verified."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_robocasa_coffee_serve_mug",
+      "task_id": "task_reference_robocasa_coffee_serve_mug",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_kitchen_counter",
+          "reason": "Use the existing kitchen-counter scene type for the machine-side start and associated counter."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "This is the proposed Task Atlas re-grounding object; compatibility with the source mug group is unknown."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine",
+          "reason": "External fixture requirement corresponding to the RoboCasa coffee-machine fixture."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_dispenser_zone",
+          "reason": "External start-zone requirement corresponding to the source location under the dispenser."
+        },
+        {
+          "key": "object",
+          "value": "robocasa_resource_coffee_machine_counter",
+          "reason": "External destination-surface requirement for the counter associated with the coffee-machine fixture."
+        },
+        {
+          "key": "condition",
+          "value": "initial_empty_clean_ycb_025_mug",
+          "reason": "Conservative proposed setup condition for a cool, empty, non-liquid collection trial."
+        },
+        {
+          "key": "condition",
+          "value": "coffee_station_unpowered_and_cool",
+          "reason": "Conservative proposed setup condition; the task does not activate or operate the coffee machine."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design requirement for moving a rigid mug; no robot capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_robocasa_coffee_serve_mug",
+          "label": "Move the mug from under the dispenser to the counter",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the marked mug, dispenser placement zone, and associated counter."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the mug while keeping clear of the machine and dispenser."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable hold on the empty mug."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the mug clear of the dispenser placement zone."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Place the mug on its marked counter destination."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release the mug after stable placement."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the mug is on the counter, stable, upright, and still empty."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_025_mug",
+              "reason": "Primary Atlas object for the proposed re-grounding."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_machine",
+              "reason": "Required external fixture."
+            },
+            {
+              "key": "object",
+              "value": "robocasa_resource_coffee_dispenser_zone",
+              "reason": "Required external start receptacle/dispenser placement zone."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The empty mug is stable and upright on the declared counter destination, and the gripper is clear."
+        ],
+        "setup": [
+          "Provide the YCB ycb_025_mug and separately verify that it fits in the selected dispenser placement zone; the RoboCasa mug-group count does not identify or validate an individual matching model.",
+          "Provide the coffee-machine fixture, its under-dispenser placement zone, and associated counter as external resources; verify them unpowered, cool, stable, and clear.",
+          "Stage the mug empty, clean, and upright in the dispenser placement zone beneath the dispenser. Do not add liquid, heat, or machine operation."
+        ],
+        "reset": [
+          "Return the empty mug to its marked dispenser-zone start state and restore the associated counter and fixture to the recorded safe initial condition.",
+          "Confirm the mug remains upright, clean, empty, and undamaged."
+        ],
+        "quality_checks": [
+          "Verify the mug is fully supported on the counter, stable, upright, and empty.",
+          "Verify the coffee machine remained unpowered and cool and no liquid was introduced."
+        ],
+        "failure_modes": [
+          "YCB mug does not fit or is unstable in the selected dispenser placement zone.",
+          "Mug contacts the dispenser or fixture, tips, or is dropped.",
+          "Coffee machine is powered, hot, or not in the recorded initial condition.",
+          "Liquid is present or introduced, or the final placement cannot be verified."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_japan_sports_soccer_kickoff",
+      "task_id": "task_reference_japan_sports_kickoff_place_soccer_ball",
+      "requirements": [
+        {
+          "key": "object",
+          "value": "ycb_053_mini_soccer_ball",
+          "reason": "ObjectInstance whose Atlas class is object_ball."
+        },
+        {
+          "key": "scene_id",
+          "value": "scene_tabletop_ball_play_area",
+          "reason": "Controlled proposed setup with visible start and kickoff zones."
+        },
+        {
+          "key": "condition",
+          "value": "place_and_verify_stable",
+          "reason": "Observable endpoint; the survey does not specify this procedure."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The mini soccer ball rests within the kickoff mark after release.",
+          "The ball remains stable through an evaluator-set observation window."
+        ],
+        "setup": [
+          "Use a flat surface and visible start and kickoff marks.",
+          "Keep handling controlled; do not kick, throw or involve a person."
+        ],
+        "reset": [
+          "Return the ball to its marked start zone."
+        ],
+        "quality_checks": [
+          "Record primitive success separately from the survey statistic.",
+          "The macro frequency does not establish primitive rate or robot execution.",
+          "Check mesh, dimensions and gripper compatibility before execution."
+        ],
+        "failure_modes": [
+          "ball_rolls_outside_marked_spot",
+          "ball_does_not_remain_stable",
+          "grasp_slips"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_japan_sports_softball_recovery",
+      "task_id": "task_reference_japan_sports_softball_return_recovery",
+      "requirements": [
+        {
+          "key": "object",
+          "value": "ycb_054_softball",
+          "reason": "ObjectInstance whose Atlas class is object_ball."
+        },
+        {
+          "key": "scene_id",
+          "value": "scene_tabletop_ball_play_area",
+          "reason": "Controlled setup with an outside-lane zone and padded tray."
+        },
+        {
+          "key": "condition",
+          "value": "recover_without_throwing",
+          "reason": "Observable endpoint; the survey does not specify this procedure."
+        }
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "The softball is placed fully inside the padded tray and remains stable.",
+          "No person is contacted and the ball is not thrown."
+        ],
+        "setup": [
+          "Use a stable surface, bounded outside-lane zone and padded tray.",
+          "Start with the ball stationary and an unobstructed path."
+        ],
+        "reset": [
+          "Return the ball to its designated outside-lane zone."
+        ],
+        "quality_checks": [
+          "Measure this primitive independently of the survey average.",
+          "Macro frequency does not establish primitive rate or robot execution.",
+          "Check model dimensions, tray capacity and grasp compatibility before execution."
+        ],
+        "failure_modes": [
+          "softball_rolls_out_of_target_tray",
+          "softball_contacts_person",
+          "grasp_slips",
+          "tray_is_not_stable"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_virtualhome_pick_up_wine_glass",
+      "task_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "Use the existing Atlas dining-table scene type as the proposed analogue of the VirtualHome table environment."
+        },
+        {
+          "key": "object",
+          "value": "ycb_023_wine_glass",
+          "reason": "Existing Atlas/YCB instance selected as a proposed re-grounding for VirtualHome's generic glass argument."
+        },
+        {
+          "key": "object",
+          "value": "virtualhome_resource_dining_table",
+          "reason": "External support-surface requirement; the source program uses a generic table and does not provide a Task Atlas table asset."
+        },
+        {
+          "key": "condition",
+          "value": "wine_glass_staged_upright_and_reachable",
+          "reason": "Proposed initial collection arrangement needed to observe the source-derived pick-up goal."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design capability requirement only; no robot execution is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_virtualhome_pick_up_wine_glass",
+          "label": "Approach, grasp, and lift the glass",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the designated upright wine glass on the table."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the glass without contacting nearby items."
+            },
+            {
+              "skill_id": "skill_grasp",
+              "description": "Acquire a stable grasp while preserving the upright pose."
+            },
+            {
+              "skill_id": "skill_lift",
+              "description": "Lift the glass clear of the table surface."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify that the glass is held and remains upright."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_023_wine_glass",
+              "reason": "Proposed primary object for this Atlas task."
+            },
+            {
+              "key": "object",
+              "value": "virtualhome_resource_dining_table",
+              "reason": "External source-surface requirement."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The wine glass is held securely and remains upright after being lifted clear of the table."
+        ],
+        "setup": [
+          "Stage the proposed YCB wine glass upright on a clear marked table area; inspect it for damage before the trial."
+        ],
+        "reset": [
+          "Return the glass to its marked table location and confirm it is stable and undamaged."
+        ],
+        "quality_checks": [
+          "Confirm the glass was lifted clear, remained upright, and was not chipped or dropped."
+        ],
+        "failure_modes": [
+          "Missed grasp",
+          "Glass dropped",
+          "Glass tilted or contacted nearby objects",
+          "Glass chipped or cracked"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_virtualhome_put_back_mug",
+      "task_id": "task_reference_virtualhome_put_back_mug",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "Use the existing Atlas dining-table scene type for the proposed VirtualHome-style put-back task."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "Existing Atlas/YCB instance proposed as the target of the generic VirtualHome put-back action."
+        },
+        {
+          "key": "object",
+          "value": "virtualhome_resource_dining_table",
+          "reason": "External destination-surface requirement; no source-specific table model ID is claimed."
+        },
+        {
+          "key": "condition",
+          "value": "mug_held_upright_and_destination_clear",
+          "reason": "Proposed setup enables a stable tabletop placement and observable terminal state."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design capability requirement only; no robot execution is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_virtualhome_put_back_mug",
+          "label": "Place the held mug back on the table",
+          "steps": [
+            {
+              "skill_id": "skill_locate",
+              "description": "Locate the clear marked destination area on the table."
+            },
+            {
+              "skill_id": "skill_approach",
+              "description": "Approach the destination while maintaining a secure hold on the mug."
+            },
+            {
+              "skill_id": "skill_place",
+              "description": "Lower the mug onto the table in an upright pose."
+            },
+            {
+              "skill_id": "skill_release",
+              "description": "Release only after the table supports the mug."
+            },
+            {
+              "skill_id": "skill_verify",
+              "description": "Verify the mug is upright and stable on the table."
+            }
+          ],
+          "requirements": [
+            {
+              "key": "object",
+              "value": "ycb_025_mug",
+              "reason": "Proposed primary object for this Atlas task."
+            },
+            {
+              "key": "object",
+              "value": "virtualhome_resource_dining_table",
+              "reason": "External destination-surface requirement."
+            }
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The mug is released upright and remains stable on the clear table area."
+        ],
+        "setup": [
+          "Start with the proposed YCB mug held upright and a clear marked destination area on the table."
+        ],
+        "reset": [
+          "Return the mug to the designated held start state using a separately verified safe setup."
+        ],
+        "quality_checks": [
+          "Confirm the mug is supported by the table, upright, stable, and undamaged."
+        ],
+        "failure_modes": [
+          "Mug contacts another object",
+          "Mug is dropped",
+          "Mug tips or slides after release",
+          "Mug is chipped or cracked"
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_behavior_dirty_dishes_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase: putting_dirty_dishes_in_sink-0",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/tasks/putting_dirty_dishes_in_sink-0.html",
+      "observed_count": null,
+      "scope": "The source BDDL includes bowl.n.01 objects on a dining booth, covered by dirt.n.02, and a goal placing each bowl inside sink.n.01 in the kitchen. This proposal narrows it to one selected bowl transfer.",
+      "limitations": "The source supports a symbolic task-design proposal only. It does not bind bowl.n.01 to bowl-byzaxy, establish model equivalence or compatibility, provide robot execution evidence, or measure population frequency. The source does not prescribe a robot motion sequence.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary task definition. Exact synset-level roles are not unique model IDs."
+    },
+    {
+      "id": "evidence_behavior_plate_washing_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase: washing_plates-0",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/tasks/washing_plates-0.html",
+      "observed_count": null,
+      "scope": "The source BDDL initializes plates with breadcrumb and/or pesto coverage and lists a sink with water, a scrub brush, and liquid soap; its goals remove both covered relations. This proposal narrows the source to one plate initialized with both listed residues.",
+      "limitations": "The source supports a symbolic task-design proposal only. It does not bind plate.n.04 to plate-aewthq, establish model equivalence or compatibility, specify a robot motion sequence, provide robot execution evidence, or measure population frequency.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source task definition; the source's plate is synset-scoped and its location is the bathroom floor. The draft retains that starting location."
+    },
+    {
+      "id": "evidence_behavior_bowl_byzaxy_catalog_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase synset catalog: bowl.n.01",
+      "source_type": "catalog",
+      "supported_claim_types": [
+        "catalog_identity"
+      ],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/synsets/bowl.n.01.html",
+      "observed_count": null,
+      "scope": "The BEHAVIOR synset catalog lists bowl-byzaxy under category bowl and synset bowl.n.01 and marks it Ready=True; the record links to the source model page.",
+      "limitations": "This supports BEHAVIOR source catalog identity and the source readiness label only. It does not establish Task Atlas, robot, or simulator compatibility, nor prove that a source task used this individual model.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Exact model record URL: https://behavior.stanford.edu/knowledgebase/objects/byzaxy.html. The source parent synset is vessel.n.03; no Atlas equivalence is asserted."
+    },
+    {
+      "id": "evidence_behavior_plate_aewthq_catalog_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase synset catalog: plate.n.04",
+      "source_type": "catalog",
+      "supported_claim_types": [
+        "catalog_identity"
+      ],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/synsets/plate.n.04.html",
+      "observed_count": null,
+      "scope": "The BEHAVIOR synset catalog lists plate-aewthq under category plate and synset plate.n.04 and marks it Ready=True; the record links to the source model page.",
+      "limitations": "This supports BEHAVIOR source catalog identity and the source readiness label only. It does not establish Task Atlas, robot, or simulator compatibility, nor prove that a source task used this individual model.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Exact model record URL: https://behavior.stanford.edu/knowledgebase/objects/aewthq.html. The source parent synset is flatware.n.01; no Atlas equivalence is asserted."
+    },
+    {
+      "id": "evidence_charades_official_food_action_classes_round1",
+      "source_name": "Charades official v1 action classes, object classes, and activity mapping",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "Charades initial release, June 2016; official dataset page and archive accessed 2026-09-25",
+      "source_locator": "https://ai2-public-datasets.s3-us-west-2.amazonaws.com/charades/Charades.zip",
+      "observed_count": null,
+      "scope": "The official Charades_v1_classes.txt defines c062 as ‘Putting some food somewhere’ and c063 as ‘Taking food from somewhere’. Charades_v1_mapping.txt maps both action IDs to source object class o016 (‘food’), with verbs v016 and v023 respectively. The official README lists these classes, mappings, and temporal train/test annotation files as contents of the release archive.",
+      "limitations": "These are dataset action classes and source object labels, not evidence of population-level task frequency or physical robot execution. The labels do not identify an individual apple, banana, YCB model, exact support surface, or asset compatibility. The Atlas fruit instances, kitchen context, and marked surface conditions are proposed operationalizations of a broad source label; object-model equivalence and compatibility remain unknown.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source: official Charades dataset page https://prior.allenai.org/projects/charades and official README https://prior.allenai.org/projects/data/charades/README.txt. The archive was read directly to verify Charades_v1_classes.txt rows c062/c063 and Charades_v1_mapping.txt rows c062/c063. No individual annotation row ID, source-object identity, or count is asserted. The source describes crowd-recorded videos acting out scripts, so dataset labels must not be read as household prevalence."
+    },
+    {
+      "id": "evidence_ego4d_fho_put_down_wood_round1",
+      "source_name": "Ego4D official FHO annotation guidelines",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "Ego4D FHO documentation accessed 2026-09-25",
+      "source_locator": "https://ego4d-data.org/docs/data/annotation-guidelines/",
+      "observed_count": null,
+      "scope": "The Stage 1 examples include “put down wood” and explain that the object is already in the person's hands, so there is no CONTACT frame. This supports a proposed held-to-supported wood-placement task label.",
+      "limitations": "This is a documentation example, not a verified individual video or annotation row. It does not specify the wood model, destination surface, placement endpoint, population frequency, robot execution, or compatibility with a YCB asset.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary Ego4D FHO documentation. The source discusses annotated human-object interactions, timing, bounding boxes, and state change; no individual video UID or annotation ID is asserted here."
+    },
+    {
+      "id": "evidence_epic_kitchens_visorsupp_bowl_sequence_round1",
+      "source_name": "EPIC-KITCHENS VISOR Benchmark supplementary material",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "VISOR / NeurIPS 2022 supplementary material",
+      "source_locator": "https://openreview.net/attachment?id=djnKHOjpb7I&name=supplementary_material",
+      "observed_count": null,
+      "scope": "The official VISOR supplementary material describes adjacent action clips using the example ‘take bowl’ followed by ‘wash bowl’. This supports two candidate bowl-focused interaction labels and their proposed adjacency.",
+      "limitations": "This is an illustrative example in the dataset-method supplementary material, not an identified annotation-row ID. It does not specify exact initial or goal states, a robotic procedure, a YCB object identity, asset compatibility, robot execution, or population frequency. EPIC-KITCHENS is a selected egocentric video dataset; action examples or counts must not be interpreted as household prevalence.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source supplementary material hosted by OpenReview for the VISOR paper. It explicitly mentions the take-bowl then wash-bowl continuity example. No annotation ID is inferred or invented."
+    },
+    {
+      "id": "evidence_epic_kitchens100_annotations_readme_round1",
+      "source_name": "EPIC-KITCHENS-100 official annotation release README",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "epic-kitchens/epic-kitchens-100-annotations @ ea8b40457a400c3fffa1c7f406ef3dc169cc2522",
+      "source_locator": "https://github.com/epic-kitchens/epic-kitchens-100-annotations/blob/ea8b40457a400c3fffa1c7f406ef3dc169cc2522/README.md",
+      "observed_count": null,
+      "scope": "The official release describes ground-truth action segments with action/verb/noun labels and start/end times; it gives ‘take plate’ as a train annotation-format example. The official noun-class table includes the noun key bowl in the crockery category.",
+      "limitations": "The README format example is ‘take plate’, not a bowl annotation row. It establishes how source action labels are represented but does not identify an instance of the YCB bowl, define robot feasibility, or estimate household task frequency.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary release documentation. Relevant official files: https://github.com/epic-kitchens/epic-kitchens-100-annotations/blob/master/EPIC_100_noun_classes.csv and https://github.com/epic-kitchens/epic-kitchens-100-annotations/blob/master/EPIC_100_train.csv. The annotation CSV was not retrieved in this draft workflow, so no specific annotation row or count is asserted."
+    },
+    {
+      "id": "evidence_reference_functional_access_icf_environment",
+      "source_name": "WHO ICF Browser: Environmental Factors and e115 Products and technology for personal use in daily living",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "WHO ICF Browser accessed 2026-09-25",
+      "source_locator": "https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=e115&hsr=1",
+      "observed_count": null,
+      "scope": "The ICF describes e115 as equipment, products, and technologies used in daily activities, including adapted or specially designed products. The Environmental Factors introduction says factors are considered from the perspective of the person whose situation is described and that facilitator coding considers resource accessibility and dependability.",
+      "limitations": "ICF is a classification, not an access-design standard or robot-task procedure. It does not prescribe high-contrast outlines, tactile boundaries, this object handling, a participant choice protocol, prevalence, individual ability, diagnosis, or task performance. The marker choices and tasks are curator proposals only.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source pages: https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=e115&hsr=1 and https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=e."
+    },
+    {
+      "id": "evidence_reference_functional_access_unicef_cfm",
+      "source_name": "UNICEF/Washington Group Module on Child Functioning",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "UNICEF Data page accessed 2026-09-25; module finalized 2016",
+      "source_locator": "https://data.unicef.org/resources/module-child-functioning/",
+      "observed_count": null,
+      "scope": "UNICEF describes the CFM as a household-survey and census module for children aged 2 to 17 years. It covers domains including seeing, hearing, communication/comprehension, mobility, learning, and emotions, and is intended to identify population subgroups at risk of limited participation in an unaccommodating environment.",
+      "limitations": "CFM questions are survey measures, not individual diagnoses, access requirements, task instructions, or robot procedures. They do not prescribe the proposed tactile/visual markers or validate these bowl and plate actions; no CFM item, response, child record, or frequency statistic is used by this draft. Do not screen or infer an individual child's or adult's functioning from task choice or performance.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Related primary Washington Group question-set index: https://www.washingtongroup-disability.com/question-sets/ (lists the WG/UNICEF CFM and age-specific analysis syntax)."
+    },
+    {
+      "id": "evidence_who_icf_d440_fine_hand_use",
+      "source_name": "WHO ICF Browser: d440 Fine hand use",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "WHO ICF Browser accessed 2026-09-25",
+      "source_locator": "https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d440",
+      "observed_count": null,
+      "scope": "The WHO definition describes coordinated handling of objects by hand, fingers, and thumb, including picking up, manipulating, and releasing; its inclusion list includes picking up, grasping, manipulating, and releasing. It excludes lifting and carrying objects (d430).",
+      "limitations": "The ICF code classifies a functioning domain; it does not prescribe a task, test, procedure, robot action, or participant outcome. The source does not support prevalence, individual ability/disability/diagnosis, accommodation outcome, robot execution, or asset compatibility. The Atlas task is only a proposed optional interaction mapping, deliberately limited to brief pickup and return within the same marked area.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary WHO classification entry. Official URL: https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d440."
+    },
+    {
+      "id": "evidence_who_icf_d445_hand_arm_use",
+      "source_name": "WHO ICF Browser: d445 Hand and arm use",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "WHO ICF Browser accessed 2026-09-25",
+      "source_locator": "https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d445&hsr=1",
+      "observed_count": null,
+      "scope": "The WHO definition describes coordinated hand-and-arm actions to move or manipulate objects, and lists pulling/pushing, reaching, and turning/twisting among inclusions.",
+      "limitations": "The ICF code classifies a functioning domain; it does not prescribe a task, test, procedure, robot action, or participant outcome. The source does not support prevalence, individual ability/disability/diagnosis, accommodation outcome, robot execution, or asset compatibility. The tabletop wine-glass pull is an Atlas proposal mapped to pulling/reaching, not a WHO-defined task, and it may also involve fine hand use.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary WHO classification entry. Official URL: https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d445&hsr=1."
+    },
+    {
+      "id": "evidence_robocasa_coffee_atomic_round1",
+      "source_name": "RoboCasa kitchen_coffee.py: CoffeeSetupMug and CoffeeServeMug",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "RoboCasa repository @ 4f8a2980def75a55dff96b990745b83540425f09",
+      "source_locator": "https://github.com/robocasa/robocasa/blob/4f8a2980def75a55dff96b990745b83540425f09/robocasa/environments/kitchen/atomic/kitchen_coffee.py",
+      "observed_count": null,
+      "scope": "The shared PickPlaceCoffee implementation selects obj_groups=\"mug\" for both directions, uses the coffee-machine fixture and its associated counter, specifies counter-to-under-dispenser and under-dispenser-to-counter language, and checks placement plus gripper clearance; the exact classes are CoffeeSetupMug and CoffeeServeMug.",
+      "limitations": "This is a simulator task definition, not evidence that a YCB mug is one of the sampled RoboCasa mug models or that the proposed Atlas setup is compatible, safe on a particular platform, or successfully executed. The branch URL is not pinned to a commit.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary task-code locator. CoffeeSetupMug class is at lines 100-107; CoffeeServeMug at 109-114; shared mug-group selection and directional placement/success logic are at lines 14-98."
+    },
+    {
+      "id": "evidence_japan_2021_sports_category_definition",
+      "source_name": "Statistics Bureau of Japan, Explanation of Terms for the 2021 Survey, Questionnaire A",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "2021 survey coding material; accessed 2026-09-25",
+      "source_locator": "https://www.stat.go.jp/english/data/shakai/2021/pdf/kaisetsua-e.pdf",
+      "observed_count": null,
+      "scope": "Questionnaire A uses 20 predetermined time-use categories; Sports is one tertiary activity. Respondents report their main activity in 15-minute slots.",
+      "limitations": "Defines a broad source category for a macro-activity crosswalk only. It does not specify an object, sport, motor primitive, performance outcome or robot procedure and does not itself support a population-frequency value.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary survey coding documentation, used only to justify representation of the official category."
+    },
+    {
+      "id": "evidence_behavior_ball_game_category",
+      "source_name": "Stanford BEHAVIOR Knowledgebase, ball.n.01 and its soccer_ball.n.01 and softball.n.01 children",
+      "source_type": "knowledgebase",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "Knowledgebase pages accessed 2026-09-25; web version not release-pinned",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/synsets/ball.n.01.html",
+      "observed_count": null,
+      "scope": "The knowledgebase defines ball.n.01 as a round object hit, thrown or kicked in games and lists soccer_ball.n.01 and softball.n.01 as children. Used as broad rationale for candidate tasks with YCB mini soccer ball and softball.",
+      "limitations": "Taxonomy supports only a proposed relationship between sports balls and candidate tasks; it does not specify these Atlas procedures, establish YCB taxonomy equivalence, prove execution or provide population frequency. Proposals use stationary pickup/place/recovery rather than throwing or kicking.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary pages: https://behavior.stanford.edu/knowledgebase/synsets/ball.n.01.html; https://behavior.stanford.edu/knowledgebase/synsets/soccer_ball.n.01.html; https://behavior.stanford.edu/knowledgebase/synsets/softball.n.01.html. Mapping to Atlas concept object_ball is curator-authored."
+    },
+    {
+      "id": "evidence_virtualhome_dataset_programs_round1",
+      "source_name": "VirtualHome official dataset README",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "xavierpuigf/virtualhome @ 58970fd80951c2eaa1af713e0917d1a105353ad8",
+      "source_locator": "https://github.com/xavierpuigf/virtualhome/blob/58970fd80951c2eaa1af713e0917d1a105353ad8/virtualhome/dataset/README.md",
+      "observed_count": null,
+      "scope": "Documents that VirtualHome activities are programs made from atomic actions and gives [Walk] <glass> (1) followed by [Grab] <glass> (1) as an example of approaching and grabbing the same glass instance.",
+      "limitations": "A simulator program example supports a source-grounded task-design proposal only. It does not measure population frequency, establish execution by a physical robot, identify a YCB-equivalent model, or show compatibility with this Atlas asset. The README says the referenced dataset requires simulator version v1.0.0.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary project dataset documentation; the illustrated glass program is explicitly presented as an example, not as a measured frequency or real-robot result."
+    },
+    {
+      "id": "evidence_virtualhome_putback_action_round1",
+      "source_name": "VirtualHome official simulation action documentation",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "xavierpuigf/virtualhome @ 58970fd80951c2eaa1af713e0917d1a105353ad8",
+      "source_locator": "https://github.com/xavierpuigf/virtualhome/blob/58970fd80951c2eaa1af713e0917d1a105353ad8/virtualhome/simulation/README.md",
+      "observed_count": null,
+      "scope": "Documents the program form [PutBack] <object1> <object2>, with the example [PutBack] <glass> (1) <table> (1), and defines preconditions of holding the first object and being close to the target; its postcondition places the first object on the second.",
+      "limitations": "This describes a simulator action model. It is not a physical robot result, a population frequency estimate, or an assertion that a selected YCB mug is compatible with VirtualHome.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "The same documentation lists PutBack as supported in the Unity Simulator, but no Atlas/YCB task execution was performed here."
+    },
+    {
+      "id": "evidence_virtualhome_class_name_aliases_round1",
+      "source_name": "VirtualHome class_name_equivalence resource",
+      "source_type": "dataset",
+      "supported_claim_types": [
+        "task_suitability"
+      ],
+      "source_version": "xavierpuigf/virtualhome @ 58970fd80951c2eaa1af713e0917d1a105353ad8",
+      "source_locator": "https://github.com/xavierpuigf/virtualhome/blob/58970fd80951c2eaa1af713e0917d1a105353ad8/virtualhome/resources/class_name_equivalence.json",
+      "observed_count": null,
+      "scope": "The resource maps VirtualHome script labels glass to scene names waterglass/water_glass/wineglass and mug to waterglass/wineglass, among other aliases.",
+      "limitations": "The file documents simulator script-name resolution to Unity scene class names; it is not a semantic taxonomy, a model catalog, or evidence that any YCB instance is equivalent or compatible with a VirtualHome object.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Used only as corroboration that the source vocabulary includes reusable generic drinkware labels; individual model IDs are not provided by this mapping."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_behavior_bowl_task_suitability_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed single-bowl transfer primitive scoped from the BEHAVIOR dirty-dishes sink task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_behavior_dirty_dishes_round2"
+      ],
+      "scope": "One bowl-on-booth to bowl-inside-sink transfer extracted from putting_dirty_dishes_in_sink-0.",
+      "limitations": "The source supports symbolic task structure only; review and an actual collection trial are required."
+    },
+    {
+      "id": "claim_reference_behavior_bowl_population_frequency_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population or observation protocol is attached.",
+      "limitations": "A BEHAVIOR task definition is not a population-frequency measurement."
+    },
+    {
+      "id": "claim_reference_behavior_bowl_robot_execution_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "A symbolic task definition and proposed procedure do not demonstrate robot execution."
+    },
+    {
+      "id": "claim_reference_behavior_bowl_asset_compatibility_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected BEHAVIOR bowl model and required scene resources with this Task Atlas setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No Task Atlas scene, simulator, or robot asset configuration is attached.",
+      "limitations": "BEHAVIOR source readiness is not a compatibility result for this setup."
+    },
+    {
+      "id": "claim_reference_behavior_plate_task_suitability_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed single-plate residue-removal primitive scoped from the BEHAVIOR washing-plates task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_behavior_plate_washing_round2"
+      ],
+      "scope": "One plate with source-listed breadcrumb and pesto residues, with both covered relations removed as the scoped goal.",
+      "limitations": "The source gives symbolic states and available resource categories, not a robot cleaning method; review and collection trials are required."
+    },
+    {
+      "id": "claim_reference_behavior_plate_population_frequency_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population or observation protocol is attached.",
+      "limitations": "A BEHAVIOR task definition is not a population-frequency measurement."
+    },
+    {
+      "id": "claim_reference_behavior_plate_robot_execution_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "The symbolic source definition and proposed skill mapping do not demonstrate robot execution."
+    },
+    {
+      "id": "claim_reference_behavior_plate_asset_compatibility_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected BEHAVIOR plate model and required cleaning resources with this Task Atlas setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No Task Atlas scene, simulator, or robot asset configuration is attached.",
+      "limitations": "BEHAVIOR source readiness is not a compatibility result for this setup."
+    },
+    {
+      "id": "claim_behavior_bowl_byzaxy_catalog_identity_round2",
+      "subject_id": "behavior_object_bowl_byzaxy",
+      "claim_type": "catalog_identity",
+      "statement": "The BEHAVIOR catalog lists model bowl-byzaxy in category bowl under synset bowl.n.01 and marks the model ready in BEHAVIOR.",
+      "status": "supported",
+      "value": "bowl-byzaxy",
+      "unit": null,
+      "source_ids": [
+        "evidence_behavior_bowl_byzaxy_catalog_round2"
+      ],
+      "scope": "BEHAVIOR source model identity, source category/synset mapping, and source readiness only.",
+      "limitations": "This does not establish YCB identity or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_behavior_plate_aewthq_catalog_identity_round2",
+      "subject_id": "behavior_object_plate_aewthq",
+      "claim_type": "catalog_identity",
+      "statement": "The BEHAVIOR catalog lists model plate-aewthq in category plate under synset plate.n.04 and marks the model ready in BEHAVIOR.",
+      "status": "supported",
+      "value": "plate-aewthq",
+      "unit": null,
+      "source_ids": [
+        "evidence_behavior_plate_aewthq_catalog_round2"
+      ],
+      "scope": "BEHAVIOR source model identity, source category/synset mapping, and source readiness only.",
+      "limitations": "This does not establish YCB identity or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_reference_charades_put_banana_task_suitability_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "task_suitability",
+      "statement": "The Charades class ‘Putting some food somewhere’ supports proposing a bounded food-placement primitive, operationalized here with one YCB banana and a designated surface.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_charades_official_food_action_classes_round1"
+      ],
+      "scope": "Candidate collection-design task derived from Charades action class c062 and object class food.",
+      "limitations": "The surface, banana identity, exact setup, and goal-state details are Atlas design choices. Charades does not identify the YCB model or establish equivalence, asset compatibility, robot execution, or population frequency."
+    },
+    {
+      "id": "claim_reference_charades_put_banana_population_frequency_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for placing a YCB banana on a designated kitchen surface is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No representative population denominator or observation protocol is attached to this Atlas proposal.",
+      "limitations": "Charades action labels and video counts are dataset-specific; they are not household prevalence estimates."
+    },
+    {
+      "id": "claim_reference_charades_put_banana_robot_execution_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific YCB banana placement task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Task Atlas execution record is attached.",
+      "limitations": "Charades records scripted human-performed videos, not robot execution of the proposed task."
+    },
+    {
+      "id": "claim_reference_charades_put_banana_asset_compatibility_round1",
+      "subject_id": "task_reference_charades_put_banana_on_surface_round1",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected YCB banana model with the proposed setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No physical fit, grasp, simulator import, or rendering check is attached.",
+      "limitations": "The Charades source class ‘food’ does not identify a banana model or establish compatibility with any robot, scene, or simulator."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_task_suitability_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "task_suitability",
+      "statement": "The Charades class ‘Taking food from somewhere’ supports proposing a bounded food pick-up primitive, operationalized here with one YCB apple and a designated surface.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_charades_official_food_action_classes_round1"
+      ],
+      "scope": "Candidate collection-design task derived from Charades action class c063 and object class food.",
+      "limitations": "The surface, apple identity, exact setup, and held endpoint are Atlas design choices. Charades does not identify the YCB model or establish equivalence, asset compatibility, robot execution, or population frequency."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_population_frequency_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for taking a YCB apple from a designated kitchen surface is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No representative population denominator or observation protocol is attached to this Atlas proposal.",
+      "limitations": "Charades action labels and video counts are dataset-specific; they are not household prevalence estimates."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_robot_execution_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific YCB apple pick-up task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Task Atlas execution record is attached.",
+      "limitations": "Charades records scripted human-performed videos, not robot execution of the proposed task."
+    },
+    {
+      "id": "claim_reference_charades_take_apple_asset_compatibility_round1",
+      "subject_id": "task_reference_charades_take_apple_from_surface_round1",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected YCB apple model with the proposed setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No physical grasp, simulator import, or rendering check is attached.",
+      "limitations": "The Charades source class ‘food’ does not identify an apple model or establish compatibility with any robot, scene, or simulator."
+    },
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_task_suitability",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "task_suitability",
+      "statement": "Ego4D's FHO “put down wood” example supports proposing a bounded wood-workpiece placement task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_ego4d_fho_put_down_wood_round1"
+      ],
+      "scope": "Atlas collection-design proposal using the existing ycb_036_wood_block as a tentative representative for the source's generic wood label.",
+      "limitations": "The source example does not name this YCB model or a support surface and does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_population_frequency",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific wood-block put-down task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No representative population, denominator, or observation protocol is attached.",
+      "limitations": "An egocentric dataset example is task-design evidence and is not a household population-frequency estimate."
+    },
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_robot_execution",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific Task Atlas wood-block placement task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "Ego4D documents human egocentric data and does not establish robot execution of the proposed YCB-grounded task."
+    },
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_asset_compatibility",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_036_wood_block with the proposed scene and any robot setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No physical, simulation, or robot-specific compatibility check is attached.",
+      "limitations": "The source's generic wood label does not identify or validate a YCB object model."
+    },
+    {
+      "id": "claim_reference_epic_take_bowl_task_suitability_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "task_suitability",
+      "statement": "The source documents ‘take bowl’ as an example action label suitable for proposing a bounded bowl pick-up task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_epic_kitchens_visorsupp_bowl_sequence_round1",
+        "evidence_epic_kitchens100_annotations_readme_round1"
+      ],
+      "scope": "Proposal based on EPIC-KITCHENS VISOR's illustrative adjacent action sequence.",
+      "limitations": "It does not specify the source surface or prove an exact match to YCB ycb_024_bowl, robot execution, physical or simulator compatibility, or population frequency."
+    },
+    {
+      "id": "claim_reference_epic_take_bowl_population_frequency_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for taking a bowl is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population, denominator, or representative sampling protocol is defined.",
+      "limitations": "An egocentric video dataset is not a population prevalence study."
+    },
+    {
+      "id": "claim_reference_epic_take_bowl_robot_execution_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for taking this bowl is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution run is attached.",
+      "limitations": "Human video annotations do not demonstrate robot task completion."
+    },
+    {
+      "id": "claim_reference_epic_take_bowl_asset_compatibility_round1",
+      "subject_id": "task_reference_epic_kitchens_take_bowl_round1",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the proposed YCB bowl mapping with the EPIC-KITCHENS bowl instance and any robot or simulator is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No matching source object model, physical test, or simulator configuration is available.",
+      "limitations": "The shared label ‘bowl’ is a candidate mapping, not evidence of model equivalence or compatibility."
+    },
+    {
+      "id": "claim_reference_access_bowl_task_suitability",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional bowl-handling primitive for collection-design review with a participant-selected or declined visual/tactile setup cue.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_reference_functional_access_icf_environment",
+        "evidence_reference_functional_access_unicef_cfm"
+      ],
+      "scope": "One empty YCB bowl is briefly lifted and returned to its marked dining-table area; the cue choice is an unvalidated Atlas setup proposal.",
+      "limitations": "ICF and CFM do not prescribe or validate this task or its visual/tactile choices. WHODAS/CFM are not task-performance measures. Do not infer ability, disability, diagnosis, accommodation outcome, or clinical status."
+    },
+    {
+      "id": "claim_reference_access_bowl_population_frequency",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional bowl lift-and-return task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or event-frequency protocol is attached to the Atlas proposal.",
+      "limitations": "ICF, WHODAS 2.0, and CFM do not report frequency for this specific YCB object task."
+    },
+    {
+      "id": "claim_reference_access_bowl_robot_execution",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed bowl interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, execution trial, or success measurement is specified.",
+      "limitations": "A task design proposal and functioning classification provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_access_bowl_asset_compatibility",
+      "subject_id": "task_reference_access_bowl_lift_return",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the YCB bowl asset with a particular robot, simulator, or marker setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, bowl model configuration, or marker implementation is attached.",
+      "limitations": "YCB catalog identity and ICF product classification do not establish compatibility or safety for an execution setup."
+    },
+    {
+      "id": "claim_reference_access_plate_task_suitability",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional plate-transfer primitive for collection-design review with a participant-selected or declined visual/tactile setup cue.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_reference_functional_access_icf_environment",
+        "evidence_reference_functional_access_unicef_cfm"
+      ],
+      "scope": "One empty YCB plate is moved from a far to a near marked dining-table zone; the cue choice is an unvalidated Atlas setup proposal.",
+      "limitations": "ICF and CFM do not prescribe or validate this task or its visual/tactile choices. WHODAS/CFM are not task-performance measures. Do not infer ability, disability, diagnosis, accommodation outcome, or clinical status."
+    },
+    {
+      "id": "claim_reference_access_plate_population_frequency",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional plate-transfer task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or event-frequency protocol is attached to the Atlas proposal.",
+      "limitations": "ICF, WHODAS 2.0, and CFM do not report frequency for this specific YCB object task."
+    },
+    {
+      "id": "claim_reference_access_plate_robot_execution",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed plate interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, execution trial, or success measurement is specified.",
+      "limitations": "A task design proposal and functioning classification provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_access_plate_asset_compatibility",
+      "subject_id": "task_reference_access_plate_transfer",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the YCB plate asset with a particular robot, simulator, or marker setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, plate model configuration, or marker implementation is attached.",
+      "limitations": "YCB catalog identity and ICF product classification do not establish compatibility or safety for an execution setup."
+    },
+    {
+      "id": "claim_reference_icf_d440_task_suitability",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional mug handling interaction for collection-design review, mapped to the broad activity description of WHO ICF d440.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_who_icf_d440_fine_hand_use"
+      ],
+      "scope": "Brief pickup/grasp/release and return of one empty mug to the same marked tabletop area.",
+      "limitations": "The ICF classification does not prescribe or validate this task. Participation or task performance is not an assessment of individual ability, disability, diagnosis, or accommodation outcome."
+    },
+    {
+      "id": "claim_reference_icf_d440_population_frequency",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional mug interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or frequency protocol is attached to this task proposal.",
+      "limitations": "The WHO ICF classification is not a population-frequency observation for this task."
+    },
+    {
+      "id": "claim_reference_icf_d440_robot_execution",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution trial is specified.",
+      "limitations": "The ICF code and proposed task wording provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_icf_d440_asset_compatibility",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected mug asset with a particular robot, simulator, or collection setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, or asset configuration is attached.",
+      "limitations": "A YCB catalog object reference does not establish compatibility with any execution setup."
+    },
+    {
+      "id": "claim_reference_icf_d445_task_suitability",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional tabletop reach-and-pull interaction for collection-design review, mapped to the broad activity description of WHO ICF d445.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_who_icf_d445_hand_arm_use"
+      ],
+      "scope": "Reach to one empty upright wine glass and pull it along a clear tabletop path from a far mark toward a near mark.",
+      "limitations": "The ICF classification does not prescribe or validate this task; the selected task may involve more than one ICF activity. Participation or performance is not an assessment of individual ability, disability, diagnosis, or accommodation outcome."
+    },
+    {
+      "id": "claim_reference_icf_d445_population_frequency",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional wine-glass interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or frequency protocol is attached to this task proposal.",
+      "limitations": "The WHO ICF classification is not a population-frequency observation for this task."
+    },
+    {
+      "id": "claim_reference_icf_d445_robot_execution",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution trial is specified.",
+      "limitations": "The ICF code and proposed task wording provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_icf_d445_asset_compatibility",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected wine-glass asset with a particular robot, simulator, or collection setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, or asset configuration is attached.",
+      "limitations": "A YCB catalog object reference does not establish compatibility with any execution setup."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_setup_task_suitability",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "task_suitability",
+      "statement": "Moving the proposed YCB mug from the counter to the zone beneath a coffee-machine dispenser is a source-derived collection-design candidate.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_robocasa_coffee_atomic_round1"
+      ],
+      "scope": "Atlas proposal anchored to ycb_025_mug from the CoffeeSetupMug primitive and its RoboCasa registry entry.",
+      "limitations": "The source samples the generic RoboCasa mug group. Re-grounding that role to ycb_025_mug is proposed, and individual model equivalence and compatibility are unknown. This is not evidence of robot execution or task frequency."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_setup_population_frequency",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Atlas mug-to-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population or observation protocol is attached to this Atlas proposal.",
+      "limitations": "RoboCasa task and dataset registry entries are not population-frequency measurements."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_setup_robot_execution",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific Atlas mug-to-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Atlas execution record is attached.",
+      "limitations": "A simulator task definition and proposed procedure do not demonstrate execution by a robot."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_setup_asset_compatibility",
+      "subject_id": "task_reference_robocasa_coffee_setup_mug",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_025_mug with the proposed coffee-machine, dispenser, and dispenser-zone setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No selected RoboCasa mug model, Atlas fixture instance, simulator configuration, or physical fit check is attached.",
+      "limitations": "The RoboCasa mug group count does not identify an individual model, and it does not establish equivalence or fit with the YCB mug."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_task_suitability",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "task_suitability",
+      "statement": "Moving the proposed YCB mug from beneath the dispenser to the associated counter is a source-derived collection-design candidate.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_robocasa_coffee_atomic_round1"
+      ],
+      "scope": "Atlas proposal anchored to ycb_025_mug from the CoffeeServeMug primitive and its RoboCasa registry entry.",
+      "limitations": "The source samples the generic RoboCasa mug group. Re-grounding that role to ycb_025_mug is proposed, and individual model equivalence and compatibility are unknown. This is not evidence that coffee was brewed or served, nor evidence of robot execution or task frequency."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_population_frequency",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Atlas mug-from-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population or observation protocol is attached to this Atlas proposal.",
+      "limitations": "RoboCasa task and dataset registry entries are not population-frequency measurements."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_robot_execution",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific Atlas mug-from-dispenser task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or Atlas execution record is attached.",
+      "limitations": "A simulator task definition and proposed procedure do not demonstrate execution by a robot."
+    },
+    {
+      "id": "claim_reference_robocasa_coffee_serve_asset_compatibility",
+      "subject_id": "task_reference_robocasa_coffee_serve_mug",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_025_mug with the proposed coffee-machine, dispenser, and dispenser-zone setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No selected RoboCasa mug model, Atlas fixture instance, simulator configuration, or physical fit check is attached.",
+      "limitations": "The RoboCasa mug group count does not identify an individual model, and it does not establish equivalence or fit with the YCB mug."
+    },
+    {
+      "id": "claim_reference_japan_sports_soccer_kickoff_suitability",
+      "subject_id": "task_reference_japan_sports_kickoff_place_soccer_ball",
+      "claim_type": "task_suitability",
+      "statement": "A low-risk marked kickoff placement is a proposed object-level candidate associated with the broad Sports category and a YCB soccer-ball instance.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_behavior_ball_game_category",
+        "evidence_japan_2021_sports_category_definition"
+      ],
+      "scope": "Curator proposal acting on ycb_053_mini_soccer_ball; survey category is context only.",
+      "limitations": "BEHAVIOR categorizes sports balls but does not specify this procedure. The Japan aggregate does not support this primitive frequency, duration, preference or robot feasibility."
+    },
+    {
+      "id": "claim_reference_japan_sports_soccer_population_frequency",
+      "subject_id": "task_reference_japan_sports_kickoff_place_soccer_ball",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency of placing a mini soccer ball at a kickoff mark is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "Primitive is narrower than the Japan 2021 Sports category.",
+      "limitations": "The macro average is not a rate for this object, task, episode or robot action."
+    },
+    {
+      "id": "claim_reference_japan_sports_soccer_robot_execution",
+      "subject_id": "task_reference_japan_sports_kickoff_place_soccer_ball",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution evidence for mini soccer-ball placement is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No platform, policy, demonstrations or trials are represented.",
+      "limitations": "Survey time and taxonomy do not establish robot execution."
+    },
+    {
+      "id": "claim_reference_japan_sports_soccer_asset_compatibility",
+      "subject_id": "task_reference_japan_sports_kickoff_place_soccer_ball",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the YCB mini soccer ball with a specified robot or simulator is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "ycb_053_mini_soccer_ball in the proposed tabletop setup.",
+      "limitations": "No robot integration or compatibility test is included."
+    },
+    {
+      "id": "claim_reference_japan_sports_softball_recovery_suitability",
+      "subject_id": "task_reference_japan_sports_softball_return_recovery",
+      "claim_type": "task_suitability",
+      "statement": "A bounded, no-throw softball recovery into a padded tray is a proposed object-level candidate associated with the broad Sports category and a YCB softball instance.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_behavior_ball_game_category",
+        "evidence_japan_2021_sports_category_definition"
+      ],
+      "scope": "Curator proposal acting on ycb_054_softball; survey category is context only.",
+      "limitations": "BEHAVIOR identifies softball in its game-ball taxonomy but does not specify this procedure. The Japan aggregate does not support this primitive frequency, duration, preference or robot feasibility."
+    },
+    {
+      "id": "claim_reference_japan_sports_softball_population_frequency",
+      "subject_id": "task_reference_japan_sports_softball_return_recovery",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency of recovering a softball into a padded tray is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "Primitive is narrower than the Japan 2021 Sports category.",
+      "limitations": "The macro average is not a rate for this object, task, episode or robot action."
+    },
+    {
+      "id": "claim_reference_japan_sports_softball_robot_execution",
+      "subject_id": "task_reference_japan_sports_softball_return_recovery",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution evidence for softball recovery is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No platform, policy, demonstrations or trials are represented.",
+      "limitations": "Survey time and taxonomy do not establish robot execution."
+    },
+    {
+      "id": "claim_reference_japan_sports_softball_asset_compatibility",
+      "subject_id": "task_reference_japan_sports_softball_return_recovery",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the YCB softball with a specified robot or simulator is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "ycb_054_softball in the proposed tabletop setup.",
+      "limitations": "No robot integration or compatibility test is included."
+    },
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_task_suitability",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "task_suitability",
+      "statement": "Picking up a table-staged glass is a source-grounded candidate primitive for collection design.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_virtualhome_dataset_programs_round1",
+        "evidence_virtualhome_class_name_aliases_round1"
+      ],
+      "scope": "Atlas proposal using ycb_023_wine_glass as a re-grounding of VirtualHome's generic glass argument.",
+      "limitations": "The source does not select this YCB model, establish its compatibility with VirtualHome, demonstrate real-robot execution, or measure task frequency."
+    },
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_population_frequency",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Task Atlas pick-up task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population observation protocol is attached to this Atlas task.",
+      "limitations": "A simulator program example or alias resource is not a representative human activity-frequency measurement."
+    },
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_robot_execution",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "robot_execution",
+      "statement": "Physical robot execution of this specific Task Atlas wine-glass pick-up task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached to this Atlas task.",
+      "limitations": "VirtualHome documents simulated avatar programs; it does not show that a physical robot executed this YCB-grounded Atlas proposal."
+    },
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_asset_compatibility",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_023_wine_glass with VirtualHome assets or a particular robot setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No VirtualHome model identity, selected robot setup, or physical compatibility test is attached.",
+      "limitations": "VirtualHome's glass-to-scene-name alias list does not establish asset equivalence, geometry fit, or simulator compatibility."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_task_suitability",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "task_suitability",
+      "statement": "Putting a held drinkware item back on a table is a source-grounded candidate primitive for collection design.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": [
+        "evidence_virtualhome_putback_action_round1",
+        "evidence_virtualhome_class_name_aliases_round1"
+      ],
+      "scope": "Atlas proposal using ycb_025_mug as a re-grounding of the generic VirtualHome PutBack object argument.",
+      "limitations": "The action documentation and alias list do not identify a matching YCB model, establish compatibility, demonstrate physical-robot execution, or measure task frequency."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_population_frequency",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Task Atlas mug put-back task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population observation protocol is attached to this Atlas task.",
+      "limitations": "VirtualHome action definitions are not representative measurements of how frequently people perform this exact task."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_robot_execution",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "robot_execution",
+      "statement": "Physical robot execution of this specific Task Atlas mug put-back task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached to this Atlas task.",
+      "limitations": "VirtualHome's avatar action model is simulation evidence and does not demonstrate physical-robot execution of the YCB-grounded proposal."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_asset_compatibility",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_025_mug with VirtualHome assets or a particular robot setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No VirtualHome mug model identity, selected robot setup, or physical compatibility test is attached.",
+      "limitations": "VirtualHome's mug alias maps to simulator scene class names and does not establish equivalence or compatibility with this YCB asset."
+    }
+  ],
+  "draft_notes": [
+    "Reference-grounded proposed tasks selected from section 5 resources in physical_ai_task_atlas_handoff_ja.md. This bundle adds source-linked task candidates; proposed status is not an execution or compatibility finding.",
+    "For each YCB task, the exact Atlas hierarchy path is TaskInstance --acts_on--> ObjectInstance --instance_of--> ObjectClass. Population frequency, robot execution, and asset compatibility remain unknown unless a claim explicitly says otherwise.",
+    "BEHAVIOR round 2 adds external ObjectInstances linked curatorially to object_dish; external models are not counted as YCB coverage.",
+    "The Japan 2021 Sports time-use value is a broad category average only and is not assigned to either ball primitive."
+  ]
+}

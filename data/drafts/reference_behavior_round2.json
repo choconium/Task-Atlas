@@ -1,0 +1,507 @@
+{
+  "external_objects": [
+    {
+      "id": "behavior_object_bowl_byzaxy",
+      "node_type": "ObjectInstance",
+      "canonical_name": "bowl",
+      "name_en": "BEHAVIOR bowl model bowl-byzaxy",
+      "name_ja": "BEHAVIOR ボウルモデル bowl-byzaxy",
+      "category": "bowl",
+      "general_concept_id": "object_dish",
+      "asset_source": "behavior",
+      "asset_source_version": "Knowledgebase accessed 2026-09-25",
+      "asset_source_id": "bowl-byzaxy",
+      "asset_source_url": "https://behavior.stanford.edu/knowledgebase/objects/byzaxy.html",
+      "source_taxonomy": {
+        "source": "behavior",
+        "category_id": "bowl",
+        "synset_id": "bowl.n.01",
+        "parent_synset_ids": ["vessel.n.03"]
+      },
+      "source_taxonomy_url": "https://behavior.stanford.edu/knowledgebase/synsets/bowl.n.01.html",
+      "asset_ready_in_source": true,
+      "affordances": [],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "A generic BEHAVIOR source model, not a YCB asset and not verified compatible with Task Atlas, a robot, or any simulator. The BEHAVIOR bowl.n.01 page lists bowl-byzaxy in category bowl with Ready=True; the source task uses synset-level bowl roles and does not bind them to this individual model. Atlas concept object_dish is a curator cross-link only, not an equivalence claim for BEHAVIOR bowl.n.01 or its parent vessel.n.03."
+    },
+    {
+      "id": "behavior_object_plate_aewthq",
+      "node_type": "ObjectInstance",
+      "canonical_name": "plate",
+      "name_en": "BEHAVIOR plate model plate-aewthq",
+      "name_ja": "BEHAVIOR 皿モデル plate-aewthq",
+      "category": "plate",
+      "general_concept_id": "object_dish",
+      "asset_source": "behavior",
+      "asset_source_version": "Knowledgebase accessed 2026-09-25",
+      "asset_source_id": "plate-aewthq",
+      "asset_source_url": "https://behavior.stanford.edu/knowledgebase/objects/aewthq.html",
+      "source_taxonomy": {
+        "source": "behavior",
+        "category_id": "plate",
+        "synset_id": "plate.n.04",
+        "parent_synset_ids": ["flatware.n.01"]
+      },
+      "source_taxonomy_url": "https://behavior.stanford.edu/knowledgebase/synsets/plate.n.04.html",
+      "asset_ready_in_source": true,
+      "affordances": [],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "A generic BEHAVIOR source model, not a YCB asset and not verified compatible with Task Atlas, a robot, or any simulator. The BEHAVIOR plate.n.04 page lists plate-aewthq in category plate with Ready=True; the source task uses synset-level plate roles and does not bind them to this individual model. Atlas concept object_dish is a curator cross-link only, not an equivalence claim for BEHAVIOR plate.n.04 or its parent flatware.n.01."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_behavior_dirty_dishes_round2",
+      "node_type": "SceneType",
+      "name_en": "Dining booth and adjacent kitchen sink",
+      "name_ja": "飲食ブースと隣接するキッチンシンク",
+      "description": "Proposed Atlas collection context for one bowl transfer. It abstracts the dining-room booth and kitchen sink required by BEHAVIOR putting_dirty_dishes_in_sink-0; it is not a claim that an available Atlas, robot, or simulator scene matches a BEHAVIOR scene.",
+      "tags": ["dining", "kitchen", "dish-transfer"],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2"
+    },
+    {
+      "id": "scene_behavior_plate_wash_round2",
+      "node_type": "SceneType",
+      "name_en": "Bathroom sink and work surface",
+      "name_ja": "洗面所のシンクと作業面",
+      "description": "Proposed Atlas collection context for one plate-cleaning primitive. It reflects the bathroom floor, sink, and countertop locations in BEHAVIOR washing_plates-0; it is not a claim of scene-model or asset compatibility.",
+      "tags": ["bathroom", "sink", "cleaning"],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2"
+    }
+  ],
+  "templates": [
+    {
+      "id": "template_behavior_move_bowl_to_sink_round2",
+      "node_type": "TaskTemplate",
+      "name_en": "Move one bowl from a dining booth to the sink",
+      "name_ja": "飲食ブースからボウル1個をシンクへ移す",
+      "verb": "transfer",
+      "roles": {
+        "theme": "selected_bowl",
+        "origin": "dining_booth",
+        "destination": "kitchen_sink"
+      },
+      "compatible_scenes": ["scene_behavior_dirty_dishes_round2"],
+      "preconditions": [
+        "on_top_of(theme, origin)",
+        "reachable(theme)",
+        "destination_accessible(destination)"
+      ],
+      "goals": ["inside(theme, destination)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": ["dropped_bowl", "collision_during_transfer", "bowl_not_inside_sink"],
+      "safety_tags": ["dish-handling", "transport"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_behavior_remove_residue_from_plate_round2",
+      "node_type": "TaskTemplate",
+      "name_en": "Remove the selected source residue from one plate",
+      "name_ja": "皿1枚から対象の残留物を取り除く",
+      "verb": "clean",
+      "roles": {
+        "target": "selected_plate",
+        "residue": "source_listed_residue",
+        "tool": "scrub_brush",
+        "work_area": "sink_and_countertop"
+      },
+      "compatible_scenes": ["scene_behavior_plate_wash_round2"],
+      "preconditions": [
+        "covered(target, residue)",
+        "tool_available(tool)",
+        "water_available(work_area)"
+      ],
+      "goals": ["not_covered(target, residue)"],
+      "skills": ["skill_locate", "skill_grasp", "skill_wipe", "skill_verify"],
+      "failure_modes": ["residue_remains", "plate_slips", "plate_damage", "water_or_soap_spill"],
+      "safety_tags": ["dishwashing", "water", "cleaning-agent"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_behavior_bowl_to_sink_round2",
+      "node_type": "TaskInstance",
+      "template_id": "template_behavior_move_bowl_to_sink_round2",
+      "name_en": "Move one dirty bowl from the dining booth into the kitchen sink",
+      "name_ja": "汚れたボウルを飲食ブースからキッチンシンクへ1個移す",
+      "intent_id": "intent_transport",
+      "object_id": "behavior_object_bowl_byzaxy",
+      "scene_id": "scene_behavior_dirty_dishes_round2",
+      "bindings": {
+        "theme": "behavior_object_bowl_byzaxy",
+        "origin": "behavior_resource_dining_booth",
+        "destination": "behavior_resource_kitchen_sink"
+      },
+      "state_ids": ["state_on_surface", "state_dirty", "state_inside_receptacle"],
+      "initial_state": [
+        "on_top_of(behavior_object_bowl_byzaxy, behavior_resource_dining_booth)",
+        "covered(behavior_object_bowl_byzaxy, behavior_resource_source_dirt)",
+        "reachable(behavior_object_bowl_byzaxy)"
+      ],
+      "goal_state": [
+        "inside(behavior_object_bowl_byzaxy, behavior_resource_kitchen_sink)"
+      ],
+      "instruction_variants": [
+        "Move the selected dirty bowl from the dining booth into the kitchen sink.",
+        "Put one bowl from the booth inside the sink.",
+        "飲食ブースにある汚れたボウルを1個、キッチンシンクへ移してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "Scoped from BEHAVIOR putting_dirty_dishes_in_sink-0: the BDDL source has two bowls initially on a dining booth, both covered with dirt.n.02, and the goal places every bowl inside a kitchen sink. This instance narrows the source to one selected bowl and its source-supported transfer goal; it does not claim to perform washing. The source task does not identify bowl-byzaxy specifically: that BEHAVIOR model is a curator-selected candidate within source category bowl / synset bowl.n.01, so asset identity equivalence and compatibility are unverified. Atlas graph walk: this TaskInstance --acts_on--> behavior_object_bowl_byzaxy --instance_of--> concept:object_dish (exactly two Atlas relation edges). The Atlas class is a curator grouping, not equivalent to the source synset."
+    },
+    {
+      "id": "task_reference_behavior_clean_plate_round2",
+      "node_type": "TaskInstance",
+      "template_id": "template_behavior_remove_residue_from_plate_round2",
+      "name_en": "Clean one plate by removing its source-listed food residue",
+      "name_ja": "皿1枚からソース記載の食品残留物を取り除く",
+      "intent_id": "intent_clean",
+      "object_id": "behavior_object_plate_aewthq",
+      "scene_id": "scene_behavior_plate_wash_round2",
+      "bindings": {
+        "target": "behavior_object_plate_aewthq",
+        "residue": "behavior_resource_source_breadcrumb_and_pesto",
+        "tool": "behavior_resource_scrub_brush",
+        "work_area": "behavior_resource_bathroom_sink_and_countertop"
+      },
+      "state_ids": ["state_on_surface", "state_dirty", "state_clean"],
+      "initial_state": [
+        "on_top_of(behavior_object_plate_aewthq, behavior_resource_bathroom_floor)",
+        "covered(behavior_object_plate_aewthq, behavior_resource_source_breadcrumb)",
+        "covered(behavior_object_plate_aewthq, behavior_resource_source_pesto)",
+        "reachable(behavior_object_plate_aewthq)"
+      ],
+      "goal_state": [
+        "not_covered(behavior_object_plate_aewthq, behavior_resource_source_breadcrumb)",
+        "not_covered(behavior_object_plate_aewthq, behavior_resource_source_pesto)"
+      ],
+      "instruction_variants": [
+        "Clean the selected plate until neither the listed breadcrumb nor pesto residue remains.",
+        "Remove the source-listed food residue from one plate.",
+        "対象の皿1枚から、パン粉とペストの残留物を取り除いてください。"
+      ],
+      "skills": ["skill_locate", "skill_grasp", "skill_wipe", "skill_verify"],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round2",
+      "notes": "Scoped from BEHAVIOR washing_plates-0: the source initializes one plate with breadcrumb and pesto coverage, places plates on a bathroom floor, provides a scrub brush on the countertop and liquid soap/water resources, and sets goals removing both covered relations from every plate. This task keeps one plate and its two listed residues only. Atlas skill_wipe is a proposed local action-family mapping for the source scrub-brush task; BEHAVIOR specifies symbolic states and listed objects, not a robot motion sequence. The task source does not identify plate-aewthq specifically: this is a candidate BEHAVIOR model from source category plate / synset plate.n.04, and its compatibility is unknown. Atlas graph walk: this TaskInstance --acts_on--> behavior_object_plate_aewthq --instance_of--> concept:object_dish (exactly two Atlas relation edges). The Atlas class is a curator grouping, not equivalent to plate.n.04 or its parent flatware.n.01."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_behavior_bowl_to_sink_round2",
+      "task_id": "task_reference_behavior_bowl_to_sink_round2",
+      "requirements": [
+        {"key": "scene_id", "value": "scene_behavior_dirty_dishes_round2", "reason": "Proposed context for the source dining booth and kitchen sink locations."},
+        {"key": "object", "value": "behavior_object_bowl_byzaxy", "reason": "Selected generic BEHAVIOR bowl model; source does not bind its bowl role to this individual model."},
+        {"key": "object", "value": "behavior_resource_dining_booth", "reason": "Unresolved external source resource: a dining booth model is required; no compatible asset is cataloged in this draft."},
+        {"key": "object", "value": "behavior_resource_kitchen_sink", "reason": "Unresolved external source resource: a kitchen sink model is required; no compatible asset is cataloged in this draft."},
+        {"key": "condition", "value": "selected_bowl_starts_on_booth_and_is_dirty", "reason": "Narrowed source initial state for one bowl, including its bowl-on-booth and dirt-covered relations."},
+        {"key": "capability", "value": "rigid_manipulation", "reason": "Collection-design requirement only; no robot platform or capability is asserted."}
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_behavior_bowl_to_sink_round2",
+          "label": "Transfer one bowl into the kitchen sink",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the selected bowl on the booth."},
+            {"skill_id": "skill_approach", "description": "Approach the selected bowl."},
+            {"skill_id": "skill_grasp", "description": "Acquire a stable hold on the bowl."},
+            {"skill_id": "skill_lift", "description": "Lift the bowl clear of the booth."},
+            {"skill_id": "skill_navigate_or_reach", "description": "Move the held bowl to the sink area."},
+            {"skill_id": "skill_place", "description": "Place the bowl inside the sink basin."},
+            {"skill_id": "skill_release", "description": "Release the bowl after placement."},
+            {"skill_id": "skill_verify", "description": "Check that the bowl is inside the sink."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "behavior_object_bowl_byzaxy", "reason": "Primary proposed task object."},
+            {"key": "object", "value": "behavior_resource_dining_booth", "reason": "Unresolved source support surface model."},
+            {"key": "object", "value": "behavior_resource_kitchen_sink", "reason": "Unresolved source destination model."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": ["The selected bowl is inside the sink; this transfer task does not score cleanliness."],
+        "setup": ["Use the cited BEHAVIOR task only as a symbolic source; first supply and review compatible booth and sink resources, then place one selected bowl on the booth."],
+        "reset": ["Return the bowl to the recorded booth location and restore any disturbed source condition."],
+        "quality_checks": ["Confirm the bowl is contained by the sink basin and remains intact."],
+        "failure_modes": ["Dropped bowl", "Bowl placed outside basin", "Collision during transfer"],
+        "consumables": [],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    },
+    {
+      "id": "planning_reference_behavior_clean_plate_round2",
+      "task_id": "task_reference_behavior_clean_plate_round2",
+      "requirements": [
+        {"key": "scene_id", "value": "scene_behavior_plate_wash_round2", "reason": "Proposed bathroom wash-area context from the source floor, sink, and countertop locations."},
+        {"key": "object", "value": "behavior_object_plate_aewthq", "reason": "Selected generic BEHAVIOR plate model; source does not bind its plate role to this individual model."},
+        {"key": "object", "value": "behavior_resource_scrub_brush", "reason": "Unresolved external tool resource listed by the source task; no compatible asset is cataloged in this draft."},
+        {"key": "object", "value": "behavior_resource_bathroom_sink", "reason": "Unresolved external sink resource listed by the source task."},
+        {"key": "object", "value": "behavior_resource_liquid_soap_and_water", "reason": "Unresolved external consumable resources represented in the source task; this draft does not specify quantities or a dispensing procedure."},
+        {"key": "object", "value": "behavior_resource_bathroom_countertop_and_floor", "reason": "Unresolved external support surfaces from the source task layout."},
+        {"key": "condition", "value": "one_plate_starts_covered_by_breadcrumb_and_pesto", "reason": "Narrowed source initial state for the selected plate; the proposed task targets the two source-listed covered relations."},
+        {"key": "capability", "value": "rigid_manipulation", "reason": "Collection-design requirement only; no robot platform or capability is asserted."}
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_behavior_clean_plate_round2",
+          "label": "Remove the listed residues from one plate",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the selected plate and source-listed cleaning tool."},
+            {"skill_id": "skill_grasp", "description": "Acquire a stable hold on the tool or plate as required by the selected collection setup."},
+            {"skill_id": "skill_wipe", "description": "Use the source-listed scrub-brush resource in a yet-to-be-reviewed collection procedure to remove the selected residues."},
+            {"skill_id": "skill_verify", "description": "Check that neither source-listed covered relation remains."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "behavior_object_plate_aewthq", "reason": "Primary proposed task object."},
+            {"key": "object", "value": "behavior_resource_scrub_brush", "reason": "Unresolved source-listed cleaning tool."},
+            {"key": "object", "value": "behavior_resource_bathroom_sink", "reason": "Unresolved source support/cleaning resource."},
+            {"key": "object", "value": "behavior_resource_liquid_soap_and_water", "reason": "Unresolved source-listed cleaning resources."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": ["The selected plate no longer has either source-listed breadcrumb or pesto covered relation."],
+        "setup": ["Provide and review compatible plate, scrub-brush, sink, water, and soap resources; configure the selected plate with the source-listed residue state. The detailed cleaning procedure remains a collection-design proposal."],
+        "reset": ["Restore the selected plate to the recorded residue state and reset the sink and cleaning resources according to the approved setup."],
+        "quality_checks": ["Check the two source-listed residue relations independently and inspect the plate for damage."],
+        "failure_modes": ["Residue remains", "Plate slips", "Plate damage", "Uncontrolled soap or water spill"],
+        "consumables": ["Liquid soap", "Water"],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_behavior_dirty_dishes_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase: putting_dirty_dishes_in_sink-0",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/tasks/putting_dirty_dishes_in_sink-0.html",
+      "observed_count": null,
+      "scope": "The source BDDL includes bowl.n.01 objects on a dining booth, covered by dirt.n.02, and a goal placing each bowl inside sink.n.01 in the kitchen. This proposal narrows it to one selected bowl transfer.",
+      "limitations": "The source supports a symbolic task-design proposal only. It does not bind bowl.n.01 to bowl-byzaxy, establish model equivalence or compatibility, provide robot execution evidence, or measure population frequency. The source does not prescribe a robot motion sequence.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary task definition. Exact synset-level roles are not unique model IDs."
+    },
+    {
+      "id": "evidence_behavior_plate_washing_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase: washing_plates-0",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/tasks/washing_plates-0.html",
+      "observed_count": null,
+      "scope": "The source BDDL initializes plates with breadcrumb and/or pesto coverage and lists a sink with water, a scrub brush, and liquid soap; its goals remove both covered relations. This proposal narrows the source to one plate initialized with both listed residues.",
+      "limitations": "The source supports a symbolic task-design proposal only. It does not bind plate.n.04 to plate-aewthq, establish model equivalence or compatibility, specify a robot motion sequence, provide robot execution evidence, or measure population frequency.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source task definition; the source's plate is synset-scoped and its location is the bathroom floor. The draft retains that starting location."
+    },
+    {
+      "id": "evidence_behavior_bowl_byzaxy_catalog_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase synset catalog: bowl.n.01",
+      "source_type": "catalog",
+      "supported_claim_types": ["catalog_identity"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/synsets/bowl.n.01.html",
+      "observed_count": null,
+      "scope": "The BEHAVIOR synset catalog lists bowl-byzaxy under category bowl and synset bowl.n.01 and marks it Ready=True; the record links to the source model page.",
+      "limitations": "This supports BEHAVIOR source catalog identity and the source readiness label only. It does not establish Task Atlas, robot, or simulator compatibility, nor prove that a source task used this individual model.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Exact model record URL: https://behavior.stanford.edu/knowledgebase/objects/byzaxy.html. The source parent synset is vessel.n.03; no Atlas equivalence is asserted."
+    },
+    {
+      "id": "evidence_behavior_plate_aewthq_catalog_round2",
+      "source_name": "BEHAVIOR-1K Knowledgebase synset catalog: plate.n.04",
+      "source_type": "catalog",
+      "supported_claim_types": ["catalog_identity"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/synsets/plate.n.04.html",
+      "observed_count": null,
+      "scope": "The BEHAVIOR synset catalog lists plate-aewthq under category plate and synset plate.n.04 and marks it Ready=True; the record links to the source model page.",
+      "limitations": "This supports BEHAVIOR source catalog identity and the source readiness label only. It does not establish Task Atlas, robot, or simulator compatibility, nor prove that a source task used this individual model.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Exact model record URL: https://behavior.stanford.edu/knowledgebase/objects/aewthq.html. The source parent synset is flatware.n.01; no Atlas equivalence is asserted."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_behavior_bowl_task_suitability_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed single-bowl transfer primitive scoped from the BEHAVIOR dirty-dishes sink task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_behavior_dirty_dishes_round2"],
+      "scope": "One bowl-on-booth to bowl-inside-sink transfer extracted from putting_dirty_dishes_in_sink-0.",
+      "limitations": "The source supports symbolic task structure only; review and an actual collection trial are required."
+    },
+    {
+      "id": "claim_reference_behavior_bowl_population_frequency_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population or observation protocol is attached.",
+      "limitations": "A BEHAVIOR task definition is not a population-frequency measurement."
+    },
+    {
+      "id": "claim_reference_behavior_bowl_robot_execution_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "A symbolic task definition and proposed procedure do not demonstrate robot execution."
+    },
+    {
+      "id": "claim_reference_behavior_bowl_asset_compatibility_round2",
+      "subject_id": "task_reference_behavior_bowl_to_sink_round2",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected BEHAVIOR bowl model and required scene resources with this Task Atlas setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No Task Atlas scene, simulator, or robot asset configuration is attached.",
+      "limitations": "BEHAVIOR source readiness is not a compatibility result for this setup."
+    },
+    {
+      "id": "claim_reference_behavior_plate_task_suitability_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed single-plate residue-removal primitive scoped from the BEHAVIOR washing-plates task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_behavior_plate_washing_round2"],
+      "scope": "One plate with source-listed breadcrumb and pesto residues, with both covered relations removed as the scoped goal.",
+      "limitations": "The source gives symbolic states and available resource categories, not a robot cleaning method; review and collection trials are required."
+    },
+    {
+      "id": "claim_reference_behavior_plate_population_frequency_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population or observation protocol is attached.",
+      "limitations": "A BEHAVIOR task definition is not a population-frequency measurement."
+    },
+    {
+      "id": "claim_reference_behavior_plate_robot_execution_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "The symbolic source definition and proposed skill mapping do not demonstrate robot execution."
+    },
+    {
+      "id": "claim_reference_behavior_plate_asset_compatibility_round2",
+      "subject_id": "task_reference_behavior_clean_plate_round2",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected BEHAVIOR plate model and required cleaning resources with this Task Atlas setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No Task Atlas scene, simulator, or robot asset configuration is attached.",
+      "limitations": "BEHAVIOR source readiness is not a compatibility result for this setup."
+    },
+    {
+      "id": "claim_behavior_bowl_byzaxy_catalog_identity_round2",
+      "subject_id": "behavior_object_bowl_byzaxy",
+      "claim_type": "catalog_identity",
+      "statement": "The BEHAVIOR catalog lists model bowl-byzaxy in category bowl under synset bowl.n.01 and marks the model ready in BEHAVIOR.",
+      "status": "supported",
+      "value": "bowl-byzaxy",
+      "unit": null,
+      "source_ids": ["evidence_behavior_bowl_byzaxy_catalog_round2"],
+      "scope": "BEHAVIOR source model identity, source category/synset mapping, and source readiness only.",
+      "limitations": "This does not establish YCB identity or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_behavior_plate_aewthq_catalog_identity_round2",
+      "subject_id": "behavior_object_plate_aewthq",
+      "claim_type": "catalog_identity",
+      "statement": "The BEHAVIOR catalog lists model plate-aewthq in category plate under synset plate.n.04 and marks the model ready in BEHAVIOR.",
+      "status": "supported",
+      "value": "plate-aewthq",
+      "unit": null,
+      "source_ids": ["evidence_behavior_plate_aewthq_catalog_round2"],
+      "scope": "BEHAVIOR source model identity, source category/synset mapping, and source readiness only.",
+      "limitations": "This does not establish YCB identity or compatibility with Task Atlas, a simulator, or a robot."
+    }
+  ],
+  "draft_notes": [
+    "Two new BEHAVIOR source tasks are proposed: one selected bowl transferred from a dining booth to a kitchen sink from putting_dirty_dishes_in_sink-0; and one selected plate cleaned of source-listed breadcrumb and pesto residues from washing_plates-0. Both are primitive task proposals, but the latter's Atlas skill_wipe mapping and concrete procedure remain design proposals because the source describes symbolic states/resources rather than robot motion.",
+    "Atlas hierarchy paths: task_reference_behavior_bowl_to_sink_round2 --acts_on--> behavior_object_bowl_byzaxy --instance_of--> concept:object_dish; task_reference_behavior_clean_plate_round2 --acts_on--> behavior_object_plate_aewthq --instance_of--> concept:object_dish. Each path has exactly two hierarchy edges, both ObjectInstances are distinct, and the shared ObjectClass is a curator grouping only.",
+    "Source taxonomies remain separate: bowl-byzaxy is category bowl / bowl.n.01, whose parent is vessel.n.03; plate-aewthq is category plate / plate.n.04, whose parent is flatware.n.01. None of these source synsets is asserted equivalent to Atlas object_dish.",
+    "The BEHAVIOR source task pages scope object roles to synsets, not the specific model IDs selected here. The model pages/catalog entries support identity and BEHAVIOR readiness only; compatibility remains unknown. All missing booth, sink, scrub-brush, water, soap, bathroom-floor, and countertop assets are unresolved plan requirements, not fabricated object records. Population frequency, robot execution, compatibility, and all time estimates remain unknown/null."
+  ]
+}

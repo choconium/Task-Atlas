@@ -1,0 +1,374 @@
+{
+  "templates": [
+    {
+      "id": "template_reference_icf_mug_grip_release",
+      "node_type": "TaskTemplate",
+      "name_en": "Grip, briefly lift, and release a mug within its starting area",
+      "name_ja": "マグカップを把持し、少し持ち上げて同じ開始位置に戻す",
+      "verb": "grip_and_release",
+      "roles": {
+        "object": "ycb_025_mug",
+        "start_zone": "marked_mug_start_zone"
+      },
+      "compatible_scenes": ["scene_dining_table"],
+      "preconditions": [
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "on_top_of(ycb_025_mug, dining_table)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "reachable(ycb_025_mug)"
+      ],
+      "goals": [
+        "pickup_and_grasp_observed(ycb_025_mug)",
+        "released(ycb_025_mug)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "mug_slips_before_release",
+        "mug_ends_outside_start_zone",
+        "mug_ends_unstable"
+      ],
+      "safety_tags": ["optional_interaction", "breakable_object", "no_clinical_inference"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_reference_icf_wine_glass_reach_pull",
+      "node_type": "TaskTemplate",
+      "name_en": "Reach to and pull an upright wine glass along the tabletop",
+      "name_ja": "テーブル上のワイングラスに手を伸ばし、立てたまま手前へ引く",
+      "verb": "reach_and_pull",
+      "roles": {
+        "object": "ycb_023_wine_glass",
+        "start_zone": "marked_wine_glass_far_zone",
+        "target_zone": "marked_wine_glass_near_zone"
+      },
+      "compatible_scenes": ["scene_dining_table"],
+      "preconditions": [
+        "empty(ycb_023_wine_glass)",
+        "upright(ycb_023_wine_glass)",
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_far_zone)",
+        "clear_path(marked_wine_glass_far_zone, marked_wine_glass_near_zone)",
+        "reachable(ycb_023_wine_glass)"
+      ],
+      "goals": [
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_near_zone)",
+        "on_top_of(ycb_023_wine_glass, dining_table)",
+        "upright(ycb_023_wine_glass)",
+        "stable(ycb_023_wine_glass)",
+        "released(ycb_023_wine_glass)"
+      ],
+      "skills": ["skill_reach", "skill_grasp", "skill_release", "skill_verify"],
+      "failure_modes": [
+        "wine_glass_tips_during_pull",
+        "wine_glass_ends_outside_target_zone",
+        "path_is_obstructed"
+      ],
+      "safety_tags": ["optional_interaction", "breakable_object", "no_clinical_inference"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_icf_d440_mug_grip_release",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_icf_mug_grip_release",
+      "name_en": "Grip and release the mug within its marked starting area",
+      "name_ja": "マグカップを把持し、印の範囲内で放す",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_025_mug",
+        "start_zone": "marked_mug_start_zone"
+      },
+      "state_ids": ["state_empty", "state_upright", "state_on_surface"],
+      "initial_state": [
+        "empty(ycb_025_mug)",
+        "upright(ycb_025_mug)",
+        "on_top_of(ycb_025_mug, dining_table)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "reachable(ycb_025_mug)"
+      ],
+      "goal_state": [
+        "pickup_and_grasp_observed(ycb_025_mug)",
+        "released(ycb_025_mug)",
+        "inside_zone(ycb_025_mug, marked_mug_start_zone)",
+        "upright(ycb_025_mug)",
+        "stable(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "If you choose, pick up the empty mug, lift it just clear of the tabletop, and set it back within its marked starting area.",
+        "Optionally grip the empty mug, briefly lift it, then release it upright inside the marked starting area.",
+        "よろしければ、空のマグカップを持ち上げ、テーブルの印の範囲内に戻して放してください。"
+      ],
+      "skills": [
+        "skill_reach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_icf_function_round1",
+      "notes": "Optional, neutral interaction proposal whose observable events are mug pickup/grasp, brief clearance from the surface, release, and final pose within the original marked area. It is scoped to handling rather than carrying the mug to a different location, reflecting the WHO ICF d440 definition and its exclusion for lifting and carrying (d430). The ICF code classifies a functioning domain; it does not prescribe this task or a procedure. Do not infer ability, disability, diagnosis, or accommodation outcome from participation or performance."
+    },
+    {
+      "id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "node_type": "TaskInstance",
+      "template_id": "template_reference_icf_wine_glass_reach_pull",
+      "name_en": "Reach to and pull the wine glass toward the near marked area",
+      "name_ja": "ワイングラスに手を伸ばし、手前の印まで引き寄せる",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_023_wine_glass",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "object": "ycb_023_wine_glass",
+        "start_zone": "marked_wine_glass_far_zone",
+        "target_zone": "marked_wine_glass_near_zone"
+      },
+      "state_ids": ["state_empty", "state_upright", "state_on_surface"],
+      "initial_state": [
+        "empty(ycb_023_wine_glass)",
+        "upright(ycb_023_wine_glass)",
+        "on_top_of(ycb_023_wine_glass, dining_table)",
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_far_zone)",
+        "clear_path(marked_wine_glass_far_zone, marked_wine_glass_near_zone)",
+        "reachable(ycb_023_wine_glass)"
+      ],
+      "goal_state": [
+        "inside_zone(ycb_023_wine_glass, marked_wine_glass_near_zone)",
+        "on_top_of(ycb_023_wine_glass, dining_table)",
+        "upright(ycb_023_wine_glass)",
+        "stable(ycb_023_wine_glass)",
+        "released(ycb_023_wine_glass)"
+      ],
+      "instruction_variants": [
+        "If you choose, reach to the empty wine glass at the far mark and pull it along the tabletop to the near mark, keeping it upright.",
+        "Optionally move the empty wine glass from the far tabletop mark to the near mark by pulling it without lifting it.",
+        "よろしければ、空のワイングラスを立てたまま、テーブル上で奥の印から手前の印まで引き寄せてください。"
+      ],
+      "skills": ["skill_reach", "skill_grasp", "skill_release", "skill_verify"],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_icf_function_round1",
+      "notes": "Optional, neutral interaction proposal with observable reaching/contact, pulling displacement, release, and final stability. Its d445 relation is a curator mapping to the WHO definition and listed pulling/reaching activities, not an ICF-prescribed procedure or exclusive classification; the action can involve fine hand use as well. Do not infer ability, disability, diagnosis, or accommodation outcome from participation or performance."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_icf_d440_mug_grip_release",
+      "task_id": "task_reference_icf_d440_mug_grip_release",
+      "requirements": [
+        {"key": "scene_id", "value": "scene_dining_table", "reason": "The tabletop supplies a stable starting surface and clearly marked return area."},
+        {"key": "object", "value": "ycb_025_mug", "reason": "Reusable YCB drinkware object instance; its use here is a proposed interaction mapping."},
+        {"key": "condition", "value": "empty_mug", "reason": "An empty vessel avoids making liquid handling part of the proposed primitive."},
+        {"key": "condition", "value": "visible_marked_mug_start_zone", "reason": "The return footprint makes final placement observable without requiring transfer to another location."},
+        {"key": "condition", "value": "clear_hand_path_to_mug", "reason": "The setup should not add unrelated obstacles to the optional handling interaction."}
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the participant opts in, record whether pickup/grasp and release events occurred, and whether the mug ended upright and stable within its original marked area.",
+          "Do not score or label the result as a measure of an individual's ability or disability."
+        ],
+        "setup": [
+          "Offer the interaction as optional and explain what interaction data would be recorded before any recording begins.",
+          "Place one empty YCB mug upright within a visible tabletop start-area outline; keep the short lift-and-return area clear."
+        ],
+        "reset": [
+          "Return the empty mug upright to the marked start area and confirm that the area is clear."
+        ],
+        "quality_checks": [
+          "Record only task events and final object pose needed to describe this setup; do not infer clinical status, ability, or accommodation outcome.",
+          "Confirm that the mug did not need to travel to another location; if carrying is introduced, treat that as a changed task scope."
+        ],
+        "failure_modes": ["mug_slips_before_release", "mug_ends_outside_start_zone", "mug_ends_unstable"],
+        "consumables": [],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    },
+    {
+      "id": "planning_reference_icf_d445_wine_glass_reach_pull",
+      "task_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "requirements": [
+        {"key": "scene_id", "value": "scene_dining_table", "reason": "The task is scoped to a clear tabletop surface with two visible marked zones."},
+        {"key": "object", "value": "ycb_023_wine_glass", "reason": "Reusable YCB drinkware object instance; its use here is a proposed interaction mapping."},
+        {"key": "condition", "value": "empty_wine_glass", "reason": "An empty vessel avoids making liquid handling part of the proposed primitive."},
+        {"key": "condition", "value": "visible_far_and_near_table_marks", "reason": "Distinct zones make reaching direction and tabletop displacement observable."},
+        {"key": "condition", "value": "clear_tabletop_pull_path", "reason": "The wine glass is intended to remain supported by the surface throughout the pull."}
+      ],
+      "procedures": [],
+      "collection": {
+        "success_criteria": [
+          "If the participant opts in, record whether reaching/contact and a pull toward the near mark occurred, and whether the glass ended upright and stable in that zone.",
+          "Do not score or label the result as a measure of an individual's ability or disability."
+        ],
+        "setup": [
+          "Offer the interaction as optional and explain what interaction data would be recorded before any recording begins.",
+          "Place one empty YCB wine glass upright at the far tabletop mark; keep the surface path to the near mark clear."
+        ],
+        "reset": [
+          "Return the empty wine glass upright to the far mark and confirm that the path and target area are clear."
+        ],
+        "quality_checks": [
+          "Record the interaction and final object pose only; do not infer clinical status, ability, or accommodation outcome.",
+          "Confirm that the glass remained supported by the tabletop; lifting or carrying would change this proposed scope."
+        ],
+        "failure_modes": ["wine_glass_tips_during_pull", "wine_glass_ends_outside_target_zone", "path_is_obstructed"],
+        "consumables": [],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_who_icf_d440_fine_hand_use",
+      "source_name": "WHO ICF Browser: d440 Fine hand use",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "WHO ICF Browser accessed 2026-09-25",
+      "source_locator": "https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d440",
+      "observed_count": null,
+      "scope": "The WHO definition describes coordinated handling of objects by hand, fingers, and thumb, including picking up, manipulating, and releasing; its inclusion list includes picking up, grasping, manipulating, and releasing. It excludes lifting and carrying objects (d430).",
+      "limitations": "The ICF code classifies a functioning domain; it does not prescribe a task, test, procedure, robot action, or participant outcome. The source does not support prevalence, individual ability/disability/diagnosis, accommodation outcome, robot execution, or asset compatibility. The Atlas task is only a proposed optional interaction mapping, deliberately limited to brief pickup and return within the same marked area.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary WHO classification entry. Official URL: https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d440."
+    },
+    {
+      "id": "evidence_who_icf_d445_hand_arm_use",
+      "source_name": "WHO ICF Browser: d445 Hand and arm use",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "WHO ICF Browser accessed 2026-09-25",
+      "source_locator": "https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d445&hsr=1",
+      "observed_count": null,
+      "scope": "The WHO definition describes coordinated hand-and-arm actions to move or manipulate objects, and lists pulling/pushing, reaching, and turning/twisting among inclusions.",
+      "limitations": "The ICF code classifies a functioning domain; it does not prescribe a task, test, procedure, robot action, or participant outcome. The source does not support prevalence, individual ability/disability/diagnosis, accommodation outcome, robot execution, or asset compatibility. The tabletop wine-glass pull is an Atlas proposal mapped to pulling/reaching, not a WHO-defined task, and it may also involve fine hand use.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary WHO classification entry. Official URL: https://apps.who.int/classifications/icfbrowser/Browse.aspx?code=d445&hsr=1."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_icf_d440_task_suitability",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional mug handling interaction for collection-design review, mapped to the broad activity description of WHO ICF d440.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_who_icf_d440_fine_hand_use"],
+      "scope": "Brief pickup/grasp/release and return of one empty mug to the same marked tabletop area.",
+      "limitations": "The ICF classification does not prescribe or validate this task. Participation or task performance is not an assessment of individual ability, disability, diagnosis, or accommodation outcome."
+    },
+    {
+      "id": "claim_reference_icf_d440_population_frequency",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional mug interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or frequency protocol is attached to this task proposal.",
+      "limitations": "The WHO ICF classification is not a population-frequency observation for this task."
+    },
+    {
+      "id": "claim_reference_icf_d440_robot_execution",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution trial is specified.",
+      "limitations": "The ICF code and proposed task wording provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_icf_d440_asset_compatibility",
+      "subject_id": "task_reference_icf_d440_mug_grip_release",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected mug asset with a particular robot, simulator, or collection setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, or asset configuration is attached.",
+      "limitations": "A YCB catalog object reference does not establish compatibility with any execution setup."
+    },
+    {
+      "id": "claim_reference_icf_d445_task_suitability",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed optional tabletop reach-and-pull interaction for collection-design review, mapped to the broad activity description of WHO ICF d445.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_who_icf_d445_hand_arm_use"],
+      "scope": "Reach to one empty upright wine glass and pull it along a clear tabletop path from a far mark toward a near mark.",
+      "limitations": "The ICF classification does not prescribe or validate this task; the selected task may involve more than one ICF activity. Participation or performance is not an assessment of individual ability, disability, diagnosis, or accommodation outcome."
+    },
+    {
+      "id": "claim_reference_icf_d445_population_frequency",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific optional wine-glass interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No target population, sampling frame, or frequency protocol is attached to this task proposal.",
+      "limitations": "The WHO ICF classification is not a population-frequency observation for this task."
+    },
+    {
+      "id": "claim_reference_icf_d445_robot_execution",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this proposed interaction is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution trial is specified.",
+      "limitations": "The ICF code and proposed task wording provide no robot-execution evidence."
+    },
+    {
+      "id": "claim_reference_icf_d445_asset_compatibility",
+      "subject_id": "task_reference_icf_d445_wine_glass_reach_pull",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the selected wine-glass asset with a particular robot, simulator, or collection setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot, simulator, or asset configuration is attached.",
+      "limitations": "A YCB catalog object reference does not establish compatibility with any execution setup."
+    }
+  ],
+  "draft_notes": [
+    "This round creates two distinct sibling primitive task proposals using reusable YCB drinkware: task_reference_icf_d440_mug_grip_release --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware, and task_reference_icf_d445_wine_glass_reach_pull --acts_on--> ycb_023_wine_glass --instance_of--> concept:object_drinkware. Each traversal is exactly two Atlas hierarchy edges upward from a TaskInstance through its ObjectInstance to the shared ObjectClass.",
+    "The WHO ICF d440 and d445 codes classify functioning domains and describe activity categories. They do not prescribe tasks, clinical tests, or robot procedures. These interactions are curator-authored, optional collection-design proposals. Do not infer participant ability, disability, diagnosis, or accommodation outcome, and do not report participation or performance as clinical measurement.",
+    "Use only the source-supported proposal-level task_suitability claims. Population frequency, robot execution, asset compatibility, timing, and clinical interpretation remain unknown. All duration estimates are null."
+  ]
+}

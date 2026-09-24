@@ -1,0 +1,577 @@
+{
+  "external_objects": [
+    {
+      "id": "behavior_object_apple_agveuv",
+      "node_type": "ObjectInstance",
+      "canonical_name": "apple",
+      "name_en": "BEHAVIOR apple model apple-agveuv",
+      "name_ja": "BEHAVIOR リンゴモデル apple-agveuv",
+      "category": "apple",
+      "general_concept_id": "object_fruit",
+      "asset_source": "behavior",
+      "asset_source_version": "Knowledgebase accessed 2026-09-25",
+      "asset_source_id": "apple-agveuv",
+      "asset_source_url": "https://behavior.stanford.edu/knowledgebase/objects/agveuv.html",
+      "source_taxonomy": {
+        "source": "behavior",
+        "category_id": "apple",
+        "synset_id": "apple.n.01",
+        "parent_synset_ids": ["edible_fruit.n.01", "pome.n.01"]
+      },
+      "source_taxonomy_url": "https://behavior.stanford.edu/knowledgebase/synsets/apple.n.01.html",
+      "asset_ready_in_source": true,
+      "affordances": [],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round1",
+      "notes": "This is a generic BEHAVIOR model record, not a YCB asset or a claim of compatibility with Task Atlas, a robot, or a simulator. The shared Atlas ObjectClass grouping object_fruit is a curator cross-link only; it is not asserted to be equivalent to BEHAVIOR synset edible_fruit.n.01. The source taxonomy is retained separately. The source KB reports this model as ready within BEHAVIOR."
+    },
+    {
+      "id": "behavior_object_banana_vvyyyv",
+      "node_type": "ObjectInstance",
+      "canonical_name": "banana",
+      "name_en": "BEHAVIOR banana model banana-vvyyyv",
+      "name_ja": "BEHAVIOR バナナモデル banana-vvyyyv",
+      "category": "banana",
+      "general_concept_id": "object_fruit",
+      "asset_source": "behavior",
+      "asset_source_version": "Knowledgebase accessed 2026-09-25",
+      "asset_source_id": "banana-vvyyyv",
+      "asset_source_url": "https://behavior.stanford.edu/knowledgebase/objects/vvyyyv.html",
+      "source_taxonomy": {
+        "source": "behavior",
+        "category_id": "banana",
+        "synset_id": "banana.n.02",
+        "parent_synset_ids": ["edible_fruit.n.01"]
+      },
+      "source_taxonomy_url": "https://behavior.stanford.edu/knowledgebase/synsets/banana.n.02.html",
+      "asset_ready_in_source": true,
+      "affordances": [],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round1",
+      "notes": "This is a generic BEHAVIOR model record, not a YCB asset or a claim of compatibility with Task Atlas, a robot, or a simulator. The shared Atlas ObjectClass grouping object_fruit is a curator cross-link only; it is not asserted to be equivalent to BEHAVIOR synset edible_fruit.n.01. The source taxonomy is retained separately. The source KB lists banana-vvyyyv as ready within BEHAVIOR."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_breakfast_kitchen_cleanup",
+      "node_type": "SceneType",
+      "name_en": "Breakfast table and adjoining kitchen",
+      "name_ja": "食卓と隣接するキッチン",
+      "description": "Proposed collection context joining a breakfast table in a dining area with an accessible refrigerator in an adjoining kitchen. This is an Atlas scene type, not a claim that a BEHAVIOR scene model is the same scene.",
+      "tags": ["home", "dining", "kitchen", "cleanup"],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round1"
+    }
+  ],
+  "templates": [
+    {
+      "id": "template_behavior_bag_item_at_checkout",
+      "node_type": "TaskTemplate",
+      "name_en": "Bag an item at checkout",
+      "name_ja": "レジ台で商品を袋に入れる",
+      "verb": "bag",
+      "roles": {
+        "theme": "portable_grocery_item",
+        "destination": "shopping_sack",
+        "surface": "checkout_counter"
+      },
+      "compatible_scenes": ["scene_checkout_counter"],
+      "preconditions": [
+        "on_top_of(theme, surface)",
+        "on_top_of(destination, surface)",
+        "reachable(theme)"
+      ],
+      "goals": ["inside(theme, destination)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": ["miss_sack", "drop_item", "damage_item"],
+      "safety_tags": ["retail", "receptacle"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_behavior_clear_breakfast_banana_to_fridge",
+      "node_type": "TaskTemplate",
+      "name_en": "Move a breakfast item from its plate into cold storage",
+      "name_ja": "朝食の皿から食品を冷蔵庫へ移す",
+      "verb": "store",
+      "roles": {
+        "theme": "portable_food_item",
+        "source": "breakfast_plate",
+        "destination": "electric_refrigerator"
+      },
+      "compatible_scenes": ["scene_breakfast_kitchen_cleanup"],
+      "preconditions": [
+        "on_top_of(theme, source)",
+        "reachable(theme)",
+        "destination_accessible"
+      ],
+      "goals": ["inside(theme, destination)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_open",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": ["drop_item", "collision_with_refrigerator", "wrong_receptacle"],
+      "safety_tags": ["food_handling", "cold_storage"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_behavior_apple_bag_at_checkout",
+      "node_type": "TaskInstance",
+      "template_id": "template_behavior_bag_item_at_checkout",
+      "name_en": "Bag the apple at checkout",
+      "name_ja": "レジ台でリンゴを袋に入れる",
+      "intent_id": "intent_store",
+      "object_id": "behavior_object_apple_agveuv",
+      "scene_id": "scene_checkout_counter",
+      "bindings": {
+        "theme": "behavior_object_apple_agveuv",
+        "destination": "behavior_resource_checkout_sack",
+        "surface": "behavior_resource_checkout_counter"
+      },
+      "state_ids": ["state_on_surface", "state_inside_receptacle"],
+      "initial_state": [
+        "on_top_of(behavior_object_apple_agveuv, behavior_resource_checkout_counter)",
+        "on_top_of(behavior_resource_checkout_sack, behavior_resource_checkout_counter)",
+        "reachable(behavior_object_apple_agveuv)"
+      ],
+      "goal_state": [
+        "inside(behavior_object_apple_agveuv, behavior_resource_checkout_sack)"
+      ],
+      "instruction_variants": [
+        "Place the apple from the checkout counter into the shopping sack.",
+        "Put the selected apple into the sack on the checkout counter.",
+        "レジ台にあるリンゴを買い物袋に入れてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round1",
+      "notes": "Scoped primitive extracted from BEHAVIOR bag_groceries-0: the source places an apple and two sacks on a checkout counter and includes an apple-inside-sack goal. Other groceries and their goals are omitted. Atlas graph walk: this TaskInstance --acts_on--> behavior_object_apple_agveuv --instance_of--> concept:object_fruit (exactly two existing Atlas relation edges). The external model is not a YCB object. Its Atlas ObjectClass link is a curator grouping, not an assertion that object_fruit equals BEHAVIOR edible_fruit.n.01. BEHAVIOR model readiness does not establish Task Atlas, robot, or simulator compatibility. The sack and checkout counter are explicit external resources, not cataloged YCB instances."
+    },
+    {
+      "id": "task_reference_behavior_banana_clear_breakfast",
+      "node_type": "TaskInstance",
+      "template_id": "template_behavior_clear_breakfast_banana_to_fridge",
+      "name_en": "Move the breakfast banana from its plate into the refrigerator",
+      "name_ja": "朝食のバナナを皿から冷蔵庫へ移す",
+      "intent_id": "intent_store",
+      "object_id": "behavior_object_banana_vvyyyv",
+      "scene_id": "scene_breakfast_kitchen_cleanup",
+      "bindings": {
+        "theme": "behavior_object_banana_vvyyyv",
+        "source": "behavior_resource_breakfast_plate",
+        "destination": "behavior_resource_electric_refrigerator"
+      },
+      "state_ids": ["state_on_surface", "state_inside_receptacle"],
+      "initial_state": [
+        "on_top_of(behavior_object_banana_vvyyyv, behavior_resource_breakfast_plate)",
+        "on_top_of(behavior_resource_breakfast_plate, behavior_resource_breakfast_table)",
+        "reachable(behavior_object_banana_vvyyyv)",
+        "destination_accessible(behavior_resource_electric_refrigerator)"
+      ],
+      "goal_state": [
+        "inside(behavior_object_banana_vvyyyv, behavior_resource_electric_refrigerator)"
+      ],
+      "instruction_variants": [
+        "After breakfast, move the banana from its plate into the refrigerator.",
+        "Clear the banana from the breakfast plate by storing it in the refrigerator.",
+        "朝食後、バナナを皿から冷蔵庫へ移してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_navigate_or_reach",
+        "skill_open",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_behavior_round1",
+      "notes": "Scoped primitive from BEHAVIOR clearing_table_after_breakfast-0: the source places a banana on a plate on a breakfast table and has a banana-inside-electric-refrigerator goal. Other dishes, mugs, pitcher, and breakfast-food goals in that full task are out of scope. The Atlas task/object/class path shares concept:object_fruit with the apple proposal; this Atlas ObjectClass does not assert equivalence to BEHAVIOR edible_fruit.n.01. The BEHAVIOR model is not a YCB object, and source readiness does not establish Task Atlas, robot, or simulator compatibility. The plate, breakfast table, and refrigerator are explicit external resources."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_behavior_apple_bag_at_checkout",
+      "task_id": "task_reference_behavior_apple_bag_at_checkout",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_checkout_counter",
+          "reason": "The source task places the selected item and sack at checkout."
+        },
+        {
+          "key": "object",
+          "value": "behavior_object_apple_agveuv",
+          "reason": "Primary generic BEHAVIOR model asset; not a YCB object."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_checkout_sack",
+          "reason": "External sack resource corresponding to BEHAVIOR sack.n.01."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_checkout_counter",
+          "reason": "External checkout resource corresponding to BEHAVIOR checkout.n.03."
+        },
+        {
+          "key": "condition",
+          "value": "initial_apple_and_sack_on_checkout_counter",
+          "reason": "Scoped source initial state: apple and sacks are on the checkout counter."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design requirement only; no robot capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_behavior_apple_bag_at_checkout",
+          "label": "Place the apple in the sack",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the selected apple and the designated checkout sack."},
+            {"skill_id": "skill_approach", "description": "Approach the apple from an unobstructed direction."},
+            {"skill_id": "skill_grasp", "description": "Acquire a stable hold on the apple."},
+            {"skill_id": "skill_lift", "description": "Lift the apple clear of the checkout surface."},
+            {"skill_id": "skill_place", "description": "Move the apple into the designated sack."},
+            {"skill_id": "skill_release", "description": "Release the apple after placement."},
+            {"skill_id": "skill_verify", "description": "Verify the apple is inside the sack."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "behavior_object_apple_agveuv", "reason": "Primary source model asset."},
+            {"key": "object", "value": "behavior_resource_checkout_sack", "reason": "External destination resource."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": ["The selected apple is inside the designated checkout sack."],
+        "setup": ["Provide the cited generic apple model and a sack on the checkout counter; verify the actual assets and handling method before collection."],
+        "reset": ["Return the apple and sack to their marked checkout-counter positions and inspect both for damage."],
+        "quality_checks": ["Confirm the apple is contained by the sack and no drop or visible damage occurred."],
+        "failure_modes": ["Missed sack opening", "Dropped apple", "Contact damage"],
+        "consumables": ["Shopping sack"],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_behavior_banana_clear_breakfast",
+      "task_id": "task_reference_behavior_banana_clear_breakfast",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_breakfast_kitchen_cleanup",
+          "reason": "Proposed Atlas context combines the source breakfast table and adjoining kitchen refrigerator."
+        },
+        {
+          "key": "object",
+          "value": "behavior_object_banana_vvyyyv",
+          "reason": "Primary generic BEHAVIOR model asset; not a YCB object."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_breakfast_plate",
+          "reason": "External plate resource corresponding to BEHAVIOR plate.n.04."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_breakfast_table",
+          "reason": "External breakfast-table resource corresponding to BEHAVIOR breakfast_table.n.01."
+        },
+        {
+          "key": "object",
+          "value": "behavior_resource_electric_refrigerator",
+          "reason": "External storage resource corresponding to BEHAVIOR electric_refrigerator.n.01."
+        },
+        {
+          "key": "condition",
+          "value": "initial_banana_on_plate_on_breakfast_table",
+          "reason": "Scoped source initial state places the banana on a plate on the breakfast table."
+        },
+        {
+          "key": "condition",
+          "value": "refrigerator_access_available",
+          "reason": "Proposed setup condition for the scoped storage primitive; not a source execution result."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design requirement only; no robot capability is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_behavior_banana_clear_breakfast",
+          "label": "Move the banana from its breakfast plate into the refrigerator",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the banana, its plate, and the refrigerator destination."},
+            {"skill_id": "skill_approach", "description": "Approach the banana without disturbing nearby breakfast items."},
+            {"skill_id": "skill_grasp", "description": "Acquire a stable hold on the banana model."},
+            {"skill_id": "skill_lift", "description": "Lift the banana clear of its plate."},
+            {"skill_id": "skill_navigate_or_reach", "description": "Move to the refrigerator access area."},
+            {"skill_id": "skill_open", "description": "Open the refrigerator if required by the selected scene setup."},
+            {"skill_id": "skill_place", "description": "Place the banana inside the refrigerator."},
+            {"skill_id": "skill_release", "description": "Release the banana after placement."},
+            {"skill_id": "skill_verify", "description": "Verify the banana is inside the refrigerator."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "behavior_object_banana_vvyyyv", "reason": "Primary source model asset."},
+            {"key": "object", "value": "behavior_resource_breakfast_plate", "reason": "External source support object."},
+            {"key": "object", "value": "behavior_resource_electric_refrigerator", "reason": "External destination resource."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": ["The banana is inside the refrigerator."],
+        "setup": ["Place the cited generic banana model on a plate on the breakfast table and make the refrigerator destination accessible; leave other table-clearing goals out of this primitive."],
+        "reset": ["Return the banana to its marked plate position on the breakfast table and restore the refrigerator to the recorded initial state."],
+        "quality_checks": ["Confirm the banana is inside the refrigerator and that nearby breakfast items remain undisturbed."],
+        "failure_modes": ["Dropped banana", "Collision with nearby breakfast items", "Refrigerator access blocked"],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_behavior_bag_groceries_round1",
+      "source_name": "BEHAVIOR-1K Knowledgebase: bag_groceries-0",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/tasks/bag_groceries-0.html",
+      "observed_count": null,
+      "scope": "The source BDDL task lists an apple, checkout, and sack; its initial state places the apple and sacks on checkout, and one goal places the apple inside a sack.",
+      "limitations": "This source supports a source-derived task-design proposal only. It does not establish YCB identity, Task Atlas asset compatibility, physical feasibility, human population frequency, or robot execution. This proposal narrows a multi-grocery activity to one apple-to-sack goal.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source task definition. The cited external model record is apple-agveuv; the source task itself is synset-scoped and does not bind its apple role to that unique model."
+    },
+    {
+      "id": "evidence_behavior_clear_breakfast_round1",
+      "source_name": "BEHAVIOR-1K Knowledgebase: clearing_table_after_breakfast-0",
+      "source_type": "knowledgebase",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/tasks/clearing_table_after_breakfast-0.html",
+      "observed_count": null,
+      "scope": "The source BDDL task places a banana on a plate on the breakfast table and includes a goal placing the banana inside an electric refrigerator.",
+      "limitations": "This source supports a scoped task-design proposal only. It does not establish YCB identity, Task Atlas asset compatibility, physical feasibility, human population frequency, or robot execution. This proposal extracts the banana-to-refrigerator primitive and omits the full task's other breakfast items and goals.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source task definition. The source task is synset-scoped and does not bind its banana role to the unique model banana-vvyyyv."
+    },
+    {
+      "id": "evidence_behavior_apple_agveuv_catalog",
+      "source_name": "BEHAVIOR-1K Knowledgebase model record: apple-agveuv",
+      "source_type": "catalog",
+      "supported_claim_types": ["catalog_identity"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/objects/agveuv.html",
+      "observed_count": null,
+      "scope": "The source model page identifies apple-agveuv, its ready status within BEHAVIOR, and its original category apple; the linked synset record maps category apple to apple.n.01.",
+      "limitations": "This supports BEHAVIOR catalog identity and taxonomy locator only. It does not identify a YCB asset or establish Task Atlas, simulator, or robot compatibility.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Exact model-page locator for apple-agveuv. Taxonomy cross-reference: https://behavior.stanford.edu/knowledgebase/synsets/apple.n.01.html."
+    },
+    {
+      "id": "evidence_behavior_banana_vvyyyv_catalog",
+      "source_name": "BEHAVIOR-1K Knowledgebase model record: banana-vvyyyv",
+      "source_type": "catalog",
+      "supported_claim_types": ["catalog_identity"],
+      "source_version": "Knowledgebase accessed 2026-09-25",
+      "source_locator": "https://behavior.stanford.edu/knowledgebase/objects/vvyyyv.html",
+      "observed_count": null,
+      "scope": "The source model page identifies banana-vvyyyv; the linked synset record lists the model as ready in category banana and maps category banana to banana.n.02.",
+      "limitations": "This supports BEHAVIOR catalog identity and taxonomy locator only. It does not identify a YCB asset or establish Task Atlas, simulator, or robot compatibility.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Exact model-page locator for banana-vvyyyv. Taxonomy cross-reference: https://behavior.stanford.edu/knowledgebase/synsets/banana.n.02.html."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_behavior_apple_bag_task_suitability",
+      "subject_id": "task_reference_behavior_apple_bag_at_checkout",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed source-derived apple-bagging primitive for collection design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_behavior_bag_groceries_round1"],
+      "scope": "One apple-to-sack checkout goal scoped from BEHAVIOR bag_groceries-0.",
+      "limitations": "The source supports task design only; review and an actual collection trial are still required."
+    },
+    {
+      "id": "claim_reference_behavior_apple_population_frequency",
+      "subject_id": "task_reference_behavior_apple_bag_at_checkout",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population or observation protocol is attached.",
+      "limitations": "The BEHAVIOR task definition is not a population-frequency measurement."
+    },
+    {
+      "id": "claim_reference_behavior_apple_robot_execution",
+      "subject_id": "task_reference_behavior_apple_bag_at_checkout",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "A proposed procedure and BEHAVIOR model readiness do not demonstrate robot execution."
+    },
+    {
+      "id": "claim_reference_behavior_apple_asset_compatibility",
+      "subject_id": "task_reference_behavior_apple_bag_at_checkout",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the BEHAVIOR apple model with this proposed Task Atlas setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
+      "limitations": "The source's BEHAVIOR readiness flag is not a compatibility result for this setup."
+    },
+    {
+      "id": "claim_reference_behavior_banana_task_suitability",
+      "subject_id": "task_reference_behavior_banana_clear_breakfast",
+      "claim_type": "task_suitability",
+      "statement": "This is a proposed source-derived banana storage primitive for post-breakfast table clearing review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_behavior_clear_breakfast_round1"],
+      "scope": "The banana-on-plate to banana-inside-refrigerator goal scoped from BEHAVIOR clearing_table_after_breakfast-0.",
+      "limitations": "The source supports task design only; review and an actual collection trial are still required. The primitive overlaps cold-storage as an action class but differs in primary asset and breakfast-clearing context from the active apple storage tasks."
+    },
+    {
+      "id": "claim_reference_behavior_banana_population_frequency",
+      "subject_id": "task_reference_behavior_banana_clear_breakfast",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No defined population or observation protocol is attached.",
+      "limitations": "The BEHAVIOR task definition is not a population-frequency measurement."
+    },
+    {
+      "id": "claim_reference_behavior_banana_robot_execution",
+      "subject_id": "task_reference_behavior_banana_clear_breakfast",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution for this task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "A proposed procedure and BEHAVIOR model readiness do not demonstrate robot execution."
+    },
+    {
+      "id": "claim_reference_behavior_banana_asset_compatibility",
+      "subject_id": "task_reference_behavior_banana_clear_breakfast",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of the BEHAVIOR banana model with this proposed Task Atlas setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
+      "limitations": "The source's BEHAVIOR readiness flag is not a compatibility result for this setup."
+    },
+    {
+      "id": "claim_behavior_object_apple_agveuv_catalog_identity",
+      "subject_id": "behavior_object_apple_agveuv",
+      "claim_type": "catalog_identity",
+      "statement": "The BEHAVIOR Knowledgebase lists the selected model as apple-agveuv in category apple, mapped to synset apple.n.01.",
+      "status": "supported",
+      "value": "apple-agveuv",
+      "unit": null,
+      "source_ids": ["evidence_behavior_apple_agveuv_catalog"],
+      "scope": "BEHAVIOR-1K model identity and category/synset cross-reference.",
+      "limitations": "This identifies a BEHAVIOR source model only; it does not establish YCB identity or compatibility with Task Atlas, a simulator, or a robot."
+    },
+    {
+      "id": "claim_behavior_object_banana_vvyyyv_catalog_identity",
+      "subject_id": "behavior_object_banana_vvyyyv",
+      "claim_type": "catalog_identity",
+      "statement": "The BEHAVIOR Knowledgebase lists the selected model as banana-vvyyyv in category banana, mapped to synset banana.n.02.",
+      "status": "supported",
+      "value": "banana-vvyyyv",
+      "unit": null,
+      "source_ids": ["evidence_behavior_banana_vvyyyv_catalog"],
+      "scope": "BEHAVIOR-1K model identity and category/synset cross-reference.",
+      "limitations": "This identifies a BEHAVIOR source model only; it does not establish YCB identity or compatibility with Task Atlas, a simulator, or a robot."
+    }
+  ],
+  "draft_notes": [
+    "Atlas graph traversal requested for the sibling proposal: task_reference_behavior_apple_bag_at_checkout --acts_on--> behavior_object_apple_agveuv --instance_of--> concept:object_fruit. This is exactly two upward Atlas relation edges. task_reference_behavior_banana_clear_breakfast acts_on behavior_object_banana_vvyyyv, which is attached to the same Atlas ObjectClass grouping object_fruit.",
+    "BEHAVIOR source taxonomy is recorded independently: apple-agveuv belongs to category apple mapped to apple.n.01, whose parents include edible_fruit.n.01 and pome.n.01; banana-vvyyyv belongs to category banana mapped to banana.n.02, whose parent is edible_fruit.n.01. The Atlas concept object_fruit is not asserted equivalent to any BEHAVIOR synset.",
+    "Resource IDs beginning behavior_resource_ are explicit external scene/object requirements from the source task definitions. They are not cataloged YCB items or claims that matching physical assets are available.",
+    "This isolated draft requires the generic external-object support currently being added. The existing ObjectInstance schema requires a YCB ID, so external_objects must remain a separate draft collection until that API/schema support is available."
+  ]
+}

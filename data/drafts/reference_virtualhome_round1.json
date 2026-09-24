@@ -1,0 +1,419 @@
+{
+  "templates": [
+    {
+      "id": "template_virtualhome_pick_up_drinkware",
+      "node_type": "TaskTemplate",
+      "name_en": "Pick up drinkware from a table",
+      "name_ja": "テーブルから飲料容器を持ち上げる",
+      "verb": "pick_up",
+      "roles": {
+        "theme": "drinkware",
+        "source": "table_surface"
+      },
+      "compatible_scenes": ["scene_dining_table", "scene_home_kitchen"],
+      "preconditions": [
+        "on_top_of(theme, source)",
+        "reachable(theme)",
+        "one_hand_free(robot)"
+      ],
+      "goals": ["held_by(theme, robot)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "failure_modes": ["missed_grasp", "dropped_drinkware", "contact_damage"],
+      "safety_tags": ["rigid_object", "fragile_object"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_virtualhome_put_back_drinkware",
+      "node_type": "TaskTemplate",
+      "name_en": "Put held drinkware back on a table",
+      "name_ja": "手に持った飲料容器をテーブルに戻す",
+      "verb": "put_back",
+      "roles": {
+        "theme": "drinkware",
+        "destination": "table_surface"
+      },
+      "compatible_scenes": ["scene_dining_table", "scene_home_kitchen"],
+      "preconditions": [
+        "held_by(theme, robot)",
+        "reachable(destination)",
+        "clear(destination)"
+      ],
+      "goals": ["on_top_of(theme, destination)", "stable(theme)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": ["collision", "dropped_drinkware", "unstable_placement"],
+      "safety_tags": ["rigid_object", "fragile_object"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_virtualhome_pick_up_wine_glass",
+      "node_type": "TaskInstance",
+      "template_id": "template_virtualhome_pick_up_drinkware",
+      "name_en": "Pick up the wine glass from the dining table",
+      "name_ja": "食卓からワイングラスを持ち上げる",
+      "intent_id": "intent_retrieve",
+      "object_id": "ycb_023_wine_glass",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_023_wine_glass",
+        "source": "virtualhome_resource_dining_table"
+      },
+      "state_ids": ["state_on_surface", "state_upright"],
+      "initial_state": [
+        "on_top_of(ycb_023_wine_glass, virtualhome_resource_dining_table)",
+        "reachable(ycb_023_wine_glass)",
+        "one_hand_free(robot)",
+        "upright(ycb_023_wine_glass)"
+      ],
+      "goal_state": [
+        "held_by(ycb_023_wine_glass, robot)",
+        "upright(ycb_023_wine_glass)"
+      ],
+      "instruction_variants": [
+        "Pick up the wine glass from the dining table.",
+        "Grasp the designated glass and lift it clear of the table.",
+        "食卓にあるワイングラスを持ち上げてください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_lift",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_virtualhome_round1",
+      "notes": "VirtualHome's official dataset README uses the exact illustrative program [Walk] <glass> (1), [Grab] <glass> (1) and explains that both actions target the same glass instance. This Task Atlas collection proposal narrows that generic simulator program to ycb_023_wine_glass. The VirtualHome class-name resource maps the noun glass to waterglass/wineglass scene names, but that alias list is not a taxonomy and does not identify a VirtualHome model or establish equivalence or compatibility with this YCB asset. Atlas graph walk: TaskInstance --acts_on--> ycb_023_wine_glass --instance_of--> concept:object_drinkware (exactly two existing Atlas relation edges). The dining-table resource is an external scene requirement. A VirtualHome avatar program is simulator evidence, not a physical-robot execution result."
+    },
+    {
+      "id": "task_reference_virtualhome_put_back_mug",
+      "node_type": "TaskInstance",
+      "template_id": "template_virtualhome_put_back_drinkware",
+      "name_en": "Put the mug back on the dining table",
+      "name_ja": "マグカップを食卓に戻す",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_025_mug",
+      "scene_id": "scene_dining_table",
+      "bindings": {
+        "theme": "ycb_025_mug",
+        "destination": "virtualhome_resource_dining_table"
+      },
+      "state_ids": ["state_upright"],
+      "initial_state": [
+        "held_by(ycb_025_mug, robot)",
+        "reachable(virtualhome_resource_dining_table)",
+        "clear(virtualhome_resource_dining_table)",
+        "upright(ycb_025_mug)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_025_mug, virtualhome_resource_dining_table)",
+        "stable(ycb_025_mug)",
+        "upright(ycb_025_mug)"
+      ],
+      "instruction_variants": [
+        "Put the mug back on the dining table.",
+        "Place the held mug upright on the clear table surface.",
+        "手に持っているマグカップを食卓に戻してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_virtualhome_round1",
+      "notes": "VirtualHome's official simulation action documentation gives [PutBack] <glass> (1) <table> (1) as its two-object program form and defines PutBack as placing a held object on a nearby target; the resource alias file also maps the script noun mug to scene names including waterglass and wineglass. This Task Atlas record is a distinct sibling primitive from picking up a wine glass, proposed for the existing ycb_025_mug instance. Re-grounding from VirtualHome's generic object labels to the YCB mug is an Atlas design proposal only: the source publishes no corresponding model ID or object-equivalence/compatibility claim. The alias list is not a taxonomy. Atlas graph walk: TaskInstance --acts_on--> ycb_025_mug --instance_of--> concept:object_drinkware (exactly two existing Atlas relation edges). VirtualHome's avatar/action model does not demonstrate physical robot execution."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_virtualhome_pick_up_wine_glass",
+      "task_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "Use the existing Atlas dining-table scene type as the proposed analogue of the VirtualHome table environment."
+        },
+        {
+          "key": "object",
+          "value": "ycb_023_wine_glass",
+          "reason": "Existing Atlas/YCB instance selected as a proposed re-grounding for VirtualHome's generic glass argument."
+        },
+        {
+          "key": "object",
+          "value": "virtualhome_resource_dining_table",
+          "reason": "External support-surface requirement; the source program uses a generic table and does not provide a Task Atlas table asset."
+        },
+        {
+          "key": "condition",
+          "value": "wine_glass_staged_upright_and_reachable",
+          "reason": "Proposed initial collection arrangement needed to observe the source-derived pick-up goal."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design capability requirement only; no robot execution is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_virtualhome_pick_up_wine_glass",
+          "label": "Approach, grasp, and lift the glass",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the designated upright wine glass on the table."},
+            {"skill_id": "skill_approach", "description": "Approach the glass without contacting nearby items."},
+            {"skill_id": "skill_grasp", "description": "Acquire a stable grasp while preserving the upright pose."},
+            {"skill_id": "skill_lift", "description": "Lift the glass clear of the table surface."},
+            {"skill_id": "skill_verify", "description": "Verify that the glass is held and remains upright."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_023_wine_glass", "reason": "Proposed primary object for this Atlas task."},
+            {"key": "object", "value": "virtualhome_resource_dining_table", "reason": "External source-surface requirement."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": ["The wine glass is held securely and remains upright after being lifted clear of the table."],
+        "setup": ["Stage the proposed YCB wine glass upright on a clear marked table area; inspect it for damage before the trial."],
+        "reset": ["Return the glass to its marked table location and confirm it is stable and undamaged."],
+        "quality_checks": ["Confirm the glass was lifted clear, remained upright, and was not chipped or dropped."],
+        "failure_modes": ["Missed grasp", "Glass dropped", "Glass tilted or contacted nearby objects", "Glass chipped or cracked"],
+        "consumables": [],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    },
+    {
+      "id": "planning_reference_virtualhome_put_back_mug",
+      "task_id": "task_reference_virtualhome_put_back_mug",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_dining_table",
+          "reason": "Use the existing Atlas dining-table scene type for the proposed VirtualHome-style put-back task."
+        },
+        {
+          "key": "object",
+          "value": "ycb_025_mug",
+          "reason": "Existing Atlas/YCB instance proposed as the target of the generic VirtualHome put-back action."
+        },
+        {
+          "key": "object",
+          "value": "virtualhome_resource_dining_table",
+          "reason": "External destination-surface requirement; no source-specific table model ID is claimed."
+        },
+        {
+          "key": "condition",
+          "value": "mug_held_upright_and_destination_clear",
+          "reason": "Proposed setup enables a stable tabletop placement and observable terminal state."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Proposed collection-design capability requirement only; no robot execution is asserted."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_virtualhome_put_back_mug",
+          "label": "Place the held mug back on the table",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the clear marked destination area on the table."},
+            {"skill_id": "skill_approach", "description": "Approach the destination while maintaining a secure hold on the mug."},
+            {"skill_id": "skill_place", "description": "Lower the mug onto the table in an upright pose."},
+            {"skill_id": "skill_release", "description": "Release only after the table supports the mug."},
+            {"skill_id": "skill_verify", "description": "Verify the mug is upright and stable on the table."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_025_mug", "reason": "Proposed primary object for this Atlas task."},
+            {"key": "object", "value": "virtualhome_resource_dining_table", "reason": "External destination-surface requirement."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": ["The mug is released upright and remains stable on the clear table area."],
+        "setup": ["Start with the proposed YCB mug held upright and a clear marked destination area on the table."],
+        "reset": ["Return the mug to the designated held start state using a separately verified safe setup."],
+        "quality_checks": ["Confirm the mug is supported by the table, upright, stable, and undamaged."],
+        "failure_modes": ["Mug contacts another object", "Mug is dropped", "Mug tips or slides after release", "Mug is chipped or cracked"],
+        "consumables": [],
+        "time_estimates": {"setup_minutes": null, "execution_minutes": null, "reset_minutes": null, "review_minutes": null}
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_virtualhome_dataset_programs_round1",
+      "source_name": "VirtualHome official dataset README",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "xavierpuigf/virtualhome @ 58970fd80951c2eaa1af713e0917d1a105353ad8",
+      "source_locator": "https://github.com/xavierpuigf/virtualhome/blob/58970fd80951c2eaa1af713e0917d1a105353ad8/virtualhome/dataset/README.md",
+      "observed_count": null,
+      "scope": "Documents that VirtualHome activities are programs made from atomic actions and gives [Walk] <glass> (1) followed by [Grab] <glass> (1) as an example of approaching and grabbing the same glass instance.",
+      "limitations": "A simulator program example supports a source-grounded task-design proposal only. It does not measure population frequency, establish execution by a physical robot, identify a YCB-equivalent model, or show compatibility with this Atlas asset. The README says the referenced dataset requires simulator version v1.0.0.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary project dataset documentation; the illustrated glass program is explicitly presented as an example, not as a measured frequency or real-robot result."
+    },
+    {
+      "id": "evidence_virtualhome_putback_action_round1",
+      "source_name": "VirtualHome official simulation action documentation",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "xavierpuigf/virtualhome @ 58970fd80951c2eaa1af713e0917d1a105353ad8",
+      "source_locator": "https://github.com/xavierpuigf/virtualhome/blob/58970fd80951c2eaa1af713e0917d1a105353ad8/virtualhome/simulation/README.md",
+      "observed_count": null,
+      "scope": "Documents the program form [PutBack] <object1> <object2>, with the example [PutBack] <glass> (1) <table> (1), and defines preconditions of holding the first object and being close to the target; its postcondition places the first object on the second.",
+      "limitations": "This describes a simulator action model. It is not a physical robot result, a population frequency estimate, or an assertion that a selected YCB mug is compatible with VirtualHome.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "The same documentation lists PutBack as supported in the Unity Simulator, but no Atlas/YCB task execution was performed here."
+    },
+    {
+      "id": "evidence_virtualhome_class_name_aliases_round1",
+      "source_name": "VirtualHome class_name_equivalence resource",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "xavierpuigf/virtualhome @ 58970fd80951c2eaa1af713e0917d1a105353ad8",
+      "source_locator": "https://github.com/xavierpuigf/virtualhome/blob/58970fd80951c2eaa1af713e0917d1a105353ad8/virtualhome/resources/class_name_equivalence.json",
+      "observed_count": null,
+      "scope": "The resource maps VirtualHome script labels glass to scene names waterglass/water_glass/wineglass and mug to waterglass/wineglass, among other aliases.",
+      "limitations": "The file documents simulator script-name resolution to Unity scene class names; it is not a semantic taxonomy, a model catalog, or evidence that any YCB instance is equivalent or compatible with a VirtualHome object.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Used only as corroboration that the source vocabulary includes reusable generic drinkware labels; individual model IDs are not provided by this mapping."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_task_suitability",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "task_suitability",
+      "statement": "Picking up a table-staged glass is a source-grounded candidate primitive for collection design.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_virtualhome_dataset_programs_round1", "evidence_virtualhome_class_name_aliases_round1"],
+      "scope": "Atlas proposal using ycb_023_wine_glass as a re-grounding of VirtualHome's generic glass argument.",
+      "limitations": "The source does not select this YCB model, establish its compatibility with VirtualHome, demonstrate real-robot execution, or measure task frequency."
+    },
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_population_frequency",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Task Atlas pick-up task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population observation protocol is attached to this Atlas task.",
+      "limitations": "A simulator program example or alias resource is not a representative human activity-frequency measurement."
+    },
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_robot_execution",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "robot_execution",
+      "statement": "Physical robot execution of this specific Task Atlas wine-glass pick-up task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached to this Atlas task.",
+      "limitations": "VirtualHome documents simulated avatar programs; it does not show that a physical robot executed this YCB-grounded Atlas proposal."
+    },
+    {
+      "id": "claim_reference_virtualhome_pick_up_wine_glass_asset_compatibility",
+      "subject_id": "task_reference_virtualhome_pick_up_wine_glass",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_023_wine_glass with VirtualHome assets or a particular robot setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No VirtualHome model identity, selected robot setup, or physical compatibility test is attached.",
+      "limitations": "VirtualHome's glass-to-scene-name alias list does not establish asset equivalence, geometry fit, or simulator compatibility."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_task_suitability",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "task_suitability",
+      "statement": "Putting a held drinkware item back on a table is a source-grounded candidate primitive for collection design.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_virtualhome_putback_action_round1", "evidence_virtualhome_class_name_aliases_round1"],
+      "scope": "Atlas proposal using ycb_025_mug as a re-grounding of the generic VirtualHome PutBack object argument.",
+      "limitations": "The action documentation and alias list do not identify a matching YCB model, establish compatibility, demonstrate physical-robot execution, or measure task frequency."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_population_frequency",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific Task Atlas mug put-back task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No population observation protocol is attached to this Atlas task.",
+      "limitations": "VirtualHome action definitions are not representative measurements of how frequently people perform this exact task."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_robot_execution",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "robot_execution",
+      "statement": "Physical robot execution of this specific Task Atlas mug put-back task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached to this Atlas task.",
+      "limitations": "VirtualHome's avatar action model is simulation evidence and does not demonstrate physical-robot execution of the YCB-grounded proposal."
+    },
+    {
+      "id": "claim_reference_virtualhome_put_back_mug_asset_compatibility",
+      "subject_id": "task_reference_virtualhome_put_back_mug",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_025_mug with VirtualHome assets or a particular robot setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No VirtualHome mug model identity, selected robot setup, or physical compatibility test is attached.",
+      "limitations": "VirtualHome's mug alias maps to simulator scene class names and does not establish equivalence or compatibility with this YCB asset."
+    }
+  ],
+  "draft_notes": [
+    "This is an isolated, proposed VirtualHome reference bundle. It does not alter active YCB seed batches.",
+    "The two source-grounded sibling primitives are (1) walking to and grabbing the same generic glass instance, documented in the official dataset README, and (2) putting a held generic glass on a table with PutBack, documented in the official action specification. The latter is paired with the source alias mapping for mug only as context for a candidate mug re-grounding; the alias list is not an object taxonomy.",
+    "Each task ascends exactly two existing Atlas edges: TaskInstance --acts_on--> its primary YCB ObjectInstance --instance_of--> concept:object_drinkware. The tasks therefore join at the same existing ObjectClass while acting on distinct catalog objects, ycb_023_wine_glass and ycb_025_mug.",
+    "Cross-resource links are proposals from VirtualHome's generic labels to existing YCB objects. VirtualHome documentation does not supply the selected YCB model IDs, model equivalence, or asset compatibility; no such claim is made.",
+    "VirtualHome represents household activities as simulator programs and environment graphs; the source describes synthetic/simulator action semantics. No claim of population frequency or physical robot execution is supported. All timing fields are null because no Task Atlas collection was measured.",
+    "Source URLs point to the VirtualHome GitHub master branch as accessed 2026-09-25 and are not commit-pinned."
+  ]
+}

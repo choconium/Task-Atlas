@@ -1,0 +1,484 @@
+{
+  "scenes": [
+    {
+      "id": "scene_woodworking_bench",
+      "node_type": "SceneType",
+      "name_en": "Woodworking bench",
+      "name_ja": "木工作業台",
+      "description": "Proposed controlled workbench context for two source-derived wood-block interaction tasks. This is an Atlas scene proposal, not a scene or asset identifier published by Ego4D.",
+      "tags": ["workshop", "woodworking", "bench", "clamping"],
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_ego4d_round1"
+    }
+  ],
+  "templates": [
+    {
+      "id": "template_ego4d_put_down_wood",
+      "node_type": "TaskTemplate",
+      "name_en": "Put down a held wood workpiece",
+      "name_ja": "手に持った木材を置く",
+      "verb": "put_down",
+      "roles": {
+        "theme": "wood_workpiece",
+        "support_surface": "stable_workbench"
+      },
+      "compatible_scenes": ["scene_woodworking_bench"],
+      "preconditions": [
+        "held_by(theme, operator)",
+        "reachable(support_surface)",
+        "clear(support_surface)"
+      ],
+      "goals": ["on_top_of(theme, support_surface)", "stable(theme)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "failure_modes": ["missed_surface", "dropped_workpiece", "unstable_placement"],
+      "safety_tags": ["workpiece", "stable_support"],
+      "review_status": "proposed"
+    },
+    {
+      "id": "template_ego4d_plane_wood_surface",
+      "node_type": "TaskTemplate",
+      "name_en": "Make one hand-plane stroke along a wood surface",
+      "name_ja": "木材の表面に手押しかんなを一度通す",
+      "verb": "plane",
+      "roles": {
+        "theme": "wood_workpiece",
+        "tool": "hand_plane",
+        "fixture": "workpiece_clamp",
+        "support_surface": "stable_workbench",
+        "marked_face": "accessible_workpiece_face"
+      },
+      "compatible_scenes": ["scene_woodworking_bench"],
+      "preconditions": [
+        "on_top_of(theme, support_surface)",
+        "clamped(theme, fixture)",
+        "reachable(theme)",
+        "tool_available(tool)",
+        "accessible(marked_face)"
+      ],
+      "goals": ["one_plane_stroke_completed(theme, marked_face)"],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_orient",
+        "skill_wipe",
+        "skill_verify"
+      ],
+      "failure_modes": [
+        "workpiece_slips",
+        "plane_leaves_marked_face",
+        "loss_of_tool_control",
+        "workpiece_or_tool_damage"
+      ],
+      "safety_tags": ["sharp_manual_tool", "clamping_required", "expert_safety_review"],
+      "review_status": "proposed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_reference_ego4d_put_down_wood_block",
+      "node_type": "TaskInstance",
+      "template_id": "template_ego4d_put_down_wood",
+      "name_en": "Put the held wood block down on the workbench",
+      "name_ja": "手に持った木製ブロックを作業台に置く",
+      "intent_id": "intent_transport",
+      "object_id": "ycb_036_wood_block",
+      "scene_id": "scene_woodworking_bench",
+      "bindings": {
+        "theme": "ycb_036_wood_block",
+        "support_surface": "ego4d_resource_workbench_surface"
+      },
+      "state_ids": ["state_held", "state_on_surface"],
+      "initial_state": [
+        "held_by(ycb_036_wood_block, operator)",
+        "reachable(ego4d_resource_workbench_surface)",
+        "clear(ego4d_resource_workbench_surface)"
+      ],
+      "goal_state": [
+        "on_top_of(ycb_036_wood_block, ego4d_resource_workbench_surface)",
+        "stable(ycb_036_wood_block)"
+      ],
+      "instruction_variants": [
+        "Put the wood block down on the clear workbench.",
+        "Set the held wood block onto the stable work surface and verify that it rests securely.",
+        "手に持った木製ブロックを空いている作業台に置き、安定していることを確認してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_place",
+        "skill_release",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_ego4d_round1",
+      "notes": "The official Ego4D FHO annotation guidelines use “put down wood” as an example action and note that the object is already in the person's hands, so the example has no CONTACT frame. This proposal bounds that label to placing the existing Task Atlas YCB wood block on a stable bench. Ego4D supplies no exact video UID, annotation-row ID, wood model, destination surface, or evidence that the recorded wood was this YCB model; the bench, block selection, and stable-placement endpoint are Atlas collection-design choices. Exact two-edge Atlas walk: this TaskInstance --acts_on--> ycb_036_wood_block --instance_of--> concept:object_block. This is the first of two different sibling primitives attached to that same existing ObjectClass. Ego4D egocentric labels are task-design evidence only; they do not establish population frequency, robot execution, or YCB/asset compatibility."
+    },
+    {
+      "id": "task_reference_ego4d_plane_wood_block",
+      "node_type": "TaskInstance",
+      "template_id": "template_ego4d_plane_wood_surface",
+      "name_en": "Make one hand-plane stroke along the wood block face",
+      "name_ja": "木製ブロックの面に手押しかんなを一度通す",
+      "intent_id": "intent_organize",
+      "object_id": "ycb_036_wood_block",
+      "scene_id": "scene_woodworking_bench",
+      "bindings": {
+        "theme": "ycb_036_wood_block",
+        "tool": "ego4d_resource_hand_plane",
+        "fixture": "ego4d_resource_workpiece_clamp",
+        "support_surface": "ego4d_resource_workbench_surface",
+        "marked_face": "marked_accessible_face"
+      },
+      "state_ids": ["state_on_surface"],
+      "initial_state": [
+        "on_top_of(ycb_036_wood_block, ego4d_resource_workbench_surface)",
+        "clamped(ycb_036_wood_block, ego4d_resource_workpiece_clamp)",
+        "reachable(ycb_036_wood_block)",
+        "tool_available(ego4d_resource_hand_plane)",
+        "accessible(marked_accessible_face)"
+      ],
+      "goal_state": [
+        "one_plane_stroke_completed(ycb_036_wood_block, marked_accessible_face)"
+      ],
+      "instruction_variants": [
+        "Make one controlled hand-plane pass along the clamped wood block's marked face.",
+        "Guide the hand plane across the accessible face in one continuous stroke, then verify the block stayed fixed.",
+        "固定した木製ブロックの指定面に手押しかんなを一度通し、ブロックが動いていないことを確認してください。"
+      ],
+      "skills": [
+        "skill_locate",
+        "skill_approach",
+        "skill_grasp",
+        "skill_orient",
+        "skill_wipe",
+        "skill_verify"
+      ],
+      "granularity": "atomic",
+      "review_status": "proposed",
+      "generated_by": "llm",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max",
+      "generation_version": "reference_ego4d_round1",
+      "notes": "The official Ego4D annotation guidelines use “C glides hand planer along the wood” as an FHO narrated-action example; FHO labels object interactions temporally and spatially and records state-change information. This proposal narrows the generic example to a single controlled stroke across a clamped, marked face of the existing Task Atlas YCB wood block. The source does not identify a video UID, annotation row, exact wood piece, hand-plane model, resulting finish, or YCB equivalence. Task Atlas currently has no dedicated hand-plane-stroke Skill; skill_wipe is included only as the nearest existing contact-and-sweep placeholder and is not semantically equivalent to planing. A dedicated skill definition and separate tool/workpiece safety, physical-feasibility, and asset-compatibility reviews are needed before activation or any execution. Exact two-edge Atlas walk: this TaskInstance --acts_on--> ycb_036_wood_block --instance_of--> concept:object_block. It is a distinct sibling primitive to task_reference_ego4d_put_down_wood_block under the same existing ObjectClass. No physical robot execution, compatibility, or human population-frequency claim is made."
+    }
+  ],
+  "planning": [
+    {
+      "id": "planning_reference_ego4d_put_down_wood_block",
+      "task_id": "task_reference_ego4d_put_down_wood_block",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_woodworking_bench",
+          "reason": "Use the proposed stable workbench scene for the bounded put-down primitive."
+        },
+        {
+          "key": "object",
+          "value": "ycb_036_wood_block",
+          "reason": "Existing reusable YCB ObjectInstance selected as an Atlas proposal for Ego4D's generic wood example; it is not identified as the source-video object."
+        },
+        {
+          "key": "object",
+          "value": "ego4d_resource_workbench_surface",
+          "reason": "External stable support-surface requirement introduced to operationalize the source example; no matching Ego4D or YCB asset is claimed."
+        },
+        {
+          "key": "condition",
+          "value": "wood_block_held_and_surface_clear",
+          "reason": "Proposed observable setup for the held-to-supported transition."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Task-design capability requirement only; it is not evidence of robot execution."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_ego4d_put_down_wood_block",
+          "label": "Place the held wood block on the workbench",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the clear, stable workbench area."},
+            {"skill_id": "skill_approach", "description": "Approach the support area while maintaining a secure hold."},
+            {"skill_id": "skill_place", "description": "Lower the block onto the marked support area."},
+            {"skill_id": "skill_release", "description": "Release after the support surface carries the block."},
+            {"skill_id": "skill_verify", "description": "Verify the block rests stably on the workbench."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_036_wood_block", "reason": "Primary object for this proposed Atlas task."},
+            {"key": "object", "value": "ego4d_resource_workbench_surface", "reason": "External stable support surface."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "The block is released onto the marked workbench area and remains stably supported without visible damage."
+        ],
+        "setup": [
+          "Start with the selected YCB wood block held securely and the marked workbench area clear and stable.",
+          "Record the block as a proposed generic representative for Ego4D's wood label; do not describe it as the recorded video object."
+        ],
+        "reset": [
+          "Return the block to the declared held initial condition using a separately reviewed setup."
+        ],
+        "quality_checks": [
+          "Confirm that the block is fully supported, stable, and free of visible damage."
+        ],
+        "failure_modes": [
+          "The block misses the marked support area.",
+          "The block slips or is dropped.",
+          "The block rests unstably or contacts nearby equipment."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    },
+    {
+      "id": "planning_reference_ego4d_plane_wood_block",
+      "task_id": "task_reference_ego4d_plane_wood_block",
+      "requirements": [
+        {
+          "key": "scene_id",
+          "value": "scene_woodworking_bench",
+          "reason": "Use the proposed controlled workbench scene for the source-derived hand-plane stroke."
+        },
+        {
+          "key": "object",
+          "value": "ycb_036_wood_block",
+          "reason": "Existing YCB wood-block instance selected as a tentative Atlas representative for generic source wood; model equivalence and suitability remain unverified."
+        },
+        {
+          "key": "object",
+          "value": "ego4d_resource_hand_plane",
+          "reason": "External manual-tool requirement; Ego4D provides no hand-plane model ID or asset."
+        },
+        {
+          "key": "object",
+          "value": "ego4d_resource_workpiece_clamp",
+          "reason": "External fixture requirement proposed to prevent workpiece movement; it is not named as a source asset."
+        },
+        {
+          "key": "object",
+          "value": "ego4d_resource_workbench_surface",
+          "reason": "External stable support surface for the proposed controlled stroke."
+        },
+        {
+          "key": "condition",
+          "value": "block_clamped_and_marked_face_accessible",
+          "reason": "Proposed observable initial arrangement needed to bound a single stroke."
+        },
+        {
+          "key": "capability",
+          "value": "rigid_manipulation",
+          "reason": "Task-design capability requirement only; the current Atlas skill list lacks a specific planing primitive."
+        }
+      ],
+      "procedures": [
+        {
+          "id": "procedure_reference_ego4d_plane_wood_block",
+          "label": "Make one controlled hand-plane pass",
+          "steps": [
+            {"skill_id": "skill_locate", "description": "Locate the clamped block, marked face, and hand plane."},
+            {"skill_id": "skill_verify", "description": "Verify the clamp holds the block and the marked face is accessible before contact."},
+            {"skill_id": "skill_grasp", "description": "Acquire a controlled hold on the hand plane using the separately approved setup."},
+            {"skill_id": "skill_orient", "description": "Align the plane with the declared stroke direction and marked face."},
+            {"skill_id": "skill_wipe", "description": "Use the existing contact-sweep placeholder to represent one bounded tool stroke; this does not assert semantic equivalence to a dedicated planing skill."},
+            {"skill_id": "skill_verify", "description": "Verify the block stayed clamped and record whether one stroke completed on the marked face."}
+          ],
+          "requirements": [
+            {"key": "object", "value": "ycb_036_wood_block", "reason": "Primary workpiece candidate."},
+            {"key": "object", "value": "ego4d_resource_hand_plane", "reason": "External manual tool requirement."},
+            {"key": "object", "value": "ego4d_resource_workpiece_clamp", "reason": "External fixture requirement."},
+            {"key": "condition", "value": "qualified_setup_and_clamped_workpiece", "reason": "Proposed safety and task-bounding precondition."}
+          ],
+          "review_status": "proposed"
+        }
+      ],
+      "collection": {
+        "success_criteria": [
+          "Exactly one controlled stroke traverses the marked accessible face, and the workpiece remains secured throughout."
+        ],
+        "setup": [
+          "Do not activate this proposal for physical or robot execution before separate tool, workpiece, fixture, and platform risk review.",
+          "Use a qualified, supervised setup with the wood block securely clamped, a clearly marked accessible face, and a hand plane whose condition and use are verified independently.",
+          "The YCB wood block is a tentative generic candidate; verify its size, shape, material, and clamping suitability rather than assuming equivalence to the source wood."
+        ],
+        "reset": [
+          "Return the hand plane to its approved safe position, release the fixture only after the tool is clear, and inspect the workpiece before another trial."
+        ],
+        "quality_checks": [
+          "Record whether one stroke crossed the marked face, whether the block shifted, and whether any visible damage or unsafe tool motion occurred."
+        ],
+        "failure_modes": [
+          "The block shifts or loosens in the fixture.",
+          "The plane leaves the marked face or loses controlled contact.",
+          "The hand plane or workpiece is damaged.",
+          "The procedure is attempted without the required expert safety review."
+        ],
+        "consumables": [],
+        "time_estimates": {
+          "setup_minutes": null,
+          "execution_minutes": null,
+          "reset_minutes": null,
+          "review_minutes": null
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence_ego4d_fho_put_down_wood_round1",
+      "source_name": "Ego4D official FHO annotation guidelines",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "Ego4D FHO documentation accessed 2026-09-25",
+      "source_locator": "https://ego4d-data.org/docs/data/annotation-guidelines/",
+      "observed_count": null,
+      "scope": "The Stage 1 examples include “put down wood” and explain that the object is already in the person's hands, so there is no CONTACT frame. This supports a proposed held-to-supported wood-placement task label.",
+      "limitations": "This is a documentation example, not a verified individual video or annotation row. It does not specify the wood model, destination surface, placement endpoint, population frequency, robot execution, or compatibility with a YCB asset.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary Ego4D FHO documentation. The source discusses annotated human-object interactions, timing, bounding boxes, and state change; no individual video UID or annotation ID is asserted here."
+    },
+    {
+      "id": "evidence_ego4d_fho_plane_wood_round1",
+      "source_name": "Ego4D official annotation guidelines, Forecasting and Hands & Objects section",
+      "source_type": "dataset",
+      "supported_claim_types": ["task_suitability"],
+      "source_version": "Ego4D annotation guidelines accessed 2026-09-25",
+      "source_locator": "https://ego4d-data.org/docs/data/annotation-guidelines/",
+      "observed_count": null,
+      "scope": "The FHO Stage 1 narrated-action example is “C glides hand planer along the wood”; the guidelines describe selecting the narrated verb and state-change type and marking critical frames.",
+      "limitations": "This is a task-guideline example, not an identified annotation row or a published hand-plane asset. It does not establish an exact tool/workpiece identity, the final surface result, YCB equivalence, robot execution, asset compatibility, or population frequency.",
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": "Primary source: official Ego4D annotation guidelines. The Atlas single-stroke boundary, clamp, YCB wood-block selection, marked face, safety requirements, and proposed success criterion are curator design choices."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_task_suitability",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "task_suitability",
+      "statement": "Ego4D's FHO “put down wood” example supports proposing a bounded wood-workpiece placement task.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_ego4d_fho_put_down_wood_round1"],
+      "scope": "Atlas collection-design proposal using the existing ycb_036_wood_block as a tentative representative for the source's generic wood label.",
+      "limitations": "The source example does not name this YCB model or a support surface and does not establish population frequency, robot execution, or asset compatibility."
+    },
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_population_frequency",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific wood-block put-down task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No representative population, denominator, or observation protocol is attached.",
+      "limitations": "An egocentric dataset example is task-design evidence and is not a household population-frequency estimate."
+    },
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_robot_execution",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific Task Atlas wood-block placement task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform or execution record is attached.",
+      "limitations": "Ego4D documents human egocentric data and does not establish robot execution of the proposed YCB-grounded task."
+    },
+    {
+      "id": "claim_reference_ego4d_put_down_wood_block_asset_compatibility",
+      "subject_id": "task_reference_ego4d_put_down_wood_block",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_036_wood_block with the proposed scene and any robot setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No physical, simulation, or robot-specific compatibility check is attached.",
+      "limitations": "The source's generic wood label does not identify or validate a YCB object model."
+    },
+    {
+      "id": "claim_reference_ego4d_plane_wood_block_task_suitability",
+      "subject_id": "task_reference_ego4d_plane_wood_block",
+      "claim_type": "task_suitability",
+      "statement": "Ego4D's FHO “glides hand planer along the wood” example supports proposing a bounded wood/tool interaction for collection-design review.",
+      "status": "proposed",
+      "value": null,
+      "unit": null,
+      "source_ids": ["evidence_ego4d_fho_plane_wood_round1"],
+      "scope": "Atlas proposal limited to one plane stroke on a marked face of a clamped YCB wood-block candidate.",
+      "limitations": "The source does not identify this YCB model, the physical tool, a single-stroke boundary, or the resulting surface state. The proposed Atlas task also needs a dedicated hand-plane skill and independent safety/feasibility review."
+    },
+    {
+      "id": "claim_reference_ego4d_plane_wood_block_population_frequency",
+      "subject_id": "task_reference_ego4d_plane_wood_block",
+      "claim_type": "population_frequency",
+      "statement": "Population frequency for this specific hand-plane stroke task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No representative population, denominator, or observation protocol is attached.",
+      "limitations": "Ego4D egocentric examples and dataset labels are not household population-frequency measurements."
+    },
+    {
+      "id": "claim_reference_ego4d_plane_wood_block_robot_execution",
+      "subject_id": "task_reference_ego4d_plane_wood_block",
+      "claim_type": "robot_execution",
+      "statement": "Robot execution of this specific hand-plane task is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No robot platform, safety authorization, or execution record is attached.",
+      "limitations": "The Ego4D example documents a human action label and provides no robot demonstration."
+    },
+    {
+      "id": "claim_reference_ego4d_plane_wood_block_asset_compatibility",
+      "subject_id": "task_reference_ego4d_plane_wood_block",
+      "claim_type": "asset_compatibility",
+      "statement": "Compatibility of ycb_036_wood_block, a hand plane, and the proposed fixture with each other and a robot setup is unknown.",
+      "status": "unknown",
+      "value": null,
+      "unit": null,
+      "source_ids": [],
+      "scope": "No physical material, geometry, fixture, simulation, or robot compatibility check is attached.",
+      "limitations": "The source does not provide a matching object/tool asset or validate any physical setup."
+    }
+  ],
+  "draft_notes": [
+    "This is an isolated proposed Ego4D bundle. It does not modify active seed batches or YCB coverage records.",
+    "Two source-grounded primitive examples are used: FHO's “put down wood” (object already in the person's hands) and “C glides hand planer along the wood.” Both source locators are the official Ego4D annotation guidelines. These are documentation examples; no individual video UID, annotation-row ID, or exact source asset was verified or invented.",
+    "Each task ascends exactly two existing Atlas hierarchy edges: task_reference_ego4d_put_down_wood_block --acts_on--> ycb_036_wood_block --instance_of--> concept:object_block; task_reference_ego4d_plane_wood_block --acts_on--> ycb_036_wood_block --instance_of--> concept:object_block. The second task is a different primitive sibling under the same existing ObjectClass.",
+    "The existing YCB wood block is a curator-selected reusable object candidate for the generic Ego4D word “wood.” No source-video/YCB identity match, model equivalence, or physical/simulator/robot compatibility is asserted. The bench, hand plane, and clamp are external Atlas plan requirements, not Ego4D asset IDs.",
+    "The planing proposal has task-taxonomy gaps: Atlas currently lacks a dedicated material-finishing intent and hand-plane-stroke Skill. The existing intent_organize and skill_wipe are provisional catalog placeholders, not semantic equivalents to planing. Define and review dedicated ontology terms before activation. Keep task suitability proposed and population frequency, robot execution, and asset compatibility unknown; Ego4D dataset labels are not population estimates or robot demonstrations.",
+    "All setup, execution, reset, and review estimates are null because no Task Atlas trial was conducted. Source URLs point to official Ego4D documentation as accessed 2026-09-25; individual annotation IDs were not verified."
+  ]
+}
