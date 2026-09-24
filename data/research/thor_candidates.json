@@ -1,0 +1,3462 @@
+{
+  "source": "ai2thor_procthor",
+  "license": "Apache-2.0",
+  "accessed": "2026-09-25",
+  "asset_database_url": "https://raw.githubusercontent.com/allenai/procthor/main/procthor/databases/asset-database.json",
+  "asset_database_version": "allenai/procthor commit d4c4c6a9fdd9679c8b9343d771c510016cd310df (last change to the file, 2022-07-25); 109 object types, 1,653 assets",
+  "generated_by": "llm",
+  "model": "claude-opus-5-5",
+  "notes": "Brainstorm list; not reviewed tasks. asset_ids and object_type are exact entries in the asset database; state_flags are the union of primaryProperty and secondaryProperties of the listed assets. goal_predicates use AI2-THOR object-state names (isOpen, isToggled, isDirty, isFilledWithLiquid, isSliced, isCooked, isUsedUp, isBroken) plus simple relations. Cabinet, Drawer, StoveBurner, StoveKnob, CounterTop parts and Bathtub are baked into iTHOR room prefabs and are not in the ProcTHOR asset DB, so they appear only in other_objects. THOR states are simulator booleans: real collection needs a physical articulation source (e.g. PartNet-Mobility or a real appliance) and a declared observation of the state. Slicing, cooking, and heat-source ideas are simulation-only or use surrogates as stated in each safety field. Scenes prefixed 'new: ' and intents prefixed 'new: ' are proposals; concepts with concept_is_new are proposed object_* concepts. Several object types appear twice with different assets and rooms.",
+  "new_scenes": [
+    "new: scene_home_living_room",
+    "new: scene_home_bedroom",
+    "new: scene_procthor_house"
+  ],
+  "new_intents": [
+    "new: intent_set_device_state"
+  ],
+  "new_concepts": [
+    "object_kitchen_appliance",
+    "object_household_appliance",
+    "object_home_fixture",
+    "object_furniture",
+    "object_lamp",
+    "object_vegetable",
+    "object_food_item",
+    "object_plant",
+    "object_decor",
+    "object_sports_equipment"
+  ],
+  "candidates": [
+    {
+      "object_type": "Microwave",
+      "asset_ids": [
+        "Microwave_1",
+        "Microwave_12"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle",
+        "CanOpen",
+        "CanToggleOnOff",
+        "isHeatSource"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The microwave door, left ajar, is fully closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Microwave)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The mug is inside the microwave and the microwave door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Mug"
+          ],
+          "goal_predicates": [
+            "inside(Mug,Microwave)",
+            "isOpen(Microwave)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The potato has been heated in the microwave (simulation-only isCooked), is on a plate on the counter, and the microwave is off with its door closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Potato",
+            "Plate"
+          ],
+          "goal_predicates": [
+            "isCooked(Potato)=true",
+            "on(Potato,Plate)",
+            "isToggled(Microwave)=false",
+            "isOpen(Microwave)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Fridge",
+      "asset_ids": [
+        "Fridge_1",
+        "Fridge_7",
+        "Fridge_22"
+      ],
+      "state_flags": [
+        "Static",
+        "Receptacle",
+        "CanOpen",
+        "isColdSource"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The fridge door, left open, is closed with nothing blocking the seal.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Fridge)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The lettuce is on a shelf inside the fridge and the fridge door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Lettuce"
+          ],
+          "goal_predicates": [
+            "inside(Lettuce,Fridge)",
+            "isOpen(Fridge)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The egg is out of the fridge and in a bowl on the counter, and the fridge door is closed again.",
+          "granularity": "compound",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "Egg",
+            "Bowl"
+          ],
+          "goal_predicates": [
+            "inside(Egg,Bowl)",
+            "isOpen(Fridge)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: fridge storing of produce is similar to task_ycb_round4_apple and task_reference_behavior_banana_clear_breakfast; use the door-state and egg ideas"
+    },
+    {
+      "object_type": "Toaster",
+      "asset_ids": [
+        "Toaster_1",
+        "Toaster_15"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanToggleOnOff",
+        "Receptacle",
+        "ObjectSpecificReceptacle",
+        "isHeatSource"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "A bread slice is seated in the toaster slot and the toaster lever is down (toaster on).",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Bread"
+          ],
+          "goal_predicates": [
+            "inside(BreadSliced,Toaster)",
+            "isToggled(Toaster)=true"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell."
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The toaster is switched off and the toasted slice is on a plate beside it.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "Bread",
+            "Plate"
+          ],
+          "goal_predicates": [
+            "isToggled(Toaster)=false",
+            "on(BreadSliced,Plate)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "CoffeeMachine",
+      "asset_ids": [
+        "coffee_machine_1",
+        "coffee_machine_20"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanToggleOnOff",
+        "ObjectSpecificReceptacle",
+        "Receptacle",
+        "isHeatSource"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The coffee machine, left on, is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(CoffeeMachine)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The mug under the dispenser is filled with coffee and the machine is switched off.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Mug"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(Mug)=true",
+            "fillLiquid(Mug)=coffee",
+            "isToggled(CoffeeMachine)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell."
+        }
+      ],
+      "duplicate_risk": "similar to task_reference_robocasa_coffee_setup_mug for the mug idea; the switch-off idea is distinct"
+    },
+    {
+      "object_type": "Faucet",
+      "asset_ids": [
+        "Kitchen_Faucet_1",
+        "Kitchen_Faucet_3"
+      ],
+      "state_flags": [
+        "Static",
+        "CanToggleOnOff"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The running kitchen faucet is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The cup is filled with water from the kitchen faucet and the faucet is off.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Cup",
+            "Sink"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(Cup)=true",
+            "fillLiquid(Cup)=water",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Sink",
+      "asset_ids": [
+        "Sink_1",
+        "Sink_5"
+      ],
+      "state_flags": [
+        "Static",
+        "Receptacle"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The kitchen sink basin is empty: the two cups and the bowl left in it stand mouth-down on the counter drying spot.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Cup",
+            "Bowl",
+            "CounterTop"
+          ],
+          "goal_predicates": [
+            "empty(Sink)",
+            "on(Cup,CounterTop)",
+            "on(Bowl,CounterTop)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: reverse of task_reference_behavior_bowl_to_sink_round2"
+    },
+    {
+      "object_type": "Mug",
+      "asset_ids": [
+        "Mug_1",
+        "Mug_2"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanBreak",
+        "CanBeDirty",
+        "CanBeFilled"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_drinkware",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The dirty mug is clean after rinsing under the kitchen faucet, and the faucet is off.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Faucet",
+            "Sink"
+          ],
+          "goal_predicates": [
+            "isDirty(Mug)=false",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        },
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The dirty mug from the living-room coffee table is rinsed at the kitchen sink and back in the kitchen cabinet, with the faucet off and the cabinet door closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "CoffeeTable",
+            "Faucet",
+            "Sink",
+            "Cabinet"
+          ],
+          "goal_predicates": [
+            "isDirty(Mug)=false",
+            "inside(Mug,Cabinet)",
+            "isOpen(Cabinet)=false",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Cup",
+      "asset_ids": [
+        "Cup_1",
+        "Cup_10"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanBeFilled",
+        "CanBeDirty",
+        "CanBreak",
+        "CanSeeThrough"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_drinkware",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The cup of water is emptied into the sink and stands mouth-down on the drying spot.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Sink"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(Cup)=false",
+            "on(Cup,CounterTop)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        },
+        {
+          "scene": "scene_dining_table",
+          "goal": "The cup at the dining table is filled with water from the fridge-door bottle and the fridge is closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "Bottle",
+            "Fridge",
+            "DiningTable"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(Cup)=true",
+            "on(Cup,DiningTable)",
+            "isOpen(Fridge)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Pot",
+      "asset_ids": [
+        "Pot_1",
+        "Pot_4"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanBeFilled",
+        "CanBeDirty"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_cookware",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The pot is filled with water at the kitchen faucet and sits on the back stove burner, with the faucet and burner both off.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Faucet",
+            "StoveBurner"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(Pot)=true",
+            "on(Pot,StoveBurner)",
+            "isToggled(Faucet)=false",
+            "isToggled(StoveBurner)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell. Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The dirty pot is clean, emptied, and inside the lower cabinet with the door closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Faucet",
+            "Sink",
+            "Cabinet"
+          ],
+          "goal_predicates": [
+            "isDirty(Pot)=false",
+            "isFilledWithLiquid(Pot)=false",
+            "inside(Pot,Cabinet)",
+            "isOpen(Cabinet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Pan",
+      "asset_ids": [
+        "Pan_1",
+        "Pan_10"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanBeDirty"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_cookware",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The dirty pan is clean after scrubbing at the sink with the sponge, the faucet is off, and the pan is on the counter to dry.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "DishSponge",
+            "Faucet",
+            "Sink"
+          ],
+          "goal_predicates": [
+            "isDirty(Pan)=false",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "A sliced potato in the pan on the burner is cooked (simulation-only) and the stove knob is turned off.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Potato",
+            "StoveBurner",
+            "StoveKnob"
+          ],
+          "goal_predicates": [
+            "isCooked(PotatoSliced)=true",
+            "inside(PotatoSliced,Pan)",
+            "isToggled(StoveKnob)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell. Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        }
+      ],
+      "duplicate_risk": "similar to task_ycb_round2_skillet (clean cooled skillet with sponge) for the cleaning idea",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Bowl",
+      "asset_ids": [
+        "Bowl_1",
+        "Bowl_12"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanBreak",
+        "CanBeDirty",
+        "CanBeFilled"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_dish",
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The bowl holding the sliced tomato is inside the fridge and the fridge door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Tomato",
+            "Fridge"
+          ],
+          "goal_predicates": [
+            "inside(TomatoSliced,Bowl)",
+            "inside(Bowl,Fridge)",
+            "isOpen(Fridge)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Plate",
+      "asset_ids": [
+        "Plate_1",
+        "Plate_3"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanBeDirty",
+        "CanBreak"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_dish",
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The plate on the dining table holds two bread slices.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "Bread",
+            "DiningTable"
+          ],
+          "goal_predicates": [
+            "on(BreadSliced,Plate)",
+            "on(Plate,DiningTable)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        },
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The three dirty plates from the dining table are clean and stacked in the kitchen cabinet, cabinet closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "DiningTable",
+            "Faucet",
+            "Sink",
+            "Cabinet"
+          ],
+          "goal_predicates": [
+            "isDirty(Plate)=false",
+            "inside(Plate,Cabinet)",
+            "isOpen(Cabinet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "similar to task_reference_behavior_clean_plate_round2 for the cleaning idea",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Bread",
+      "asset_ids": [
+        "Bread_1",
+        "Bread_5"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeSliced"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_food_item",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The bread loaf on the counter is cut into slices (simulation-only or pre-scored surrogate).",
+          "granularity": "atomic",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Knife"
+          ],
+          "goal_predicates": [
+            "isSliced(Bread)=true"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Apple",
+      "asset_ids": [
+        "Apple_1",
+        "Apple_12"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeSliced"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_fruit",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The apple is sliced, the slices are in a bowl, and the knife is back in the drawer with the drawer closed.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Knife",
+            "Bowl",
+            "Drawer"
+          ],
+          "goal_predicates": [
+            "isSliced(Apple)=true",
+            "inside(AppleSliced,Bowl)",
+            "inside(Knife,Drawer)",
+            "isOpen(Drawer)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        }
+      ],
+      "duplicate_risk": "none",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Tomato",
+      "asset_ids": [
+        "Tomato_1",
+        "Tomato_9"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeSliced"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_fruit",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The tomato on the cutting area is sliced (simulation-only).",
+          "granularity": "atomic",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Knife"
+          ],
+          "goal_predicates": [
+            "isSliced(Tomato)=true"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Lettuce",
+      "asset_ids": [
+        "Lettuce_1",
+        "Lettuce_6"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeSliced"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_vegetable",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The lettuce head is sliced and the slices are on a plate.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Knife",
+            "Plate"
+          ],
+          "goal_predicates": [
+            "isSliced(Lettuce)=true",
+            "on(LettuceSliced,Plate)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Potato",
+      "asset_ids": [
+        "Potato_1",
+        "Potato_8"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeSliced",
+        "CanBeCooked"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_vegetable",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The potato is cooked (simulation-only isCooked).",
+          "granularity": "atomic",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Microwave"
+          ],
+          "goal_predicates": [
+            "isCooked(Potato)=true"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell."
+        }
+      ],
+      "duplicate_risk": "overlaps the Microwave workflow idea; draft only one of them"
+    },
+    {
+      "object_type": "Egg",
+      "asset_ids": [
+        "Egg_1",
+        "Egg_4"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeSliced",
+        "CanBreak"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_food_item",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The egg is cracked into the bowl (AI2-THOR break/slice to EggCracked).",
+          "granularity": "atomic",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Bowl"
+          ],
+          "goal_predicates": [
+            "isBroken(Egg)=true",
+            "inside(EggCracked,Bowl)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Raw egg: simulation-only or a hollow surrogate shell."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Kettle",
+      "asset_ids": [
+        "Kettle_1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeFilled",
+        "CanOpen"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_cookware",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The kettle is filled with water at the faucet, its lid is closed, and the faucet is off.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Faucet",
+            "Sink"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(Kettle)=true",
+            "isOpen(Kettle)=false",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Knife",
+      "asset_ids": [
+        "Knife_1",
+        "Knife_3"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_cutting_tool",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The knife is in the cutlery drawer, blade down in its slot, and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Drawer"
+          ],
+          "goal_predicates": [
+            "inside(Knife,Drawer)",
+            "isOpen(Drawer)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Sharp tool: blunt training knife or sheathed blade for real collection."
+        }
+      ],
+      "duplicate_risk": "low: similar to task_ycb_round3_knife (safe clearing)",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Spatula",
+      "asset_ids": [
+        "Spatula_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_utensil",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The spatula and the ladle are back in the utensil drawer and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Ladle",
+            "Drawer"
+          ],
+          "goal_predicates": [
+            "inside(Spatula,Drawer)",
+            "inside(Ladle,Drawer)",
+            "isOpen(Drawer)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "SoapBottle",
+      "asset_ids": [
+        "Soap_Bottle_1",
+        "Soap_Bottle_5"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeUsedUp"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_cleaning_bottle",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The used-up dish-soap bottle is in the garbage can and a full bottle stands at the back of the sink.",
+          "granularity": "compound",
+          "intent_id": "intent_restock",
+          "other_objects": [
+            "GarbageCan",
+            "Sink"
+          ],
+          "goal_predicates": [
+            "isUsedUp(SoapBottle_old)=true",
+            "inside(SoapBottle_old,GarbageCan)",
+            "on(SoapBottle_new,Sink)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Cleaning chemical: bottle is empty or water-filled and capped."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "PaperTowelRoll",
+      "asset_ids": [
+        "Paper_Towel_1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeUsedUp"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_paper_item",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The used-up paper towel roll is in the garbage can.",
+          "granularity": "atomic",
+          "intent_id": "intent_discard",
+          "other_objects": [
+            "GarbageCan"
+          ],
+          "goal_predicates": [
+            "isUsedUp(PaperTowelRoll)=true",
+            "inside(PaperTowelRoll,GarbageCan)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "GarbageCan",
+      "asset_ids": [
+        "bin_1",
+        "bin_5"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_receptacle",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The eggshell, used-up paper towel roll, and newspaper are in the kitchen garbage can and nothing is on the counter.",
+          "granularity": "compound",
+          "intent_id": "intent_discard",
+          "other_objects": [
+            "EggCracked",
+            "PaperTowelRoll",
+            "Newspaper"
+          ],
+          "goal_predicates": [
+            "inside(x,GarbageCan) for 3 items"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "WineBottle",
+      "asset_ids": [
+        "Wine_Bottle_1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBreak",
+        "CanBeFilled"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_liquid_container",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The wine bottle is emptied into the sink and placed in the recycling bin.",
+          "granularity": "compound",
+          "intent_id": "intent_discard",
+          "other_objects": [
+            "Sink",
+            "GarbageCan"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(WineBottle)=false",
+            "inside(WineBottle,GarbageCan)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Bottle",
+      "asset_ids": [
+        "Bottle_1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeFilled",
+        "CanBreak",
+        "CanSeeThrough"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_liquid_container",
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The glass bottle is filled with water at the faucet, stands in the fridge door, and the fridge is closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Faucet",
+            "Fridge"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(Bottle)=true",
+            "inside(Bottle,Fridge)",
+            "isOpen(Fridge)=false",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection. Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "DishSponge",
+      "asset_ids": [
+        "Dish_Sponge_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_cleaning_tool",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The bowl, plate and cup from the sink are all clean and the sponge is back on the sink edge with the faucet off.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Bowl",
+            "Plate",
+            "Cup",
+            "Faucet"
+          ],
+          "goal_predicates": [
+            "isDirty(Bowl)=false",
+            "isDirty(Plate)=false",
+            "isDirty(Cup)=false",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "low: similar to draft task_reference_epic_kitchens_wash_bowl_round1 for single-bowl washing"
+    },
+    {
+      "object_type": "DiningTable",
+      "asset_ids": [
+        "Dining_Table_16_1",
+        "Dining_Table_201_1"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The dining table is cleared: plate, cup and fork are in the kitchen sink and the table top is empty.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Plate",
+            "Cup",
+            "Fork",
+            "Sink"
+          ],
+          "goal_predicates": [
+            "empty(DiningTable)",
+            "inside(Plate,Sink)",
+            "inside(Cup,Sink)",
+            "inside(Fork,Sink)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "similar to task_reference_behavior_bowl_to_sink_round2 (one item version)"
+    },
+    {
+      "object_type": "SaltShaker",
+      "asset_ids": [
+        "Salt_Shaker_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_food_container",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The salt and pepper shakers are back inside the spice cabinet and the cabinet door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "PepperShaker",
+            "Cabinet"
+          ],
+          "goal_predicates": [
+            "inside(SaltShaker,Cabinet)",
+            "inside(PepperShaker,Cabinet)",
+            "isOpen(Cabinet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Ladle",
+      "asset_ids": [
+        "Ladle_1",
+        "Ladle_2"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "kitchen",
+      "general_concept_id": "object_utensil",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The ladle rests inside the water-filled pot on the burner with the stove off.",
+          "granularity": "compound",
+          "intent_id": "intent_prepare_food",
+          "other_objects": [
+            "Pot",
+            "StoveBurner"
+          ],
+          "goal_predicates": [
+            "inside(Ladle,Pot)",
+            "isFilledWithLiquid(Pot)=true",
+            "isToggled(StoveBurner)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell."
+        }
+      ],
+      "duplicate_risk": "overlaps the Pot fill idea",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Television",
+      "asset_ids": [
+        "Television_1",
+        "Television_12"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanToggleOnOff",
+        "CanBreak"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The television is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(Television)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        },
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The television is off and the remote control is on the TV stand in front of it.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "RemoteControl",
+            "TVStand"
+          ],
+          "goal_predicates": [
+            "isToggled(Television)=false",
+            "on(RemoteControl,TVStand)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "RemoteControl",
+      "asset_ids": [
+        "Remote_1",
+        "Remote_3"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The remote control from between the sofa cushions is on the coffee table and the TV is switched on.",
+          "granularity": "compound",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "Sofa",
+            "CoffeeTable",
+            "Television"
+          ],
+          "goal_predicates": [
+            "on(RemoteControl,CoffeeTable)",
+            "isToggled(Television)=true"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "FloorLamp",
+      "asset_ids": [
+        "Floor_Lamp_1",
+        "Floor_Lamp_15"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanToggleOnOff"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_lamp",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The floor lamp beside the armchair is switched on.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(FloorLamp)=true"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "LightSwitch",
+      "asset_ids": [
+        "Light_Switch_1",
+        "Light_Switch_8"
+      ],
+      "state_flags": [
+        "Static",
+        "CanToggleOnOff"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The living-room ceiling light is switched off at the wall switch.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(LightSwitch)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Laptop",
+      "asset_ids": [
+        "Laptop_1",
+        "Laptop_10"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanOpen",
+        "CanToggleOnOff",
+        "CanBreak"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The open laptop on the sofa is closed and lies on the coffee table.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Sofa",
+            "CoffeeTable"
+          ],
+          "goal_predicates": [
+            "isOpen(Laptop)=false",
+            "on(Laptop,CoffeeTable)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        },
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The laptop lid is closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Laptop)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Box",
+      "asset_ids": [
+        "Box_1",
+        "Box_12",
+        "DecorativeBox1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanOpen"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_receptacle",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The cardboard box flaps are closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_store",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Box)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The book, the remote control and the cellphone are packed in the box and the box is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Book",
+            "RemoteControl",
+            "CellPhone"
+          ],
+          "goal_predicates": [
+            "inside(x,Box) for 3 items",
+            "isOpen(Box)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: YCB clear-box packing (task_ycb_round3_068_clear_box) uses a different asset and lid"
+    },
+    {
+      "object_type": "Book",
+      "asset_ids": [
+        "Book_1",
+        "Book_20"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanOpen"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_paper_item",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The open book on the armchair is closed and stands upright on the shelving unit.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ArmChair",
+            "ShelvingUnit"
+          ],
+          "goal_predicates": [
+            "isOpen(Book)=false",
+            "on(Book,ShelvingUnit)",
+            "upright(Book)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: similar to task_gso_r1_bookends_four_books_upright for the shelving part"
+    },
+    {
+      "object_type": "Newspaper",
+      "asset_ids": [
+        "Newspaper_1",
+        "Newspaper_3"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_paper_item",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "Yesterday's newspaper from the coffee table is in the living-room garbage can.",
+          "granularity": "atomic",
+          "intent_id": "intent_discard",
+          "other_objects": [
+            "CoffeeTable",
+            "GarbageCan"
+          ],
+          "goal_predicates": [
+            "inside(Newspaper,GarbageCan)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "HousePlant",
+      "asset_ids": [
+        "Houseplant_1",
+        "Houseplant_14"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanBeFilled"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_plant",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The dry houseplant is watered (AI2-THOR isFilledWithLiquid on the plant).",
+          "granularity": "atomic",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "WateringCan"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(HousePlant)=true"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Water near electronics: pour over a drip tray."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "WateringCan",
+      "asset_ids": [
+        "Watering_Can_1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeFilled"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_liquid_container",
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The watering can is filled at the kitchen faucet, the living-room houseplant is watered, and the can is back by the kitchen door with the faucet off.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Faucet",
+            "HousePlant"
+          ],
+          "goal_predicates": [
+            "isFilledWithLiquid(HousePlant)=true",
+            "isToggled(Faucet)=false",
+            "at(WateringCan,home_spot)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Candle",
+      "asset_ids": [
+        "Candle_1",
+        "Candle_4"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanToggleOnOff"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_decor",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The lit candle on the coffee table is extinguished.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(Candle)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Open flame: use an LED candle surrogate; the THOR toggle is the goal predicate."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "CellPhone",
+      "asset_ids": [
+        "Cellphone_1",
+        "Cellphone_5"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanToggleOnOff",
+        "CanBreak"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The cellphone is switched off and lies face-down on the side table.",
+          "granularity": "compound",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [
+            "SideTable"
+          ],
+          "goal_predicates": [
+            "isToggled(CellPhone)=false",
+            "on(CellPhone,SideTable)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Sofa",
+      "asset_ids": [
+        "RoboTHOR_sofa_ektorp_v",
+        "RoboTHOR_sofa_kramfors"
+      ],
+      "state_flags": [
+        "Static",
+        "Receptacle"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_furniture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The sofa seat is clear: the pillow is at the sofa arm, the remote is on the coffee table and the laptop is closed on the desk.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Pillow",
+            "RemoteControl",
+            "Laptop",
+            "CoffeeTable",
+            "Desk"
+          ],
+          "goal_predicates": [
+            "on(Pillow,Sofa_arm)",
+            "on(RemoteControl,CoffeeTable)",
+            "isOpen(Laptop)=false",
+            "on(Laptop,Desk)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Pillow",
+      "asset_ids": [
+        "pillow_1",
+        "RoboTHOR_pillow_dvala_v"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Static"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_textile",
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The fallen pillow is back on the sofa, upright against the backrest.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "Sofa"
+          ],
+          "goal_predicates": [
+            "on(Pillow,Sofa)",
+            "upright(Pillow)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "CoffeeTable",
+      "asset_ids": [
+        "Coffee_Table_201_1",
+        "Coffee_Table_202_1"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle",
+        "CanSeeThrough"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_furniture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The coffee table is clear: the cup and plate are in the kitchen sink and the newspaper is in the garbage can.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Cup",
+            "Plate",
+            "Newspaper",
+            "Sink",
+            "GarbageCan"
+          ],
+          "goal_predicates": [
+            "empty(CoffeeTable)",
+            "inside(Cup,Sink)",
+            "inside(Plate,Sink)",
+            "inside(Newspaper,GarbageCan)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Blinds",
+      "asset_ids": [
+        "Blinds_1"
+      ],
+      "state_flags": [
+        "Static",
+        "CanOpen"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The window blinds are closed.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Blinds)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "In the morning the bedroom blinds are open and the desk lamp is off.",
+          "granularity": "compound",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [
+            "DeskLamp"
+          ],
+          "goal_predicates": [
+            "isOpen(Blinds)=true",
+            "isToggled(DeskLamp)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Statue",
+      "asset_ids": [
+        "Dog_Statue_1",
+        "Dog_Statue_2"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBreak"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_decor",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The toppled statue stands upright on the shelving unit without having broken.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "ShelvingUnit"
+          ],
+          "goal_predicates": [
+            "upright(Statue)",
+            "isBroken(Statue)=false"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Vase",
+      "asset_ids": [
+        "Vase_Decorative_1",
+        "Vase_Flat_1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBreak"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_decor",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The vase is moved from the table edge to the centre of the side table, upright and unbroken.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "SideTable"
+          ],
+          "goal_predicates": [
+            "on(Vase,SideTable_center)",
+            "isBroken(Vase)=false"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        }
+      ],
+      "duplicate_risk": "low: goal is mostly a location change; keep only as a fragile-object variant"
+    },
+    {
+      "object_type": "Desktop",
+      "asset_ids": [
+        "Desktop_316_1"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanBreak",
+        "CanToggleOnOff"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The desktop computer is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(Desktop)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Boots",
+      "asset_ids": [
+        "Boot_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_footwear",
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The muddy boots are on the entryway mat and the front door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Doorway"
+          ],
+          "goal_predicates": [
+            "on(Boots,mat)",
+            "isOpen(Doorway)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: GSO footwear tasks (gso_object_ankle_boot) exist; check names"
+    },
+    {
+      "object_type": "TVStand",
+      "asset_ids": [
+        "TV_Stand_201_1",
+        "TV_Stand_204_1"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle"
+      ],
+      "room": "living_room",
+      "general_concept_id": "object_furniture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_living_room",
+          "goal": "The TV stand holds the remote, the CD and the box, and the TV on it is off.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "RemoteControl",
+            "CD",
+            "Box",
+            "Television"
+          ],
+          "goal_predicates": [
+            "on(x,TVStand) for 3 items",
+            "isToggled(Television)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "DeskLamp",
+      "asset_ids": [
+        "Desk_Lamp_1",
+        "Desk_Lamp_7"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanToggleOnOff"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_lamp",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The desk lamp is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(DeskLamp)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        },
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The desk lamp is on and the open book lies under it.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Book",
+            "Desk"
+          ],
+          "goal_predicates": [
+            "isToggled(DeskLamp)=true",
+            "isOpen(Book)=true",
+            "on(Book,Desk)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Bed",
+      "asset_ids": [
+        "Bed_1",
+        "Bed_12",
+        "RoboTHOR_bed_hemnes"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle",
+        "CanBeDirty",
+        "Static"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_furniture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The unmade bed is made (AI2-THOR isDirty=false on Bed means made).",
+          "granularity": "atomic",
+          "intent_id": "intent_clean",
+          "other_objects": [],
+          "goal_predicates": [
+            "isDirty(Bed)=false"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false,
+          "safety": "Bed-making needs a deformable sheet for real collection; THOR models it as a boolean."
+        },
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The bed is made and two pillows stand against the headboard.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Pillow"
+          ],
+          "goal_predicates": [
+            "isDirty(Bed)=false",
+            "on(Pillow,Bed)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "LightSwitch",
+      "asset_ids": [
+        "Light_Switch_5",
+        "Light_Switch_20"
+      ],
+      "state_flags": [
+        "Static",
+        "CanToggleOnOff"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "At bedtime the desk lamp is on and the bedroom ceiling light is off.",
+          "granularity": "compound",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [
+            "DeskLamp"
+          ],
+          "goal_predicates": [
+            "isToggled(DeskLamp)=true",
+            "isToggled(LightSwitch)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "LaundryHamper",
+      "asset_ids": [
+        "Laundry_Hamper_1_1",
+        "Laundry_Hamper_1_3"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle",
+        "CanOpen"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_receptacle",
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The cloth from the bedroom floor is inside the laundry hamper and the hamper lid is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Cloth"
+          ],
+          "goal_predicates": [
+            "inside(Cloth,LaundryHamper)",
+            "isOpen(LaundryHamper)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The used cloths from the bedroom floor and the bathroom towel bar are in the bedroom hamper and its lid is closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Cloth",
+            "Towel",
+            "TowelHolder"
+          ],
+          "goal_predicates": [
+            "inside(Cloth,LaundryHamper)",
+            "inside(Towel,LaundryHamper)",
+            "isOpen(LaundryHamper)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "low: similar to draft task_gso_r2_kitchen_towels_swap_for_fresh_pack (laundry basket)"
+    },
+    {
+      "object_type": "Dresser",
+      "asset_ids": [
+        "Dresser_205_1",
+        "Dresser_209_1"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_furniture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The folded cloth is inside the top dresser drawer and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Cloth",
+            "Drawer"
+          ],
+          "goal_predicates": [
+            "inside(Cloth,Drawer)",
+            "isOpen(Drawer)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none",
+      "notes": "Dresser drawers are child Drawer objects in iTHOR scenes, not separate asset-DB entries."
+    },
+    {
+      "object_type": "Desk",
+      "asset_ids": [
+        "Desk_204_1",
+        "Desk_301_1"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_furniture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The desk is cleared for the night: the laptop is closed, the pen and pencil are in the mug, and the desk lamp is off.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Laptop",
+            "Pen",
+            "Pencil",
+            "Mug",
+            "DeskLamp"
+          ],
+          "goal_predicates": [
+            "isOpen(Laptop)=false",
+            "inside(Pen,Mug)",
+            "inside(Pencil,Mug)",
+            "isToggled(DeskLamp)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Laptop",
+      "asset_ids": [
+        "Laptop_20",
+        "RoboTHOR_laptop_props_america_1_v"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanOpen",
+        "CanToggleOnOff",
+        "CanBreak",
+        "Moveable"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The closed laptop on the desk is opened and switched on.",
+          "granularity": "compound",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [
+            "Desk"
+          ],
+          "goal_predicates": [
+            "isOpen(Laptop)=true",
+            "isToggled(Laptop)=true"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Pen",
+      "asset_ids": [
+        "Pen_1",
+        "Pen_3"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_writing_tool",
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The two pens and the pencil are standing in the mug used as a pen cup.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Pencil",
+            "Mug"
+          ],
+          "goal_predicates": [
+            "inside(Pen,Mug)",
+            "inside(Pencil,Mug)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: location-only goal"
+    },
+    {
+      "object_type": "Safe",
+      "asset_ids": [
+        "Safe_18_1",
+        "Safe_18_2"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle",
+        "CanOpen"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_receptacle",
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The keychain and the credit card are inside the safe and the safe door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "KeyChain",
+            "CreditCard"
+          ],
+          "goal_predicates": [
+            "inside(KeyChain,Safe)",
+            "inside(CreditCard,Safe)",
+            "isOpen(Safe)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The safe door is closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_store",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Safe)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "TeddyBear",
+      "asset_ids": [
+        "Teddy_Bear_1",
+        "Teddy_Bear_2"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_toy",
+      "ideas": [
+        {
+          "scene": "scene_kids_bedroom",
+          "goal": "The teddy bear sits upright on the made bed against the pillow.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Bed",
+            "Pillow"
+          ],
+          "goal_predicates": [
+            "on(TeddyBear,Bed)",
+            "upright(TeddyBear)",
+            "isDirty(Bed)=false"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "BasketBall",
+      "asset_ids": [
+        "Basketball_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_sports_equipment",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_kids_bedroom",
+          "goal": "The basketball, the baseball bat and the tennis racket are packed in the storage box and the box is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "BaseballBat",
+            "TennisRacket",
+            "Box"
+          ],
+          "goal_predicates": [
+            "inside(x,Box) for 3 items",
+            "isOpen(Box)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: similar to task_ycb_round3_055_baseball (ball kit in clear box)"
+    },
+    {
+      "object_type": "AlarmClock",
+      "asset_ids": [
+        "Alarm_Clock_1",
+        "Alarm_Clock_10"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The alarm clock that fell off the side table is back on it, upright and facing the bed.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "SideTable"
+          ],
+          "goal_predicates": [
+            "on(AlarmClock,SideTable)",
+            "facing(AlarmClock,Bed)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "low: AlarmClock has no toggle flag in the asset DB, so the goal is pose-only"
+    },
+    {
+      "object_type": "CellPhone",
+      "asset_ids": [
+        "Cellphone_3",
+        "RoboTHOR_cellphone_blackberry_v"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanToggleOnOff",
+        "CanBreak",
+        "Static"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The cellphone is switched on and lies on the side table next to the bed.",
+          "granularity": "compound",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [
+            "SideTable"
+          ],
+          "goal_predicates": [
+            "isToggled(CellPhone)=true",
+            "on(CellPhone,SideTable)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Watch",
+      "asset_ids": [
+        "Watch_1",
+        "Watch_2"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bedroom",
+      "general_concept_id": "object_decor",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_home_bedroom",
+          "goal": "The watch and keychain are inside the decorative box on the dresser and the box lid is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "KeyChain",
+            "Box",
+            "Dresser"
+          ],
+          "goal_predicates": [
+            "inside(Watch,Box)",
+            "inside(KeyChain,Box)",
+            "isOpen(Box)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Faucet",
+      "asset_ids": [
+        "Bathroom_Faucet_1",
+        "Bathroom_Faucet_10"
+      ],
+      "state_flags": [
+        "Static",
+        "CanToggleOnOff"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The dripping bathroom sink faucet is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Faucet",
+      "asset_ids": [
+        "Bathtub_Faucet_1",
+        "Bathtub_Faucet_4"
+      ],
+      "state_flags": [
+        "Static",
+        "CanToggleOnOff"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The bathtub faucet is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "ShowerHead",
+      "asset_ids": [
+        "Shower_Head_1",
+        "Shower_Head_2"
+      ],
+      "state_flags": [
+        "Static",
+        "CanToggleOnOff"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The shower is switched off.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isToggled(ShowerHead)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        },
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "After a shower the water is off, the shower curtain is open to dry, and the bath towel hangs on its bar.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ShowerCurtain",
+            "Towel",
+            "TowelHolder"
+          ],
+          "goal_predicates": [
+            "isToggled(ShowerHead)=false",
+            "isOpen(ShowerCurtain)=true",
+            "on(Towel,TowelHolder)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "ShowerCurtain",
+      "asset_ids": [
+        "Shower_Curtain_1",
+        "Shower_Curtain_2"
+      ],
+      "state_flags": [
+        "Static",
+        "CanOpen"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The shower curtain is drawn closed across the tub.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(ShowerCurtain)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Toilet",
+      "asset_ids": [
+        "Toilet_1",
+        "Toilet_2"
+      ],
+      "state_flags": [
+        "Static",
+        "CanOpen",
+        "Receptacle"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The toilet lid is closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_clean",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Toilet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "ToiletPaper",
+      "asset_ids": [
+        "Toilet_Paper",
+        "Toilet_Paper_Used_Up"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeUsedUp"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_paper_item",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The used-up roll is in the bathroom garbage can and a fresh roll is on the toilet-paper hanger.",
+          "granularity": "compound",
+          "intent_id": "intent_restock",
+          "other_objects": [
+            "ToiletPaperHanger",
+            "GarbageCan"
+          ],
+          "goal_predicates": [
+            "inside(ToiletPaper_used,GarbageCan)",
+            "on(ToiletPaper_new,ToiletPaperHanger)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "ToiletPaperHanger",
+      "asset_ids": [
+        "Toilet_Paper_Hanger_1",
+        "Toilet_Paper_Hanger_10"
+      ],
+      "state_flags": [
+        "Static",
+        "Receptacle",
+        "ObjectSpecificReceptacle"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "A toilet-paper roll is mounted on the empty hanger.",
+          "granularity": "atomic",
+          "intent_id": "intent_restock",
+          "other_objects": [
+            "ToiletPaper"
+          ],
+          "goal_predicates": [
+            "on(ToiletPaper,ToiletPaperHanger)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "overlaps the ToiletPaper idea; draft only one"
+    },
+    {
+      "object_type": "Towel",
+      "asset_ids": [
+        "Bath_Towel_1",
+        "Bath_Towel_2"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_textile",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The bath towel hangs on the towel bar.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "TowelHolder"
+          ],
+          "goal_predicates": [
+            "on(Towel,TowelHolder)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        },
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The used bath towel from the bedroom floor is in the hamper and a fresh towel from the closet hangs on the bathroom towel bar.",
+          "granularity": "workflow",
+          "intent_id": "intent_restock",
+          "other_objects": [
+            "LaundryHamper",
+            "TowelHolder"
+          ],
+          "goal_predicates": [
+            "inside(Towel_used,LaundryHamper)",
+            "on(Towel_fresh,TowelHolder)",
+            "isOpen(LaundryHamper)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "low: similar to draft task_gso_r2_hand_towel_hang_on_ring for the hanging idea"
+    },
+    {
+      "object_type": "HandTowel",
+      "asset_ids": [
+        "Hand_Towel_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_textile",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The hand towel is on the hand-towel holder beside the sink.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "HandTowelHolder"
+          ],
+          "goal_predicates": [
+            "on(HandTowel,HandTowelHolder)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "similar to draft task_gso_r2_hand_towel_hang_on_ring"
+    },
+    {
+      "object_type": "SoapBar",
+      "asset_ids": [
+        "Soap_Bar_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_personal_care_tool",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The soap bar is back on the sink ledge.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "Sink"
+          ],
+          "goal_predicates": [
+            "on(SoapBar,Sink)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "similar to task_gso_r1_soap_dish_set_on_ledge"
+    },
+    {
+      "object_type": "SoapBottle",
+      "asset_ids": [
+        "Soap_Bottle_10",
+        "Soap_Bottle_20"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeUsedUp"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_cleaning_bottle",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The used-up hand-soap bottle by the bathroom sink is replaced with a full one from the cabinet under the sink, and the cabinet is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_restock",
+          "other_objects": [
+            "Cabinet",
+            "GarbageCan"
+          ],
+          "goal_predicates": [
+            "isUsedUp(SoapBottle_new)=false",
+            "on(SoapBottle_new,Sink)",
+            "inside(SoapBottle_old,GarbageCan)",
+            "isOpen(Cabinet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Cleaning chemical: bottle is empty or water-filled and capped."
+        }
+      ],
+      "duplicate_risk": "low: overlaps the kitchen SoapBottle idea; pick one room",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "SprayBottle",
+      "asset_ids": [
+        "Spray_Bottle_1",
+        "Spray_Bottle_2"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_cleaning_bottle",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The spray bottle is back in the cabinet under the bathroom sink and the cabinet door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Cabinet"
+          ],
+          "goal_predicates": [
+            "inside(SprayBottle,Cabinet)",
+            "isOpen(Cabinet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Cleaning chemical: bottle is empty or water-filled and capped."
+        }
+      ],
+      "duplicate_risk": "none",
+      "notes": "Cabinet/Drawer/StoveBurner/StoveKnob are iTHOR room-prefab parts, not ProcTHOR asset-DB entries; cite the prefab, not an asset ID."
+    },
+    {
+      "object_type": "Cloth",
+      "asset_ids": [
+        "Cloth_1",
+        "Cloth_7"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeDirty"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_textile",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The dirty cloth is rinsed clean at the bathroom sink and the faucet is off.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Faucet",
+            "Sink"
+          ],
+          "goal_predicates": [
+            "isDirty(Cloth)=false",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "low: similar to task_ycb_round4_table_cloth_rinse_drain"
+    },
+    {
+      "object_type": "Plunger",
+      "asset_ids": [
+        "Plunger_1",
+        "Plunger_2"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_cleaning_tool",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The plunger stands upright in its corner beside the toilet with the toilet lid closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Toilet"
+          ],
+          "goal_predicates": [
+            "upright(Plunger)",
+            "isOpen(Toilet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Sanitary: use a new, unused plunger."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "ScrubBrush",
+      "asset_ids": [
+        "Scrub_Brush_1"
+      ],
+      "state_flags": [
+        "CanPickup"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_cleaning_tool",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The scrub brush is back on the tub edge after the tub faucet is turned off.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Faucet"
+          ],
+          "goal_predicates": [
+            "on(ScrubBrush,Bathtub)",
+            "isToggled(Faucet)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Running water near a powered robot: use a dry-run faucet (flow disabled) or a splash-guarded sink; water level and flow are declared in setup."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "TissueBox",
+      "asset_ids": [
+        "Tissue_Box_1"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeUsedUp"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_paper_item",
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The used-up tissue box is in the garbage can and a new box stands on the toilet tank.",
+          "granularity": "compound",
+          "intent_id": "intent_restock",
+          "other_objects": [
+            "GarbageCan",
+            "Toilet"
+          ],
+          "goal_predicates": [
+            "isUsedUp(TissueBox_old)=true",
+            "inside(TissueBox_old,GarbageCan)",
+            "on(TissueBox_new,Toilet)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": false
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "WashingMachine",
+      "asset_ids": [
+        "Washing_Machine_1",
+        "Washing_Machine_2"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle",
+        "CanOpen",
+        "CanToggleOnOff"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_household_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The washing-machine door is closed.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(WashingMachine)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The two dirty cloths are inside the washing machine, the door is closed, and the machine is switched on.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "Cloth"
+          ],
+          "goal_predicates": [
+            "inside(Cloth,WashingMachine)",
+            "isOpen(WashingMachine)=false",
+            "isToggled(WashingMachine)=true"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "ClothesDryer",
+      "asset_ids": [
+        "Clothes_Dryer_1",
+        "Clothes_Dryer_2"
+      ],
+      "state_flags": [
+        "Moveable",
+        "Receptacle",
+        "CanOpen",
+        "CanToggleOnOff"
+      ],
+      "room": "bathroom",
+      "general_concept_id": "object_household_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "scene_home_bathroom",
+          "goal": "The washed cloths are moved from the washing machine into the dryer, both doors are closed, and the dryer is on.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "WashingMachine",
+            "Cloth"
+          ],
+          "goal_predicates": [
+            "inside(Cloth,ClothesDryer)",
+            "isOpen(WashingMachine)=false",
+            "isOpen(ClothesDryer)=false",
+            "isToggled(ClothesDryer)=true"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater. Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "LightSwitch",
+      "asset_ids": [
+        "Light_Switch_12",
+        "Light_Switch_25"
+      ],
+      "state_flags": [
+        "Static",
+        "CanToggleOnOff"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "Every light in the house is off: the kitchen, living-room and bedroom wall switches are off and the desk lamp is off.",
+          "granularity": "workflow",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [
+            "DeskLamp"
+          ],
+          "goal_predicates": [
+            "isToggled(LightSwitch_kitchen)=false",
+            "isToggled(LightSwitch_living)=false",
+            "isToggled(LightSwitch_bedroom)=false",
+            "isToggled(DeskLamp)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Doorway",
+      "asset_ids": [
+        "Doorway_1",
+        "Doorway_Double_1"
+      ],
+      "state_flags": [
+        "Static",
+        "CanOpen"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_home_fixture",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The bedroom door is closed.",
+          "granularity": "atomic",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [],
+          "goal_predicates": [
+            "isOpen(Doorway)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": false
+        },
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The robot opens the closed bedroom door, carries the laundry hamper's cloth to the bathroom washing machine, and the bedroom door is closed again.",
+          "granularity": "workflow",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "Cloth",
+            "WashingMachine"
+          ],
+          "goal_predicates": [
+            "inside(Cloth,WashingMachine)",
+            "isOpen(Doorway)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "GarbageBag",
+      "asset_ids": [
+        "GarbageBag_21_1",
+        "GarbageBag_21_2"
+      ],
+      "state_flags": [
+        "Moveable"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_receptacle",
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The contents of the bathroom and bedroom garbage cans are in one garbage bag, which stands by the front door.",
+          "granularity": "workflow",
+          "intent_id": "intent_discard",
+          "other_objects": [
+            "GarbageCan"
+          ],
+          "goal_predicates": [
+            "empty(GarbageCan_bathroom)",
+            "empty(GarbageCan_bedroom)",
+            "at(GarbageBag,entryway)"
+          ],
+          "articulated_or_toggle": false,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "VacuumCleaner",
+      "asset_ids": [
+        "Vacuum_Cleaner_1_1"
+      ],
+      "state_flags": [
+        "Moveable"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_household_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The vacuum cleaner left in the living room is back in the storage closet and the closet door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Doorway"
+          ],
+          "goal_predicates": [
+            "at(VacuumCleaner,closet)",
+            "isOpen(Doorway)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Television",
+      "asset_ids": [
+        "Television_20",
+        "RoboTHOR_television_props_america_1_v"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanToggleOnOff",
+        "CanBreak"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The house is closed for the night: the living-room TV is off, the blinds are closed, the living-room light is off and the front door is closed.",
+          "granularity": "workflow",
+          "intent_id": "new: intent_set_device_state",
+          "other_objects": [
+            "Blinds",
+            "LightSwitch",
+            "Doorway"
+          ],
+          "goal_predicates": [
+            "isToggled(Television)=false",
+            "isOpen(Blinds)=false",
+            "isToggled(LightSwitch)=false",
+            "isOpen(Doorway)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Box",
+      "asset_ids": [
+        "Box_20",
+        "Box_25"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "Receptacle",
+        "CanOpen"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_receptacle",
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The grocery box from the entryway is unpacked: the tomato, lettuce and egg are in the kitchen fridge, the fridge is closed, and the empty closed box is in the storage closet.",
+          "granularity": "workflow",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "Tomato",
+            "Lettuce",
+            "Egg",
+            "Fridge"
+          ],
+          "goal_predicates": [
+            "inside(x,Fridge) for 3 items",
+            "isOpen(Fridge)=false",
+            "isOpen(Box)=false",
+            "at(Box,closet)"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Toaster",
+      "asset_ids": [
+        "Toaster_22"
+      ],
+      "state_flags": [
+        "Moveable",
+        "CanToggleOnOff",
+        "Receptacle",
+        "ObjectSpecificReceptacle",
+        "isHeatSource"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_kitchen_appliance",
+      "concept_is_new": true,
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "Breakfast is served: the bread is sliced and toasted, the toast is on a plate at the dining table, the mug beside it holds coffee, and the toaster and coffee machine are off.",
+          "granularity": "workflow",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "Bread",
+            "Knife",
+            "Plate",
+            "Mug",
+            "CoffeeMachine",
+            "DiningTable"
+          ],
+          "goal_predicates": [
+            "isSliced(Bread)=true",
+            "isCooked(BreadSliced)=true",
+            "on(BreadSliced,Plate)",
+            "isFilledWithLiquid(Mug)=true",
+            "isToggled(Toaster)=false",
+            "isToggled(CoffeeMachine)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true,
+          "safety": "Heat source: goal runs in simulation (AI2-THOR isCooked / isToggled) or on a real appliance with the heating element disabled and a cool surrogate; no hot surfaces or liquids in the collection cell. Sharp tool: slicing is simulation-only (AI2-THOR SliceObject) or uses a pre-scored surrogate with a blunt training knife; knife starts and ends in a guarded holder."
+        }
+      ],
+      "duplicate_risk": "similar to task_reference_robocasa_coffee_setup_mug for the coffee step"
+    },
+    {
+      "object_type": "Laptop",
+      "asset_ids": [
+        "Laptop_25"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanOpen",
+        "CanToggleOnOff",
+        "CanBreak"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_electronic_device",
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The laptop left open on the living-room sofa is closed and on the bedroom desk, and the desk lamp is off.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "Sofa",
+            "Desk",
+            "DeskLamp"
+          ],
+          "goal_predicates": [
+            "isOpen(Laptop)=false",
+            "on(Laptop,Desk)",
+            "isToggled(DeskLamp)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true,
+          "safety": "Breakable (AI2-THOR CanBreak): use a shatter-proof surrogate for real collection."
+        }
+      ],
+      "duplicate_risk": "none"
+    },
+    {
+      "object_type": "Cloth",
+      "asset_ids": [
+        "Cloth_10"
+      ],
+      "state_flags": [
+        "CanPickup",
+        "CanBeDirty"
+      ],
+      "room": "multi_room",
+      "general_concept_id": "object_textile",
+      "ideas": [
+        {
+          "scene": "new: scene_procthor_house",
+          "goal": "The dirty kitchen cloth is washed in the bathroom washing machine, and the machine door is closed and the machine off afterwards.",
+          "granularity": "workflow",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "WashingMachine"
+          ],
+          "goal_predicates": [
+            "isDirty(Cloth)=false",
+            "isOpen(WashingMachine)=false",
+            "isToggled(WashingMachine)=false"
+          ],
+          "articulated_or_toggle": true,
+          "multi_room": true,
+          "safety": "Powered appliance: unplugged or dummy panel for real collection; on/off is read from the indicator, not by running the motor or heater."
+        }
+      ],
+      "duplicate_risk": "overlaps the Doorway laundry idea; draft one"
+    }
+  ]
+}
