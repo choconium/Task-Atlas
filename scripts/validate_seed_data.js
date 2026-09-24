@@ -26,6 +26,9 @@ const SOURCE_ALLOWED_CLAIMS = Object.freeze({
   catalog: new Set(["catalog_identity"]),
   design_seed: new Set(["task_suitability"]),
   knowledgebase: new Set(["task_suitability"]),
+  dataset: new Set(["task_suitability"]),
+  observation: new Set(["task_suitability"]),
+  survey: new Set(["population_frequency"]),
 });
 const ROLES = new Set(["home_user", "customer", "staff"]);
 const CONTENTS = new Set(["full", "empty"]);
@@ -152,18 +155,18 @@ function mapCollection(name, rows, errors) {
   });
   return result;
 }
-function defaultData() {
-  const load = (name) => readJson(path.join(SEED_DIR, name));
-  const batches = loadTaskBatches(SEED_DIR);
+function defaultData(seedDirectory = SEED_DIR) {
+  const load = (name) => readJson(path.join(seedDirectory, name));
+  const batches = loadTaskBatches(seedDirectory);
   return {
-    objects: load("objects.json"),
+    objects: [...load("objects.json"), ...batches.external_objects],
     scenes: [...load("scenes.json"), ...batches.scenes],
     states: load("states.json"),
     intents: load("intents.json"),
     skills: load("skills.json"),
     templates: [...load("task_templates.json"), ...batches.templates],
     tasks: [...load("mustard_tasks.json"), ...batches.tasks],
-    evidence: load("evidence.json"),
+    evidence: [...load("evidence.json"), ...batches.evidence],
     planning: [...load("task_planning.json"), ...batches.planning],
     claims: [...load("claims.json"), ...batches.claims],
     expansionLoops: load("expansion_loops.json"),
@@ -443,6 +446,49 @@ function validateRequirements(requirements, at, maps, errors) {
       errors.push(`${at}: ${requirement.key} requirement must be snake_case`);
   }
 }
+function validateObjectIdentity(object, at, errors) {
+  if (!object || typeof object !== "object" || Array.isArray(object)) return;
+  const externalIdentityFields = [
+    "asset_source",
+    "asset_source_version",
+    "asset_source_id",
+  ];
+  const externalMetadataFields = [
+    ...externalIdentityFields,
+    "asset_source_url",
+    "source_taxonomy_url",
+    "asset_ready_in_source",
+    "source_taxonomy",
+  ];
+  const hasYcbId = Object.hasOwn(object, "ycb_id");
+  const hasExternalMetadata = externalMetadataFields.some((key) =>
+    Object.hasOwn(object, key),
+  );
+  if (hasYcbId === hasExternalMetadata)
+    errors.push(`${at}: exactly one of ycb_id or external asset identity is required`);
+
+  if (!hasYcbId && hasExternalMetadata) {
+    for (const key of externalIdentityFields)
+      if (typeof object[key] !== "string" || !object[key].trim())
+        errors.push(`${at}: external object requires non-empty ${key}`);
+    if (object.asset_source === "behavior") {
+      if (typeof object.asset_source_url !== "string" || !object.asset_source_url.trim())
+        errors.push(`${at}: BEHAVIOR object requires asset_source_url`);
+      if (typeof object.source_taxonomy_url !== "string" || !object.source_taxonomy_url.trim())
+        errors.push(`${at}: BEHAVIOR object requires source_taxonomy_url`);
+      if (typeof object.asset_ready_in_source !== "boolean")
+        errors.push(`${at}: BEHAVIOR object requires boolean asset_ready_in_source`);
+      if (!object.source_taxonomy || typeof object.source_taxonomy !== "object")
+        errors.push(`${at}: BEHAVIOR object requires source_taxonomy`);
+    }
+    if (
+      object.source_taxonomy &&
+      object.asset_source &&
+      object.source_taxonomy.source !== object.asset_source
+    )
+      errors.push(`${at}: source_taxonomy.source must match asset_source`);
+  }
+}
 function validateData(data = defaultData()) {
   const errors = [];
   const collectionNames = [
@@ -482,6 +528,23 @@ function validateData(data = defaultData()) {
         `${name}[${i}]`,
         errors,
       );
+  const externalAssetIdentities = new Set();
+  for (const [i, object] of (Array.isArray(data.objects) ? data.objects : []).entries()) {
+    const at = `objects[${i}]`;
+    validateObjectIdentity(object, at, errors);
+    if (!object || typeof object !== "object" || Array.isArray(object)) continue;
+    if (
+      !Object.hasOwn(object, "ycb_id") &&
+      object.asset_source &&
+      object.asset_source_version &&
+      object.asset_source_id
+    ) {
+      const identity = `${object.asset_source}\u0000${object.asset_source_version}\u0000${object.asset_source_id}`;
+      if (externalAssetIdentities.has(identity))
+        errors.push(`${at}: duplicate external asset identity ${object.asset_source}/${object.asset_source_version}/${object.asset_source_id}`);
+      externalAssetIdentities.add(identity);
+    }
+  }
   if (!maps.objects.has("ycb_006_mustard_bottle"))
     errors.push("objects: missing ycb_006_mustard_bottle anchor");
   for (const template of Array.isArray(data.templates) ? data.templates : []) {
@@ -644,7 +707,8 @@ function run() {
   }
   const data = defaultData();
   console.log("Seed validation passed.");
-  console.log(`  YCB object records: ${data.objects.length}`);
+  console.log(`  YCB object records: ${data.objects.filter((object) => object.ycb_id).length}`);
+  console.log(`  external object records: ${data.objects.filter((object) => !object.ycb_id).length}`);
   console.log(`  task instances: ${data.tasks.length}`);
   console.log(`  planning records: ${data.planning.length}`);
   console.log(`  claims: ${data.claims.length}`);

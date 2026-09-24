@@ -8,7 +8,11 @@ test("every catalog object has a proposed collection task reachable through shar
   const store = createStore();
   const context = parseContext(new URLSearchParams());
   const seeds = defaultData();
-  const rounds = [...new Set(store.data.tasks.filter((task) => task.id.startsWith("task_ycb_")).map((task) => task.generation_version))];
+  const catalogObjects = store.data.objects.filter((object) => object.ycb_id);
+  const catalogIds = new Set(catalogObjects.map((object) => object.id));
+  const catalogTasks = store.data.tasks.filter((task) => catalogIds.has(task.object_id));
+  const catalogRoundTasks = catalogTasks.filter((task) => /^ycb_coverage_round\d+$/.test(task.generation_version || ""));
+  const rounds = [...new Set(catalogRoundTasks.map((task) => task.generation_version))];
   assert.ok(rounds.length > 0, "catalog generation rounds must be recorded");
   assert.deepEqual(store.data.tasks.map((task) => task.id), seeds.tasks.map((task) => task.id));
   const adjacency = new Map();
@@ -18,10 +22,10 @@ test("every catalog object has a proposed collection task reachable through shar
     adjacency.get(a).add(b);
     adjacency.get(b).add(a);
   };
-  for (const object of store.data.objects) {
+  for (const object of catalogObjects) {
     const tasks = store.listTasks({ object_id: object.id }, context);
     assert.ok(tasks.length, `${object.id}: missing seeded task`);
-    const authored = store.data.tasks.filter((task) => task.object_id === object.id && task.id.startsWith("task_ycb_"));
+    const authored = catalogRoundTasks.filter((task) => task.object_id === object.id);
     for (const round of rounds) assert.equal(authored.filter((task) => task.generation_version === round).length, 1, `${object.id}: exactly one new task in ${round}`);
     assert.equal(new Set(authored.map((task) => JSON.stringify([...task.goal_state].sort()))).size, authored.length, `${object.id}: duplicate goal across rounds`);
     const group = store.neighbors(`group:${object.id}:tasks`, "all", context);
@@ -81,12 +85,12 @@ test("every catalog object has a proposed collection task reachable through shar
       }
     }
   }
-  const reached = new Set([store.data.objects[0].id]);
+  const reached = new Set([catalogObjects[0].id]);
   const queue = [...reached];
   for (let i = 0; i < queue.length; i++) {
     for (const id of adjacency.get(queue[i]) || []) {
       if (!reached.has(id)) { reached.add(id); queue.push(id); }
     }
   }
-  for (const object of store.data.objects) assert.ok(reached.has(object.id), `${object.id}: disconnected`);
+  for (const object of catalogObjects) assert.ok(reached.has(object.id), `${object.id}: disconnected`);
 });

@@ -1,8 +1,8 @@
 # Catalog-wide YCB task proposals
 
-The coverage target is every record in `data/seeds/objects.json`, including separately listed parts and variants. This is coverage of the repository catalog, not a claim that every YCB release or downloadable asset is represented.
+The coverage target is every YCB `ObjectInstance` with a `ycb_id` in the shared object registry, including separately listed parts and variants. External objects such as BEHAVIOR assets can anchor their own tasks, but do not enter YCB catalog coverage. This is coverage of the repository catalog, not a claim that every YCB release or downloadable asset is represented.
 
-Catalog-wide proposals are stored in `data/seeds/ycb_batches/`. Each JSON bundle contains `tasks`, `planning`, and `claims`, with optional `scenes` and `templates`. The runtime and validator share the same sorted bundle loader. Existing mustard seeds and its three expansion loops remain separate.
+Catalog-wide proposals are stored in `data/seeds/ycb_batches/`. Each JSON bundle contains `tasks`, `planning`, and `claims`, with optional `scenes`, `templates`, `external_objects`, and `evidence`. The runtime and validator share the same sorted bundle loader. External objects and evidence merge into the shared registries but remain outside YCB coverage unless an object carries a YCB ID. Existing mustard seeds and its three expansion loops remain separate.
 
 ## First coverage round
 
@@ -65,8 +65,10 @@ Plans declare required catalog objects when an interaction needs them and may in
 
 Round 5 adds 77 proposed tasks, one for each of the 77 catalog entries. Each task
 has one planning record and four claim records, for 77 new tasks, 77 plans, and
-308 claims. With Round 5 active, the catalog-wide totals are 453 tasks, 453
-planning records, and 1,813 claims.
+308 claims. With Round 5 active, the five YCB coverage rounds and the original
+mustard slice account for 453 tasks, 453 planning records, and 1,813 claims in the
+YCB task series. Cross-source tasks anchored to YCB objects may appear in object
+rows and `task_count` without entering the five coverage-round totals.
 
 Round 5 task-suitability claims remain `proposed`; population-frequency,
 robot-execution, and asset-compatibility claims remain `unknown`. All Round 5
@@ -84,7 +86,7 @@ Required objects also connect directly through `requires_resource` edges in the 
 
 Run `npm run check` to validate references, schemas, planning, claims, catalog coverage, graph navigation, and collection-card access. Counts indicate catalog coverage only; they are not evidence of collected demonstrations or successful robot execution.
 
-Run `npm run coverage:ycb` for a machine-readable inventory of each catalog object, its task IDs and titles, scenes, intents, and generation rounds. It exits with a nonzero status if any catalog object has no task.
+Run `npm run coverage:ycb` for a machine-readable inventory of each YCB object, its task IDs and titles, scenes, intents, and generation rounds. `task_count` and each object's task list include every task whose primary `object_id` resolves to a YCB object; `all_task_count` reports all task instances across all primary object types. `generation_rounds`, each object's `rounds` field, and `round_summary` include only the five `ycb_coverage_roundN` series. A cross-source task anchored to a YCB object remains visible in that object's task list and primary task count without being mistaken for a YCB coverage round. The report exits with a nonzero status if any YCB object has no task.
 
 The report also lists `required_catalog_objects` for each task and summarizes
 cross-object dependencies by round. These are explicit collection prerequisites

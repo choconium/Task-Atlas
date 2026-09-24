@@ -428,6 +428,10 @@
         [
           object.id,
           object.ycb_id,
+          object.asset_source,
+          object.asset_source_id,
+          object.source_taxonomy?.category_id,
+          object.source_taxonomy?.synset_id,
           object.name_en,
           object.name_ja,
           object.category,
@@ -445,8 +449,8 @@
             (
               object,
             ) => `<button class="object ${object.id === state.selectedObjectId ? "selected" : ""}" data-object-id="${escapeHtml(object.id)}">
-      <b>${escapeHtml(object.ycb_id?.slice(0, 3) || "—")}</b>
-      <span>${escapeHtml(label(object))}<small>${escapeHtml(state.language === "ja" ? object.name_en || object.category || "" : object.category || "")}</small></span>
+      <b>${escapeHtml(object.ycb_id?.slice(0, 3) || object.asset_source || "—")}</b>
+      <span>${escapeHtml(label(object))}<small>${escapeHtml(object.asset_source_id || (state.language === "ja" ? object.name_en || object.category || "" : object.category || ""))}</small></span>
     </button>`,
           )
           .join("")
@@ -465,7 +469,7 @@
       state.language === "ja"
         ? object.name_ja || object.name_en || ""
         : object.name_en || object.category || "";
-    elements.heroSubtitle.textContent = `${object.ycb_id || object.id} · ${displayText(subtitleName)}`;
+    elements.heroSubtitle.textContent = `${object.ycb_id || object.asset_source_id || object.id} · ${displayText(subtitleName)}`;
     elements.heroDescription.textContent = displayText(
       object.description_en || object.description,
     );
@@ -550,8 +554,21 @@
     state.inspectorNode = null;
     elements.inspectorType.textContent = "OBJECT";
     elements.inspector.innerHTML = `<h2>${escapeHtml(label(object))}</h2>
-      <small>${escapeHtml(object.ycb_id || object.id)}</small>
+      <small>${escapeHtml(object.ycb_id || object.asset_source_id || object.id)}</small>
       <p>${escapeHtml(object.description || "")}</p>
+      ${object.asset_source ? section(
+        state.language === "ja" ? "外部アセットの出典" : "External asset source",
+        [
+          `${object.asset_source} · ${object.asset_source_version || (state.language === "ja" ? "バージョン不明" : "version unknown")}`,
+          `${state.language === "ja" ? "アセットID" : "Asset ID"}: ${object.asset_source_id || "unknown"}`,
+          object.source_taxonomy
+            ? `${state.language === "ja" ? "ソース分類" : "Source taxonomy"}: ${object.source_taxonomy.category_id || "unknown"} · ${object.source_taxonomy.synset_id || "unknown"}`
+            : `${state.language === "ja" ? "ソース分類" : "Source taxonomy"}: unknown`,
+          typeof object.asset_ready_in_source === "boolean"
+            ? `${state.language === "ja" ? "BEHAVIORソース内の準備状況" : "BEHAVIOR source readiness"}: ${object.asset_ready_in_source ? (state.language === "ja" ? "準備済み" : "ready in source") : (state.language === "ja" ? "準備済みとされていない" : "not marked ready")}; ${state.language === "ja" ? "アセット適合性を示すものではありません。" : "this does not establish asset compatibility."}`
+            : "",
+        ].filter(Boolean),
+      ) : ""}
       ${section(state.language === "ja" ? "アフォーダンス" : "Affordances", object.affordances || [], text("unknownAffordances"))}
       ${section(
         state.language === "ja" ? "Atlasの対象範囲" : "Atlas coverage",
@@ -1012,7 +1029,7 @@
     const query = elements.search.value.trim();
     if (!query) return renderObjects();
     const exact = state.objects.find((object) =>
-      [object.id, object.ycb_id, object.name_en, object.name_ja].some(
+      [object.id, object.ycb_id, object.asset_source_id, object.name_en, object.name_ja].some(
         (value) => String(value || "").toLowerCase() === query.toLowerCase(),
       ),
     );

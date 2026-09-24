@@ -65,12 +65,24 @@ identity, task suitability, frequency, execution, and asset claims distinct.
 ## Catalog-wide task bundles
 
 `data/seeds/ycb_batches/*.json` extends the original seeds with `tasks`, `planning`,
-and `claims` arrays, plus optional `scenes` and `templates`. The same sorted loader
+and `claims` arrays, plus optional `scenes`, `templates`, `external_objects`, and
+`evidence`. External object and evidence rows merge into their shared registries
+before validation and runtime graph construction. The same sorted loader
 is used by validation and the runtime. IDs remain globally unique. The catalog-wide
-coverage test requires every catalog object to have a collection task and to be
-reachable through shared scenes, intents, templates, or skills. Bundle tasks carry
-generation provenance and remain proposed; the design source is scoped to this
-catalog-wide expansion, not to empirical performance or frequency.
+coverage test requires every YCB object record (`ycb_id` present) to have a
+collection task and to be reachable through shared scenes, intents, templates, or
+skills. External `ObjectInstance` records can anchor tasks but are not members of
+YCB coverage. Bundle tasks carry generation provenance and remain proposed; design
+sources are scoped to proposed suitability, not empirical performance or frequency.
+
+## Object identity
+
+`ObjectInstance` records use exactly one identity form. YCB records carry `ycb_id`.
+External records omit `ycb_id` and carry `asset_source`, `asset_source_version`,
+and `asset_source_id`; BEHAVIOR records also carry source URLs, source taxonomy, and
+the `asset_ready_in_source` flag. `id` remains the stable Atlas key used by tasks.
+Source taxonomy fields are not Atlas `general_concept_id` values. BEHAVIOR source
+readiness describes the source record only and does not establish asset compatibility.
 
 ## Mustard expansion
 

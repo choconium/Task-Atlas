@@ -8,6 +8,7 @@
     "node_type",
     "template_id",
     "bindings",
+    "object_id",
     "scene_id",
     "initial_state",
     "goal_state",
@@ -19,6 +20,7 @@
     "node_type": { "type": "string", "enum": ["TaskInstance"] },
     "template_id": { "type": "string", "minLength": 1 },
     "bindings": { "type": "object" },
+    "object_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
     "scene_id": { "type": "string", "minLength": 1 },
     "initial_state": {
       "type": "array",

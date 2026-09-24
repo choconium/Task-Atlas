@@ -22,6 +22,13 @@ Task Atlas represents a set of typed relationships. It does not flatten everyday
 
 Affordance, intent, task, skill, procedure, trajectory, source, and claim are not interchangeable. An object can be squeezable without a particular robot being able to squeeze its available asset; a task can make sense for a person even if a simulator cannot represent it.
 
+An external `ObjectInstance` uses a stable Atlas `id` and source identity fields
+(`asset_source`, `asset_source_version`, and `asset_source_id`) while omitting
+`ycb_id`. Its `general_concept_id` links it into the Atlas concept graph; a separate
+`source_taxonomy` preserves the source's own category and synset IDs without
+asserting they are equivalent to that Atlas concept. For BEHAVIOR assets,
+`asset_ready_in_source` records only source-side readiness, not asset compatibility.
+
 ## Requirements and context
 
 Requirements are typed as `scene_id`, `role`, `contents`, `object`, `capability`, or `condition`. Repeated `scene_id`, `role`, or `contents` requirements are alternatives. Objects, capabilities, and conditions accumulate. A missing object therefore produces a repairable `needs_changes` assessment, while an omitted declaration remains `unknown`.
@@ -48,6 +55,8 @@ A source supports a particular claim type in a stated scope. A time-use survey c
 
 - Use stable lowercase `snake_case` IDs.
 - Use `ycb_{three-digit-id}_{canonical_name}` for YCB object instances.
+- Give external object instances namespaced internal IDs and retain their source ID,
+  source version, and locator separately; never encode them as YCB IDs.
 - Use `scene_`, `state_`, `intent_`, and `skill_` prefixes for their respective records.
 - Use verb-led IDs for reusable task definitions and unique IDs for bound tasks and procedures.
 - Keep identifiers separate from display strings. Use `name_en` and `name_ja` where both translations are maintained.

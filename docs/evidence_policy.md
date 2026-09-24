@@ -15,6 +15,12 @@ Each claim states a subject, claim type, statement, status, optional value and u
 
 A source record must describe its type, the claim types it can support, scope, and limitations. Preserve a stable locator, release or paper version, and access date when available. Cite a source only where its supported claim type and scope match the claim.
 
+The validator permits catalogs to support `catalog_identity`; design seeds and
+knowledgebases to support `task_suitability`; datasets and observations to support
+`task_suitability` only; and surveys to support `population_frequency` only. A broad
+activity dataset is not population prevalence evidence, and a survey does not
+establish robot execution or asset compatibility.
+
 ## Frequency is explicit or unknown
 
 `population_frequency` has a value only when the source, target population, activity granularity, and measurement meaning are recorded. A derived relation to a higher-level activity is kept as a distinct claim with its limitation. Dataset recurrence and research attention are different signals and must not be relabeled as population frequency.

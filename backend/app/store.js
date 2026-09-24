@@ -37,8 +37,8 @@ const DEFAULT_CONTEXT = Object.freeze({
   blocked_conditions: { provided: false, values: [] },
 });
 
-function readSeed(filename, fallback = []) {
-  const file = path.join(SEED_DIR, filename);
+function readSeed(filename, fallback = [], seedDirectory = SEED_DIR) {
+  const file = path.join(seedDirectory, filename);
   return fs.existsSync(file)
     ? JSON.parse(fs.readFileSync(file, "utf8"))
     : fallback;
@@ -86,15 +86,20 @@ function addEdge(edges, source, target, relation) {
     edges.push({ id, source, target, relation });
 }
 
-function createStore() {
+function createStore({ seedDirectory = SEED_DIR } = {}) {
   const data = Object.fromEntries(
     Object.entries(SEED_FILES).map(([key, filename]) => [
       key,
-      readSeed(filename),
+      readSeed(filename, [], seedDirectory),
     ]),
   );
-  const batches = loadTaskBatches(SEED_DIR);
-  for (const key of Object.keys(batches)) data[key === "templates" ? "taskTemplates" : key].push(...batches[key]);
+  const batches = loadTaskBatches(seedDirectory);
+  const batchTargets = {
+    templates: "taskTemplates",
+    external_objects: "objects",
+  };
+  for (const [key, rows] of Object.entries(batches))
+    data[batchTargets[key] || key].push(...rows);
   const graphSync = syncSeedGraph(data).catch((error) => ({ enabled: true, synced: false, error: error.message }));
   const maps = {
     objects: asMap(data.objects),
@@ -118,6 +123,11 @@ function createStore() {
     `procedure:${taskId}:${procedure.id}`;
   const claimsFor = (id) =>
     data.claims.filter((item) => item.subject_id === id);
+  const usesTaskBundle = (task) =>
+    task.id.startsWith("task_ycb_") ||
+    task.id.startsWith("task_reference_") ||
+    String(task.generation_version || "").startsWith("reference_") ||
+    Boolean(maps.objects.get(task.object_id)?.asset_source);
   const sourcesFor = (claims) =>
     unique(claims.flatMap((item) => item.source_ids || []))
       .map((id) => maps.evidence.get(id))
@@ -178,6 +188,8 @@ function createStore() {
           [
             object.id,
             object.ycb_id,
+            object.asset_source,
+            object.asset_source_id,
             object.canonical_name,
             object.name_en,
             object.name_ja,
@@ -187,7 +199,13 @@ function createStore() {
             .filter(Boolean)
             .some((value) => String(value).toLowerCase().includes(needle)),
       )
-      .sort((a, b) => compareText(a.ycb_id, b.ycb_id));
+      .sort(
+        (a, b) =>
+          Number(!a.ycb_id) - Number(!b.ycb_id) ||
+          compareText(a.ycb_id || "", b.ycb_id || "") ||
+          compareText(a.asset_source || "", b.asset_source || "") ||
+          compareText(a.asset_source_id || a.id, b.asset_source_id || b.id),
+      );
   }
   function getObject(id) {
     return maps.objects.get(id) || null;
@@ -351,9 +369,9 @@ function createStore() {
         (item) => item.kind !== "satisfied",
       ),
       provenance: {
-        task_seed: task.id.startsWith("task_ycb_") ? "ycb_batches/" : "mustard_tasks.json",
-        planning_seed: task.id.startsWith("task_ycb_") ? "ycb_batches/" : "task_planning.json",
-        claims_seed: task.id.startsWith("task_ycb_") ? "ycb_batches/" : "claims.json",
+        task_seed: usesTaskBundle(task) ? "ycb_batches/" : "mustard_tasks.json",
+        planning_seed: usesTaskBundle(task) ? "ycb_batches/" : "task_planning.json",
+        claims_seed: usesTaskBundle(task) ? "ycb_batches/" : "claims.json",
       },
       execution_caveat:
         "A ready planning assessment is not evidence that a robot or simulator has completed the task.",
@@ -893,6 +911,8 @@ function createStore() {
       .filter((item) =>
         [
           item.id,
+          item.asset_source,
+          item.asset_source_id,
           item.name_en,
           item.name_ja,
           item.canonical_name,
