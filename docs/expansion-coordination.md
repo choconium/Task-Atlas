@@ -51,6 +51,9 @@ RoboCasa, Habitat Synthetic Scenes objects, ManiSkill assets.
 3. **Self-check.** Run `npm run check:draft -- data/drafts/<bundle>.json`. It
    validates the draft against the active seeds in a temporary copy and
    reports granularity counts and task names that repeat active tasks.
+   Run `npm run report:similar -- --min 0.5 --only task_<prefix> data/drafts/<bundle>.json`
+   to list near-duplicate goals; cross-link or drop anything that restates an
+   active task.
 4. **Request review.** Set the row in the tracker to `in review`.
 5. **Review.** The other lane writes `data/reviews/<bundle>.md` (see below).
 6. **Fix and activate.** The author addresses each finding, moves the bundle to
