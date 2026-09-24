@@ -809,10 +809,6 @@ footer {
 .philosophy-bridge h2 {
   margin-top: 8px;
 }
-.philosophy-source {
-  display: inline-block;
-  margin-top: 16px;
-}
 @media (max-width: 790px) {
   .philosophy-grid {
     grid-template-columns: 1fr;

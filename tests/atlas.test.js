@@ -214,7 +214,6 @@ test("the design philosophy page is bilingual and defaults to English-only copy"
   assert.match(page.body, /<title>What's this\? · Task Atlas<\/title>/);
   assert.match(page.body, /What is Task Atlas\?/);
   assert.match(page.body, /Give every claim its own evidence/);
-  assert.match(page.body, /href="https:\/\/github\.com\/choconium\/Task-Atlas\/blob\/main\/physical_ai_task_atlas_handoff_ja\.md"/);
   assert.match(page.body, /data-copy-ja="設計哲学"/);
   assert.match(page.body, /© 2026 chocopan/);
   const visibleText = page.body
@@ -227,6 +226,14 @@ test("the design philosophy page is bilingual and defaults to English-only copy"
   assert.match(script.headers["content-type"] || "", /javascript/);
   assert.match(script.body, /localStorage\.setItem\("atlas-lang", language\)/);
   assert.match(script.body, /document\.documentElement\.lang = language/);
+});
+
+test("site pages do not link to the source repository", async () => {
+  for (const pathname of ["/", "/start.html", "/about.html"]) {
+    const page = await request(pathname);
+    assert.equal(page.status, 200, pathname);
+    assert.doesNotMatch(page.body, /github\.com/i, pathname);
+  }
 });
 
 test("full and empty contents assess dispensing and disposal differently", async () => {
