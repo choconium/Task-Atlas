@@ -34,6 +34,20 @@ Open <http://localhost:3000>. During development, `npm run dev` restarts the ser
 
 The GitHub Actions workflow runs `npm run check` on Node.js 22 and 24 for pushes and pull requests.
 
+## Deploy to Cloudflare Workers
+
+The Worker serves the frontend through Cloudflare Static Assets and routes the read-only API through the Node HTTP compatibility layer. Seed JSON is bundled as read-only Worker data. Wrangler requires Node.js 22 or newer and a Cloudflare account for deployment.
+
+```bash
+npm install
+npx wrangler login
+npm run worker:dev
+npm run worker:dry-run
+npx wrangler deploy
+```
+
+`npm run worker:dev` starts the local Workers runtime. `npm run worker:dry-run` builds the deployment bundle without publishing it. The current API reads from bundled seed data and does not persist changes between requests.
+
 ## Try the core question
 
 Select `ycb_006_mustard_bottle`, then compare candidates under different context declarations:

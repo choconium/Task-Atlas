@@ -174,6 +174,12 @@ test("health and catalog smoke checks describe seeded data without treating coun
   assert.ok(catalog.data.some((object) => /mustard/i.test(textOf(object))));
 });
 
+test("the exact API root follows API routing and returns JSON", async () => {
+  const response = await request("/api");
+  assert.equal(response.status, 404);
+  assert.deepEqual(json(response), { error: "API route not found" });
+});
+
 test("root serves the current Task Atlas explorer shell and graph mount", async () => {
   const response = await request("/");
   assert.equal(response.status, 200);

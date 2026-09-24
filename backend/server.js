@@ -5,10 +5,14 @@ const { URL } = require("node:url");
 const { createStore, tasksToCsv } = require("./app/store");
 const { parseContext } = require("./app/assessment");
 
-const store = createStore();
-const FRONTEND_DIR = path.join(store.root, "frontend");
+let defaultStore;
 const PORT = Number(process.env.PORT || 3000);
 const HOST = process.env.HOST || "127.0.0.1";
+
+function getDefaultStore() {
+  if (!defaultStore) defaultStore = createStore();
+  return defaultStore;
+}
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -65,7 +69,7 @@ function serializeError(error) {
   return error instanceof Error ? error.message : String(error);
 }
 
-function apiHandler(request, response, url) {
+function apiHandler(request, response, url, store) {
   const pathname = url.pathname;
   const segments = pathname.split("/").filter(Boolean).map(decodeSegment);
   if (segments.some((segment) => segment === null))
@@ -265,13 +269,13 @@ function apiHandler(request, response, url) {
   return notFound(response, "API route not found");
 }
 
-function serveStatic(response, pathname) {
+function serveStatic(response, pathname, frontendDir) {
   const requested =
     pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
-  const filepath = path.resolve(FRONTEND_DIR, requested);
+  const filepath = path.resolve(frontendDir, requested);
   if (
-    filepath !== FRONTEND_DIR &&
-    !filepath.startsWith(`${FRONTEND_DIR}${path.sep}`)
+    filepath !== frontendDir &&
+    !filepath.startsWith(`${frontendDir}${path.sep}`)
   ) {
     return notFound(response, "Invalid static path");
   }
@@ -285,15 +289,16 @@ function serveStatic(response, pathname) {
   fs.createReadStream(filepath).pipe(response);
 }
 
-function createServer() {
+function createServer({ store = getDefaultStore(), frontendDir } = {}) {
+  const staticDirectory = frontendDir || path.join(store.root, "frontend");
   return http.createServer((request, response) => {
     const requestUrl = new URL(
       request.url,
       `http://${request.headers.host || "localhost"}`,
     );
     try {
-      if (requestUrl.pathname.startsWith("/api/"))
-        return apiHandler(request, response, requestUrl);
+      if (requestUrl.pathname === "/api" || requestUrl.pathname.startsWith("/api/"))
+        return apiHandler(request, response, requestUrl, store);
       if (request.method !== "GET")
         return sendJson(
           response,
@@ -301,7 +306,7 @@ function createServer() {
           { error: "Method not allowed" },
           { Allow: "GET" },
         );
-      return serveStatic(response, requestUrl.pathname);
+      return serveStatic(response, requestUrl.pathname, staticDirectory);
     } catch (error) {
       console.error(error);
       return sendJson(response, 500, {
@@ -319,4 +324,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { createServer, store };
+module.exports = { createServer, get store() { return getDefaultStore(); } };

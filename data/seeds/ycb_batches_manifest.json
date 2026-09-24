@@ -1,0 +1,26 @@
+{
+  "files": [
+    "food.json",
+    "food_round2.json",
+    "food_round3.json",
+    "food_round4.json",
+    "food_round5.json",
+    "kitchen.json",
+    "kitchen_round2.json",
+    "kitchen_round3.json",
+    "kitchen_round4.json",
+    "kitchen_round5.json",
+    "reference_behavior_round1.json",
+    "reference_sources_round1.json",
+    "shapes_and_tasks.json",
+    "shapes_and_tasks_round2.json",
+    "shapes_and_tasks_round3.json",
+    "shapes_and_tasks_round4.json",
+    "shapes_and_tasks_round5.json",
+    "tools.json",
+    "tools_round2.json",
+    "tools_round3.json",
+    "tools_round4.json",
+    "tools_round5.json"
+  ]
+}

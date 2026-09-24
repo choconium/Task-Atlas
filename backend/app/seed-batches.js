@@ -2,7 +2,9 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 // Sorted bundles keep independently authored catalog batches reproducible.
-function loadTaskBatches(seedDirectory) {
+// Workers pass a statically bundled manifest because readdirSync is not
+// available in the Workers runtime. Node keeps discovering bundles on disk.
+function loadTaskBatches(seedDirectory, { filenames } = {}) {
   const directory = path.join(seedDirectory, "ycb_batches");
   const merged = {
     tasks: [],
@@ -19,8 +21,13 @@ function loadTaskBatches(seedDirectory) {
     "external_objects",
     "evidence",
   ]);
-  if (!fs.existsSync(directory)) return merged;
-  for (const filename of fs.readdirSync(directory).filter((name) => name.endsWith(".json")).sort()) {
+  if (filenames === undefined && !fs.existsSync(directory)) return merged;
+  const bundleFiles = filenames === undefined
+    ? fs.readdirSync(directory).filter((name) => name.endsWith(".json")).sort()
+    : [...filenames].sort();
+  for (const filename of bundleFiles) {
+    if (typeof filename !== "string" || path.basename(filename) !== filename || !filename.endsWith(".json"))
+      throw new Error(`Invalid task bundle filename: ${filename}`);
     let bundle;
     try {
       bundle = JSON.parse(fs.readFileSync(path.join(directory, filename), "utf8"));

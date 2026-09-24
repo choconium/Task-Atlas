@@ -9,8 +9,6 @@ const {
 const { syncSeedGraph } = require("./neo4j");
 const { loadTaskBatches } = require("./seed-batches");
 
-const ROOT = path.resolve(__dirname, "..", "..");
-const SEED_DIR = path.join(ROOT, "data", "seeds");
 const SEED_FILES = Object.freeze({
   objects: "objects.json",
   scenes: "scenes.json",
@@ -37,11 +35,14 @@ const DEFAULT_CONTEXT = Object.freeze({
   blocked_conditions: { provided: false, values: [] },
 });
 
-function readSeed(filename, fallback = [], seedDirectory = SEED_DIR) {
+function readSeed(filename, fallback = [], seedDirectory, required = false) {
   const file = path.join(seedDirectory, filename);
-  return fs.existsSync(file)
-    ? JSON.parse(fs.readFileSync(file, "utf8"))
-    : fallback;
+  if (!required && !fs.existsSync(file)) return fallback;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch (error) {
+    throw new Error(`${filename}: cannot load seed: ${error.message}`);
+  }
 }
 function clone(value) {
   return value === undefined ? null : JSON.parse(JSON.stringify(value));
@@ -86,14 +87,19 @@ function addEdge(edges, source, target, relation) {
     edges.push({ id, source, target, relation });
 }
 
-function createStore({ seedDirectory = SEED_DIR } = {}) {
+function createStore(options = {}) {
+  const root = options.root || path.resolve(__dirname, "..", "..");
+  const seedDirectory =
+    options.seedDirectory || path.join(root, "data", "seeds");
   const data = Object.fromEntries(
     Object.entries(SEED_FILES).map(([key, filename]) => [
       key,
-      readSeed(filename, [], seedDirectory),
+      readSeed(filename, [], seedDirectory, options.requireSeedFiles === true),
     ]),
   );
-  const batches = loadTaskBatches(seedDirectory);
+  const batches = loadTaskBatches(seedDirectory, {
+    filenames: options.seedBatchFiles,
+  });
   const batchTargets = {
     templates: "taskTemplates",
     external_objects: "objects",
@@ -945,7 +951,7 @@ function createStore({ seedDirectory = SEED_DIR } = {}) {
     };
   }
   return {
-    root: ROOT,
+    root,
     data,
     graphSync,
     maps,
