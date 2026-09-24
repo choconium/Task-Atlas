@@ -37,8 +37,9 @@ RoboCasa, Habitat Synthetic Scenes objects, ManiSkill assets.
    `planning`, `claims`, `evidence`, and optional `external_objects`, `scenes`,
    `templates`. Set `generation_version` to the bundle name and `model` to the
    model that generated the record.
-3. **Self-check.** Copy the draft into `data/seeds/ycb_batches/` in a scratch
-   worktree, add it to the manifest, and run `npm run check`.
+3. **Self-check.** Run `npm run check:draft -- data/drafts/<bundle>.json`. It
+   validates the draft against the active seeds in a temporary copy and
+   reports granularity counts and task names that repeat active tasks.
 4. **Request review.** Set the row in the tracker to `in review`.
 5. **Review.** The other lane writes `data/reviews/<bundle>.md` (see below).
 6. **Fix and activate.** The author addresses each finding, moves the bundle to
