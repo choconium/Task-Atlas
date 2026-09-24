@@ -1,0 +1,105 @@
+# Task expansion coordination
+
+This file is the shared work board for the two agents expanding the atlas
+beyond the five YCB coverage rounds: **Claude** (Claude Code) and **Codex**.
+Read it before starting a round and update your own rows when a round changes
+state. Keep it short; details belong in each bundle's `draft_notes` and in
+review files.
+
+## Goal
+
+Grow the atlas outward from YCB into as many everyday tasks as the sources
+support. Prefer sources whose objects are **freely available 3D assets**, so a
+proposed task can later be staged in simulation. Every record keeps the
+existing contract: tasks are goals, procedures are optional, and suitability,
+frequency, asset compatibility, and robot execution stay separate claims.
+
+## Lanes
+
+Each lane owns its bundles. Do not edit another lane's bundle; write a review
+instead.
+
+| Lane | Owner | Sources | Bundle prefix |
+| --- | --- | --- | --- |
+| A | Codex | YCB wrap-up (rounds, gripper assessment), BEHAVIOR-1K, RoboCasa / Objaverse, activity datasets already drafted (Charades, Ego4D, EPIC-KITCHENS, VirtualHome, time use, ICF, functional access) | `reference_*`, `ycb_*` |
+| B | Claude | Google Scanned Objects (CC BY 4.0, 1,033 scanned household models), PartNet-Mobility / SAPIEN (articulated objects), then ReplicaCAD, HSSD, AI2-THOR | `gso_*`, `partnet_*`, `replicacad_*`, `hssd_*`, `thor_*` |
+
+Unclaimed backlog (claim a row here before starting): OmniObject3D, HOPE,
+ABO (CC BY-NC, check terms first), Objaverse-XL categories not covered by
+RoboCasa, Habitat Synthetic Scenes objects, ManiSkill assets.
+
+## Round workflow
+
+1. **Brainstorm.** Write candidates to `data/research/<source>_candidates.json`:
+   source asset IDs, category, and one or more scene/goal ideas each. Target at
+   least three candidates per task you plan to draft.
+2. **Draft.** Write `data/drafts/<bundle>.json` with the usual `tasks`,
+   `planning`, `claims`, `evidence`, and optional `external_objects`, `scenes`,
+   `templates`. Set `generation_version` to the bundle name and `model` to the
+   model that generated the record.
+3. **Self-check.** Copy the draft into `data/seeds/ycb_batches/` in a scratch
+   worktree, add it to the manifest, and run `npm run check`.
+4. **Request review.** Set the row in the tracker to `in review`.
+5. **Review.** The other lane writes `data/reviews/<bundle>.md` (see below).
+6. **Fix and activate.** The author addresses each finding, moves the bundle to
+   `data/seeds/ycb_batches/`, updates `ycb_batches_manifest.json`, runs
+   `npm run check`, and marks the row `active`.
+
+A round may be activated without review only if the other lane has not
+responded after the author has finished its next draft; mark it
+`active (review pending)` and keep the review obligation.
+
+## Round goals
+
+When a source has no natural end, set a small goal and repeat it:
+
+- One round is **20–24 tasks** from one source, one task per object unless a
+  second task introduces a clearly different goal.
+- At least one third of a round is `compound` or `workflow`.
+- Every round reuses existing intents, skills, states, and object concepts
+  where they fit, so new tasks connect to the graph instead of forming islands.
+- A brainstorm pass produces at least 60 candidates before the first draft for
+  a new source.
+
+## Granularity rubric (for authors and reviewers)
+
+| Granularity | Use when | Warning signs |
+| --- | --- | --- |
+| `atomic` | One object, one goal predicate change, a single uninterrupted motion sequence | Goal is only `located` or `grasped`; that is a skill, not a task |
+| `compound` | Two to four goal predicates or two or more objects, still one sitting | Steps that only restate the skill list |
+| `workflow` | Several stages with checkpoints, a reset between stages, or several destinations | Open-ended goals such as "tidy the house"; split them |
+
+A reviewer also checks that a task is not a paraphrase of an existing goal
+(search `/api/search` or the seed files), that the object identity matches the
+cited asset, that fragile, sharp, hot, powered, or chemical items declare
+setup conditions, and that no claim infers frequency or robot success.
+
+## Review file format
+
+`data/reviews/<bundle>.md`, one section per finding:
+
+```
+### <task id or record id>
+- Verdict: accept | revise | reject
+- Granularity: ok | should be atomic/compound/workflow
+- Finding: one or two sentences
+- Author response: (filled by the author)
+```
+
+## Git rules
+
+Both agents share one repository and push to `origin/main`.
+
+- Work in your own worktree or branch; rebase on `origin/main` before pushing.
+- Stage explicit paths only. Never `git add -A`, `git reset --hard`, or
+  `git checkout -- <file>` on files you did not write.
+- Keep shared files (`ycb_batches_manifest.json`, validator, schemas, tests,
+  `docs/`) in small separate commits so rebases stay easy.
+- Never reintroduce links from the site pages to the source repository.
+
+## Tracker
+
+| Bundle | Lane | Tasks | Status | Reviewer |
+| --- | --- | ---: | --- | --- |
+| `gso_round1` | B | 24 (target) | brainstorm | Codex |
+| Codex reference drafts in `data/drafts/` | A | see files | draft | Claude |
