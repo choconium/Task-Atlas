@@ -2225,12 +2225,12 @@
         "skill_inspect",
         "skill_verify"
       ],
-      "granularity": "workflow",
+      "granularity": "compound",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round2",
-      "notes": "Workflow: three stages with checkpoints. Stage 1, slice and stow: the potato is sliced and the knife is back in its holder (checkpoint 1). Stage 2, cook: the slices are in the pan and the front burner is turned on until every slice reads cooked (checkpoint 2). Stage 3, shut off: the front knob is turned off and the burner reads off (checkpoint 3). Net changes are sliced, cooked, and inside(pan) on the potato; the burner goes off -> on -> off, so switched_off is a preserved end-state constraint reached through a transient articulation, and the knife's place in its holder is preserved. THOR mapping: sliced(thor_object_potato_1) <-> Potato isSliced=true (replaced by PotatoSliced pieces); cooked(thor_object_potato_1) <-> isCooked=true on every PotatoSliced piece; raw <-> isCooked=false; inside(..., thor_resource_frying_pan) <-> each piece's parentReceptacles contains the Pan; switched_off(thor_resource_stove_burner_front) <-> StoveBurner isToggled=false, which THOR drives through the paired StoveKnob; on_top_of(pan, burner) <-> the Pan's parentReceptacles contains the front StoveBurner. StoveBurner, StoveKnob, Pan, Knife, and the cutting board are planning resources (the first two are iTHOR room-prefab parts). Whether a toggled-on burner cooks items inside a pan on it, rather than only items directly on the burner, must be confirmed in the simulator (see the planning condition). The whole task is simulation-only: it uses a blade and a live heat source, and THOR's isCooked is not a model of real cooking. The stove-off end check is the same observation as the burner_knob_at_off_verified condition of thor_round1's pot task."
+      "notes": "Labelled compound: everything happens at one work zone (the cutting board beside the stove) in one sitting, with no reset between steps. Three net changes on one object (sliced, cooked, and inside(pan) on the potato); the burner goes off -> on -> off, so switched_off is a preserved end-state constraint reached through a transient articulation, and the knife's place in its holder is preserved. The order (slice and stow the knife, load the pan, burner on until every slice reads cooked, burner off) is an ordering constraint, and the checks in the procedure are verification steps, not checkpointed stages; this matches task_thor_r1_pot_fill_water_back_burner, also compound. THOR mapping: sliced(thor_object_potato_1) <-> Potato isSliced=true (replaced by PotatoSliced pieces); cooked(thor_object_potato_1) <-> isCooked=true on every PotatoSliced piece; raw <-> isCooked=false; inside(..., thor_resource_frying_pan) <-> each piece's parentReceptacles contains the Pan; switched_off(thor_resource_stove_burner_front) <-> StoveBurner isToggled=false, which THOR drives through the paired StoveKnob; on_top_of(pan, burner) <-> the Pan's parentReceptacles contains the front StoveBurner. StoveBurner, StoveKnob, Pan, Knife, and the cutting board are planning resources (the first two are iTHOR room-prefab parts). Whether a toggled-on burner cooks items inside a pan on it, rather than only items directly on the burner, must be confirmed in the simulator (see the planning condition). The whole task is simulation-only: it uses a blade and a live heat source, and THOR's isCooked is not a model of real cooking. The stove-off end check is the same observation as the burner_knob_at_off_verified condition of thor_round1's pot task."
     },
     {
       "id": "task_thor_r2_dining_table_clear_to_sink_and_cabinet",
@@ -2439,7 +2439,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round2",
-      "notes": "Goal: the potted plant stands on its drip saucer, centred and upright; a reviewer sees the pot base inside the saucer rim with an even margin. Labelled atomic: one object and one net change (floor -> saucer) in a single lift and place. upright holds at the start as well, so it is a preserved end-state constraint with a tolerance, not a second goal change. The task is placement with a centring tolerance on a heavy, top-heavy object, which is why it is kept as a task rather than a bare relocation. It differs from task_thor_r1_watering_can_fill_water_plant_return, which waters a plant and leaves it in place; no water is used here. THOR mapping: on_top_of(plant, saucer) <-> the HousePlant's parentReceptacles include the saucer receptacle (a Plate stands in, as THOR has no saucer type); upright <-> the plant's rotation within 5 degrees of vertical. HousePlant is Moveable, not CanPickup, so THOR cannot lift it; simulated goal checks need a teleport or push, which is a planning condition and an asset_compatibility limitation. isFilledWithLiquid is not part of the goal."
+      "notes": "Goal: the potted plant stands on its drip saucer, centred and upright; a reviewer sees the pot base inside the saucer rim with an even margin. Labelled atomic: one object and one net change (floor -> saucer) in a single lift and place. upright holds at the start as well, so it is a preserved end-state constraint with a tolerance, not a second goal change. The task is placement with a centring tolerance on a heavy, top-heavy object, which is why it is kept as a task rather than a bare relocation. It differs from task_thor_r1_watering_can_fill_water_plant_return, which waters a plant and leaves it in place; no water is used here. THOR mapping: on_top_of(plant, saucer) <-> the HousePlant's parentReceptacles include the saucer receptacle (a Plate stands in, as THOR has no saucer type); upright <-> the plant's rotation within 5 degrees of vertical. HousePlant is Moveable, not CanPickup, so THOR cannot lift it; simulated goal checks need a teleport or push, which is a planning condition and an asset_compatibility limitation. isFilledWithLiquid is not part of the goal. Close to task_gso_r3_square_pot_seat_in_saucer (GSO square pot set centred in its drip saucer on a windowsill shelf) but not a duplicate: that task carries a light pot holding an artificial plant in dry foam from a side table and has one goal predicate (centred_in); here a heavy, top-heavy potted plant is lifted off the floor after mopping and set on its saucer, upright is a preserved constraint, and in THOR the plant can only be pushed or teleported."
     },
     {
       "id": "task_thor_r2_box_pack_cd_cases_close_flaps",
@@ -2655,12 +2655,12 @@
         "skill_align",
         "skill_verify"
       ],
-      "granularity": "workflow",
+      "granularity": "compound",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round2",
-      "notes": "Goal: the sofa seat is free for sitting; both pillows stand against the backrest at the two ends, the blanket is folded and draped over the right arm, and the laptop is closed on the coffee table. Labelled workflow: three stages with a checkpoint after each (laptop off the seat first, then the blanket fold, then the pillows) and three destinations (coffee table, sofa arm, sofa ends). Goal changes: closed and relocated laptop, folded and relocated blanket, two pillows relocated and turned upright. Cross-link: the laptop is thor_object_laptop_1 from thor_round1; its closing and move to the coffee table repeat the goal of task_thor_r1_laptop_close_to_coffee_table as one stage of a larger reset, and the laptop is cleared first so the blanket and pillows are not handled over it. THOR mapping: on_top_of(x, sofa) <-> parentReceptacles include the Sofa; closed(laptop) <-> Laptop isOpen=false; on_top_of(laptop, coffee table) <-> parentReceptacles include the CoffeeTable. upright for the pillows is judged by the pillow's broad face standing within 20 degrees of the backrest; THOR Pillow has no pose state. folded and draped_over have no THOR equivalent (THOR has no blanket type and no cloth simulation), so they are physical-only checks; this is a planning condition and an asset_compatibility limitation."
+      "notes": "Goal: the sofa seat is free for sitting; both pillows stand against the backrest at the two ends, the blanket is folded and draped over the right arm, and the laptop is closed on the coffee table. Labelled compound: the coffee table, the right arm, and both sofa ends are all within reach of the sofa in one room and one sitting, so they are not separate destinations, and nothing is reset between steps. Clearing the laptop first, then folding the blanket, then setting the pillows is an ordering constraint, not a checkpointed stage. Goal changes: closed and relocated laptop, folded and relocated blanket, two pillows relocated and turned upright. Cross-link: the laptop is thor_object_laptop_1 from thor_round1; its closing and move to the coffee table repeat the goal of task_thor_r1_laptop_close_to_coffee_table as one stage of a larger reset, and the laptop is cleared first so the blanket and pillows are not handled over it. THOR mapping: on_top_of(x, sofa) <-> parentReceptacles include the Sofa; closed(laptop) <-> Laptop isOpen=false; on_top_of(laptop, coffee table) <-> parentReceptacles include the CoffeeTable. upright for the pillows is judged by the pillow's broad face standing within 20 degrees of the backrest; THOR Pillow has no pose state. folded and draped_over have no THOR equivalent (THOR has no blanket type and no cloth simulation), so they are physical-only checks; this is a planning condition and an asset_compatibility limitation."
     },
     {
       "id": "task_thor_r2_newspaper_bin_empty_to_kitchen_can",
@@ -3080,7 +3080,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round2",
-      "notes": "Workflow: three stages in three rooms (kitchen pickup, bathroom pickup, bedroom deposit) with a checkpoint after each pickup that the source spot is clear and the cloth is still held; two net changes (both cloths inside the hamper) plus a transient articulation (hamper lid opened then closed). closed on the hamper and dirty on both cloths hold at start and end and are preserved constraints, not goal changes; nothing is washed. Differs from task_gso_r2_kitchen_towels_swap_for_fresh_pack (one kitchen, swap for fresh towels) and task_thor_r1_washing_machine_load_start (loading the machine): here the goal is collecting from two rooms into a lidded hamper in a third. Atlas-to-THOR mapping: dirty <-> Cloth isDirty=true; inside <-> each cloth's parentReceptacles contains the LaundryHamper; open/closed <-> LaundryHamper isOpen (Laundry_Hamper_1_1 has Receptacle and CanOpen). The hamper is a planning resource here; part B of this round declares thor_object_laundry_hamper_1_1 (Laundry_Hamper_1_1), which can be bound in its place at merge. Part B's task_thor_r2_hamper_floor_clothes_lid_closed (bedroom floor clothes, one room, compound) uses the same hamper with a different scope."
+      "notes": "Workflow: three stages in three rooms (kitchen pickup, bathroom pickup, bedroom deposit) with a checkpoint after each pickup that the source spot is clear and the cloth is still held; two net changes (both cloths inside the hamper) plus a transient articulation (hamper lid opened then closed). closed on the hamper and dirty on both cloths hold at start and end and are preserved constraints, not goal changes; nothing is washed. Differs from task_gso_r2_kitchen_towels_swap_for_fresh_pack (one kitchen, swap for fresh towels) and task_thor_r1_washing_machine_load_start (loading the machine): here the goal is collecting from two rooms into a lidded hamper in a third. Atlas-to-THOR mapping: dirty <-> Cloth isDirty=true; inside <-> each cloth's parentReceptacles contains the LaundryHamper; open/closed <-> LaundryHamper isOpen (Laundry_Hamper_1_1 has Receptacle and CanOpen). task_thor_r2_hamper_floor_clothes_lid_closed (bedroom floor clothes, one room, compound) uses the same hamper with a different scope."
     },
     {
       "id": "task_thor_r2_garbage_bag_collect_bins_to_front_door",
@@ -3136,7 +3136,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "thor_round2",
-      "notes": "Workflow: four stages at four places (kitchen bag pickup, bathroom bin, bedroom bin, front door) with a checkpoint after each bin that it is empty and back on its floor mark; four goal predicates (two bins empty, bag closed, bag at the front-door spot). Each bin is lifted and returned, a transient move that must be reversed; its floor position is a preserved constraint. Scope: exactly these two wastebaskets and one bag; the kitchen bin is not part of the task. Differs from part B's task_thor_r2_newspaper_bin_empty_to_kitchen_can (one living-room liner to the kitchen can, with a fresh liner fitted): here two rooms' bins are consolidated into one bag left at the exit. Atlas-to-THOR mapping: empty(bin) <-> the GarbageCan's receptacleObjectIds is empty; at(bag, spot) <-> the GarbageBag position within 50 cm of the marked spot. GarbageBag_21_1 has only the Moveable flag (no Receptacle, no CanOpen), so THOR cannot put litter inside the bag or represent tied/untied; open/closed on the bag and the litter ending up in the bag are physical checks only. This is the planning condition thor_garbagebag_contents_and_tie_not_simulated and an asset_compatibility limitation. Bins, spots, and litter are planning resources."
+      "notes": "Workflow: four stages at four places (kitchen bag pickup, bathroom bin, bedroom bin, front door) with a checkpoint after each bin that it is empty and back on its floor mark; four goal predicates (two bins empty, bag closed, bag at the front-door spot). Each bin is lifted and returned, a transient move that must be reversed; its floor position is a preserved constraint. Scope: exactly these two wastebaskets and one bag; the kitchen bin is not part of the task. Differs from task_thor_r2_newspaper_bin_empty_to_kitchen_can (one living-room liner to the kitchen can, with a fresh liner fitted): here two rooms' bins are consolidated into one bag left at the exit. Atlas-to-THOR mapping: empty(bin) <-> the GarbageCan's receptacleObjectIds is empty; at(bag, spot) <-> the GarbageBag position within 50 cm of the marked spot. GarbageBag_21_1 has only the Moveable flag (no Receptacle, no CanOpen), so THOR cannot put litter inside the bag or represent tied/untied; open/closed on the bag and the litter ending up in the bag are physical checks only. This is the planning condition thor_garbagebag_contents_and_tie_not_simulated and an asset_compatibility limitation. Bins, spots, and litter are planning resources."
     }
   ],
   "planning": [
@@ -3465,8 +3465,8 @@
         },
         {
           "key": "condition",
-          "value": "mug_break_risk_declared",
-          "reason": "Safety: a ceramic mug can break; declare it or use an unbreakable surrogate."
+          "value": "unbreakable_mug_surrogate",
+          "reason": "Safety: a melamine or silicone mug the size of Mug_1 stands in for a ceramic mug, so a knock cannot break it."
         }
       ],
       "procedures": [
@@ -4249,7 +4249,7 @@
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Checkpoint 1: PotatoSliced pieces exist on the board; knife in holder."
+              "description": "Check that PotatoSliced pieces exist on the board and the knife is in its holder."
             },
             {
               "skill_id": "skill_grasp",
@@ -4273,7 +4273,7 @@
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Checkpoint 2: every slice reads isCooked=true."
+              "description": "Wait until every slice reads isCooked=true."
             },
             {
               "skill_id": "skill_toggle",
@@ -4281,7 +4281,7 @@
             },
             {
               "skill_id": "skill_verify",
-              "description": "Checkpoint 3: burner off, all slices cooked and in the pan, knife in holder."
+              "description": "Verify the burner is off, all slices are cooked and in the pan, and the knife is in its holder."
             }
           ],
           "requirements": [],
@@ -4338,8 +4338,8 @@
           "Reload the scene state so the potato is whole and raw on the board, the pan empty, and every knob off."
         ],
         "quality_checks": [
-          "Log the knob toggles with timestamps; the burner should be on only between checkpoint 1 and checkpoint 3.",
-          "Render the pan top-down at checkpoint 2."
+          "Log the knob toggles with timestamps; the burner should be on only after every slice is in the pan and until every slice reads cooked.",
+          "Render the pan top-down when every slice first reads cooked."
         ],
         "failure_modes": [
           "Slice left on the board",
@@ -4419,8 +4419,8 @@
         },
         {
           "key": "condition",
-          "value": "unbreakable_dishes_or_break_risk_declared",
-          "reason": "Safety: shatter-proof plate and cup, or the break risk is declared."
+          "value": "shatterproof_plate_and_cup",
+          "reason": "Safety: the plate and cup are melamine or polycarbonate, so a drop on the route or into the basin cannot break them."
         },
         {
           "key": "condition",
@@ -5449,11 +5449,6 @@
           "key": "condition",
           "value": "thor_has_no_blanket_or_cloth_fold_physical_check_only",
           "reason": "Simulation: THOR has no blanket type or cloth model, so folded and draped_over are checked only in physical collection."
-        },
-        {
-          "key": "condition",
-          "value": "stage_checkpoint_photographs",
-          "reason": "A photo is taken at each of the three stage checkpoints."
         }
       ],
       "procedures": [
@@ -5467,7 +5462,7 @@
             },
             {
               "skill_id": "skill_close",
-              "description": "Stage 1: close the laptop lid, checking nothing lies on the keyboard."
+              "description": "First close the laptop lid, checking nothing lies on the keyboard."
             },
             {
               "skill_id": "skill_grasp",
@@ -5475,11 +5470,11 @@
             },
             {
               "skill_id": "skill_place",
-              "description": "Carry it to the coffee table and lay it flat away from the edge; checkpoint: the laptop is closed on the table and off the seat."
+              "description": "Carry it to the coffee table and lay it flat away from the edge."
             },
             {
               "skill_id": "skill_grasp",
-              "description": "Stage 2: grasp two corners of the blanket's short edge."
+              "description": "Next grasp two corners of the blanket's short edge."
             },
             {
               "skill_id": "skill_align",
@@ -5487,11 +5482,11 @@
             },
             {
               "skill_id": "skill_place",
-              "description": "Drape the folded blanket over the right arm; checkpoint: the blanket is folded to about 40 x 65 cm on the arm."
+              "description": "Drape the folded blanket over the right arm at about 40 x 65 cm."
             },
             {
               "skill_id": "skill_lift",
-              "description": "Stage 3: lift the left pillow off the floor."
+              "description": "Last, lift the left pillow off the floor."
             },
             {
               "skill_id": "skill_orient",
@@ -5503,7 +5498,7 @@
             },
             {
               "skill_id": "skill_verify",
-              "description": "Final checkpoint: verify the middle seat is clear, both pillows stand at the ends, the blanket is folded on the arm, and the laptop is closed on the table."
+              "description": "Verify the middle seat is clear, both pillows stand at the ends, the blanket is folded on the arm, and the laptop is closed on the table."
             }
           ],
           "requirements": [],
@@ -5524,7 +5519,7 @@
           "Unfold the blanket back over the seat, reopen the laptop on the middle seat, and put the pillows back on the floor at the recorded spots."
         ],
         "quality_checks": [
-          "Stage photos show each checkpoint state.",
+          "Photos after the laptop, blanket, and pillow steps show each intermediate state.",
           "Measure the folded blanket's footprint at the end of each trial.",
           "Check the laptop for marks after each trial."
         ],
@@ -5611,11 +5606,6 @@
           "key": "condition",
           "value": "thor_has_no_liner_or_tie_state_physical_check_only",
           "reason": "Simulation: THOR models no liner, bag tie, or lidded GarbageCan, so only the newspaper's receptacle can be checked in the simulator."
-        },
-        {
-          "key": "condition",
-          "value": "stage_checkpoint_photographs",
-          "reason": "A photo is taken at each of the four stage checkpoints."
         }
       ],
       "procedures": [
@@ -7257,7 +7247,7 @@
       "id": "claim_thor_r2_potato_slice_pan_cook_burner_off_task_suitability",
       "subject_id": "task_thor_r2_potato_slice_pan_cook_burner_off",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed simulation-only cooking workflow that slices a potato, cooks the slices in a pan on the front burner, and ends with the burner off, for collection design review.",
+      "statement": "This is a proposed simulation-only cooking task that slices a potato, cooks the slices in a pan on the front burner, and ends with the burner off, for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -7769,7 +7759,7 @@
       "id": "claim_thor_r2_sofa_reset_pillows_blanket_laptop_task_suitability",
       "subject_id": "task_thor_r2_sofa_reset_pillows_blanket_laptop",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed living-room workflow that resets a sofa with pillows, a folded blanket, and a closed laptop, for collection design review.",
+      "statement": "This is a proposed living-room task that resets a sofa with pillows, a folded blanket, and a closed laptop, for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -8379,8 +8369,8 @@
     }
   ],
   "draft_notes": [
-    "thor_round2: 24 tasks on 24 further AI2-THOR / ProcTHOR assets (9 atomic, 9 compound, 6 workflow) across kitchen, living room, bedroom, bathroom, and multi-room contexts, drafted by three claude-opus-5-5 subagents with the thor_round1 review lessons applied, and merged.",
-    "thor_round2 part A: eight kitchen tasks anchored to AI2-THOR / ProcTHOR assets Fridge_1, Egg_1, coffee_machine_1, Lettuce_1, Kettle_1, Apple_1, Potato_1, and Dining_Table_16_1, drafted from data/research/thor_candidates.json (3 atomic, 3 compound, 2 workflow).",
+    "thor_round2: 24 tasks on 24 further AI2-THOR / ProcTHOR assets (9 atomic, 11 compound, 4 workflow after review; the potato cook and sofa reset tasks were relabelled compound) across kitchen, living room, bedroom, bathroom, and multi-room contexts, drafted by three claude-opus-5-5 subagents with the thor_round1 review lessons applied, and merged.",
+    "thor_round2 part A: eight kitchen tasks anchored to AI2-THOR / ProcTHOR assets Fridge_1, Egg_1, coffee_machine_1, Lettuce_1, Kettle_1, Apple_1, Potato_1, and Dining_Table_16_1, drafted from data/research/thor_candidates.json (3 atomic, 4 compound, 1 workflow after review).",
     "Evidence evidence_thor_task_design_round2 is defined in the skeleton data/drafts/thor_round2.json; catalog_identity claims cite the existing active evidence_procthor_asset_database from thor_round1. Neither is redefined here, and no scenes are added.",
     "Asset IDs, objectTypes, state flags, split values, and bounding boxes were checked against the asset database at commit d4c4c6a9fdd9679c8b9343d771c510016cd310df on 2026-09-25. None of the eight assets is an ObjectInstance in an active bundle or in Lane A's reference_gso_round1.json.",
     "State changes new to the THOR bundles: a refrigerator door and a fridge shelf placement, a coffee machine off-check with a mug in its slot, a cracked egg, a lidded kettle filled, an apple sliced into a bowl with the knife stowed, a potato sliced and pan-cooked with the burner off, and a dining table cleared to two destinations.",
@@ -8390,7 +8380,7 @@
     "Uncertain THOR mappings are planning conditions and asset_compatibility limitations: Fridge_1 door count, Fridge_1 shelf sub-receptacles, the egg crack action (SliceObject vs BreakObject), whether the Kettle fills with its lid closed, whether a burner cooks items inside a pan, the front knob-burner pairing, and ProcTHOR decor on the dining table.",
     "Concepts: object_kitchen_appliance, object_food_item, object_furniture, object_cookware, and object_fruit already exist; object_vegetable (lettuce, potato) is new, as proposed in thor_candidates.json.",
     "Eight new templates (template_thor_r2a_*). The round-1 slice and load-appliance templates were not reused because their goals differ (slices stay on the board; the item goes into a switched-off heating appliance).",
-    "Part B of thor_round2 (8 tasks: 3 atomic, 3 compound, 2 workflow): living-room and bedroom tidy-ups and state changes anchored to AI2-THOR / ProcTHOR assets Remote_1, Cellphone_3, Houseplant_1, Box_1, Book_1, Laundry_Hamper_1_1, RoboTHOR_sofa_kramfors, and Newspaper_1, drafted from data/research/thor_candidates.json.",
+    "Part B of thor_round2 (8 tasks: 3 atomic, 4 compound, 1 workflow after review): living-room and bedroom tidy-ups and state changes anchored to AI2-THOR / ProcTHOR assets Remote_1, Cellphone_3, Houseplant_1, Box_1, Book_1, Laundry_Hamper_1_1, RoboTHOR_sofa_kramfors, and Newspaper_1, drafted from data/research/thor_candidates.json.",
     "Scenes (scene_home_living_room, scene_home_bedroom, scene_multi_room_house) come from thor_round1. evidence_thor_task_design_round2 is defined in the skeleton data/drafts/thor_round2.json and evidence_procthor_asset_database in thor_round1; neither is redefined here, and no per-object evidence is created.",
     "Asset IDs, objectTypes, state flags, bounding boxes, and scene listings were checked against the asset database at commit d4c4c6a9fdd9679c8b9343d771c510016cd310df on 2026-09-25. RoboTHOR_sofa_kramfors was chosen over the candidate RoboTHOR_sofa_ektorp_v because ektorp lists no scenes.",
     "Cross-links: thor_object_laptop_1 (thor_round1) in the sofa reset; ycb_074_t_shirt as the worn T-shirt in the hamper task; gso_object_waste_basket (gso_round1) as the living-room bin in the bin-emptying workflow. Overlaps with task_thor_r1_laptop_close_to_coffee_table and task_gso_r1_waste_basket_replace_liner are single stages of larger workflows and are stated in the task notes.",
@@ -8402,12 +8392,13 @@
     "thor_round2 part C (8 tasks: 3 atomic, 3 compound, 2 workflow): bathroom sink faucet, bath towel, plunger, toilet paper, soap bottle refill, bathroom openables with Doorway_1, and two multi-room workflows (dirty cloths to the bedroom hamper; two wastebaskets into one garbage bag by the front door). Drafted from data/research/thor_candidates.json bathroom and multi_room candidates.",
     "Scenes and evidence are not redefined here: evidence_thor_task_design_round2 comes from the skeleton data/drafts/thor_round2.json, evidence_procthor_asset_database and scene_multi_room_house from thor_round1, and scene_home_bathroom from gso_round1.",
     "Asset IDs, objectTypes, bounding boxes, and state flags were checked against the asset database at commit d4c4c6a9fdd9679c8b9343d771c510016cd310df on 2026-09-25. None of the eight assets is an ObjectInstance in an active bundle.",
-    "Only the primary asset of each task is an ObjectInstance (thor_object_<asset slug>). Supporting items (towel bar, holder cup, hanger, spent core, refill jug, pump head, cabinet door, drawer, hamper, wastebaskets, spots) are thor_resource_* planning object requirements, not ObjectInstances or claims that matching assets exist. The hamper stays a resource so a hamper ObjectInstance from another part can be bound at merge.",
+    "Only the primary asset of each task is an ObjectInstance (thor_object_<asset slug>). Supporting items (towel bar, holder cup, hanger, spent core, refill jug, pump head, cabinet door, drawer, hamper, wastebaskets, spots) are thor_resource_* planning object requirements, not ObjectInstances or claims that matching assets exist.",
     "Cross-links: thor_object_toilet_1 (thor_round1) is the landmark in the plunger task and one of the four openables in the close-everything task. task_thor_r2_bathroom_sink_faucet_drip_off reuses template_thor_switch_device_off from thor_round1.",
     "Uncertain THOR mappings are planning conditions and asset_compatibility limitations: thor_faucet_drip_represented_as_istoggled_true, thor_soapbottle_usedup_reset_confirmed_in_simulator, thor_doorway_isopen_confirmed_in_simulator, thor_garbagebag_contents_and_tie_not_simulated.",
     "Safety: the faucet and soap-refill tasks declare robot_electronics_splash_protected; the faucet runs cold or dry-run; soap is replaced by tinted water; the plunger is new and unused; litter and cloth soiling are dry surrogates. No powered device is involved.",
     "No new Atlas concepts: object_home_fixture (faucet, doorway), object_textile (towel, cloth), object_cleaning_tool (plunger), object_paper_item (toilet paper), object_personal_care_container (hand-soap bottle), object_receptacle (garbage bag).",
     "Seven new templates (template_thor_r2c_*); each lists the scenes it is used in.",
-    "Merge: the two-room cloth workflow now binds part B's thor_object_laundry_hamper_1_1 instead of a separate hamper resource."
+    "Merge: the two-room cloth workflow binds thor_object_laundry_hamper_1_1 (declared with task_thor_r2_hamper_floor_clothes_lid_closed) instead of a separate hamper resource.",
+    "Activated 2026-09-25 after an independent Claude review (data/reviews/thor_round2.md) with all findings addressed; the Codex cross-lane review is still pending."
   ]
 }

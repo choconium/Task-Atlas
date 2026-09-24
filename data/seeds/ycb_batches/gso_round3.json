@@ -1728,7 +1728,7 @@
       "preconditions": [
         "unfolded(theme)",
         "lying_flat_on(theme, surface)",
-        "outside(theme, template)"
+        "half_over(theme, template)"
       ],
       "goals": [
         "folded_to_template(theme, template)"
@@ -2012,7 +2012,8 @@
         "theme": "plant_pot",
         "saucer": "drip_saucer",
         "support": "windowsill_or_shelf",
-        "start": "staging_surface"
+        "start": "staging_surface",
+        "filler": "lightweight_pot_filler"
       },
       "compatible_scenes": [
         "scene_home_living_room",
@@ -2021,7 +2022,8 @@
       "preconditions": [
         "on_top_of(theme, start)",
         "on_top_of(saucer, support)",
-        "empty(saucer)"
+        "empty(saucer)",
+        "inside(filler, theme)"
       ],
       "goals": [
         "centred_in(theme, saucer)"
@@ -2684,12 +2686,12 @@
         "skill_release",
         "skill_verify"
       ],
-      "granularity": "workflow",
+      "granularity": "compound",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round3",
-      "notes": "Goal: two packed lunches each gain one sealed cupcake pack and are closed, and the snack carton goes back to the pantry. Labelled workflow: three destinations (two lunch boxes and the pantry shelf) and a checkpoint stage (one sealed pack per box, below the rim, before any lid closes). Cross-link: lunch box A is the round-2 GSO lunch box (gso_object_lunch_box_dot); its latched_closed goal is the same predicate as task_gso_r2_lunch_box_latch_lid, which is one stage here. The carton starts open on the counter with its sealed packs inside; the packs stay sealed and are not eaten. The pantry snack shelf is part of scene_home_kitchen."
+      "notes": "Goal: two packed lunches each gain one sealed cupcake pack and are closed, and the snack carton goes back to the pantry. Labelled compound: six goal predicates on four objects in one sitting; both lunch boxes and the carton start in one packing zone, so the boxes are one location, and the only carry is the carton to the pantry shelf. The check that each box holds one sealed pack below the rim before any lid closes is an ordering constraint, not a stage boundary, because the lids are not sealed and can be reopened for review. Cross-link: lunch box A is the round-2 GSO lunch box (gso_object_lunch_box_dot); its latched_closed goal is the same predicate as task_gso_r2_lunch_box_latch_lid, which is one step here. The carton starts open on the counter with its sealed packs inside; the packs stay sealed and are not eaten. The pantry snack shelf is part of scene_home_kitchen."
     },
     {
       "id": "task_gso_r3_drying_rack_unload_bowl_plate_spoons",
@@ -3117,15 +3119,15 @@
       "initial_state": [
         "unfolded(gso_object_dish_towel_waffle_gray)",
         "lying_flat_on(gso_object_dish_towel_waffle_gray, gso_resource_folding_counter)",
-        "outside(gso_object_dish_towel_waffle_gray, gso_resource_drawer_footprint_template)"
+        "half_over(gso_object_dish_towel_waffle_gray, gso_resource_drawer_footprint_template)"
       ],
       "goal_state": [
         "folded_to_template(gso_object_dish_towel_waffle_gray, gso_resource_drawer_footprint_template)"
       ],
       "instruction_variants": [
-        "Fold the grey dish towel in thirds along its length, then in half, and lay it square inside the drawer template outline.",
+        "Fold the grey dish towel in thirds along its length, then fold the far half back over the outline so it lies square inside it.",
         "Fold this towel so it fits the marked rectangle for the linen drawer.",
-        "グレーのふきんを長い辺に沿って三つ折りにし、さらに半分に折って、引き出し用の型の枠内にまっすぐ置いてください。"
+        "グレーのふきんを長い辺に沿って三つ折りにし、奥側の半分を型の上に折り返して、枠内にまっすぐ収めてください。"
       ],
       "skills": [
         "skill_locate",
@@ -3142,7 +3144,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round3",
-      "notes": "Goal: the towel is folded to the template: in thirds along its length, then once across, and lying inside the 16 x 34 cm outline. Labelled atomic: one object and one goal predicate, reached in one uninterrupted fold sequence at one surface; lying inside the outline is part of that predicate's test, not a second relocation, because the outline is drawn on the folding counter next to where the towel starts. folded_to_template means six layers from the fold sequence, all four folded edges within 1.5 cm of the outline and none outside it, and no corner turned under. Distinct from task_ycb_round5_table_cloth_fold_grid: that task folds along a crease grid marked on the cloth, while this one has no marks on the towel and scores only the final footprint against a drawer-slot template."
+      "notes": "Goal: the towel is folded to the template: in thirds along its length, then once across, and lying inside the 16 x 34 cm outline. Labelled atomic: one object and one goal predicate reached in one uninterrupted fold sequence in place. The towel starts unfolded with one half already lying over the outline (its long centre line on the outline's long axis and its mid-length line on one short edge of the outline), so the thirds folds happen over the outline and the final half fold lays the far half back onto it; the outline checks only the folded footprint, and there is no relocation. half_over means the near half of the towel covers the outline and the far half lies beyond that short edge. folded_to_template means six layers from the fold sequence, all four folded edges within 1.5 cm of the outline and none outside it, and no corner turned under. Distinct from task_ycb_round5_table_cloth_fold_grid: that task folds along a crease grid marked on the cloth, while this one has no marks on the towel and scores only the final footprint against a drawer-slot template."
     },
     {
       "id": "task_gso_r3_bootie_handover_seated_person",
@@ -3404,7 +3406,8 @@
         "theme": "gso_object_ecoforms_quadra_square_pot",
         "saucer": "gso_resource_square_drip_saucer",
         "support": "gso_resource_windowsill_shelf",
-        "start": "gso_resource_side_table"
+        "start": "gso_resource_side_table",
+        "filler": "gso_resource_artificial_plant_in_dry_foam"
       },
       "state_ids": [
         "state_on_surface",
@@ -3414,7 +3417,8 @@
       "initial_state": [
         "on_top_of(gso_object_ecoforms_quadra_square_pot, gso_resource_side_table)",
         "on_top_of(gso_resource_square_drip_saucer, gso_resource_windowsill_shelf)",
-        "empty(gso_resource_square_drip_saucer)"
+        "empty(gso_resource_square_drip_saucer)",
+        "inside(gso_resource_artificial_plant_in_dry_foam, gso_object_ecoforms_quadra_square_pot)"
       ],
       "goal_state": [
         "centred_in(gso_object_ecoforms_quadra_square_pot, gso_resource_square_drip_saucer)"
@@ -3439,7 +3443,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round3",
-      "notes": "Goal: the pot base sits flat and centred inside the drip saucer. Labelled atomic: one object and one goal predicate in one carry-and-place motion; centring and flatness are pose qualifiers of that placement. The saucer stays on the windowsill shelf throughout; that is a preservation check, not a goal change. The pot holds a lightweight artificial plant in dry foam so no soil or water is handled. The GSO saucer model Ecoforms_Plant_Saucer_S14NATURAL is a 14 in round saucer that is not assumed to fit this pot, so the saucer is a planning resource sized to the pot."
+      "notes": "Goal: the pot base sits flat and centred inside the drip saucer. Labelled atomic: one object and one goal predicate in one carry-and-place motion; centring and flatness are pose qualifiers of that placement. The saucer stays on the windowsill shelf throughout, and the faux plant in dry foam stays inside the pot; both are preservation checks, not goal changes. The faux plant is the load behind the potted_mass_within_payload_confirmed condition, so no soil or water is handled. Twin of task_thor_r2_houseplant_back_on_drip_saucer (thor_round2), which has the same centred-on-saucer goal: that task lifts a live plant of up to 4 kg in a plastic pot off the floor after mopping, while this one carries a light empty GSO pot filled with a faux plant from a side table to a windowsill, so the load, the start place, and the lift height differ. The GSO saucer model Ecoforms_Plant_Saucer_S14NATURAL is a 14 in round saucer that is not assumed to fit this pot, so the saucer is a planning resource sized to the pot."
     },
     {
       "id": "task_gso_r3_file_sorter_folders_tab_order",
@@ -4635,7 +4639,7 @@
       "procedures": [
         {
           "id": "procedure_gso_r3_cupcakes_pack_two_lunch_boxes_shelve_carton",
-          "label": "Pack, checkpoint, close, shelve",
+          "label": "Pack, check, close, shelve",
           "steps": [
             {
               "skill_id": "skill_locate",
@@ -4663,7 +4667,7 @@
             },
             {
               "skill_id": "skill_inspect",
-              "description": "Checkpoint: one intact sealed pack in each box, all contents below the rim."
+              "description": "Check before closing: one intact sealed pack in each box, all contents below the rim."
             },
             {
               "skill_id": "skill_close",
@@ -4700,7 +4704,7 @@
       ],
       "collection": {
         "success_criteria": [
-          "Checkpoint photograph before closing: lunch box A and lunch box B each hold exactly one sealed cupcake pack, with no tear visible and the pack wholly below the rim.",
+          "Photograph before closing: lunch box A and lunch box B each hold exactly one sealed cupcake pack, with no tear visible and the pack wholly below the rim.",
           "Lunch box A's latch is engaged, and lifting the box 5 cm by its handle does not open the lid.",
           "Lunch box B's lid is seated all round with no gap over 1 mm.",
           "The carton's flaps are closed with the tab tucked, with no gap over 5 mm.",
@@ -4715,7 +4719,7 @@
           "Open both lunch boxes, return the two packs to the carton, and bring the carton back to the packing zone open."
         ],
         "quality_checks": [
-          "Checkpoint photograph of both open boxes.",
+          "Pre-closure photograph of both open boxes.",
           "Latch lift test.",
           "Photograph of the carton in the shelf lane."
         ],
@@ -5902,11 +5906,11 @@
       "procedures": [
         {
           "id": "procedure_gso_r3_dish_towel_fold_to_drawer_template",
-          "label": "Fold in thirds, then in half, onto the outline",
+          "label": "Fold in thirds over the outline, then fold the far half back",
           "steps": [
             {
               "skill_id": "skill_locate",
-              "description": "Locate the flat towel and the template outline."
+              "description": "Locate the flat towel and the outline under its near half."
             },
             {
               "skill_id": "skill_grasp",
@@ -5922,11 +5926,11 @@
             },
             {
               "skill_id": "skill_lift",
-              "description": "Lift the folded strip by its short ends."
+              "description": "Lift the far end of the folded strip by its corners."
             },
             {
               "skill_id": "skill_align",
-              "description": "Fold it in half across and square it over the outline."
+              "description": "Fold it back across the mid-length line and square it over the outline."
             },
             {
               "skill_id": "skill_release",
@@ -5952,10 +5956,10 @@
           "No corner is turned under."
         ],
         "setup": [
-          "Tape the 16 x 34 cm outline on the folding counter and lay the towel flat and fully unfolded beside it, not overlapping the outline."
+          "Tape the 16 x 34 cm outline on the folding counter. Lay the towel flat and fully unfolded with its 66 cm length along the outline's long axis, its long centre line on that axis, and its mid-length line on one short edge of the outline, so the near half covers the outline and the far half lies beyond it."
         ],
         "reset": [
-          "Unfold the towel and lay it flat beside the outline again."
+          "Unfold the towel and lay it flat in the same start position, near half over the outline."
         ],
         "quality_checks": [
           "Top-down photo against a millimetre scale.",
@@ -6857,7 +6861,8 @@
         "success_criteria": [
           "On a top-down photograph, the pot base centre is within 10 mm of the saucer centre and no part of the pot base rests on the saucer rim.",
           "A spirit level laid across the pot rim reads within 3 degrees of level.",
-          "Preservation check: the saucer has moved no more than 10 mm on the shelf."
+          "Preservation check: the saucer has moved no more than 10 mm on the shelf.",
+          "Preservation check: the faux plant is still seated in the pot's foam and has not lifted or tipped."
         ],
         "setup": [
           "Set the saucer at its marked spot on the sill.",
@@ -7850,7 +7855,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The scan is the bare pan as one rigid mesh with no mass data; it has no water, no drip or draining behaviour, and no wet-surface friction, so the rinsed start state and the drain-while-inverted outcome cannot be represented by the scan; the wire rack is not a GSO model in this task."
     },
     {
       "id": "claim_gso_r3_casserole_dish_set_on_table_trivet_task_suitability",
@@ -7900,7 +7905,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The scan is the uncovered stoneware dish with no mass data and no contents, so the loaded weight and the food surrogate cannot be represented by the scan, and the scan says nothing about stoneware breakage; the trivet and table are not GSO models in this task."
     },
     {
       "id": "claim_gso_r3_fruit_snacks_box_stand_in_kids_snack_bin_task_suitability",
@@ -7950,7 +7955,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The scan is the closed retail carton as one rigid mesh; the open start state, the opening flap, and the pouches inside are not represented, and the carton's mass and centre of mass with pouches inside are unknown."
     },
     {
       "id": "claim_gso_r3_herring_tin_rotate_behind_older_tuna_can_task_suitability",
@@ -8000,7 +8005,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The scan is the sealed tin with no mass data or contents; the best-before date is not legible in the scan, so the date comparison depends on the added stickers, and the row and the YCB tuna can come from different asset sources."
     },
     {
       "id": "claim_gso_r3_parchment_sheet_line_pan_return_box_task_suitability",
@@ -8050,7 +8055,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The scan is the closed retail carton as one rigid mesh; the open start state, the end flap, and the parchment sheet are not represented, and laying a thin sheet flat inside a pan needs a separate deformable asset."
     },
     {
       "id": "claim_gso_r3_sprinkles_close_cap_return_to_caddy_slot_task_suitability",
@@ -8100,13 +8105,13 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The scan shows the bottle closed with the cap cover fused to the cap, so the open start state and the closing motion cannot be represented by the scan; the loose sprinkles inside and the bottle's filled mass are not modelled."
     },
     {
       "id": "claim_gso_r3_cupcakes_pack_two_lunch_boxes_shelve_carton_task_suitability",
       "subject_id": "task_gso_r3_cupcakes_pack_two_lunch_boxes_shelve_carton",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed household lunch-packing workflow that portions sealed cupcake packs into two lunch boxes, closes them, and shelves the carton, for collection design review.",
+      "statement": "This is a proposed household lunch-packing task that portions sealed cupcake packs into two lunch boxes, closes them, and shelves the carton, for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
@@ -8150,7 +8155,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The scan is the closed retail carton as one rigid mesh; the open start state, the flaps and tuck tab, and the sealed packs inside are not represented, the packs are soft items the scan does not model, and the lunch box scan's latch is not a separate part."
     },
     {
       "id": "claim_gso_r3_drying_rack_unload_bowl_plate_spoons_task_suitability",
@@ -8200,7 +8205,7 @@
       "unit": null,
       "source_ids": [],
       "scope": "No simulator, robot, or Task Atlas asset configuration is attached.",
-      "limitations": "A rigid GSO scan cannot by itself represent the articulated, deformable, or material interactions this task needs."
+      "limitations": "The bowl and plate scans are rigid meshes with no mass data; they have no water, droplets, or drip behaviour, so the wet start state and the dryness checkpoints cannot be represented by the scans; the rack, stacks, spoons, and drawer are not GSO models in this task."
     },
     {
       "id": "claim_gso_object_bath_towel_pink_damask_catalog_identity",
@@ -9228,16 +9233,16 @@
     }
   ],
   "draft_notes": [
-    "gso_round3: 24 tasks on 24 further GSO models (9 atomic, 9 compound, 6 workflow), drafted by three claude-opus-5-5 subagents with the gso_round1/2 review lessons applied, and merged.",
-    "gso_round3 part A: eight kitchen, dining, and pantry tasks on eight new Google Scanned Objects models (bundt pan, oblong casserole dish, fruit snack carton, herring tin, parchment sheet box, gold sprinkles bottle, chocolate cupcake carton, bead cereal bowl). Merges into data/drafts/gso_round3.json, which defines evidence_gso_task_design_round3.",
-    "Granularity: three atomic (bundt pan inverted to drain, casserole dish on trivet, fruit snack carton stood in bin), three compound (pantry rotation by date, lining a pan with parchment, sprinkles closed and slotted), two workflow (lunch packing to three destinations, drying-rack unloading to three stores with dryness checkpoints).",
+    "gso_round3: 24 tasks on 24 further GSO models (9 atomic, 10 compound, 5 workflow).",
+    "gso_round3 part A: eight kitchen, dining, and pantry tasks on eight new Google Scanned Objects models (bundt pan, oblong casserole dish, fruit snack carton, herring tin, parchment sheet box, gold sprinkles bottle, chocolate cupcake carton, bead cereal bowl).",
+    "Granularity: three atomic (bundt pan inverted to drain, casserole dish on trivet, fruit snack carton stood in bin), four compound (pantry rotation by date, lining a pan with parchment, sprinkles closed and slotted, lunch packing in one packing zone with one carry to the shelf), one workflow (drying-rack unloading to three stores with dryness checkpoints).",
     "New goals for the atlas: first-in-first-out rotation by date, lining a pan, labelled-slot baking-caddy organisation, lunch packing, and drying-rack unloading. Hang, stack-with-protector, and plain shelving patterns from gso_round1/2 are avoided.",
     "Cross-links (referenced, not redefined): ycb_007_tuna_fish_can is the older stock in the rotation task; gso_object_lunch_box_dot (gso_round2) is lunch box A; gso_object_square_dinner_plate (gso_round2) is unloaded from the drying rack.",
     "Thumbnails checked on Gazebo Fuel: the casserole dish is scanned without a lid (task uses it uncovered); the fruit snacks model is a closed carton whose front reads Fruit Medley despite the Grape model name; the herring, parchment, and cupcake models are retail packages and are named as such. Orbit_Bubblemint_Mini_Bottle_6_ct was dropped because its scan is a six-bottle retail carton, not the hanging mini bottle the candidate idea needed.",
     "Templates: eight new template_gso_r3a_* templates, each listing its task's scene. No new concept or scene: objects use object_cookware, object_food_container, object_paper_item, and object_dish.",
     "Resource IDs beginning gso_resource_ are planning object requirements (racks, stacks, bins, stickers, surrogates), not cataloged ObjectInstances; gso_resource_trivet, gso_resource_pantry_staging_surface, gso_resource_counter_packing_zone, and gso_resource_drying_towel reuse names from earlier GSO rounds.",
     "Wet tasks (bundt pan, drying rack) declare robot_electronics_splash_protected. Food is sealed, surrogate, or not eaten; the casserole is served at room temperature. Every GSO scan is a single rigid mesh; flaps, caps, sheets, packs, water, and contents are real-object behaviour, so every asset_compatibility claim stays unknown.",
-    "gso_round3 part B (8 tasks): pink bath towel, olive washcloth, Reebok jogger, scrap collector, hair straightener, waffle dish towel, Teva bootie, hair-colour kit box. Groups: cleaning_laundry, bathroom_personal_care, footwear_clothing. Built on the skeleton data/drafts/gso_round3.json, which defines evidence_gso_task_design_round3.",
+    "gso_round3 part B (8 tasks): pink bath towel, olive washcloth, Reebok jogger, scrap collector, hair straightener, waffle dish towel, Teva bootie, hair-colour kit box. Groups: cleaning_laundry, bathroom_personal_care, footwear_clothing.",
     "Granularity: 3 atomic (dish towel fold to template, bootie handover, hair-colour box above child reach), 3 compound (jogger pairing into a shoe bag, scrap collector hook-and-sweep, straightener clip-and-drawer), 2 workflow (laundry sort by colour then load, toiletry kit restock against a checklist).",
     "New scene scene_home_laundry_area (laundry sort and dish-towel fold). Other tasks use scene_home_bathroom, scene_home_entryway, scene_home_bedroom, and scene_kitchen_counter.",
     "Cross-links: ycb_074_t_shirt is sorted in the laundry workflow (its class is recorded at setup because its record gives no colour); gso_object_waste_basket (gso_round1) is the toiletry-kit discard bin; gso_object_tennis_shoe (gso_round1) is the decoy the jogger pairing must reject. None is redefined here.",
@@ -9246,10 +9251,12 @@
     "Concepts: all objects reuse existing Atlas concepts (object_textile, object_footwear, object_receptacle, object_electronic_device, object_personal_care_container). No new concept.",
     "Safety: the washer is unplugged or isolated and no cycle is started; the straightener is never powered and its plates must read 35 C or less; travel bottles hold water only; the hair-colour box is sealed or an empty carton; the handover limits approach speed and releases only on a confirmed grip; peelings are dry foam surrogates. No task uses water, so none declares robot_electronics_splash_protected.",
     "Resource IDs beginning gso_resource_ are planning object requirements, not cataloged ObjectInstances or claims that matching assets exist. All GSO scans are single rigid meshes; folding, rolling, drawstrings, zips, clips, cords, and handover grip are real-object behaviour, so every asset_compatibility claim stays unknown.",
-    "gso_round3 part C: eight tasks on eight new Google Scanned Objects models from the toys, office, electronics, and storage groups (Jenga tower, shape-sorting clock toy, Crosley alarm clock, Poppin wire file sorter, Seagate portable drive, JBL Charge speaker, Curver woven storage bin, Ecoforms square pot). Mix: 3 atomic, 3 compound, 2 workflow. Merges into data/drafts/gso_round3.json, which defines evidence_gso_task_design_round3.",
+    "gso_round3 part C: eight tasks on eight new Google Scanned Objects models from the toys, office, electronics, and storage groups (Jenga tower, shape-sorting clock toy, Crosley alarm clock, Poppin wire file sorter, Seagate portable drive, JBL Charge speaker, Curver woven storage bin, Ecoforms square pot). Mix: 3 atomic, 3 compound, 2 workflow.",
     "gso_round3 part C goals chosen to avoid the store/hang patterns of rounds 1 and 2: a game start position (Jenga tower, toy clock at 12:00), a device setting (alarm pointer), filing order, charging-station cable management, bin sorting and labelling, and packing a shipping box.",
     "gso_round3 part C thumbnails: all eight Fuel thumbnails were checked on 2026-09-25. None is a retail package. The Jenga model is a built tower, not the box, and the clock toy's hands are fused into the board mesh; the object notes say so.",
     "gso_round3 part C cross-links: task_gso_r3_storage_bins_sort_label_shelve uses the active objects gso_object_gaffer_tape_roll (gso_round2) and ycb_038_padlock as sorted items.",
-    "gso_round3 part C: the model-name check covered all active bundles, the drafts in data/drafts, and Lane A's reference_gso_round1.json in the main checkout (case-insensitive asset_source_id); none of the eight models is used there."
+    "gso_round3 part C: the model-name check covered all active bundles, the drafts in data/drafts, and Lane A's reference_gso_round1.json in the main checkout (case-insensitive asset_source_id); none of the eight models is used there.",
+    "Review (data/reviews/gso_round3.md) applied: part-A asset_compatibility limitations now name each task's gap, the cupcake lunch-packing task is compound, the dish towel starts half over its outline so the fold happens in place, and the square pot is cross-linked to task_thor_r2_houseplant_back_on_drip_saucer with the faux plant in its initial state. Task IDs are unchanged.",
+    "Activated 2026-09-25 after an independent Claude review (data/reviews/gso_round3.md) with all findings addressed; the Codex cross-lane review is still pending."
   ]
 }
