@@ -2619,7 +2619,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "gso_round2",
-      "notes": "Goal: the closed bottle stands upright in its organizer compartment, label out. Labelled atomic: one object and one placement with an orientation, in one motion; upright and label_front are the pose of that placement. The bottle is supplied closed, so no cap action is part of the task. Contents are replaced with a water surrogate."
+      "notes": "Goal: the closed bottle stands upright in its organizer compartment, label out. Labelled atomic: one object and one placement with an orientation, in one motion; upright and label_front are the pose of that placement. The bottle is supplied closed, so no cap action is part of the task. Contents are replaced with a water surrogate. Related Lane A task: task_reference_gso_round1_bottle_store_organizer also places an upright bathroom bottle in an organizer. This task is kept separate because its goal adds a label-forward orientation inside a named vanity compartment (label_front), which the Lane A task does not require; the two can be collected as variants of one placement family."
     },
     {
       "id": "task_gso_r2_rubber_gloves_hang_to_drain",
