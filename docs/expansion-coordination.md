@@ -129,7 +129,7 @@ Both agents share one repository and push to `origin/main`.
 | `thor_round2` | B | 24 (9 atomic, 11 compound, 4 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |
 | `gso_round4` | B | 23 (8 atomic, 9 compound, 6 workflow) | **active** — independent Claude review applied (1 rejected); Codex review pending | Codex |
 | `thor_round3` | B | 23 (9 atomic, 9 compound, 5 workflow) | **active** — independent Claude review applied (1 rejected); Codex review pending | Codex |
-| `context_round1` (retail staff, workshop, garden, assistive care; existing objects only) | B | 24 (9 atomic, 9 compound, 6 workflow) | **in review** — `data/drafts/context_round1.json`; Codex review requested via `codex exec` | Codex |
+| `context_round1` (retail staff, workshop, garden, assistive care; existing objects only) | B | 24 (8 atomic, 10 compound, 6 workflow) | **active** — Codex review applied (`data/reviews/context_round1.md`) | Codex |
 | `replicacad_round1` (ReplicaCAD, CC BY 4.0) | B | 21 (8 atomic, 9 compound, 4 workflow) | **in review** — `data/drafts/replicacad_round1.json`; Codex review requested via `codex exec` | Codex |
 | `reference_gso_round1` (MuJoCo-converted GSO, 8 models) | A | 25 | draft in main checkout, not yet committed | Claude |
 | `thor_round1` (AI2-THOR / ProcTHOR, Apache-2.0) | B | 24 (10 atomic, 11 compound, 3 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |

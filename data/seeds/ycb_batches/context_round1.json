@@ -990,7 +990,8 @@
       "roles": {
         "theme": "screw_lid_jar",
         "surface": "non_slip_mat",
-        "recipient": "seated_resident"
+        "recipient": "seated_resident",
+        "lid": "screw_lid"
       },
       "compatible_scenes": [
         "scene_assisted_living_room"
@@ -1001,12 +1002,16 @@
         "seated_at(recipient, surface)"
       ],
       "goals": [
-        "open(theme)"
+        "open(theme)",
+        "detached(lid, theme)",
+        "inside_up(lid)",
+        "next_to(lid, theme)"
       ],
       "skills": [
         "skill_locate",
         "skill_grasp",
         "skill_open",
+        "skill_orient",
         "skill_place",
         "skill_release",
         "skill_verify"
@@ -2351,7 +2356,8 @@
       "bindings": {
         "theme": "gso_object_instant_coffee_jar",
         "surface": "ctx_resource_non_slip_mat_over_bed_table",
-        "recipient": "ctx_resource_resident_seated_at_over_bed_table"
+        "recipient": "ctx_resource_resident_seated_at_over_bed_table",
+        "lid": "ctx_resource_instant_coffee_jar_lid"
       },
       "state_ids": [
         "state_closed",
@@ -2365,7 +2371,10 @@
         "seated_at(ctx_resource_resident_seated_at_over_bed_table, ctx_resource_over_bed_table)"
       ],
       "goal_state": [
-        "open(gso_object_instant_coffee_jar)"
+        "open(gso_object_instant_coffee_jar)",
+        "detached(ctx_resource_instant_coffee_jar_lid, gso_object_instant_coffee_jar)",
+        "inside_up(ctx_resource_instant_coffee_jar_lid)",
+        "next_to(ctx_resource_instant_coffee_jar_lid, gso_object_instant_coffee_jar)"
       ],
       "instruction_variants": [
         "Open the coffee jar for the resident: unscrew the lid and set it down inside-up next to the jar. Leave the jar where it is.",
@@ -2376,16 +2385,17 @@
         "skill_locate",
         "skill_grasp",
         "skill_open",
+        "skill_orient",
         "skill_place",
         "skill_release",
         "skill_verify"
       ],
-      "granularity": "atomic",
+      "granularity": "compound",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "context_round1",
-      "notes": "Goal: the jar is open where it stands in front of the resident. Labelled atomic: one object and one goal change (closed to open) with the jar starting in place and not moved; resting the removed lid inside-up is part of the opening motion, and the jar's position is a preserved condition (its base moves at most 3 cm). open(jar) means the lid is fully off the threads and no part of it is on the jar mouth. The robot only opens the jar; it does not hand it over or serve its contents, so the resident takes the jar themselves. The lid is pre-tightened to 1.2 N m at setup with a jar-lid torque gauge, a torque many people with reduced grip strength report as hard, so the task is a plausible request without any judgement of the participant's ability. The foil seal was removed before the session and the jar holds its dry granules. Inverse of task_gso_r2_instant_coffee_jar_screw_lid, which screws the same jar fully closed in a kitchen with no person present; here the jar is opened on an over-bed table in front of a seated resident. A lid-open request is also the setup of task_ycb_round4_pitcher_open_for_refill, which opens an empty pitcher in the kitchen for a refill, not for a person, and task_mustard_l1_02 opens the mustard cap so the bottle can dispense; here the opening is done for a person who then uses the jar themselves."
+      "notes": "Goal: the jar is open where it stands in front of the resident and its detached lid rests inside-up on the mat beside it, within 15 cm. Labelled compound: two parts and four goal predicates in one sitting (the jar opens, the lid is detached, it rests inside-up, and it lies next to the jar), because the instruction asks for the lid to be set down inside-up beside the jar; the jar's position is a preserved condition (its base moves at most 3 cm). The lid is the jar's own threaded cap; the GSO scan fuses it to the jar, so it is a ctx_resource_ part here, not a catalogued object. open(jar) means the lid is fully off the threads and no part of it is on the jar mouth. The robot only opens the jar; it does not hand it over or serve its contents, so the resident takes the jar themselves. The lid is pre-tightened to 1.2 N m at setup with a jar-lid torque gauge, a fixed setup torque so trials are repeatable; the task makes no judgement of the participant's ability. The foil seal was removed before the session and the jar holds its dry granules. Inverse of task_gso_r2_instant_coffee_jar_screw_lid, which screws the same jar fully closed in a kitchen with no person present; here the jar is opened on an over-bed table in front of a seated resident. A lid-open request is also the setup of task_ycb_round4_pitcher_open_for_refill, which opens an empty pitcher in the kitchen for a refill, not for a person, and task_mustard_l1_02 opens the mustard cap so the bottle can dispense; here the opening is done for a person who then uses the jar themselves."
     },
     {
       "id": "task_ctx_r1_tv_remote_fetch_to_bedside_spot_keypad_up",
@@ -3483,6 +3493,21 @@
           "key": "condition",
           "value": "all_items_sealed_shelf_stable",
           "reason": "Food hygiene: all items are sealed and shelf-stable and are trial stock."
+        },
+        {
+          "key": "condition",
+          "value": "checkout_lane_closed_no_customers_within_2_m",
+          "reason": "Workplace safety: the checkout lane is closed with a lane-closed sign and a stanchion at the belt end, so no customer is within 2 m of the bagging counter during the trial."
+        },
+        {
+          "key": "condition",
+          "value": "staff_outside_taped_reach_zone_during_motion",
+          "reason": "Workplace safety: a floor-taped zone marks the arm's full reach around the bagging counter plus 0.5 m; the cashier and operator stand outside it while the arm moves, and the arm pauses if a person crosses the tape."
+        },
+        {
+          "key": "condition",
+          "value": "arm_speed_capped_0_25_m_s_near_people",
+          "reason": "Workplace safety: arm speed is at most 0.25 m/s whenever a person is within 1 m of the reach-zone tape."
         }
       ],
       "procedures": [
@@ -3536,9 +3561,11 @@
           "The soup can and sugar box both touch the bag floor, from an overhead photograph taken before the carton goes in.",
           "The cupcake carton lies above both heavy items, tilted no more than 15 degrees from horizontal, from an overhead photograph.",
           "The carton's top panel shows no dent deeper than 3 mm, checked against a straight edge after the trial.",
-          "The counter is clear and the bag is still standing."
+          "The counter is clear and the bag is still standing.",
+          "No person entered the taped reach zone while the arm was moving, or the arm paused each time one did, from the wide-angle video and the controller log."
         ],
         "setup": [
+          "Close the lane with its sign and stanchion, and tape the reach zone (full arm reach plus 0.5 m) on the floor around the bagging counter.",
           "Stand the bag open in its holder.",
           "Put the cupcake carton on the counter nearest the bag, then the soup can, then the sugar box, as if they came off the belt in that order."
         ],
@@ -3547,13 +3574,16 @@
         ],
         "quality_checks": [
           "Overhead photographs after the heavy items and after the carton.",
-          "Record the carton's top-panel condition with the straight edge after each trial."
+          "Record the carton's top-panel condition with the straight edge after each trial.",
+          "Wide-angle video covering the taped reach zone and the lane entrance, checked for people inside the tape while the arm moved.",
+          "Controller log of arm speed and pause events, checked against the 0.25 m/s cap."
         ],
         "failure_modes": [
           "Cupcake carton packed under a heavy item",
           "Carton crushed or dented",
           "Bag tipped over",
-          "Item left on the counter"
+          "Item left on the counter",
+          "Person inside the reach zone while the arm moved"
         ],
         "consumables": [],
         "time_estimates": {
@@ -3662,6 +3692,16 @@
           "key": "condition",
           "value": "aisle_coned_off_no_customers_within_2_m",
           "reason": "Workplace safety: the aisle section is closed to customers during the trial."
+        },
+        {
+          "key": "condition",
+          "value": "route_speed_capped_0_5_m_s_stockroom_to_aisle",
+          "reason": "Workplace safety: base speed is at most 0.5 m/s along the whole route between the cutting table and the aisle slot, both ways, while carrying the basket or empty."
+        },
+        {
+          "key": "condition",
+          "value": "route_staff_kept_1_m_clear_spotter_present",
+          "reason": "Workplace safety: staff on the stockroom-to-aisle route keep at least 1 m from the robot, and a spotter walks the route ahead of it; the robot stops if anyone comes within 1 m."
         }
       ],
       "procedures": [
@@ -3741,7 +3781,8 @@
           "The two front boxes are within 10 mm of the shelf edge.",
           "Exactly two sugar boxes stand on the labelled overstock position.",
           "The case is folded flat, no thicker than 40 mm, and lies inside the cardboard cage.",
-          "All six boxes are still sealed (preserved condition)."
+          "All six boxes are still sealed (preserved condition).",
+          "Base speed stayed at or below 0.5 m/s over the whole stockroom-to-aisle route in both directions, and no person came within 1 m of the robot without a logged stop, from the robot log and the route video."
         ],
         "setup": [
           "Pack the six sealed sugar boxes into the tear-strip case with the YCB box on top, slit the bottom tape centre seam, close the top, and set the case on the cutting table.",
@@ -3753,14 +3794,18 @@
         ],
         "quality_checks": [
           "Video of the counting checkpoint at the cutting table.",
-          "Photographs of the aisle slot, the overstock shelf, and the cage at the end."
+          "Photographs of the aisle slot, the overstock shelf, and the cage at the end.",
+          "Robot base-speed log for every route leg, checked against the 0.5 m/s cap.",
+          "Spotter-carried or ceiling video of the route, checked for any person within 1 m of the moving robot and for the matching stop event in the log."
         ],
         "failure_modes": [
           "Count not checked before shelving",
           "More than four boxes shelved",
           "Overflow boxes left in the aisle",
           "Case left unfolded or outside the cage",
-          "Box dropped in transit"
+          "Box dropped in transit",
+          "Route speed above 0.5 m/s",
+          "Person within 1 m of the moving robot without a stop"
         ],
         "consumables": [
           "ctx_resource_tear_strip_shipper_case"
@@ -4009,6 +4054,21 @@
           "key": "condition",
           "value": "board_top_within_robot_reach",
           "reason": "The top hook is no higher than 1.5 m above the floor."
+        },
+        {
+          "key": "condition",
+          "value": "screwdriver_tips_capped_with_rubber_tip_guards",
+          "reason": "Safety: each screwdriver tip carries a snug rubber tip guard for the whole trial, including while it hangs; the guards fit inside the painted outlines."
+        },
+        {
+          "key": "condition",
+          "value": "screwdrivers_carried_tip_down_below_waist_height",
+          "reason": "Safety: screwdrivers are carried with the tip pointing down and below 1 m above the floor except for the final raise to the hooks, and are hung tip-down."
+        },
+        {
+          "key": "condition",
+          "value": "no_person_within_1_m_of_bench_during_motion",
+          "reason": "Safety: the operator stands at least 1 m from the bench and board while the arm moves."
         }
       ],
       "procedures": [
@@ -4090,24 +4150,30 @@
           "Each of the four tools hangs on the two hooks inside its own painted silhouette, with no part of the tool more than 5 mm outside the silhouette edge in the front photograph.",
           "No tool hangs in another tool's outline and no outline is empty.",
           "Every tool is still on its hooks 10 s after the last release.",
-          "The medium clamp is still closed with nothing between its jaws (preserved condition)."
+          "The medium clamp is still closed with nothing between its jaws (preserved condition).",
+          "Both screwdriver tip guards are still in place when the tools hang on the board, and each screwdriver was carried tip-down and hung tip-down, from the front photograph and the episode video."
         ],
         "setup": [
           "Lay the four tools on the mat in a random order and pose, recording the arrangement.",
-          "Check every hook pair holds its tool by hanging it once by hand, then take the tools down."
+          "Check every hook pair holds its tool by hanging it once by hand, then take the tools down.",
+          "Fit a rubber tip guard on each screwdriver and check it is seated before the episode."
         ],
         "reset": [
           "Take the tools down and lay them on the mat in the next recorded arrangement."
         ],
         "quality_checks": [
           "Front photograph of the board after the episode.",
-          "Overhead photograph of the starting mat."
+          "Overhead photograph of the starting mat.",
+          "Photograph of both tip guards before the episode and on the hung screwdrivers after it.",
+          "Episode video checked for screwdriver tip orientation during every carry and for anyone within 1 m of the bench while the arm moved."
         ],
         "failure_modes": [
           "Tool in the wrong outline",
           "Tool hung more than 5 mm off its silhouette",
           "Tool fell from its hooks",
-          "Clamp opened while handled"
+          "Clamp opened while handled",
+          "Tip guard lost",
+          "Screwdriver carried tip-up or tip toward a person"
         ],
         "consumables": [],
         "time_estimates": {
@@ -4211,6 +4277,26 @@
           "key": "condition",
           "value": "nail_length_classes_read_from_physical_set",
           "reason": "The number and limits of nail length classes are measured from the physical YCB nail set and printed on the card before the first trial."
+        },
+        {
+          "key": "condition",
+          "value": "bent_nail_decoy_tip_blunted",
+          "reason": "Safety: the bent-nail decoy has its tip ground flat before the first trial, so the off-gauge item has no point."
+        },
+        {
+          "key": "condition",
+          "value": "nails_laid_flat_on_gauge_plate_tips_toward_backstop",
+          "reason": "Safety: on the gauge plate every nail lies flat in its slot with its tip against the plate's raised backstop, away from the operator side; in the organiser nails lie flat."
+        },
+        {
+          "key": "condition",
+          "value": "nails_carried_flat_tips_away_from_operator",
+          "reason": "Safety: between tray, gauge plate, organiser, and reject cup each nail is carried lying flat, below 20 cm above the bench, with its tip pointing away from the operator side."
+        },
+        {
+          "key": "condition",
+          "value": "no_person_within_1_m_of_bench_during_handling",
+          "reason": "Safety: the operator stays at least 1 m from the bench through all three stages, from the first pick to the drawer closing."
         }
       ],
       "procedures": [
@@ -4308,11 +4394,13 @@
           "The bent nail is in the red reject cup and nowhere else.",
           "The kit card has a class entry for every item, written before the first item entered the organiser (from the video timestamps), and each compartment count on the card equals the number of items found in it.",
           "The organiser sits in the parts drawer and the drawer is closed within 5 mm of flush.",
-          "No fastener is on the bench or floor at the end."
+          "No fastener is on the bench or floor at the end.",
+          "Every nail was carried flat with its tip away from the operator side and lay tip-to-backstop on the gauge plate, and nobody was within 1 m of the bench during handling, from the overhead episode video."
         ],
         "setup": [
           "Measure the physical nail set, fix the length classes, and print them on the card and the compartment labels.",
-          "Mix all items and the bent-nail decoy in the tray, open the parts drawer, and set the empty organiser beside the gauge plate."
+          "Mix all items and the bent-nail decoy in the tray, open the parts drawer, and set the empty organiser beside the gauge plate.",
+          "Grind the decoy nail's tip flat and check it by touch before the first trial."
         ],
         "reset": [
           "Empty the organiser and the reject cup back into the tray, remix, clear the card entries, and reopen the drawer."
@@ -4320,7 +4408,9 @@
         "quality_checks": [
           "Overhead photograph of the organiser before filing.",
           "Photograph of the completed kit card.",
-          "Video timestamps of hold point 1."
+          "Video timestamps of hold point 1.",
+          "Overhead episode video checked for nail tip direction during each carry and on the gauge plate, and for anyone within 1 m of the bench.",
+          "Record of the decoy tip check at setup."
         ],
         "failure_modes": [
           "Nail in the wrong length class",
@@ -4328,7 +4418,8 @@
           "Count mismatch not written on the card",
           "Item sorted before it was gauged",
           "Nail dropped",
-          "Drawer left open"
+          "Drawer left open",
+          "Nail carried or gauged tip toward the operator side"
         ],
         "consumables": [
           "Kit card per episode"
@@ -5546,6 +5637,11 @@
           "key": "object",
           "value": "gso_object_instant_coffee_jar",
           "reason": "Primary GSO scan; a physical Nescafe Taster's Choice decaf 7 oz jar."
+        },
+        {
+          "key": "object",
+          "value": "ctx_resource_instant_coffee_jar_lid",
+          "reason": "The jar's own threaded plastic lid; it is fused to the jar in the GSO scan, so it is listed as a part."
         },
         {
           "key": "object",
@@ -8103,11 +8199,12 @@
     "Templates: 8 new, one per task, prefix template_ctx_r1b_, each listing the scene it is used in.",
     "Safety: no powered tools; the hammer is swung with a 1.5 m/s head-speed cap, a guide collar holding the stake, and nobody within 2 m; the vice and nut are torque-limited (4 N m adapter, 0.5 N m wrist cap); the bent nail is blunted and nail tips rest in foam; the watering-can fill uses cold water and declares robot_electronics_splash_protected; fruit are plastic replicas with a 10 N grip cap; the repotting uses dry coir and an artificial plant.",
     "Evidence: every task_suitability claim cites evidence_context_task_design_round1. Frequency, robot execution, and asset compatibility are unknown with no sources, and each asset_compatibility limitation names that task's own asset gap. All time estimates are null.",
-    "context_round1 assistive-care set: 8 proposed tasks (3 atomic, 3 compound, 2 workflow) that give objects already in the atlas a care context. Anchors: ycb_025_mug, gso_object_instant_coffee_jar, thor_object_remote_1, ycb_063_marbles, ycb_074_t_shirt, ycb_029_plate, gso_object_slide_sandal, and ycb_019_pitcher_base. No ObjectInstances or catalog evidence are added.",
+    "context_round1 assistive-care set: 8 proposed tasks (2 atomic, 4 compound, 2 workflow) that give objects already in the atlas a care context. Anchors: ycb_025_mug, gso_object_instant_coffee_jar, thor_object_remote_1, ycb_063_marbles, ycb_074_t_shirt, ycb_029_plate, gso_object_slide_sandal, and ycb_019_pitcher_base. No ObjectInstances or catalog evidence are added.",
     "Scenes: six tasks use scene_assisted_living_room; the night-path and pitcher-refill workflows use scene_multi_room_house because they cross rooms.",
     "Safety: every task with a person present declares participant_briefed_and_consented, approach_speed_limited_near_person (0.25 m/s within 1 m), release_only_after_recipient_grip_detected, and emergency_stop_within_participant_reach. The organiser fill and night-path tasks run with the resident out of the room. No task makes a clinical judgement: the dominant hand, dressing order, and meal placement come from cards the participant or staff complete, and the organiser uses marbles as surrogates with a staff-written card as the only source. Wet tasks run cold water and declare robot_electronics_splash_protected; the TV remote has its batteries removed and the TV is unplugged.",
     "Cross-links to active objects: ycb_024_bowl, ycb_030_fork, ycb_031_spoon, gso_object_white_yellow_tumbler (meal tray); thor_object_dresser_205_1 (dressing layout); ycb_075_magazine, gso_object_bath_towel_pink_damask (night path); ycb_020_pitcher_lid (refill). Handover-like tasks name the active handover or placement tasks they resemble and state the difference: none of them puts an item into the person's hand, which task_gso_r4_tumbler_water_handover_seated_person and task_gso_r3_bootie_handover_seated_person already cover.",
     "Resource IDs beginning ctx_resource_ are planning object requirements, not catalogued ObjectInstances.",
-    "Templates: 8 new, prefix template_ctx_r1c_; each lists the scenes it is used in."
+    "Templates: 8 new, prefix template_ctx_r1c_; each lists the scenes it is used in.",
+    "Activated 2026-09-26 after Codex's cross-lane review (data/reviews/context_round1.md) with all findings addressed."
   ]
 }
