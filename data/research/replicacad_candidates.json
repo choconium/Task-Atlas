@@ -1,0 +1,2093 @@
+{
+  "source": "replicacad",
+  "license": "CC-BY-4.0",
+  "dataset_url": "https://huggingface.co/datasets/ai-habitat/ReplicaCAD_dataset",
+  "dataset_revision": "3e8c7fe5759f64bfcbc3882f9cdf6de97f82a06d (HF main, lastModified 2023-07-12T01:04:41Z; 602 files)",
+  "accessed": "2026-09-26",
+  "generated_by": "llm",
+  "model": "claude-opus-5-5",
+  "listing": {
+    "api": "https://huggingface.co/api/datasets/ai-habitat/ReplicaCAD_dataset/tree/main?recursive=true",
+    "object_configs": 92,
+    "urdf_files": 12,
+    "urdf_articulated_assets": [
+      "cabinet (cabinet.urdf, cabinet_dynamic.urdf): 2 prismatic left_slide, right_slide",
+      "chestOfDrawers_01 (chestOfDrawers_01.urdf, _dynamic.urdf): 6 prismatic drawer_topL/topR/midL/midR/botL/botR",
+      "fridge (fridge.urdf, fridge_dynamic.urdf): 2 revolute top_door_hinge, bottom_door_hinge",
+      "kitchen_counter (kitchen_counter.urdf): 7 prismatic left_slide_top/bottom, middle_slide_top/middle/bottom, right_slide_top/bottom; sink receptacle",
+      "kitchenCupboard_01 (kitchenCupboard_01.urdf): 8 revolute doorWhole_1L/1R/2L/2R, doorWindow_1L/1R/2L/2R; 12 shelf receptacles",
+      "door1.urdf, door2.urdf, door3.urdf: 1 revolute root_rotation each",
+      "doubledoor.urdf: 2 revolute left_hinge, right_hinge"
+    ],
+    "scene_instances": 91,
+    "scenes_note": "apt_0..apt_5 (furnished with ~113-120 small objects), empty_stage, and 84 v3_sc{0-3}_staging_NN furniture-only layouts. All 90 non-empty scenes place fridge, kitchen_counter, kitchenCupboard_01, chestOfDrawers_01, cabinet, and door2; door1, door3, and doubledoor are never placed. The cabinet position changes between layouts.",
+    "rooms_note": "ReplicaCAD scenes have no room labels. Rooms here are open-plan zones read from apt_0 positions: kitchen (counter, cupboards, fridge along x=-2.3), entryway (shoes, rack, umbrella, hooks, chest of drawers, door2 at z=-2.65), office corner (table_01 + monitor), dining area (table_02), living area (sofa, TV stand, bookshelves wall_cabinet_01/02)."
+  },
+  "ycb_relation": {
+    "summary": "None of the 92 ReplicaCAD objects is YCB-derived: all are artist recreations of objects in the scanned Replica FRL apartment (asset names frl_apartment_*). Habitat 2.0 rearrangement tasks add YCB clutter from the separate dataset ai-habitat/ycb (CC BY 4.0, revision 29be64fdd95b4881f244152ad653058e0a48c28f, 77 object configs). Tasks can reuse existing atlas ycb_* ObjectInstances directly for those 77; ycb_equivalent_id on a candidate marks only a functional stand-in (same object class, different mesh).",
+    "habitat_ycb_missing_from_atlas_reuse": "ai-habitat/ycb lacks 001, 020, 022, 023, 027, 034, 039, 041, 045-047, 049, 060, 064, 066-069, 074-076; ideas here use only YCB objects present in it (ycb_027_skillet appears only as a functional equivalent).",
+    "functional_equivalents": {
+      "frl_apartment_bowl_*": "ycb_024_bowl",
+      "frl_apartment_cup_*": "ycb_025_mug",
+      "frl_apartment_plate_*": "ycb_029_plate",
+      "frl_apartment_pan_01": "ycb_027_skillet",
+      "frl_apartment_sponge_dish": "ycb_026_sponge (holder only; the sponge itself comes from YCB)"
+    }
+  },
+  "notes": "Brainstorm list, not reviewed tasks. Scenes reuse active scene ids. identity_note marks unlabelled assets whose identity is inferred from mesh bounds (cm) and mass; confirm before drafting. ReplicaCAD articulations are simulator joints with no latches or appliance states, so goals are joint positions (closed = joint at lower limit) and object-in-receptacle relations. Habitat 2.0 HAB task patterns (TidyHouse, PrepareGroceries, SetTable) are cited where an idea follows them.",
+  "candidates": [
+    {
+      "asset_name": "kitchen_counter",
+      "asset_path": "urdf/kitchen_counter/kitchen_counter.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "left_slide_top"
+      ],
+      "links": [
+        "drawer1_top"
+      ],
+      "receptacles": [
+        "receptacle_aabb_drawer_left_top_frl_apartment_kitchen_counter"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The YCB fork, spoon, and knife lie flat in the counter's left top drawer (link drawer1_top) and the drawer is pushed flush closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "ycb_030_fork",
+            "ycb_031_spoon",
+            "ycb_032_knife"
+          ],
+          "safety": "knife edge; use the YCB blunt knife or a surrogate"
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The left top drawer, found pulled out part-way, is pushed flush closed with the items inside unmoved.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "medium: drawer storage of cutlery overlaps task_gso_r2_can_opener_stow_in_drawer_slot and the knife-in-drawer step of task_thor_r2_apple_slice_into_bowl_knife_stowed; closing a left-open drawer overlaps task_thor_r2_bathroom_close_left_open_items"
+    },
+    {
+      "asset_name": "kitchen_counter",
+      "asset_path": "urdf/kitchen_counter/kitchen_counter.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": "ycb_027_skillet",
+      "joints": [
+        "middle_slide_top",
+        "middle_slide_middle",
+        "middle_slide_bottom"
+      ],
+      "links": [
+        "drawer2_top",
+        "drawer2_middle",
+        "drawer2_bottom"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "Only the middle-bottom drawer (link drawer2_bottom) is opened, the frying pan lies flat inside it, and all three middle drawers end closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_pan_01"
+          ]
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "Both chopping boards stand on edge in the middle-middle drawer (link drawer2_middle) and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_choppingboard_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "low: no active task stores cookware in a specific drawer of a three-drawer stack"
+    },
+    {
+      "asset_name": "kitchen_counter",
+      "asset_path": "urdf/kitchen_counter/kitchen_counter.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": "ycb_024_bowl",
+      "joints": [
+        "right_slide_top",
+        "right_slide_bottom"
+      ],
+      "links": [
+        "drawer3",
+        "drawer4"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The small bowl stored in the right top drawer (link drawer3) is on the dining table in front of a chair and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "frl_apartment_bowl_06",
+            "frl_apartment_table_02"
+          ],
+          "source_note": "Habitat 2.0 SetTable pattern (bowl from drawer)"
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "Bowls bowl_03 and bowl_06 are nested in the right bottom drawer (link drawer4) and it is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_bowl_03",
+            "frl_apartment_bowl_06"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: bowl storage appears in active kitchen rounds, but not drawer-specific retrieval to a table"
+    },
+    {
+      "asset_name": "kitchen_counter",
+      "asset_path": "urdf/kitchen_counter/kitchen_counter.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "left_slide_top",
+        "left_slide_bottom",
+        "middle_slide_top",
+        "middle_slide_middle",
+        "middle_slide_bottom",
+        "right_slide_top",
+        "right_slide_bottom"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "All seven counter drawers, found at mixed openings, are fully closed and nothing inside has fallen out.",
+          "granularity": "compound",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "Each of the seven drawers has been opened once and closed; the YCB scissors found in one of them now lie in the left bottom drawer (link drawer1_bottom) and every drawer is closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_inspect",
+          "other_objects": [
+            "ycb_037_scissors"
+          ],
+          "safety": "scissors closed; blades toward the back"
+        }
+      ],
+      "duplicate_risk": "medium: closing several left-open doors/drawers overlaps task_thor_r2_bathroom_close_left_open_items; the search variant is low"
+    },
+    {
+      "asset_name": "kitchen_counter (sink receptacle)",
+      "asset_path": "urdf/kitchen_counter/kitchen_counter.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": "ycb_025_mug",
+      "receptacles": [
+        "receptacle_aabb_sink_kitchen_counter"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The three cups left on the dining table stand upright in the kitchen-counter sink basin.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_cup_01",
+            "frl_apartment_cup_02",
+            "frl_apartment_cup_03",
+            "frl_apartment_table_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: clearing dishes into the sink overlaps task_thor_r2_dining_table_clear_to_sink_and_cabinet"
+    },
+    {
+      "asset_name": "kitchenCupboard_01 (glass-window doors)",
+      "asset_path": "urdf/kitchen_cupboards/kitchenCupboard_01.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": "ycb_025_mug",
+      "joints": [
+        "doorWindow_1L_hinge",
+        "doorWindow_1R_hinge",
+        "doorWindow_2L_hinge",
+        "doorWindow_2R_hinge"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The four cups stand on the shelf behind the left glass-window doors with handles facing right, and both glass doors are closed.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_cup_01",
+            "frl_apartment_cup_02",
+            "frl_apartment_cup_03",
+            "frl_apartment_cup_05"
+          ]
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "A glass-window cupboard door left swung open is closed flush without touching the cups on the shelf behind it.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low for the arrangement; medium for the door-closing variant (task_thor_r2_bathroom_close_left_open_items)"
+    },
+    {
+      "asset_name": "kitchenCupboard_01 (solid doors)",
+      "asset_path": "urdf/kitchen_cupboards/kitchenCupboard_01.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": "ycb_029_plate",
+      "joints": [
+        "doorWhole_1L_hinge",
+        "doorWhole_1R_hinge",
+        "doorWhole_2L_hinge",
+        "doorWhole_2R_hinge"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "Both plates are stacked on the bottom shelf behind the right pair of solid doors and both doors are closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_plate_01",
+            "frl_apartment_plate_02"
+          ]
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The YCB master chef can, stored behind one of the solid doors, is on the counter and every cupboard door that was opened is closed again.",
+          "granularity": "compound",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "ycb_002_master_chef_can"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: plate stacking on a shelf overlaps task_gso_r2_square_plates_stack_with_protectors"
+    },
+    {
+      "asset_name": "kitchenCupboard_01 (all eight doors)",
+      "asset_path": "urdf/kitchen_cupboards/kitchenCupboard_01.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": "all 8 revolute",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The drying dishes are put away: bowls behind the left solid doors, cups behind the left glass doors, plates behind the right solid doors, and all eight cupboard doors are closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_bowl_01",
+            "frl_apartment_bowl_02",
+            "frl_apartment_cup_01",
+            "frl_apartment_cup_02",
+            "frl_apartment_plate_01",
+            "frl_apartment_plate_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: dish put-away overlaps task_gso_r3_drying_rack_unload_bowl_plate_spoons, but the glass-vs-solid door split is new"
+    },
+    {
+      "asset_name": "fridge (top door)",
+      "asset_path": "urdf/fridge/fridge.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "top_door_hinge"
+      ],
+      "receptacles": [
+        "receptacle_aabb_topfrl_apartment_refrigerator",
+        "receptacle_aabb_middle_topfrl_apartment_refrigerator"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The YCB pitcher base stands upright on the middle-top shelf of the upper compartment and the top door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "ycb_019_pitcher_base"
+          ]
+        },
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The lemon from the upper compartment is on the chopping board by the sink and the top door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "ycb_014_lemon",
+            "frl_apartment_choppingboard_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: fridge store/retrieve overlaps task_return_mustard_to_refrigerator and task_retrieve_mustard_from_refrigerator; differs by object and the two-door fridge"
+    },
+    {
+      "asset_name": "fridge (bottom door)",
+      "asset_path": "urdf/fridge/fridge.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "bottom_door_hinge"
+      ],
+      "receptacles": [
+        "receptacle_aabb_bottomfrl_apartment_refrigerator",
+        "receptacle_aabb_middle_bottomfrl_apartment_refrigerator"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The apple, orange, and pear are on the bottom shelf behind the lower door, the lower door is closed, and the top door was never opened.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "ycb_013_apple",
+            "ycb_017_orange",
+            "ycb_016_pear"
+          ]
+        },
+        {
+          "scene": "scene_refrigerator",
+          "goal": "The lower fridge door, left ajar, is shut.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "high for the ajar-door variant (task_thor_r2_fridge_door_ajar_shut); medium for fruit storage (task_ycb_round4_apple)"
+    },
+    {
+      "asset_name": "fridge (both doors) + basket",
+      "asset_path": "urdf/fridge/fridge.urdf",
+      "articulated": true,
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "top_door_hinge",
+        "bottom_door_hinge"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The grocery basket on the counter is unpacked: potted meat can and pitcher to the upper compartment, fruit to the lower compartment, cracker box and soup can onto a solid-door cupboard shelf; both fridge doors and the cupboard doors are closed and the empty basket is on the counter.",
+          "granularity": "workflow",
+          "intent_id": "intent_restock",
+          "other_objects": [
+            "frl_apartment_basket",
+            "ycb_010_potted_meat_can",
+            "ycb_019_pitcher_base",
+            "ycb_013_apple",
+            "ycb_018_plum",
+            "ycb_003_cracker_box",
+            "ycb_005_tomato_soup_can",
+            "kitchenCupboard_01"
+          ],
+          "source_note": "Habitat 2.0 PrepareGroceries pattern"
+        }
+      ],
+      "duplicate_risk": "medium: grocery put-away by zone overlaps task_gso_r4_fondant_groceries_by_temperature_zone; the fixed apartment fridge + cupboard pairing is the new part"
+    },
+    {
+      "asset_name": "chestOfDrawers_01 (top drawers)",
+      "asset_path": "urdf/chest_of_drawers/chestOfDrawers_01.urdf",
+      "articulated": true,
+      "room": "entryway",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "drawer_topL",
+        "drawer_topR"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "Both TV remotes from the living-room TV stand are in the top-left drawer of the hall chest of drawers and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_remote-control_01"
+          ]
+        },
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The camera from the office shelf lies lens-up in the top-right drawer and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_camera_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "low: no active task stores these objects in a hall chest; remote-into-basket (task_thor_r2_remote_cushions_into_basket) differs"
+    },
+    {
+      "asset_name": "chestOfDrawers_01 (middle and bottom drawers)",
+      "asset_path": "urdf/chest_of_drawers/chestOfDrawers_01.urdf",
+      "articulated": true,
+      "room": "entryway",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "drawer_midL",
+        "drawer_midR",
+        "drawer_botL",
+        "drawer_botR"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The towel from the armchair is folded to the drawer footprint and lies in the bottom-left drawer, which is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_towel"
+          ]
+        },
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The YCB tennis ball, softball, and mini soccer ball are in the bottom-right drawer and the drawer is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ycb_056_tennis_ball",
+            "ycb_054_softball",
+            "ycb_053_mini_soccer_ball"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: folded textile into a drawer overlaps task_thor_r1_dresser_store_folded_cloth; the ball variant is low"
+    },
+    {
+      "asset_name": "chestOfDrawers_01 (all six drawers)",
+      "asset_path": "urdf/chest_of_drawers/chestOfDrawers_01.urdf",
+      "articulated": true,
+      "room": "entryway",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "drawer_topL",
+        "drawer_topR",
+        "drawer_midL",
+        "drawer_midR",
+        "drawer_botL",
+        "drawer_botR"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "All six drawers of the chest are closed and none is caught on the drawer above it.",
+          "granularity": "compound",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        },
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The chest's six drawers hold one category each per its label card (balls, markers, tools, cloths, cups, games) and all are closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ycb_056_tennis_ball",
+            "ycb_040_large_marker",
+            "ycb_043_phillips_screwdriver",
+            "ycb_065_cups",
+            "ycb_062_dice"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium for closing; low for the labelled six-way sort"
+    },
+    {
+      "asset_name": "cabinet (left sliding door)",
+      "asset_path": "urdf/cabinet/cabinet.urdf",
+      "articulated": true,
+      "room": "dining_area (position varies by layout)",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "left_slide"
+      ],
+      "receptacles": [
+        "receptacle_aabb_interiorfrl_apartment_cabinet"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The storage box is inside the cabinet behind the left sliding door and the door is slid shut.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_box"
+          ]
+        }
+      ],
+      "duplicate_risk": "low: no active task uses a sliding (prismatic) cabinet door"
+    },
+    {
+      "asset_name": "cabinet (right sliding door)",
+      "asset_path": "urdf/cabinet/cabinet.urdf",
+      "articulated": true,
+      "room": "dining_area (position varies by layout)",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "right_slide"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The heavy book stored in the cabinet is on the dining table and the right sliding door is closed again.",
+          "granularity": "compound",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "frl_apartment_book_06"
+          ]
+        },
+        {
+          "scene": "scene_dining_table",
+          "goal": "The right sliding door, left open, is slid fully closed with no gap to the left door.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "cabinet (top surface)",
+      "asset_path": "urdf/cabinet/cabinet.urdf",
+      "articulated": true,
+      "room": "dining_area (position varies by layout)",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "receptacles": [
+        "receptacle_aabb_topfrl_apartment_cabinet"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "Both small lamps from the dining table stand on the cabinet top, clear of its sliding doors, so the table is clear for a meal.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_lamp_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "door2",
+      "asset_path": "urdf/doors/door2.urdf",
+      "articulated": true,
+      "room": "entryway",
+      "general_concept_id": "object_home_fixture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "root_rotation"
+      ],
+      "placement": "the only door placed in all 90 furnished scenes",
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The hallway door (door2), found half open, is fully closed against its frame.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        },
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The door is held fully open while a person carrying the storage box walks through, then closed behind them.",
+          "granularity": "compound",
+          "intent_id": "intent_handover",
+          "other_objects": [
+            "frl_apartment_box"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: door closing appears in task_thor_r2_bathroom_close_left_open_items and task_thor_r3_leave_house_check_doors_taps_light; holding the door for a person is low"
+    },
+    {
+      "asset_name": "door1",
+      "asset_path": "urdf/doors/door1.urdf",
+      "articulated": true,
+      "room": "interior (not placed in any scene)",
+      "general_concept_id": "object_home_fixture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "root_rotation"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "Door1 is opened to at least 90 degrees and stays open so the laundry basket can be carried through without touching the leaf.",
+          "granularity": "atomic",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_basket"
+          ]
+        }
+      ],
+      "duplicate_risk": "low; needs custom placement because no ReplicaCAD scene instance uses door1"
+    },
+    {
+      "asset_name": "door3",
+      "asset_path": "urdf/doors/door3.urdf",
+      "articulated": true,
+      "room": "interior (not placed in any scene)",
+      "general_concept_id": "object_home_fixture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "root_rotation"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "Door3 is pushed closed from the far side after the robot passes through while carrying a bowl.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_bowl_07"
+          ]
+        }
+      ],
+      "duplicate_risk": "low; needs custom placement"
+    },
+    {
+      "asset_name": "doubledoor",
+      "asset_path": "urdf/doors/doubledoor.urdf",
+      "articulated": true,
+      "room": "interior (not placed in any scene)",
+      "general_concept_id": "object_home_fixture",
+      "ycb_equivalent_id": null,
+      "joints": [
+        "left_hinge",
+        "right_hinge"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "Both leaves of the double door are opened so the bike can be wheeled through, and both leaves are closed afterwards.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_bike_01"
+          ],
+          "notes": "bike mass 9 kg; mobile manipulator only"
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r3_leave_house_check_doors_taps_light closes a patio double door"
+    },
+    {
+      "asset_name": "frl_apartment_shoe_01 + frl_apartment_shoe_02",
+      "asset_path": "configs/objects/frl_apartment_shoe_01.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_footwear",
+      "ycb_equivalent_id": null,
+      "identity_note": "shoe_01 and shoe_02 have matching 26x13x33 cm bounds, likely one pair",
+      "atlas_equivalent_ids": [
+        "gso_object_tennis_shoe"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The pair of shoes left by the kitchen counter is back on the entry shoe rack, side by side, toes to the wall.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_rack_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "high for pairing on a rack (task_gso_r4_loose_shoes_match_three_pairs_rack, task_gso_r1_tennis_shoe_rack_toe_in); the cross-room return is the only new part"
+    },
+    {
+      "asset_name": "frl_apartment_shoe_03",
+      "asset_path": "configs/objects/frl_apartment_shoe_03.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_footwear",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "Shoe_03 is inside the shoebox with the lid on and the box is back on the entry shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_shoebox_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_shoe_04",
+      "asset_path": "configs/objects/frl_apartment_shoe_04.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_footwear",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "Shoe_04, fallen on its side off the rack, stands sole-down on the rack's lower tier.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "frl_apartment_rack_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: shoe racking exists in GSO rounds"
+    },
+    {
+      "asset_name": "frl_apartment_rack_01",
+      "asset_path": "configs/objects/frl_apartment_rack_01.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "identity_note": "84x63x31 cm floor rack under the entry hooks; used as shoe rack",
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The shoe rack holds only shoes: the umbrella leans in the corner and the handbag is on the entry shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_umbrella",
+            "frl_apartment_handbag"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_umbrella",
+      "asset_path": "configs/objects/frl_apartment_umbrella.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_personal_care_tool",
+      "ycb_equivalent_id": null,
+      "concept_note": "no umbrella concept exists; object_personal_care_tool is the closest, a new object_umbrella may be better",
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The closed umbrella leans handle-up in the corner beside the door, outside door2's swing arc.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "door2"
+          ]
+        },
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The umbrella left on the sofa is back in the entry corner.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_sofa"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_handbag",
+      "asset_path": "configs/objects/frl_apartment_handbag.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_clothing",
+      "ycb_equivalent_id": null,
+      "mass_kg": 3,
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The handbag from the entry shelf is handed to the person seated on the sofa, handles toward them.",
+          "granularity": "compound",
+          "intent_id": "intent_handover",
+          "other_objects": [
+            "frl_apartment_sofa"
+          ]
+        }
+      ],
+      "duplicate_risk": "low: handover tasks exist (task_gso_r4_tumbler_water_handover_seated_person) but not with a bag"
+    },
+    {
+      "asset_name": "frl_apartment_cloth_01 .. frl_apartment_cloth_04",
+      "asset_path": "configs/objects/frl_apartment_cloth_01.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_clothing",
+      "ycb_equivalent_id": null,
+      "identity_note": "static garments (76-55 cm wide, up to 124 cm long) on the entry hooks; inferred to be coats or jackets",
+      "motion_note": "scene instances mark cloth_01-03 STATIC; set them DYNAMIC or use cloth simulation",
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The jacket that fell off its entry hook hangs back on the hook by its loop, clear of the floor.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        },
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The person's jacket is taken off the hook and held open at shoulder height for them to put on.",
+          "granularity": "compound",
+          "intent_id": "intent_handover",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_clothes_hanger_01",
+      "asset_path": "configs/objects/frl_apartment_clothes_hanger_01.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "identity_note": "75x95x133 cm; appears only in v3 staging layouts; inferred standing rail",
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The coat from the chair back hangs on the standing clothes rail with its hood out.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_cloth_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_clothes_hanger_02",
+      "asset_path": "configs/objects/frl_apartment_clothes_hanger_02.object_config.json",
+      "articulated": false,
+      "room": "bedroom corner (v3 layouts)",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "identity_note": "41x89x36 cm; inferred valet stand",
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The folded towel hangs evenly over the valet stand's bar.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_towel"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: towel hanging exists (task_thor_r2_bath_towel_hang_evenly_on_bar)"
+    },
+    {
+      "asset_name": "frl_apartment_shoebox_01",
+      "asset_path": "configs/objects/frl_apartment_shoebox_01.object_config.json",
+      "articulated": false,
+      "room": "entryway",
+      "general_concept_id": "object_receptacle",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_entryway",
+          "goal": "The shoebox from the 1.4 m entry shelf is on the entry chair seat with its lid on.",
+          "granularity": "atomic",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "frl_apartment_chair_04"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_bike_01 / frl_apartment_bike_02",
+      "asset_path": "configs/objects/frl_apartment_bike_01.object_config.json",
+      "articulated": false,
+      "room": "entryway / office corridor",
+      "general_concept_id": "object_sports_equipment",
+      "ycb_equivalent_id": null,
+      "mass_kg": 9,
+      "notes": "heavy wheeled object; mobile manipulator only",
+      "concept_note": "object_sports_equipment is proposed in thor_candidates.json, not active",
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The bike blocking the walkway to the kitchen leans against the wall at its floor mark, kickstand down.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low",
+      "concept_is_new": true
+    },
+    {
+      "asset_name": "frl_apartment_mat",
+      "asset_path": "configs/objects/frl_apartment_mat.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_textile",
+      "ycb_equivalent_id": null,
+      "motion_note": "STATIC in scene; needs deformable or dynamic setup",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The kitchen floor mat is flat, with no folded corner, and parallel to the counter front.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_chair_04",
+      "asset_path": "configs/objects/frl_apartment_chair_04.object_config.json",
+      "articulated": false,
+      "room": "entryway / dining",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The chair pulled out from the table is pushed in square to the table edge.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_table_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_kitchen_utensil_03 (x8)",
+      "asset_path": "configs/objects/frl_apartment_kitchen_utensil_03.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_food_container",
+      "ycb_equivalent_id": null,
+      "identity_note": "5x11x5 cm, 0.1 kg, eight copies in one cluster; inferred spice jars (identity unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The eight small jars stand in one row along the back of the counter, none touching the wall.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": []
+        },
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The eight small jars are on one cupboard shelf behind a glass-window door and the door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "kitchenCupboard_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_knifeblock",
+      "asset_path": "configs/objects/frl_apartment_knifeblock.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_utensil",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The YCB knife is seated handle-up in a slot of the knife block.",
+          "granularity": "atomic",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "ycb_032_knife"
+          ],
+          "safety": "blunt or dummy knife"
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The knife block is moved from the counter edge back against the wall behind the chopping board.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_choppingboard_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: knife stowing exists (task_thor_r2_apple_slice_into_bowl_knife_stowed, task_thor_r3_knife_out_of_sink_edge_to_wall)"
+    },
+    {
+      "asset_name": "frl_apartment_choppingboard_02",
+      "asset_path": "configs/objects/frl_apartment_choppingboard_02.object_config.json",
+      "articulated": false,
+      "room": "kitchen / dining floor",
+      "general_concept_id": "object_utensil",
+      "ycb_equivalent_id": null,
+      "placement": "apt_0 places one board on the floor near the dining table",
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The chopping board found on the dining-area floor is back standing on edge beside the knife block.",
+          "granularity": "compound",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "frl_apartment_knifeblock"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_pan_01",
+      "asset_path": "configs/objects/frl_apartment_pan_01.object_config.json",
+      "articulated": false,
+      "room": "dining floor (apt_0)",
+      "general_concept_id": "object_cookware",
+      "ycb_equivalent_id": "ycb_027_skillet",
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The frying pan left on the floor under the dining table is on the kitchen counter, handle turned inward.",
+          "granularity": "compound",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_small_appliance_01",
+      "asset_path": "configs/objects/frl_apartment_small_appliance_01.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "ycb_equivalent_id": null,
+      "identity_note": "21x36x38 cm, 11 kg; size suggests an espresso machine (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The unplugged countertop appliance is slid from the counter edge back to its wall mark with the cord tucked behind it.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [],
+          "safety": "unplugged; 11 kg"
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_small_appliance_02",
+      "asset_path": "configs/objects/frl_apartment_small_appliance_02.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_kitchen_appliance",
+      "ycb_equivalent_id": null,
+      "identity_note": "18x30x29 cm, 3.8 kg; size suggests a kettle or toaster (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The counter in front of the small appliance is clear: the basket and jars are moved aside so nothing is within 10 cm of it.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_basket",
+            "frl_apartment_kitchen_utensil_03"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_kitchen_utensil_02 / frl_apartment_kitchen_utensil_09",
+      "asset_path": "configs/objects/frl_apartment_kitchen_utensil_02.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_liquid_container",
+      "ycb_equivalent_id": null,
+      "identity_note": "9x18x10 and 10x20x10 cm; bottle- or jar-sized (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "Both bottle-sized kitchen items stand upright on the cupboard's left top shelf and the door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "kitchenCupboard_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_kitchen_utensil_06 / frl_apartment_kitchen_utensil_08",
+      "asset_path": "configs/objects/frl_apartment_kitchen_utensil_06.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_food_container",
+      "ycb_equivalent_id": null,
+      "identity_note": "12-13 x 15-16 x 12 cm; canister-sized (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The two canisters are grouped at the counter's right end, beside the sponge dish.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_sponge_dish"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_kitchen_utensil_04",
+      "asset_path": "configs/objects/frl_apartment_kitchen_utensil_04.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_utensil",
+      "ycb_equivalent_id": null,
+      "identity_note": "32x10x20 cm, 0.5 kg (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The tray-sized utensil is stored flat in the right bottom drawer, which is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "kitchen_counter"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_kitchen_utensil_05",
+      "asset_path": "configs/objects/frl_apartment_kitchen_utensil_05.object_config.json",
+      "articulated": false,
+      "room": "dining_area",
+      "general_concept_id": "object_utensil",
+      "ycb_equivalent_id": null,
+      "identity_note": "68x13x30 cm, 0.9 kg on the dining table; tray-sized (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The long tray on the dining table carries the two cups and the bowl to the kitchen counter in one trip, nothing tipped.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_cup_01",
+            "frl_apartment_cup_02",
+            "frl_apartment_bowl_06"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_kitchen_utensil_01",
+      "asset_path": "configs/objects/frl_apartment_kitchen_utensil_01.object_config.json",
+      "articulated": false,
+      "room": "dining floor (apt_0)",
+      "general_concept_id": "object_utensil",
+      "ycb_equivalent_id": null,
+      "identity_note": "35x16x27 cm, 3 kg (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The kitchen item left on the dining-area floor is back on the kitchen counter.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_sponge_dish",
+      "asset_path": "configs/objects/frl_apartment_sponge_dish.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_cleaning_tool",
+      "ycb_equivalent_id": "ycb_026_sponge",
+      "ideas": [
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The YCB sponge sits in the sponge dish at the right edge of the sink.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ycb_026_sponge"
+          ]
+        },
+        {
+          "scene": "scene_kitchen_counter",
+          "goal": "The dining table is wiped with the sponge and the sponge is back in its dish beside the sink.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "frl_apartment_table_02",
+            "ycb_026_sponge"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: wiping tasks exist (task_thor_r3_pan_wipe_clean_with_cloth)"
+    },
+    {
+      "asset_name": "frl_apartment_basket",
+      "asset_path": "configs/objects/frl_apartment_basket.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_receptacle",
+      "ycb_equivalent_id": null,
+      "receptacles": [
+        "receptacle_aabb_volumefrl_apartment_basket"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The fruit basket holds the apple, orange, and pear and stands in the centre of the dining table.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "ycb_013_apple",
+            "ycb_017_orange",
+            "ycb_016_pear",
+            "frl_apartment_table_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: fruit serving exists in YCB food rounds"
+    },
+    {
+      "asset_name": "frl_apartment_bin_01 / frl_apartment_bin_02",
+      "asset_path": "configs/objects/frl_apartment_bin_01.object_config.json",
+      "articulated": false,
+      "room": "kitchen-entry corridor",
+      "general_concept_id": "object_receptacle",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The empty YCB tuna can is in the left bin and the empty cracker box, flattened, is in the right bin.",
+          "granularity": "compound",
+          "intent_id": "intent_discard",
+          "other_objects": [
+            "ycb_007_tuna_fish_can",
+            "ycb_003_cracker_box"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: sorting waste exists in active trash-sorting tasks"
+    },
+    {
+      "asset_name": "frl_apartment_bin_03",
+      "asset_path": "configs/objects/frl_apartment_bin_03.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_receptacle",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The living-room bin is back beside the side table, fully out of the walkway between sofa and TV stand.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_table_04"
+          ]
+        }
+      ],
+      "duplicate_risk": "high if extended to emptying bins (task_thor_r2_newspaper_bin_empty_to_kitchen_can, task_thor_r2_garbage_bag_collect_bins_to_front_door); the placement-only idea is low"
+    },
+    {
+      "asset_name": "frl_apartment_table_02",
+      "asset_path": "configs/objects/frl_apartment_table_02.object_config.json",
+      "articulated": false,
+      "room": "dining_area",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "receptacles": 3,
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The table is set for two: one plate, one cup, and one bowl in front of each of the two dining chairs.",
+          "granularity": "compound",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "frl_apartment_plate_01",
+            "frl_apartment_plate_02",
+            "frl_apartment_cup_01",
+            "frl_apartment_cup_02",
+            "frl_apartment_bowl_06",
+            "frl_apartment_bowl_03",
+            "frl_apartment_chair_05"
+          ]
+        },
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The table is set from storage: plates from the solid-door cupboard, cups from the glass-door cupboard, and bowls from the right top drawer, with every door and drawer closed afterwards.",
+          "granularity": "workflow",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "kitchenCupboard_01",
+            "kitchen_counter"
+          ],
+          "source_note": "Habitat 2.0 SetTable pattern"
+        }
+      ],
+      "duplicate_risk": "medium: table setting appears in YCB kitchen rounds; the storage-to-table version with closed articulations is new"
+    },
+    {
+      "asset_name": "frl_apartment_bowl_07",
+      "asset_path": "configs/objects/frl_apartment_bowl_07.object_config.json",
+      "articulated": false,
+      "room": "dining_area",
+      "general_concept_id": "object_dish",
+      "ycb_equivalent_id": "ycb_024_bowl",
+      "mass_kg": 5.2,
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The large serving bowl is centred on the dining table with the fruit basket beside it.",
+          "granularity": "atomic",
+          "intent_id": "intent_serve_food",
+          "other_objects": [
+            "frl_apartment_basket"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: goal may reduce to a single placement (skill-like)"
+    },
+    {
+      "asset_name": "frl_apartment_bowl_01 / frl_apartment_bowl_02 / frl_apartment_bowl_03",
+      "asset_path": "configs/objects/frl_apartment_bowl_01.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_dish",
+      "ycb_equivalent_id": "ycb_024_bowl",
+      "ideas": [
+        {
+          "scene": "scene_home_kitchen",
+          "goal": "The three bowls are nested largest to smallest on the cupboard's bottom shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "kitchenCupboard_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: nesting exists (object_nested_container tasks)"
+    },
+    {
+      "asset_name": "frl_apartment_bowl_06",
+      "asset_path": "configs/objects/frl_apartment_bowl_06.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_dish",
+      "ycb_equivalent_id": "ycb_024_bowl",
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The bowl left on the living-room coffee table is in the kitchen sink.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_table_03"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r1_mug_living_room_rinse_return_cabinet has the same shape with a mug"
+    },
+    {
+      "asset_name": "frl_apartment_cup_05",
+      "asset_path": "configs/objects/frl_apartment_cup_05.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_drinkware",
+      "ycb_equivalent_id": "ycb_025_mug",
+      "placement": "cup_05 appears in apt_1 and apt_3, not apt_0",
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The cup left on the TV stand is behind the glass-window cupboard door and the door is closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_tvstand",
+            "kitchenCupboard_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r1_mug_living_room_rinse_return_cabinet"
+    },
+    {
+      "asset_name": "frl_apartment_lamp_02 (x2)",
+      "asset_path": "configs/objects/frl_apartment_lamp_02.object_config.json",
+      "articulated": false,
+      "room": "dining_area",
+      "general_concept_id": "object_lamp",
+      "ycb_equivalent_id": null,
+      "notes": "for switching, see thor lamp tasks",
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "The two small lamps stand at the two ends of the dining table, symmetric about its centre.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low; ReplicaCAD lamps are static meshes with no on/off state"
+    },
+    {
+      "asset_name": "frl_apartment_vase_01 / frl_apartment_vase_02",
+      "asset_path": "configs/objects/frl_apartment_vase_01.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_decor",
+      "ycb_equivalent_id": null,
+      "placement": "vases appear in apt_1 and apt_3",
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The two bud vases stand as a pair on the same bookshelf row, 10 cm apart.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_wall_cabinet_02"
+          ],
+          "safety": "fragile"
+        },
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The bud vase near the coffee-table edge is moved to the table centre.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "frl_apartment_table_03"
+          ],
+          "safety": "fragile"
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_chair_05 (x2)",
+      "asset_path": "configs/objects/frl_apartment_chair_05.object_config.json",
+      "articulated": false,
+      "room": "dining_area",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "mass_kg": 15.4,
+      "ideas": [
+        {
+          "scene": "scene_dining_table",
+          "goal": "Both dining chairs are pushed in under the table edge, seats centred on the place settings.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_table_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_stool_02",
+      "asset_path": "configs/objects/frl_apartment_stool_02.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The stool is back under the side table, clear of the TV-stand walkway.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_table_04"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_cushion_03 (x3)",
+      "asset_path": "configs/objects/frl_apartment_cushion_03.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_textile",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The three cushions stand upright against the sofa back, evenly spaced, one per seat.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_sofa"
+          ]
+        }
+      ],
+      "duplicate_risk": "high: task_thor_r2_sofa_reset_pillows_blanket_laptop"
+    },
+    {
+      "asset_name": "frl_apartment_cushion_01",
+      "asset_path": "configs/objects/frl_apartment_cushion_01.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_textile",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The cushion that fell off the armchair is back upright against the armchair back.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "frl_apartment_chair_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium"
+    },
+    {
+      "asset_name": "frl_apartment_beanbag (x2)",
+      "asset_path": "configs/objects/frl_apartment_beanbag.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "mass_kg": 11,
+      "notes": "deformable in reality, rigid in ReplicaCAD",
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "Both beanbags are pushed together in the corner by the window, leaving the path to the sofa clear.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_remote-control_01 (x2)",
+      "asset_path": "configs/objects/frl_apartment_remote-control_01.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_electronic_device",
+      "ycb_equivalent_id": null,
+      "atlas_equivalent_ids": [
+        "thor_object_remote_1"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "Both remotes lie parallel on the TV stand, buttons up, in front of the TV unit.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_tvstand"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r2_remote_cushions_into_basket"
+    },
+    {
+      "asset_name": "frl_apartment_tv_object",
+      "asset_path": "configs/objects/frl_apartment_tv_object.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_electronic_device",
+      "ycb_equivalent_id": null,
+      "identity_note": "26x7x19 cm on the TV stand; speaker or console (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The small device on the TV stand is centred below the TV screen and faces the sofa.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_tvstand",
+            "frl_apartment_tv_screen"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_tv_screen",
+      "asset_path": "configs/objects/frl_apartment_tv_screen.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_electronic_device",
+      "ycb_equivalent_id": null,
+      "atlas_equivalent_ids": [
+        "thor_object_television_1"
+      ],
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The dust streak on the TV screen is wiped off with a dry cloth, the screen unmoved.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [],
+          "safety": "powered off"
+        }
+      ],
+      "duplicate_risk": "low; the TV is STATIC (22 kg)"
+    },
+    {
+      "asset_name": "frl_apartment_table_03",
+      "asset_path": "configs/objects/frl_apartment_table_03.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The coffee table is clear: the two books are on the bookshelf, the bowl is in the kitchen sink, and the remotes are on the TV stand.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_book_03",
+            "frl_apartment_bowl_06",
+            "frl_apartment_remote-control_01",
+            "frl_apartment_wall_cabinet_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: multi-room returns overlap task_thor_r3_books_three_rooms_back_to_cube_shelf"
+    },
+    {
+      "asset_name": "frl_apartment_clock",
+      "asset_path": "configs/objects/frl_apartment_clock.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_decor",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The clock that toppled face-down on the shelf stands upright facing the room.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "frl_apartment_wall_cabinet_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r3_statue_toppled_stand_upright_on_shelf"
+    },
+    {
+      "asset_name": "frl_apartment_book_01 (x7)",
+      "asset_path": "configs/objects/frl_apartment_book_01.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_paper_item",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The seven copies of the same book stand upright together on one bookshelf row, spines out.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_wall_cabinet_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "high: task_thor_r2_book_close_shelve_upright, task_thor_r3_books_three_rooms_back_to_cube_shelf"
+    },
+    {
+      "asset_name": "frl_apartment_book_06",
+      "asset_path": "configs/objects/frl_apartment_book_06.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_paper_item",
+      "ycb_equivalent_id": null,
+      "mass_kg": 4.8,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The heavy art book lies flat on the bottom bookshelf row, not upright.",
+          "granularity": "atomic",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "frl_apartment_wall_cabinet_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium"
+    },
+    {
+      "asset_name": "frl_apartment_book_03 / frl_apartment_book_04",
+      "asset_path": "configs/objects/frl_apartment_book_03.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_paper_item",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The small paperbacks on the shelf stand in height order, tallest on the left.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_wall_cabinet_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium"
+    },
+    {
+      "asset_name": "frl_apartment_wall_cabinet_01",
+      "asset_path": "configs/objects/frl_apartment_wall_cabinet_01.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "receptacles": 6,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The storage box on the tall shelf's top row is on the floor in front of it, and the books beside it are still upright.",
+          "granularity": "compound",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "frl_apartment_box",
+            "frl_apartment_book_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_box",
+      "asset_path": "configs/objects/frl_apartment_box.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_receptacle",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The YCB Lego Duplo pieces and Rubik's cube are in the storage box and the box is back on its shelf.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ycb_073_lego_duplo",
+            "ycb_077_rubiks_cube",
+            "frl_apartment_wall_cabinet_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r2_box_pack_cd_cases_close_flaps"
+    },
+    {
+      "asset_name": "frl_apartment_rug_01 / frl_apartment_rug_02",
+      "asset_path": "configs/objects/frl_apartment_rug_01.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_textile",
+      "ycb_equivalent_id": null,
+      "motion_note": "STATIC in scenes; needs a deformable rug",
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The flipped-up rug corner under the coffee table is flattened so the rug lies flat.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "frl_apartment_table_03"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_towel",
+      "asset_path": "configs/objects/frl_apartment_towel.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_textile",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The towel left crumpled on the armchair is folded in half twice and laid square on the armchair seat.",
+          "granularity": "compound",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_chair_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_gso_r3_dish_towel_fold_to_drawer_template"
+    },
+    {
+      "asset_name": "frl_apartment_picture_04",
+      "asset_path": "configs/objects/frl_apartment_picture_04.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_decor",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The photo frame that fell flat on the bookshelf stands upright on its stand, facing out.",
+          "granularity": "atomic",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "frl_apartment_wall_cabinet_02"
+          ],
+          "safety": "glass front"
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r3_statue_toppled_stand_upright_on_shelf"
+    },
+    {
+      "asset_name": "frl_apartment_picture_03",
+      "asset_path": "configs/objects/frl_apartment_picture_03.object_config.json",
+      "articulated": false,
+      "room": "kitchen",
+      "general_concept_id": "object_decor",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "The small picture leaning on the kitchen counter is propped on the living-room bookshelf.",
+          "granularity": "compound",
+          "intent_id": "intent_transport",
+          "other_objects": [
+            "frl_apartment_wall_cabinet_02"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_indoor_plant_02",
+      "asset_path": "configs/objects/frl_apartment_indoor_plant_02.object_config.json",
+      "articulated": false,
+      "room": "living_area",
+      "general_concept_id": "object_plant",
+      "ycb_equivalent_id": null,
+      "mass_kg": 25,
+      "notes": "not recommended: 25 kg",
+      "ideas": [
+        {
+          "scene": "scene_home_living_room",
+          "goal": "The large potted plant is rotated so its lean faces the window.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": []
+        }
+      ],
+      "duplicate_risk": "high for watering (task_thor_r3_water_three_plants_one_fill_route); the rotation idea is weak"
+    },
+    {
+      "asset_name": "frl_apartment_camera_02",
+      "asset_path": "configs/objects/frl_apartment_camera_02.object_config.json",
+      "articulated": false,
+      "room": "office_corner",
+      "general_concept_id": "object_electronic_device",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The camera on the 1.8 m shelf above the desk is on the desk mat, lens cap up.",
+          "granularity": "atomic",
+          "intent_id": "intent_retrieve",
+          "other_objects": [
+            "frl_apartment_table_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_monitor",
+      "asset_path": "configs/objects/frl_apartment_monitor.object_config.json",
+      "articulated": false,
+      "room": "office_corner",
+      "general_concept_id": "object_electronic_device",
+      "ycb_equivalent_id": null,
+      "motion_note": "STATIC in scenes",
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The monitor screen is wiped free of the marked smudge without moving the monitor on its stand.",
+          "granularity": "compound",
+          "intent_id": "intent_clean",
+          "other_objects": [
+            "frl_apartment_monitor_stand"
+          ],
+          "safety": "powered off"
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "frl_apartment_table_01",
+      "asset_path": "configs/objects/frl_apartment_table_01.object_config.json",
+      "articulated": false,
+      "room": "office_corner",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The desk is clear except the monitor: the YCB marker is in the chest's top-right drawer, the mug is in the sink, and the book is on the shelf.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ycb_040_large_marker",
+            "ycb_025_mug",
+            "frl_apartment_book_05",
+            "chestOfDrawers_01"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r1_desk_clear_for_night"
+    },
+    {
+      "asset_name": "frl_apartment_setupbox",
+      "asset_path": "configs/objects/frl_apartment_setupbox.object_config.json",
+      "articulated": false,
+      "room": "office_corner",
+      "general_concept_id": "object_electronic_device",
+      "ycb_equivalent_id": null,
+      "identity_note": "17x16x1.5 cm flat box, no texture; router or set-top box (unconfirmed)",
+      "ideas": [
+        {
+          "scene": "scene_home_office_desk",
+          "goal": "The flat set-top box lies flat behind the monitor with nothing stacked on it.",
+          "granularity": "atomic",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "frl_apartment_monitor"
+          ]
+        }
+      ],
+      "duplicate_risk": "low"
+    },
+    {
+      "asset_name": "apt_0 (scene layout)",
+      "asset_path": "configs/scenes/apt_0.scene_instance.json",
+      "articulated": true,
+      "room": "whole apartment",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "Five listed out-of-place YCB items are back in their homes: mug behind a glass cupboard door, bowl in the counter's right top drawer, apple in the fridge's lower compartment, tennis ball in the chest's bottom-right drawer, and marker in the chest's top-right drawer, with every door and drawer closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_organize",
+          "other_objects": [
+            "ycb_025_mug",
+            "ycb_024_bowl",
+            "ycb_013_apple",
+            "ycb_056_tennis_ball",
+            "ycb_040_large_marker",
+            "kitchenCupboard_01",
+            "kitchen_counter",
+            "fridge",
+            "chestOfDrawers_01"
+          ],
+          "source_note": "Habitat 2.0 TidyHouse pattern; the list keeps it from becoming open-ended"
+        }
+      ],
+      "duplicate_risk": "medium: multi-room tidying overlaps task_thor_r3_books_three_rooms_back_to_cube_shelf, but mixing five articulated receptacles is new"
+    },
+    {
+      "asset_name": "apt_0 (scene layout)",
+      "asset_path": "configs/scenes/apt_0.scene_instance.json",
+      "articulated": true,
+      "room": "whole apartment",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "Before leaving the apartment, both fridge doors, all seven counter drawers, all eight cupboard doors, the six chest drawers, and the hall door are closed.",
+          "granularity": "workflow",
+          "intent_id": "intent_recover_from_error",
+          "other_objects": [
+            "fridge",
+            "kitchen_counter",
+            "kitchenCupboard_01",
+            "chestOfDrawers_01",
+            "door2"
+          ]
+        }
+      ],
+      "duplicate_risk": "medium: task_thor_r3_leave_house_check_doors_taps_light and task_thor_r2_bathroom_close_left_open_items"
+    },
+    {
+      "asset_name": "v3_sc0_staging_00 .. v3_sc4_staging_20 (84 layouts)",
+      "asset_path": "configs/scenes/v3_sc0_staging_00.scene_instance.json",
+      "articulated": true,
+      "room": "whole apartment (rearranged)",
+      "general_concept_id": "object_furniture",
+      "ycb_equivalent_id": null,
+      "notes": "v3 layouts have furniture only (e.g. 18 objects in v3_sc0_staging_00); clutter must be added",
+      "ideas": [
+        {
+          "scene": "scene_multi_room_house",
+          "goal": "In a rearranged layout where the fridge and counter moved, the YCB pitcher is found and put in the fridge's upper compartment with the door closed.",
+          "granularity": "compound",
+          "intent_id": "intent_store",
+          "other_objects": [
+            "ycb_019_pitcher_base",
+            "fridge"
+          ]
+        }
+      ],
+      "duplicate_risk": "low as a variant; it is a layout generalisation of the fridge top-door candidate rather than a new goal"
+    }
+  ]
+}
