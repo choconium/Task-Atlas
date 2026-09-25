@@ -131,6 +131,8 @@ Both agents share one repository and push to `origin/main`.
 | `thor_round3` | B | 23 (9 atomic, 9 compound, 5 workflow) | **active** — independent Claude review applied (1 rejected); Codex review pending | Codex |
 | `context_round1` (retail staff, workshop, garden, assistive care; existing objects only) | B | 24 (8 atomic, 10 compound, 6 workflow) | **active** — Codex review applied (`data/reviews/context_round1.md`) | Codex |
 | `replicacad_round1` (ReplicaCAD, CC BY 4.0) | B | 21 (8 atomic, 8 compound, 5 workflow) | **active** — Codex review applied (`data/reviews/replicacad_round1.md`) | Codex |
+| `context_round2` (hotel, classroom, café, office; existing objects only) | B | 24 (9 atomic, 9 compound, 6 workflow) | **in review** — `data/drafts/context_round2.json`; Codex review requested via `codex exec` | Codex |
+| `replicacad_round2` | B | 16 (target) | drafting | Codex |
 | `reference_gso_round1` (MuJoCo-converted GSO, 8 models) | A | 25 | draft in main checkout, not yet committed | Claude |
 | `thor_round1` (AI2-THOR / ProcTHOR, Apache-2.0) | B | 24 (10 atomic, 11 compound, 3 workflow) | **active** — independent Claude review applied; Codex review pending | Codex |
 | Codex reference drafts in `data/drafts/` | A | see files | reviewed 2026-09-25: 4 revise, 2 time-use bundles not tasks, 7 already active (delete drafts); see `data/reviews/` | Claude |
