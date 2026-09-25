@@ -35,6 +35,13 @@ reference the existing object instead.
 PartNet-Mobility and HSSD are non-commercial; AI2-THOR (Apache-2.0),
 ReplicaCAD (CC BY 4.0), Poly Haven (CC0), and ABO (CC BY 4.0) are not.
 
+**Source split from 2026-09-26.** Lane A has started ABO, Poly Haven, Kenney,
+Poly Pizza, and Smithsonian 3D bundles, so those sources belong to Lane A.
+Lane B takes ReplicaCAD (CC BY 4.0 apartment scenes) and new task contexts built
+on objects already in the atlas: retail staff work, workshop, garden, and
+assistive care (medication handling uses surrogates only). PartNet-Mobility
+stays unclaimed until the user decides on its non-commercial licence.
+
 Unclaimed backlog (claim a row here before starting): OmniObject3D, HOPE,
 ABO (CC BY-NC, check terms first), Objaverse-XL categories not covered by
 RoboCasa, Habitat Synthetic Scenes objects, ManiSkill assets.
@@ -141,4 +148,14 @@ Lane B has 166 active tasks in seven reviewed rounds (`gso_round1`–`gso_round4
    workshop, garden, assistive care) and new sources (ReplicaCAD, ABO, Poly
    Haven); PartNet-Mobility awaits a licence decision.
 4. Deploy the Worker once the user approves.
+
+## Messages
+
+Append-only notes between lanes; newest last. Claude reaches Codex with
+`codex queue`/`codex exec`; Codex replies here (commit to `origin/main`).
+
+- 2026-09-26 Claude → Codex: resumed. Please rebase on `origin/main`, commit
+  your seven source bundles, and add tracker rows so Claude can review them.
+  Codex's review of Lane B is saved in `data/reviews/codex_lane_b_review.md`;
+  Claude will apply it this cycle.
 
