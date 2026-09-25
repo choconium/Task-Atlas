@@ -995,7 +995,7 @@
       "id": "template_rcad_r1b_rehang_fallen_garment_by_loop",
       "node_type": "TaskTemplate",
       "name_en": "Hang a garment that fell off its wall hook back on the hook by its hanging loop",
-      "name_ja": "壁のフックから落ちた衣類を、襟のループでフックに掛け直す",
+      "name_ja": "壁のフックから落ちた衣類を、吊り下げループでフックに掛け直す",
       "verb": "rehang_by_loop",
       "roles": {
         "theme": "garment",
@@ -1812,7 +1812,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "replicacad_round1",
-      "notes": "Compound: two objects, one destination, one sitting: the bowl moves from drawer3 to the table place (on_top_of and upright describe that placement), and the drawer is opened then closed again, so closed(..., right_slide_top) holds at both ends as a preserved end state. The carry crosses the open-plan apartment from the kitchen to the dining area, but it is one trip to one destination, so it is not a workflow. Source: follows the bowl-from-drawer stage of the Habitat 2.0 Home Assistant Benchmark SetTable task (Szot et al., 2021), which also fetches a fruit from the fridge; this task stops at the bowl and adds that the drawer ends closed and the bowl sits at a chair's place. ReplicaCAD mapping: inside <-> the bowl's centre of mass in receptacle_aabb_drawer_right_top_frl_apartment_kitchen_counter (link drawer3); closed <-> right_slide_top within 0.005 m of 0; the place zone is a 30 x 30 cm area of frl_apartment_table_02 centred in front of one frl_apartment_chair_05. The bowl is ReplicaCAD frl_apartment_bowl_06 (1.3 kg in its config; mesh about 16 cm across and 7.4 cm tall), a planning resource. The reverse flow, clearing a table into the sink and a cabinet, is task_thor_r2_dining_table_clear_to_sink_and_cabinet. Physical collection uses a counter drawer, a dining table about 5 m away, and a melamine bowl surrogate."
+      "notes": "Compound: two objects, one destination, one sitting: the bowl moves from drawer3 to the table place (on_top_of and upright describe that placement), and the drawer is opened then closed again, so closed(..., right_slide_top) holds at both ends as a preserved end state. The carry crosses the open-plan apartment from the kitchen to the dining area, but it is one trip to one destination, so it is not a workflow. Source: follows the bowl-from-drawer stage of the Habitat 2.0 Home Assistant Benchmark SetTable task (Szot et al., 2021), which also fetches a fruit from the fridge; this task stops at the bowl and adds that the drawer ends closed and the bowl sits at a chair's place. ReplicaCAD mapping: inside <-> the bowl's centre of mass in receptacle_aabb_drawer_right_top_frl_apartment_kitchen_counter (link drawer3); closed <-> right_slide_top within 0.005 m of 0; the place zone is a 30 x 30 cm area of frl_apartment_table_02 centred in front of one frl_apartment_chair_05. The bowl is ReplicaCAD frl_apartment_bowl_06 (1.3 kg in its config; mesh about 16 cm across and 7.4 cm tall), a planning resource. Related bowl-to-table task: Lane A's reference_gso_round1 bundle (MuJoCo-converted GSO) proposes moving a plastic bowl from an open cupboard shelf to the dining table as an atomic transfer; that bundle is not yet in this checkout's active store, so it is cross-linked by name here and by ID once it is active. This task differs in two ways: the bowl is retrieved through an articulated drawer that must be opened and left closed again (right_slide_top named in the goal), and the destination is a chair-specific 30 x 30 cm place zone rather than anywhere on the table, so the placement sets one diner's place. The reverse flow, clearing a table into the sink and a cabinet, is task_thor_r2_dining_table_clear_to_sink_and_cabinet. Physical collection uses a counter drawer, a dining table about 5 m away, and a melamine bowl surrogate."
     },
     {
       "id": "task_rcad_r1_cups_glass_door_shelf_handles_right",
@@ -2091,7 +2091,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "replicacad_round1",
-      "notes": "Atomic: one object, one goal change (the flipped corner lies flat again), made in place by one grasp-fold-press motion; the rug is not moved. corner_at_mark is the tolerance of that same change, and standing_on(rcad_resource_coffee_table_03, rug) holds at the start and the end, so it is a preserved condition. Starting state: the corner of rug_02 nearest the sofa is folded back on itself about 25 cm along each edge (a triangle of the underside showing), outside the coffee table's legs, so the table's weight pins the rest of the rug. flat means every point along the 25 cm edges is within 1 cm of the floor (rug_02 is about 2 cm thick) and no crease is left that rises more than 1 cm; corner_at_mark means the corner vertex is within 3 cm of its tape mark. ReplicaCAD marks rug_02 STATIC with bounding-box collision, so simulation needs a cloth or deformable rug model set DYNAMIC in its place (planning condition). No active task handles a rug or another floor textile trip hazard."
+      "notes": "Atomic: one object, one goal change (the flipped corner lies flat again), made in place by one grasp-fold-press motion; the rug is not moved. corner_at_mark is the tolerance of that same change, and standing_on(rcad_resource_coffee_table_03, rug) holds at the start and the end, so it is a preserved condition. Starting state: the corner of rug_02 nearest the sofa is folded back on itself about 25 cm along each edge (a triangle of the underside showing), outside the coffee table's legs, so the table's weight pins the rest of the rug. flat means every point along the 25 cm edges is within 1 cm of the floor (rug_02 is about 2 cm thick) and no crease is left that rises more than 1 cm; corner_at_mark means the corner vertex is within 3 cm of its tape mark. ReplicaCAD marks rug_02 STATIC with bounding-box collision, so simulation needs a cloth or deformable rug model set DYNAMIC in its place (planning condition). Related active task: task_ctx_r1_slide_sandal_night_path_bed_to_toilet_cleared flattens a hallway rug as one of four segments of a night-path clearing workflow with width checks. This task is the rug recovery on its own and is more specific: one named corner folded back 25 cm is returned to a tape mark within 3 cm with no crease above 1 cm, while the coffee table standing on the rug stays in place and pins the rest of it, so the rug cannot be lifted or dragged flat."
     },
     {
       "id": "task_rcad_r1_camera_02_high_shelf_to_desk",
@@ -2149,8 +2149,8 @@
       "id": "task_rcad_r1_cloth_03_jacket_back_on_entry_hook",
       "node_type": "TaskInstance",
       "template_id": "template_rcad_r1b_rehang_fallen_garment_by_loop",
-      "name_en": "Hang the fallen jacket (ReplicaCAD cloth_03, inferred) back on its entry hook by its collar loop, hem clear of the floor",
-      "name_ja": "床に落ちたジャケット（ReplicaCAD cloth_03、推定）を、襟のループで玄関の元のフックに掛け直し、裾を床から離す",
+      "name_en": "Hang the fallen jacket (ReplicaCAD cloth_03, inferred; staged as a garment proxy with an added hanging loop) back on its entry hook, hem clear of the floor",
+      "name_ja": "床に落ちたジャケット（ReplicaCAD cloth_03、推定。吊り下げループを付けた代替衣類で実施）を玄関の元のフックに掛け直し、裾を床から離す",
       "intent_id": "intent_recover_from_error",
       "object_id": "replicacad_object_cloth_03",
       "scene_id": "scene_replicacad_apartment",
@@ -2193,7 +2193,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "replicacad_round1",
-      "notes": "Atomic: one object and one goal change, from the floor to hanging on its hook, in one grasp-lift-hook motion; loop_on_hook and clear_of_floor say how it hangs. Identity: ReplicaCAD names the four entry garments only cloth_01 to cloth_04; cloth_03 (53 x 79 x 13 cm, 1.3 kg) is inferred to be a hip-length jacket from its size and its place on the entry hooks, so the task says jacket with that caveat. rcad_resource_entry_wall_hook_3 is the hook where cloth_03 hangs in apt_0 (about 1.6 m above the floor), between the hooks holding cloth_01 and cloth_02. loop_on_hook means the hook passes through the collar hanging loop, not a sleeve or the hood; clear_of_floor means the hem is at least 50 cm above the floor. The two neighbouring garments stay on their hooks (preserved). In apt_0 cloth_01 to cloth_03 are STATIC rigid meshes, so simulation needs cloth_03 set DYNAMIC as a cloth model with a loop (planning condition). Related active task: task_gso_r1_hat_hang_on_hook hangs a rigid brimmed hat on an entry hook by its crown; this task rehangs a deformable jacket that fell, by a small collar loop, next to garments that must stay put."
+      "notes": "Atomic: one object and one goal change, from the floor to hanging on its hook, in one grasp-lift-hook motion; loop_on_hook and clear_of_floor say how it hangs. Identity: ReplicaCAD names the four entry garments only cloth_01 to cloth_04; cloth_03 (53 x 79 x 13 cm, 1.3 kg) is inferred to be a hip-length jacket from its size and its place on the entry hooks, so the task says jacket with that caveat. rcad_resource_entry_wall_hook_3 is the hook where cloth_03 hangs in apt_0 (about 1.6 m above the floor), between the hooks holding cloth_01 and cloth_02. Garment proxy (unverified setup condition): in apt_0 cloth_01 to cloth_03 are STATIC rigid meshes and cloth_03 has no modelled hanging loop, so neither the loop nor the cloth behaviour comes from ReplicaCAD, and no separately identified dynamic garment-and-loop asset has been found. The task is therefore staged with an explicitly defined proxy: in simulation, a DYNAMIC deformable jacket model scaled to cloth_03's 53 x 79 x 13 cm bounds and 1.3 kg, with a fabric loop at least 3 cm long added by the stager at the inside collar centre; in physical collection, a hip-length jacket of about that size that has such a loop. loop_on_hook refers to that added proxy loop: the hook passes through it, not a sleeve, the hood, or the fabric; clear_of_floor means the hem is at least 50 cm above the floor. cloth_03 supplies only the identity, size, mass, and hook position. The two neighbouring garments stay on their hooks (preserved). Related active task: task_gso_r1_hat_hang_on_hook hangs a rigid brimmed hat on an entry hook by its crown; this task rehangs a deformable garment that fell and lies crumpled on the floor, so it must first find the proxy's small loop in the fabric, and it hangs next to garments that must stay put; the hat is rigid, keeps its shape, and is hung by its crown."
     },
     {
       "id": "task_rcad_r1_tv_remotes_into_chest_top_left_drawer",
@@ -2367,7 +2367,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "replicacad_round1",
-      "notes": "Compound: two goal changes in one sitting at one doorway, in a fixed order. held_open_until_clear is an episode predicate: door2's root_rotation is at least 80 degrees from its closed limit from the moment the person reaches the threshold until their trailing foot is 1 m past it, with no contact between the door leaf and the person or the box. The person's move to the far side is the second change, enabled by the robot. closed(root_rotation) holds at the start and the end, so it is a preserved end state bookending the transient open hold, not a net change; the anchor appears in the goal through both predicates. held_by(box, person) is preserved: the robot never touches the box. Order constraint: the door must not start closing until the person is at least 1 m past the threshold and has said they are clear or is seen clear by the camera. Robot position: on the hinge side of the leaf, outside the 90 cm passage, so it never stands in the person's path. closed means root_rotation within 0.05 rad (about 3 degrees) of its lower limit; the joint limit stands in for closed and door2 has no latch or closer, so on the physical door closed also means the latch has engaged. The box is frl_apartment_box (34 x 27 x 17 cm, 3.1 kg), carried in both arms. Physical collection uses a real hinged door with any closer disconnected. Intent: intent_set_device_state, because the robot's own job is to leave the door open for the passage and then closed. Related tasks: task_thor_r2_bathroom_close_left_open_items and task_thor_r3_leave_house_check_doors_taps_light close doors that were left open with no one present, and task_rcad_r1_softball_from_hall_chest_handover_hold_entry_door sees a departing person out through door2 after handing them a ball, as the last stage of a workflow; this task is the door job on its own, for a person whose hands are full with a 3.1 kg box so they cannot touch the door, with the robot kept out of the passage."
+      "notes": "Compound: two goal changes in one sitting at one doorway, in a fixed order. held_open_until_clear is an episode predicate: door2's root_rotation is at least 80 degrees from its closed limit from the moment the person reaches the threshold until their trailing foot is 1 m past it, with no contact between the door leaf and the person or the box. The person's move to the far side is the second change, enabled by the robot. closed(root_rotation) holds at the start and the end, so it is a preserved end state bookending the transient open hold, not a net change; the anchor appears in the goal through both predicates. held_by(box, person) is preserved: the robot never touches the box. Order constraint: the door must not start closing until the person is at least 1 m past the threshold and has said they are clear or is seen clear by the camera. Robot position: on the hinge side of the leaf, outside the 90 cm passage, so it never stands in the person's path. closed means root_rotation within 0.05 rad (about 3 degrees) of its lower limit; the joint limit stands in for closed and door2 has no latch or closer, so on the physical door closed also means the latch has engaged. The box is frl_apartment_box (34 x 27 x 17 cm, 3.1 kg), carried in both arms. Physical collection uses a real hinged door with any closer disconnected. Intent: intent_set_device_state, because the robot's own job is to leave the door open for the passage and then closed. Related tasks: task_thor_r2_bathroom_close_left_open_items and task_thor_r3_leave_house_check_doors_taps_light close doors that were left open with no one present, and task_rcad_r1_parcel_in_through_door2_balls_to_chest_drawer_carton_binned (this bundle) opens and shuts door2 to bring a parcel in as the first stage of a workflow; this task is the door job on its own, for a person whose hands are full with a 3.1 kg box so they cannot touch the door, with the robot kept out of the passage."
     },
     {
       "id": "task_rcad_r1_handbag_handover_to_person_on_sofa",
@@ -2419,7 +2419,7 @@
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "replicacad_round1",
-      "notes": "Atomic: one object and one goal change (held_by the seated person) in one fetch-carry-offer-release sequence; handles_toward is a pose qualifier of the offer. It stays atomic even though the carry is long: there is one object, one destination, and no checkpoint. held_by means the person holds the bag alone after release and it does not drop for 5 s; handles_toward means both handles stand up on the side nearest the person's free hand, within 30 degrees. The bag (frl_apartment_handbag, 32 x 40 x 18 cm, config mass 3 kg) starts on the high entry shelf, its centre 1.87 m above the floor in apt_0, and the sofa (frl_apartment_sofa) is in the living area about 10 m away. The offer is made at the seated person's hand height, 55 to 85 cm above the floor, within 40 cm of their free hand. Because the bag is heavy, the robot releases only after the person's grip is detected and the gripper's measured load has dropped by at least half, so the person is carrying the weight. The physical bag is loaded to no more than 3 kg with soft items. Related active tasks: task_gso_r3_bootie_handover_seated_person hands a light bootie to a person on an entryway bench from a rack beside them, and task_gso_r4_tumbler_water_handover_seated_person hands an upright tumbler of water to a person in an armchair; this task fetches a 3 kg bag down from head height, carries it across the apartment, offers it by its handles, and checks the weight transfer before release."
+      "notes": "Atomic: one object and one goal change (held_by the seated person) in one fetch-carry-offer-release sequence; handles_toward is a pose qualifier of the offer. It stays atomic even though the carry is long: there is one object, one destination, and no checkpoint. held_by means the person holds the bag alone after release and it does not drop for 5 s; handles_toward means both handles stand up on the side nearest the person's free hand, within 30 degrees. The bag (frl_apartment_handbag, 32 x 40 x 18 cm, config mass 3 kg) starts on the high entry shelf, its centre 1.87 m above the floor in apt_0, and the sofa (frl_apartment_sofa) is in the living area about 10 m away. The offer is made at the seated person's hand height, 55 to 85 cm above the floor, within 40 cm of their free hand. Because the bag is heavy, the robot releases only after the person's grip is detected and the gripper's measured load has dropped by at least half, so the person is carrying the weight. The physical bag is loaded to no more than 3 kg with soft items. Related active tasks: task_thor_r3_tissue_box_fetch_to_person_on_sofa also fetches for a person resting on a sofa, but brings a light tissue box and a wastebasket from the bathroom at floor-to-counter height and sets the bin down; task_gso_r3_bootie_handover_seated_person hands a light bootie to a person on an entryway bench from a rack beside them, and task_gso_r4_tumbler_water_handover_seated_person hands an upright tumbler of water to a person in an armchair; this task's distinguishing goal is to retrieve a 3 kg handled bag down from a shelf above head height, carries it across the apartment, offers it by its handles, and checks the weight transfer before release."
     },
     {
       "id": "task_rcad_r1_grocery_basket_unpack_both_fridge_doors_cupboard",
@@ -2452,7 +2452,7 @@
         "state_room_temperature"
       ],
       "initial_state": [
-        "on_top_of(rcad_resource_frl_apartment_basket, rcad_resource_kitchen_counter_top)",
+        "on_top_of(rcad_resource_frl_apartment_basket, rcad_resource_counter_right_worktop)",
         "inside(ycb_019_pitcher_base, rcad_resource_frl_apartment_basket)",
         "inside(ycb_010_potted_meat_can, rcad_resource_frl_apartment_basket)",
         "inside(ycb_013_apple, rcad_resource_frl_apartment_basket)",
@@ -2532,7 +2532,7 @@
         "on_top_of(ycb_024_bowl, rcad_resource_office_table_01)",
         "on_top_of(ycb_017_orange, rcad_resource_dining_table_02)",
         "on_top_of(ycb_056_tennis_ball, rcad_resource_living_area_floor)",
-        "on_top_of(ycb_040_large_marker, rcad_resource_kitchen_counter_top)",
+        "on_top_of(ycb_040_large_marker, rcad_resource_counter_left_worktop)",
         "closed(replicacad_object_kitchencupboard_01, doorWindow_1L_hinge)",
         "closed(replicacad_object_kitchen_counter, right_slide_top)",
         "closed(replicacad_object_fridge, bottom_door_hinge)",
@@ -2710,12 +2710,12 @@
         "skill_release",
         "skill_verify"
       ],
-      "granularity": "compound",
+      "granularity": "workflow",
       "review_status": "proposed",
       "generated_by": "llm",
       "model": "claude-opus-5-5",
       "generation_version": "replicacad_round1",
-      "notes": "Goal: the scissors are in the left-bottom drawer (joint left_slide_bottom, link drawer1_bottom) and all seven counter drawers are shut. The search constraint is that no drawer is opened more than once over the whole trial, including the left-bottom drawer, which is opened only to put the scissors in; this is checked from the joint trace, not stated as an end-state predicate. Labelled compound, not workflow: it happens in one sitting at one fixture, and the search stages differ only in order, so it is one work zone with ordering constraints. Goal changes are the scissors leaving the start drawer and entering the left-bottom drawer; the seven closed drawers are preserved constraints. The start drawer is one of the six drawers other than left_slide_bottom, drawn per trial from a sealed trial card the robot cannot see (rcad_resource_counter_drawer_hidden_start); the other five hold unchanged decoy contents that must not move more than 2 cm. ReplicaCAD kitchen_counter.urdf has 7 prismatic joints: left_slide_top, left_slide_bottom, middle_slide_top, middle_slide_middle, middle_slide_bottom, right_slide_top, right_slide_bottom; a drawer counts as closed within 0.005 m of its closed limit (0), and a drawer counts as opened when it travels more than 5 cm. Joint limits stand in for closed; there is no latch. Safety: ycb_037_scissors are real scissors, so the physical trial uses them with the blades closed inside a rigid snap-on blade guard (rcad_resource_blade_guard) or substitutes blunt-tipped training scissors of the same size; the guard must still be on at the end. Cross-links: ycb_037_scissors is the atlas YCB object, present in ai-habitat/ycb. Distinct from task_ycb_round5_037_scissors (sheathing scissors for handover) and task_thor_r2_bathroom_close_left_open_items (closing left-open closures): here every drawer starts closed and the new element is a bounded search of a drawer bank."
+      "notes": "Goal: the scissors are in the left-bottom drawer (joint left_slide_bottom, link drawer1_bottom) and all seven counter drawers are shut. The search constraint is that no drawer is opened more than once over the whole trial, including the left-bottom drawer, which is opened only to put the scissors in; this is checked from the joint trace, not stated as an end-state predicate. Labelled workflow: although every stage uses one fixture, the task runs as staged checkpoints, one per drawer checked (open, inspect, close, and confirm the drawer is shut before the next is opened), followed by a final placement stage in the left-bottom drawer; the rubric defines workflows by such checkpoints. Goal changes are the scissors leaving the start drawer and entering the left-bottom drawer; the seven closed drawers are preserved constraints. The start drawer is one of the six drawers other than left_slide_bottom, drawn per trial from a sealed trial card the robot cannot see (rcad_resource_counter_drawer_hidden_start); the other five hold unchanged decoy contents that must not move more than 2 cm. ReplicaCAD kitchen_counter.urdf has 7 prismatic joints: left_slide_top, left_slide_bottom, middle_slide_top, middle_slide_middle, middle_slide_bottom, right_slide_top, right_slide_bottom; a drawer counts as closed within 0.005 m of its closed limit (0), and a drawer counts as opened when it travels more than 5 cm. Joint limits stand in for closed; there is no latch. Safety: ycb_037_scissors are real scissors, so the physical trial uses them with the blades closed inside a rigid snap-on blade guard (rcad_resource_blade_guard) or substitutes blunt-tipped training scissors of the same size; the guard must still be on at the end. Cross-links: ycb_037_scissors is the atlas YCB object, present in ai-habitat/ycb. Distinct from task_ycb_round5_037_scissors (sheathing scissors for handover) and task_thor_r2_bathroom_close_left_open_items (closing left-open closures): here every drawer starts closed and the new element is a bounded search of a drawer bank."
     },
     {
       "id": "task_rcad_r1_parcel_in_through_door2_balls_to_chest_drawer_carton_binned",
@@ -4533,7 +4533,7 @@
         {
           "key": "object",
           "value": "replicacad_object_cloth_03",
-          "reason": "Anchor garment; physically a hip-length jacket about 53 x 79 cm, 1.3 kg or less, with a collar hanging loop."
+          "reason": "Anchor identity only: ReplicaCAD cloth_03 is a STATIC rigid mesh (about 53 x 79 x 13 cm, 1.3 kg) with no hanging loop; trials use the garment proxy defined in the conditions below."
         },
         {
           "key": "object",
@@ -4548,17 +4548,17 @@
         {
           "key": "capability",
           "value": "deformable_manipulation",
-          "reason": "Finding the collar loop in a crumpled garment and lifting it."
+          "reason": "Finding the proxy's added collar loop in a crumpled garment and lifting it."
         },
         {
           "key": "condition",
           "value": "cloth_03_set_dynamic_as_cloth_with_loop",
-          "reason": "In simulation cloth_03 is made DYNAMIC and replaced by a cloth model with a collar loop."
+          "reason": "Unverified setup condition: in simulation cloth_03 is replaced by a DYNAMIC deformable jacket proxy of the same bounds and mass, with a collar loop added by the stager; the loop is not part of the ReplicaCAD asset."
         },
         {
           "key": "condition",
           "value": "jacket_has_collar_hanging_loop",
-          "reason": "The physical jacket has a fabric loop at the inside collar at least 3 cm long."
+          "reason": "Unverified setup condition: the physical proxy jacket has a fabric loop at the inside collar at least 3 cm long; ReplicaCAD does not show one."
         },
         {
           "key": "condition",
@@ -4646,7 +4646,7 @@
       ],
       "collection": {
         "success_criteria": [
-          "The hook passes through the collar hanging loop (close-up photo), not through a sleeve, hood, or the fabric itself.",
+          "The hook passes through the proxy's collar hanging loop (close-up photo), not through a sleeve, hood, or the fabric itself.",
           "The jacket is still hanging 10 s after release.",
           "The hem is at least 50 cm above the floor.",
           "The garments on the neighbouring hooks are still hanging (preserved condition)."
@@ -5435,8 +5435,8 @@
         },
         {
           "key": "object",
-          "value": "rcad_resource_kitchen_counter_top",
-          "reason": "Counter surface where the basket stands."
+          "value": "rcad_resource_counter_right_worktop",
+          "reason": "Counter worktop beside the fridge (receptacle_aabb_counter_right_kitchen_counter) where the basket stands."
         },
         {
           "key": "object",
@@ -5703,8 +5703,8 @@
         },
         {
           "key": "object",
-          "value": "rcad_resource_kitchen_counter_top",
-          "reason": "Counter surface where the marker starts."
+          "value": "rcad_resource_counter_left_worktop",
+          "reason": "Worktop above the left drawers (receptacle_aabb_counter_left_kitchen_counter) where the marker starts."
         },
         {
           "key": "object",
@@ -7140,14 +7140,14 @@
       "id": "claim_rcad_r1_cloth_03_jacket_back_on_entry_hook_task_suitability",
       "subject_id": "task_rcad_r1_cloth_03_jacket_back_on_entry_hook",
       "claim_type": "task_suitability",
-      "statement": "This is a proposed entryway recovery task that hangs a fallen jacket back on its wall hook by the collar loop, for collection design review.",
+      "statement": "This is a proposed entryway recovery task that hangs a fallen jacket back on its wall hook by a hanging loop on a staged garment proxy, for collection design review.",
       "status": "proposed",
       "value": null,
       "unit": null,
       "source_ids": [
         "evidence_replicacad_task_design_round1"
       ],
-      "scope": "One hip-length jacket, one wall hook, two neighbouring garments that stay on their hooks.",
+      "scope": "One hip-length jacket proxy sized to cloth_03, one wall hook, two neighbouring garments that stay on their hooks.",
       "limitations": "The design seed supports proposed task design only; ReplicaCAD joints and object configs do not establish physical feasibility, and review and a collection trial are still required."
     },
     {
@@ -7643,18 +7643,19 @@
     "ObjectInstances are defined only for the four anchoring furniture assets, as replicacad_object_<asset slug>; ReplicaCAD cups, bowl, pan, dining table, shelves, and drawers are rcad_resource_* planning resources, and YCB clutter reuses atlas ycb_* objects present in ai-habitat/ycb.",
     "Joint names, limits, link masses, and receptacle names were read from the URDF and ao_config.json files at revision 3e8c7fe5759f64bfcbc3882f9cdf6de97f82a06d on 2026-09-26. The glass-door-to-shelf-column mapping of kitchenCupboard_01 and the cup handles are inferences recorded as planning conditions.",
     "Catalog_identity claims cite evidence_replicacad_dataset; task_suitability claims cite evidence_replicacad_task_design_round1; both are defined in the round skeleton.",
-    "Living area, entryway, and office corner: 9 proposed tasks (6 atomic, 3 compound) on the ReplicaCAD apartment (scene_replicacad_apartment). Entryway: righting the fallen shoe_04 on the rack's lower tier, leaning the umbrella in the corner clear of door2's swing, rehanging the fallen jacket (cloth_03, identity inferred) by its collar loop, storing both TV remotes in chestOfDrawers_01's drawer_topL, and holding door2 open for a person carrying the storage box. Living area: flattening a flipped corner of rug_02 and handing the handbag to a person on the sofa. Office corner: fetching camera_02 from the high shelf to the desk. Dining area: stowing the storage box behind the cabinet's left sliding door.",
+    "Living area, entryway, and office corner: 9 proposed tasks (6 atomic, 3 compound) on the ReplicaCAD apartment (scene_replicacad_apartment). Entryway: righting the fallen shoe_04 on the rack's lower tier, leaning the umbrella in the corner clear of door2's swing, rehanging the fallen jacket (cloth_03, identity inferred) by a collar loop added to a staged garment proxy, storing both TV remotes in chestOfDrawers_01's drawer_topL, and holding door2 open for a person carrying the storage box. Living area: flattening a flipped corner of rug_02 and handing the handbag to a person on the sofa. Office corner: fetching camera_02 from the high shelf to the desk. Dining area: stowing the storage box behind the cabinet's left sliding door.",
     "New ObjectInstances (9): replicacad_object_shoe_04, _umbrella, _rug_02, _camera_02, _cloth_03, _chestofdrawers_01, _door2, _handbag, _box, each with a catalog_identity claim citing evidence_replicacad_dataset. The sliding-door cabinet is replicacad_object_cabinet, defined elsewhere in this bundle; this part only references it. Resource IDs beginning rcad_resource_ are planning object requirements, not cataloged ObjectInstances; the remotes, rack, sofa, desk, shelves, hooks, and coffee table stay resources.",
     "Articulated goals name their joints: drawer_topL of chestOfDrawers_01 (the other five drawers are preserved closed), left_slide of the cabinet (right_slide preserved), and root_rotation of door2. Closed is read as the joint at its closed limit; no latch is modelled.",
-    "Static-asset setup facts: rug_02 and cloth_03 are STATIC rigid meshes in the ReplicaCAD scenes, so their tasks declare rug_02_replaced_by_dynamic_deformable_model and cloth_03_set_dynamic_as_cloth_with_loop. The camera and remotes are unpowered in the dataset; physical collection uses a battery-less camera or dummy and battery-less remotes.",
+    "Static-asset setup facts: rug_02 and cloth_03 are STATIC rigid meshes in the ReplicaCAD scenes, so their tasks declare rug_02_replaced_by_dynamic_deformable_model and cloth_03_set_dynamic_as_cloth_with_loop; the cloth_03 hanging loop is an unverified proxy setup condition, not a dataset affordance. The camera and remotes are unpowered in the dataset; physical collection uses a battery-less camera or dummy and battery-less remotes.",
     "People: the door and handbag tasks use a briefed, consenting adult participant, a 0.25 m/s speed cap within 1 m, an operator at the emergency stop, and (for the handbag) release only after grip and load transfer. The robot never stands in the door passage and closes the door at no more than 0.2 rad/s.",
-    "Cross-links: task_thor_r1_safe_store_keychain_card and task_thor_r2_box_pack_cd_cases_close_flaps (remotes, similarity 0.57 and 0.55), task_rcad_r1_softball_from_hall_chest_handover_hold_entry_door (door), task_gso_r1_tennis_shoe_rack_toe_in and task_gso_r4_loose_shoes_match_three_pairs_rack (shoe), task_gso_r1_hat_hang_on_hook (jacket), task_thor_r2_remote_cushions_into_basket (remotes), task_thor_r2_bathroom_close_left_open_items and task_thor_r3_leave_house_check_doors_taps_light (door), task_gso_r3_bootie_handover_seated_person and task_gso_r4_tumbler_water_handover_seated_person (handbag); each task's notes state the difference.",
+    "Cross-links: task_thor_r1_safe_store_keychain_card and task_thor_r2_box_pack_cd_cases_close_flaps (remotes, similarity 0.57 and 0.55), task_rcad_r1_parcel_in_through_door2_balls_to_chest_drawer_carton_binned (door2, this bundle), task_gso_r1_tennis_shoe_rack_toe_in and task_gso_r4_loose_shoes_match_three_pairs_rack (shoe), task_gso_r1_hat_hang_on_hook (jacket), task_thor_r2_remote_cushions_into_basket (remotes), task_thor_r2_bathroom_close_left_open_items and task_thor_r3_leave_house_check_doors_taps_light (door), task_gso_r3_bootie_handover_seated_person, task_gso_r4_tumbler_water_handover_seated_person and task_thor_r3_tissue_box_fetch_to_person_on_sofa (handbag), task_ctx_r1_slide_sandal_night_path_bed_to_toilet_cleared (rug); each task's notes state the difference.",
     "Templates: 9 new, one per task, prefix template_rcad_r1b_, each listing scene_replicacad_apartment.",
     "Evidence: every task_suitability claim cites evidence_replicacad_task_design_round1. Frequency, robot execution, and asset compatibility are unknown with no sources, and each asset_compatibility limitation names that task's own asset gap. All time estimates are null.",
-    "replicacad_round1 apartment-level tasks: five tasks (4 workflow, 1 compound) spanning the kitchen, dining area, living area, office corner and entryway of the ReplicaCAD apartment, anchored on the ReplicaCAD fridge, kitchenCupboard_01, kitchen_counter, chestOfDrawers_01 and door2 ObjectInstances defined elsewhere in this bundle; no new ObjectInstances or evidence records are created here.",
+    "replicacad_round1 apartment-level tasks: five tasks (5 workflow) spanning the kitchen, dining area, living area, office corner and entryway of the ReplicaCAD apartment, anchored on the ReplicaCAD fridge, kitchenCupboard_01, kitchen_counter, chestOfDrawers_01 and door2 ObjectInstances defined elsewhere in this bundle; no new ObjectInstances or evidence records are created here.",
     "Habitat 2.0 HAB tasks followed: PrepareGroceries (grocery basket task), TidyHouse (five-item tidy), SetTable (place setting from storage); the drawer search and the parcel bring-in are new.",
     "Resource IDs beginning rcad_resource_ are planning object requirements, not ObjectInstances; several name ReplicaCAD objects (frl_apartment_basket, frl_apartment_table_01/02/03) or receptacles used only as surfaces or containers.",
     "Every YCB clutter item is an atlas ycb_* object present in ai-habitat/ycb; none of the missing IDs listed in data/research/replicacad_candidates.json is used.",
-    "Articulated goals name the joint as a second argument, e.g. closed(replicacad_object_fridge, top_door_hinge); closures that start and end closed are preserved constraints, not goal changes."
+    "Articulated goals name the joint as a second argument, e.g. closed(replicacad_object_fridge, top_door_hinge); closures that start and end closed are preserved constraints, not goal changes.",
+    "Activated 2026-09-26 after Codex's cross-lane review (data/reviews/replicacad_round1.md) with all findings addressed."
   ]
 }
