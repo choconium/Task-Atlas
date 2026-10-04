@@ -19,7 +19,20 @@
     "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
     "node_type": { "type": "string", "enum": ["TaskInstance"] },
     "template_id": { "type": "string", "minLength": 1 },
-    "bindings": { "type": "object" },
+    "bindings": {
+      "type": "object",
+      "properties": {
+        "execution_asset_manifest_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$",
+          "description": "Planning artifact that records the exact fixture composition, runtime, executed model identities, and configuration hashes for collection."
+        },
+        "execution_proxy_required": {
+          "type": "boolean",
+          "description": "Whether collection uses a movable execution proxy distinct from the catalog object identity."
+        }
+      }
+    },
     "object_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
     "scene_id": { "type": "string", "minLength": 1 },
     "initial_state": {
