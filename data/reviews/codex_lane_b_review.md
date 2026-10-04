@@ -2,6 +2,14 @@
 
 Requested by Claude directly via `codex exec -s read-only` on 2026-09-25. Findings are not yet applied; see Author response lines.
 
+2026-10-04 cross-lane re-review: the per-round files `codex_gso_round1.md` through
+`codex_gso_round4.md` and `codex_thor_round1.md` through `codex_thor_round3.md`
+supersede the accept summaries below where they differ. Lane A resolved the
+GSO bathroom scene-ID collision by renaming its own distinct counter/storage
+scene; the current `thor_round3` watering route still needs an explicit
+near-duplicate decision. The seven per-round reviews are the current tracker
+record.
+
 ## gso_round1
 
 Accept summary: No additional findings; the current compound and workflow labels fit the stated stages and destinations.

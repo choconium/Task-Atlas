@@ -76,6 +76,121 @@ time estimates are null until measured. Activating the bundles makes these
 proposed designs available to the runtime and coverage report; it does not
 establish physical feasibility or demonstrate robot execution.
 
+## Cross-source expansion round 1
+
+The separate `reference_gso_round1.json` bundle adds 25 proposed compound tasks
+for eight converted Google Scanned Objects models: a mug, bowl, plate, curl-cream
+bottle, cereal box, hammer, screwdriver, and spatula. It uses model-directory
+IDs from the pinned [MuJoCo Scanned Objects repository](https://github.com/kevinzakka/mujoco_scanned_objects/tree/6ff8d275cebfd5b47e49685e3cfbe64b20e49a3c),
+not claimed Google catalog IDs. Task patterns for kitchen transfers reference
+RoboCasa's [pinned atomic pick-and-place definitions](https://github.com/robocasa/robocasa/blob/4f8a2980def75a55dff96b990745b83540425f09/robocasa/environments/kitchen/atomic/kitchen_pick_place.py);
+bathroom, retail, and workshop contexts remain Task Atlas design extensions.
+
+The repository README assigns CC BY 4.0 to OBJ/PNG mesh and texture files, and
+MIT to MJCF XML files. Each object URL in the bundle points to a `model.xml`.
+Those XML records are static mesh models without free-joint or inertial
+properties; a simulation collection must configure a movable body separately.
+The bundle therefore marks grasping and placement as proposed affordances and
+keeps asset compatibility unknown. The upstream [Google Scanned Objects
+description](https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/)
+provides dataset context, not compatibility evidence.
+
+The 25 tasks cover rack-slot placement, open-top storage, retrieval, recovery,
+retail package facing and cart transfer, plus tool staging without tool use.
+Each task has one plan and four claim records. Suitability remains proposed;
+population frequency, robot execution, and asset compatibility remain unknown.
+The bundle adds one proposed bathroom scene and reusable task templates for
+rack slots, open-top receptacles, cart loading, bathroom transfers, and workshop
+tool movement. See [cross-source expansion notes](cross-source-expansion.md)
+for the batch scope and review record.
+
+## Cross-source expansion round 2
+
+`reference_robocasa_fixtures_round2.json` adds 20 proposed tasks using six
+pinned RoboCasa fixture XML paths, one proposed fixture-composition scene, and
+16 templates. Task patterns for cabinet/drawer opening and closing and for
+counter/cabinet transfers are supported by RoboCasa atomic definitions for
+tasks 1–6 and 9. Drawer pick-place, orientation, staging, observation,
+measurement, and counter-opening passage are Task Atlas design extensions.
+
+The XML files are component definitions rather than complete scenes. RoboCasa's
+README gives project-level Code: MIT and Assets and Datasets: CC BY 4.0 terms,
+but does not classify each XML file or referenced resource. The bundle records
+the pinned XML paths without assigning per-file licenses. Cabinet door/shelf,
+drawer front/handle, counter dimensions/pose, and counter aperture geometry
+require higher-level composition. Switch and outlet models support only
+noncontact visual proposals because their collision geometry is marked TODO.
+
+Every task links an `execution_asset_manifest_round2` planning artifact that
+records the exact fixture composition and runtime configuration, plus the
+source identities and configuration hashes of all executed assets. Ten tasks
+that manipulate GSO objects also require a separately identified movable
+proxy; the GSO catalog object and runtime proxy remain distinct, and
+compatibility remains unknown until reviewed. These cross-source tasks do not
+increase the 77-object YCB coverage target. With Round 2 active, the report
+shows 467 YCB-primary tasks and 516 tasks overall.
+
+## Cross-source expansion round 3
+
+The `reference_abo_home_props_round1.json` and
+`reference_polyhaven_home_props_round1.json` bundles add 40 proposed tasks for
+ten exact household, office, and retail models. The ABO models use the dataset's
+CC BY 4.0 terms. The Poly Haven models are individually marked CC0, and its
+license page applies CC0 to its assets. Their separate batch records retain
+official model IDs, paths, license sources, and resource hashes. See
+[`cross-source-expansion.md`](cross-source-expansion.md) for the asset lists,
+task scope, and collection limits.
+
+At Round 3 these cross-source tasks did not expand the YCB catalog target:
+coverage remained 77 of 77 objects and 467 YCB-primary tasks. At that stage the
+shared seed loader had 28 external object records, 556 tasks and planning
+records, and 2,253 claims. Suitability remained proposed, while task frequency,
+robot execution, and asset compatibility remained unknown unless separately
+reviewed or measured.
+
+## Cross-source expansion round 4
+
+The `reference_smithsonian_3d_artifacts_round1.json` bundle adds 20 proposed
+tasks for five Smithsonian digitized objects. Their individual 3D media pages
+designate the models public domain, and their catalog metadata also records
+CC0 status. Exact object pages, package UUIDs, downloadable GLB hashes, and
+license guidance are documented in [`cross-source-expansion.md`](cross-source-expansion.md).
+Contact proposals require separate virtual proxies; the original artifacts
+are excluded from execution.
+
+At Round 4 these tasks did not expand the YCB catalog target: coverage remained
+77 of 77 objects and 467 YCB-primary tasks. At that stage the shared seed
+loader had 33 external object records, 576 tasks and planning records, and
+2,338 claims. Suitability remained proposed, while task frequency, robot
+execution, and asset compatibility remained unknown unless separately
+reviewed or measured.
+
+## Cross-source expansion round 5
+
+The `reference_polypizza_household_props_round1.json` bundle adds 20 proposed
+tasks for five exact Poly Pizza low-poly models. Each individual CreativeTrio
+model page designates its asset Public Domain (CC0); the exact model IDs,
+downloaded GLB hashes, and task scopes are documented in
+[`cross-source-expansion.md`](cross-source-expansion.md). Contact proposals
+require separate virtual proxies, while image measurements remain in pixels.
+
+These tasks do not expand the YCB catalog target: coverage remains 77 of 77
+objects and 467 YCB-primary tasks. At the Round 5 snapshot, the shared seed
+loader had 38 external object records, 596 tasks and planning records, and
+2,423 claims.
+Suitability remains proposed, while task frequency, robot execution, and asset
+compatibility remain unknown unless separately reviewed or measured.
+
+## Current merged seed state (2026-10-05)
+
+After merging the seven GSO/AI2-THOR rounds, the seven Lane A source bundles,
+and Claude's activated context/ReplicaCAD round 1, the local seed loader reports
+77 of 77 YCB objects covered, 484 YCB-primary tasks, and 827 tasks overall. It
+contains 222 objects without a YCB ID, 827 planning records, and 3,531 claims.
+The five-object Kenney batch adds 20 external tasks and does not change catalog
+coverage. These totals count proposed records; they are not demonstrations or
+measured robot outcomes.
+
 ## Graph connections
 
 Tasks share scene, intent, skill, and template nodes. This supports paths such as object → task → intent → another task → another object, without imposing one hierarchy or claiming that tasks must occur in sequence. Graph neighborhoods support reverse traversal. The coverage regression checks connectivity using these concepts, excluding shared sources and claims so that provenance alone cannot make the graph appear connected.
