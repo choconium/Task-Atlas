@@ -34,7 +34,7 @@
             </div>
             <b id="object-count">—</b>
           </div>
-          <p data-copy data-copy-en="Start from an object, then inspect its contexts, goals, and execution questions." data-copy-ja="物体を入口に、文脈・目標・実行上の問いをたどります。">Start from an object, then inspect its contexts, goals, and execution questions.</p>
+          <p data-copy data-copy-en="Select an object to find its 3D model downloads and explore related tasks." data-copy-ja="物体を選ぶと、3Dモデルの配布先と関連タスクを表示します。">Select an object to find its 3D model downloads and explore related tasks.</p>
           <div id="objects"></div>
         </aside>
 
@@ -46,6 +46,7 @@
               <p id="hero-subtitle">Choose an object to begin.</p>
               <p id="hero-description">Goals, context, procedures, and evidence remain separately reviewable.</p>
               <div id="hero-tags"></div>
+              <div id="hero-assets" class="asset-downloads" aria-label="3D model downloads"></div>
             </div>
             <aside>
               <span data-copy data-copy-en="Semantic zoom" data-copy-ja="セマンティックズーム">Semantic zoom</span>
@@ -107,9 +108,16 @@
               <button type="button" data-lens="execution" data-copy data-copy-en="Execution" data-copy-ja="実行">Execution</button>
             </div>
             <nav id="crumbs" aria-label="Graph navigation"></nav>
-            <p data-copy data-copy-en="Select any object, concept, affordance, scene, state, intent, skill, or task to recenter the graph." data-copy-ja="物体・概念・アフォーダンス・シーン・状態・目的・スキル・タスクのどれでも中心にできます。">Select any object, concept, affordance, scene, state, intent, skill, or task to recenter the graph.</p>
+            <p id="graph-help" data-copy data-copy-en="Select a node to explore. Use the mouse wheel to zoom and drag to move the map. Keyboard: + / − to zoom, arrows to move, 0 to reset." data-copy-ja="ノードを選択して探索します。マウスホイールで拡大・縮小、ドラッグで移動できます。キーボード：＋／−でズーム、矢印で移動、0でリセット。">Select a node to explore. Use the mouse wheel to zoom and drag to move the map. Keyboard: + / − to zoom, arrows to move, 0 to reset.</p>
+            <div class="graph-controls" role="group" aria-label="Graph zoom">
+              <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+              <output id="zoom-level" aria-live="polite">100%</output>
+              <button id="zoom-in" type="button" aria-label="Zoom in">＋</button>
+              <button id="zoom-reset" type="button" data-copy data-copy-en="Reset view" data-copy-ja="表示をリセット">Reset view</button>
+              <button id="zoom-fit" type="button" data-copy data-copy-en="Fit all" data-copy-ja="全体表示">Fit all</button>
+            </div>
             <div class="graph-wrap">
-              <svg id="graph" role="img" aria-label="Relationship graph"></svg>
+              <svg id="graph" role="group" tabindex="0" aria-label="Relationship graph" aria-describedby="graph-help"></svg>
               <span id="empty">No neighboring nodes are available.</span>
             </div>
           </section>
@@ -145,6 +153,7 @@
         <span>© 2026 chocopan</span>
       </footer>
     </div>
+    <script src="/asset-downloads.js" defer></script>
     <script src="/app.js" defer></script>
   </body>
 </html>

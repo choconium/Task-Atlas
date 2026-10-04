@@ -53,6 +53,26 @@
       expansionRound: "Round",
       expansionEmpty: "No nodes were returned for this round.",
       relatedBy: "Related by",
+      modelDownloads: "3D model",
+      direct_model: "Download 3D model",
+      archive: "Download model pack",
+      model_page: "Model download page",
+      source_file: "Asset source file",
+      source_page: "Asset source",
+      catalog: "Browse model downloads",
+      assetUnavailable: "No model download is recorded for this object.",
+      assetLicense: "License",
+      archiveMember: "Model inside the archive",
+      archive_member: "Extract the listed model file from the archive.",
+      gltf_dependencies: "The glTF needs its buffer and textures. Download the complete set from the model page or the files below.",
+      source_not_ready: "The source marks this asset as not ready for use.",
+      source_only: "A standalone 3D model download is not recorded. The link above opens the asset's source information.",
+      catalog_lookup: "Choose the corresponding object or part from the official download catalogue.",
+      simulator_assets: "Download the model together with its referenced meshes and textures.",
+      asset_collection: "Browse dataset model files",
+      assetFiles: "Required model files",
+      zoomIn: "Zoom in",
+      zoomOut: "Zoom out",
     },
     ja: {
       unspecified: "未指定（不明）",
@@ -105,6 +125,26 @@
       expansionRound: "ラウンド",
       expansionEmpty: "このラウンドのノードは返却されませんでした。",
       relatedBy: "関係",
+      modelDownloads: "3Dモデル",
+      direct_model: "3Dモデルをダウンロード",
+      archive: "モデルパックをダウンロード",
+      model_page: "モデルのダウンロードページ",
+      source_file: "アセットの構成ファイル",
+      source_page: "アセットの出典",
+      catalog: "モデル配布一覧を開く",
+      assetUnavailable: "このオブジェクトのモデル配布先は記録されていません。",
+      assetLicense: "ライセンス",
+      archiveMember: "アーカイブ内のモデル",
+      archive_member: "記載したモデルファイルをアーカイブから展開してください。",
+      gltf_dependencies: "glTFにはバッファーとテクスチャーも必要です。配布ページまたは下のファイル一覧から一式をダウンロードしてください。",
+      source_not_ready: "出典ではこのアセットは利用準備未完了とされています。",
+      source_only: "単体の3Dモデル配布先は記録されていません。上のリンクからアセットの出典情報を確認できます。",
+      catalog_lookup: "公式の配布一覧から該当するオブジェクトやパーツを選択してください。",
+      simulator_assets: "モデル本体に加え、参照するメッシュとテクスチャーもダウンロードしてください。",
+      asset_collection: "データセットのモデル一覧を開く",
+      assetFiles: "必要なモデルファイル",
+      zoomIn: "拡大",
+      zoomOut: "縮小",
     },
   };
 
@@ -121,6 +161,11 @@
     inspectorError: null,
     tasks: [],
     graph: null,
+    graphView: { x: 0, y: 0, scale: 1 },
+    graphSize: { width: 0, height: 0 },
+    graphBounds: null,
+    graphDrag: null,
+    suppressGraphClick: false,
     history: [],
     lens: "all",
     requestVersion: 0,
@@ -151,6 +196,7 @@
     heroSubtitle: byId("hero-subtitle"),
     heroDescription: byId("hero-description"),
     heroTags: byId("hero-tags"),
+    heroAssets: byId("hero-assets"),
     scene: byId("scene"),
     contents: byId("contents"),
     role: byId("role"),
@@ -158,6 +204,11 @@
     checks: byId("checks"),
     blockers: byId("blockers"),
     graph: byId("graph"),
+    zoomIn: byId("zoom-in"),
+    zoomOut: byId("zoom-out"),
+    zoomReset: byId("zoom-reset"),
+    zoomFit: byId("zoom-fit"),
+    zoomLevel: byId("zoom-level"),
     empty: byId("empty"),
     crumbs: byId("crumbs"),
     back: byId("back"),
@@ -290,6 +341,8 @@
       state.language === "ja"
         ? "物体・シーン・タスクを検索"
         : "Search object, scene, or task";
+    elements.zoomIn.setAttribute("aria-label", text("zoomIn"));
+    elements.zoomOut.setAttribute("aria-label", text("zoomOut"));
   }
 
   function renderLanguage() {
@@ -421,6 +474,19 @@
   }
 
   function renderObjects() {
+    const sourceLabels = {
+      google_scanned_objects: "GSO",
+      amazon_berkeley_objects: "ABO",
+      behavior: "BEH",
+      mujoco_scanned_objects: "MJCF",
+      kenney: "Kenney",
+      poly_haven: "PH",
+      poly_pizza: "PP",
+      robocasa: "RC",
+      smithsonian_3d: "SI",
+      replicacad: "R-CAD",
+      ai2thor_procthor: "THOR",
+    };
     const search = elements.search.value.trim().toLowerCase();
     const rows = state.objects.filter(
       (object) =>
@@ -449,7 +515,7 @@
             (
               object,
             ) => `<button class="object ${object.id === state.selectedObjectId ? "selected" : ""}" data-object-id="${escapeHtml(object.id)}">
-      <b>${escapeHtml(object.ycb_id?.slice(0, 3) || object.asset_source || "—")}</b>
+      <b title="${escapeHtml(object.asset_source || "YCB")}">${escapeHtml(object.ycb_id?.slice(0, 3) || sourceLabels[object.asset_source] || object.asset_source || "—")}</b>
       <span>${escapeHtml(label(object))}<small>${escapeHtml(object.asset_source_id || (state.language === "ja" ? object.name_en || object.category || "" : object.category || ""))}</small></span>
     </button>`,
           )
@@ -481,6 +547,33 @@
       .slice(0, 7)
       .map((value) => `<span>${escapeHtml(readable(value))}</span>`)
       .join("");
+    elements.heroAssets.innerHTML = assetDownloadsMarkup(object);
+  }
+
+  function assetDownloadsMarkup(object) {
+    const asset = AtlasAssets.modelLinks(object);
+    const linkLabel = (link) => {
+      const format = new URL(link.url).pathname.match(/\.(glb|gltf|obj|fbx|dae|stl|usd|usda|usdc|zip|tgz|tar\.gz)$/i)?.[1];
+      return `${text(link.kind)}${format && ["direct_model", "archive"].includes(link.kind) ? ` (${format.toUpperCase()})` : ""}`;
+    };
+    const links = asset.links
+      .filter((link) => safeHttpUrl(link.url))
+      .map((link) => `<a class="asset-link ${["direct_model", "archive", "model_page", "asset_collection"].includes(link.kind) ? "primary" : "secondary"}" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(linkLabel(link))}</a>`)
+      .join("");
+    const licenseUrl = safeHttpUrl(asset.license?.url);
+    const license = asset.license
+      ? `<p class="asset-license">${escapeHtml(text("assetLicense"))}: ${licenseUrl ? `<a href="${escapeHtml(licenseUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(asset.license.text)}</a>` : escapeHtml(asset.license.text)}</p>`
+      : "";
+    const dependencies = (asset.dependencies || []).filter((file) => safeHttpUrl(file.url));
+    const files = dependencies.length
+      ? `<details class="asset-files"><summary>${escapeHtml(text("assetFiles"))} (${dependencies.length})</summary><ul>${dependencies.map((file) => `<li><a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(file.path || file.role)}</a></li>`).join("")}</ul></details>`
+      : "";
+    return `<h3>${escapeHtml(text("modelDownloads"))}</h3>
+      ${links ? `<div class="asset-links">${links}</div>` : `<p class="asset-note">${escapeHtml(text("assetUnavailable"))}</p>`}
+      ${asset.member ? `<p class="asset-note">${escapeHtml(text("archiveMember"))}: ${escapeHtml(asset.member)}</p>` : ""}
+      ${license}
+      ${asset.notes.map((note) => `<p class="asset-note">${escapeHtml(text(note))}</p>`).join("")}
+      ${files}`;
   }
 
   function assessmentFor(task) {
@@ -556,6 +649,7 @@
     elements.inspector.innerHTML = `<h2>${escapeHtml(label(object))}</h2>
       <small>${escapeHtml(object.ycb_id || object.asset_source_id || object.id)}</small>
       <p>${escapeHtml(object.description || "")}</p>
+      <section class="asset-downloads">${assetDownloadsMarkup(object)}</section>
       ${object.asset_source ? section(
         state.language === "ja" ? "外部アセットの出典" : "External asset source",
         [
@@ -801,57 +895,176 @@
     await navigateNode(id, node);
   }
 
-  function renderGraph() {
+  function applyGraphView() {
+    const { x, y, scale } = state.graphView;
+    elements.graph.querySelector(".graph-viewport")?.setAttribute(
+      "transform", `translate(${x} ${y}) scale(${scale})`,
+    );
+    elements.zoomLevel.value = `${scale < 0.1 ? (scale * 100).toFixed(1) : Math.round(scale * 100)}%`;
+    const empty = !state.graph?.nodes?.length;
+    elements.zoomIn.disabled = empty || scale >= 4;
+    elements.zoomOut.disabled = empty || scale <= 0.001;
+    elements.zoomReset.disabled = empty;
+    elements.zoomFit.disabled = empty;
+  }
+
+  function graphPoint(clientX, clientY) {
+    const matrix = elements.graph.getScreenCTM();
+    if (!matrix) return null;
+    const point = elements.graph.createSVGPoint();
+    point.x = clientX;
+    point.y = clientY;
+    return point.matrixTransform(matrix.inverse());
+  }
+
+  function zoomGraph(factor, point = {
+    x: state.graphSize.width / 2,
+    y: state.graphSize.height / 2,
+  }) {
+    if (!state.graph?.nodes?.length || !point) return;
+    const view = state.graphView;
+    const scale = Math.min(4, Math.max(0.001, view.scale * factor));
+    // Keep the world point under the pointer at the same screen position.
+    const ratio = scale / view.scale;
+    state.graphView = {
+      x: point.x - (point.x - view.x) * ratio,
+      y: point.y - (point.y - view.y) * ratio,
+      scale,
+    };
+    applyGraphView();
+  }
+
+  function resetGraphView() {
+    state.graphView = { x: 0, y: 0, scale: 1 };
+    applyGraphView();
+  }
+
+  function fitGraphView() {
+    const bounds = state.graphBounds;
+    if (!bounds) return;
+    const { width, height } = state.graphSize;
+    const scale = Math.min(1, Math.max(0.001, Math.min(
+      (width - 32) / bounds.width,
+      (height - 32) / bounds.height,
+    )));
+    state.graphView = {
+      x: (width - bounds.width * scale) / 2 - bounds.x * scale,
+      y: (height - bounds.height * scale) / 2 - bounds.y * scale,
+      scale,
+    };
+    applyGraphView();
+  }
+
+  function renderGraph({ reset = false } = {}) {
     const graph = state.graph;
     if (!graph?.nodes?.length) {
       elements.graph.innerHTML = "";
       elements.empty.hidden = false;
+      state.graphBounds = null;
+      applyGraphView();
+      renderBreadcrumbs();
       return;
     }
     elements.empty.hidden = true;
     const nodes = graph.nodes;
     const root = nodes.find((node) => node.id === graph.center_id) || nodes[0];
-    const width = 930;
-    const height = Math.max(430, 160 + Math.ceil(nodes.length / 2) * 105);
-    const positions = new Map([[root.id, { x: 150, y: height / 2 }]]);
+    // One SVG unit is one CSS pixel at 100%, keeping labels legible even
+    // when a node has many neighbors. The rest of the map remains pannable.
+    const width = elements.graph.clientWidth;
+    const height = elements.graph.clientHeight;
+    state.graphSize = { width, height };
+    const wide = width >= 650;
+    const columns = wide ? Math.max(1, Math.floor((width - 285) / 265)) :
+      Math.max(1, Math.floor(width / 265));
+    const nodeWidth = Math.min(232, width - 32);
+    const positions = new Map([[root.id, {
+      x: wide ? 135 : width / 2,
+      y: wide ? height / 2 : 60,
+    }]]);
     nodes
       .filter((node) => node.id !== root.id)
       .forEach((node, index) => {
         positions.set(node.id, {
-          x: 480 + (index % 2) * 285,
-          y: 65 + Math.floor(index / 2) * 95,
+          x: wide
+            ? 285 + (width - 285) * ((index % columns) + 0.5) / columns
+            : width * ((index % columns) + 0.5) / columns,
+          y: (wide ? 60 : 180) + Math.floor(index / columns) * 110,
         });
       });
     elements.graph.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    const points = [...positions.values()];
+    const minX = Math.min(...points.map((point) => point.x)) - nodeWidth / 2;
+    const minY = Math.min(...points.map((point) => point.y)) - 32;
+    state.graphBounds = {
+      x: minX, y: minY,
+      width: Math.max(...points.map((point) => point.x)) + nodeWidth / 2 - minX,
+      height: Math.max(...points.map((point) => point.y)) + 32 - minY,
+    };
     const edges = (graph.edges || [])
-      .map((edge) => {
+      .map((edge, index) => {
         const source = positions.get(edge.source);
         const target = positions.get(edge.target);
-        return source && target
-          ? `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}"></line><text x="${(source.x + target.x) / 2}" y="${(source.y + target.y) / 2 - 5}">${escapeHtml(edge.relation)}</text>`
-          : "";
+        if (!source || !target) return "";
+        if (source.x === target.x) {
+          // Route vertical relationships around nodes so links and labels
+          // don't run through the text in narrow layouts.
+          const x = source.x - nodeWidth / 2;
+          const lane = Math.max(8, x - 24 - (index % 3) * 7);
+          const branch = edge.target === root.id ? source : target;
+          return `<path d="M ${x} ${source.y} C ${lane} ${source.y}, ${lane} ${target.y}, ${x} ${target.y}"><title>${escapeHtml(edge.relation)}</title></path><text x="${branch.x}" y="${branch.y - 42}">${escapeHtml(edge.relation)}</text>`;
+        }
+        return `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}"><title>${escapeHtml(edge.relation)}</title></line><text x="${(source.x + target.x) / 2}" y="${(source.y + target.y) / 2 - 5}">${escapeHtml(edge.relation)}</text>`;
       })
       .join("");
     const nodesMarkup = nodes
       .map((node) => {
         const position = positions.get(node.id);
         return `<g class="node ${nodeClass(node)} ${node.id === state.selectedNodeId ? "selected" : ""}" data-node-id="${escapeHtml(node.id)}" tabindex="0" role="button" aria-label="${escapeHtml(label(node))}">
-        <rect x="${position.x - 108}" y="${position.y - 24}" width="216" height="48" rx="10"></rect>
-        <text x="${position.x - 96}" y="${position.y - 3}">${escapeHtml(String(label(node)).slice(0, 32))}</text>
-        <text class="node-sub" x="${position.x - 96}" y="${position.y + 14}" font-size="9" fill="#9bb1c4">
+        <title>${escapeHtml(label(node))}</title>
+        <rect x="${position.x - nodeWidth / 2}" y="${position.y - 32}" width="${nodeWidth}" height="64" rx="10"></rect>
+        <text class="node-label" x="${position.x - nodeWidth / 2 + 12}" y="${position.y - 5}">${escapeHtml(label(node))}</text>
+        <text class="node-sub" x="${position.x - nodeWidth / 2 + 12}" y="${position.y + 16}">
           ${escapeHtml([readable(node.node_type || "node"), granularityOf(node) && readable(granularityOf(node))].filter(Boolean).join(" · "))}
         </text>
       </g>`;
       })
       .join("");
-    elements.graph.innerHTML = `<g class="edges">${edges}</g><g>${nodesMarkup}</g>`;
+    elements.graph.innerHTML = `<g class="graph-viewport"><g class="edges">${edges}</g><g>${nodesMarkup}</g></g>`;
+    // Measure rendered text instead of truncating by character count, which
+    // clips Japanese labels and words with wider letters at larger fonts.
+    elements.graph.querySelectorAll(".node-label, .node-sub").forEach((node) => {
+      const full = node.textContent.trim();
+      node.textContent = full;
+      if (node.getComputedTextLength() <= nodeWidth - 24) return;
+      const characters = [...full];
+      while (characters.length > 1 && node.getComputedTextLength() > nodeWidth - 24) {
+        characters.pop();
+        node.textContent = `${characters.join("")}…`;
+      }
+    });
+    if (reset) state.graphView = { x: 0, y: 0, scale: 1 };
+    applyGraphView();
     elements.graph.querySelectorAll("[data-node-id]").forEach((node) => {
       const go = () => navigateNode(node.dataset.nodeId);
-      node.addEventListener("click", go);
+      node.addEventListener("click", () => {
+        if (!state.suppressGraphClick) go();
+      });
       node.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
+          event.stopPropagation();
           go();
+        }
+      });
+      node.addEventListener("focus", () => {
+        const { x, y } = positions.get(node.dataset.nodeId);
+        const view = state.graphView;
+        const screenX = x * view.scale + view.x;
+        const screenY = y * view.scale + view.y;
+        if (screenX < 16 || screenX > width - 16 || screenY < 32 || screenY > height - 32) {
+          view.x = width / 2 - x * view.scale;
+          view.y = height / 2 - y * view.scale;
+          applyGraphView();
         }
       });
     });
@@ -899,7 +1112,7 @@
       if (version !== state.graphVersion) return;
       state.graph = graph;
       state.selectedNodeId = id;
-      renderGraph();
+      renderGraph({ reset: true });
     } catch (reason) {
       if (version === state.graphVersion)
         renderError(elements.inspector, reason);
@@ -1103,6 +1316,83 @@
       const previous = state.history.pop();
       if (previous) loadGraph(previous.id, false);
     });
+    elements.zoomIn.addEventListener("click", () => zoomGraph(1.25));
+    elements.zoomOut.addEventListener("click", () => zoomGraph(1 / 1.25));
+    elements.zoomReset.addEventListener("click", resetGraphView);
+    elements.zoomFit.addEventListener("click", fitGraphView);
+    elements.graph.addEventListener("wheel", (event) => {
+      if (!state.graph?.nodes?.length) return;
+      event.preventDefault();
+      // Normalize line/page wheel events as well as pixel-based trackpads.
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? state.graphSize.height : 1;
+      const delta = Math.max(-240, Math.min(240, event.deltaY * unit));
+      zoomGraph(Math.exp(-delta * 0.002), graphPoint(event.clientX, event.clientY));
+    }, { passive: false });
+    elements.graph.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0 || !state.graph?.nodes?.length) return;
+      const point = graphPoint(event.clientX, event.clientY);
+      if (!point) return;
+      state.suppressGraphClick = false;
+      state.graphDrag = { id: event.pointerId, start: point, view: { ...state.graphView }, moved: false };
+    });
+    elements.graph.addEventListener("pointermove", (event) => {
+      const drag = state.graphDrag;
+      if (!drag || drag.id !== event.pointerId) return;
+      const point = graphPoint(event.clientX, event.clientY);
+      if (!point) return;
+      const dx = point.x - drag.start.x;
+      const dy = point.y - drag.start.y;
+      if (!drag.moved && Math.hypot(dx, dy) < 5) return;
+      if (!drag.moved) elements.graph.setPointerCapture(event.pointerId);
+      drag.moved = true;
+      state.suppressGraphClick = true;
+      elements.graph.parentElement.classList.add("dragging");
+      state.graphView = { ...drag.view, x: drag.view.x + dx, y: drag.view.y + dy };
+      applyGraphView();
+    });
+    const endGraphDrag = (event) => {
+      const drag = state.graphDrag;
+      if (!drag || drag.id !== event.pointerId) return;
+      state.graphDrag = null;
+      elements.graph.parentElement.classList.remove("dragging");
+      if (elements.graph.hasPointerCapture(event.pointerId)) {
+        elements.graph.releasePointerCapture(event.pointerId);
+      }
+      // Pointerup is followed by click. Keep that click from navigating after a drag.
+      if (drag.moved) setTimeout(() => { state.suppressGraphClick = false; }, 0);
+    };
+    window.addEventListener("pointerup", endGraphDrag);
+    window.addEventListener("pointercancel", endGraphDrag);
+    elements.graph.addEventListener("keydown", (event) => {
+      if (!state.graph?.nodes?.length) return;
+      const key = event.key;
+      if (["+", "=", "-", "0", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(key)) {
+        event.preventDefault();
+        if (key === "+" || key === "=") zoomGraph(1.25);
+        else if (key === "-") zoomGraph(1 / 1.25);
+        else if (key === "0") resetGraphView();
+        else {
+          state.graphView.x += key === "ArrowLeft" ? 50 : key === "ArrowRight" ? -50 : 0;
+          state.graphView.y += key === "ArrowUp" ? 50 : key === "ArrowDown" ? -50 : 0;
+          applyGraphView();
+        }
+      }
+    });
+    const updateCatalogHeight = () => {
+      const top = Math.max(18, byId("top").getBoundingClientRect().top);
+      document.documentElement.style.setProperty("--catalog-top", `${top}px`);
+    };
+    window.addEventListener("scroll", updateCatalogHeight, { passive: true });
+    window.addEventListener("resize", updateCatalogHeight);
+    updateCatalogHeight();
+    new ResizeObserver(() => {
+      if (state.graph && (elements.graph.clientWidth !== state.graphSize.width ||
+          elements.graph.clientHeight !== state.graphSize.height)) {
+        renderGraph({ reset: true });
+      }
+    }).observe(elements.graph);
+    new ResizeObserver(updateCatalogHeight).observe(document.querySelector("header"));
+    applyGraphView();
   }
 
   async function init() {
@@ -1111,7 +1401,7 @@
     try {
       const [health, objects, contextOptions, scenes] = await Promise.all([
         api("/api/health"),
-        api("/api/objects"),
+        api("/api/objects?limit=500"),
         api("/api/context-options"),
         api("/api/scenes"),
       ]);
