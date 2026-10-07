@@ -102,13 +102,14 @@
             </div>
             <div class="lenses">
               <span data-copy data-copy-en="Lens" data-copy-ja="レンズ">Lens</span>
-              <button type="button" data-lens="all" class="on">All</button>
+              <button type="button" data-lens="all" class="on" data-copy data-copy-en="All" data-copy-ja="すべて">All</button>
               <button type="button" data-lens="context" data-copy data-copy-en="Context" data-copy-ja="文脈">Context</button>
               <button type="button" data-lens="goals" data-copy data-copy-en="Goals" data-copy-ja="目標">Goals</button>
               <button type="button" data-lens="execution" data-copy data-copy-en="Execution" data-copy-ja="実行">Execution</button>
             </div>
             <nav id="crumbs" aria-label="Graph navigation"></nav>
             <p id="graph-help" data-copy data-copy-en="Select a node to explore. Use the mouse wheel to zoom and drag to move the map. Keyboard: + / − to zoom, arrows to move, 0 to reset." data-copy-ja="ノードを選択して探索します。マウスホイールで拡大・縮小、ドラッグで移動できます。キーボード：＋／−でズーム、矢印で移動、0でリセット。">Select a node to explore. Use the mouse wheel to zoom and drag to move the map. Keyboard: + / − to zoom, arrows to move, 0 to reset.</p>
+            <p id="graph-note" class="graph-note" role="status" hidden></p>
             <div class="graph-controls" role="group" aria-label="Graph zoom">
               <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
               <output id="zoom-level" aria-live="polite">100%</output>
@@ -118,7 +119,7 @@
             </div>
             <div class="graph-wrap">
               <svg id="graph" role="group" tabindex="0" aria-label="Relationship graph" aria-describedby="graph-help"></svg>
-              <span id="empty">No neighboring nodes are available.</span>
+              <span id="empty" data-copy data-copy-en="No neighboring nodes are available." data-copy-ja="隣接ノードはありません。">No neighboring nodes are available.</span>
             </div>
           </section>
 

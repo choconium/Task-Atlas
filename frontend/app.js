@@ -70,9 +70,28 @@
       catalog_lookup: "Choose the corresponding object or part from the official download catalogue.",
       simulator_assets: "Download the model together with its referenced meshes and textures.",
       asset_collection: "Browse dataset model files",
+      thor_database: "The source link is the shared ProcTHOR asset database (JSON), not a model file; the 3D assets ship inside the AI2-THOR Unity build.",
       assetFiles: "Required model files",
       zoomIn: "Zoom in",
       zoomOut: "Zoom out",
+      status_ready: "ready",
+      status_needs_changes: "needs changes",
+      status_unknown: "unknown",
+      status_blocked: "blocked",
+      status_unverified: "unverified",
+      status_proposed: "proposed",
+      status_unsupported: "unsupported",
+      status_reviewed: "reviewed",
+      proposedProcedures: "Proposed procedures",
+      timeEstimates: "Time estimates",
+      seededTasks: "seeded task candidates",
+      concept: "Concept",
+      objectsReady: "objects ready",
+      offline: "Offline",
+      connecting: "Connecting",
+      pageTitle: "Task Atlas",
+      graphCapped:
+        "Showing {shown} of {total} neighbours — use a lens or open a more specific node.",
     },
     ja: {
       unspecified: "未指定（不明）",
@@ -141,10 +160,29 @@
       source_only: "単体の3Dモデル配布先は記録されていません。上のリンクからアセットの出典情報を確認できます。",
       catalog_lookup: "公式の配布一覧から該当するオブジェクトやパーツを選択してください。",
       simulator_assets: "モデル本体に加え、参照するメッシュとテクスチャーもダウンロードしてください。",
-      asset_collection: "データセットのモデル一覧を開く",
+      asset_collection: "データセットのモデルファイルを見る",
+      thor_database: "出典リンクは ProcTHOR の共有アセットデータベース（JSON）で、モデルファイルではありません。3Dアセットは AI2-THOR の Unity ビルドに含まれます。",
       assetFiles: "必要なモデルファイル",
       zoomIn: "拡大",
       zoomOut: "縮小",
+      status_ready: "成立",
+      status_needs_changes: "要変更",
+      status_unknown: "不明",
+      status_blocked: "ブロック",
+      status_unverified: "未検証",
+      status_proposed: "提案中",
+      status_unsupported: "非対応",
+      status_reviewed: "レビュー済み",
+      proposedProcedures: "提案された手順",
+      timeEstimates: "所要時間の目安",
+      seededTasks: "件のシードタスク候補",
+      concept: "概念",
+      objectsReady: "件の物体を読み込み済み",
+      offline: "オフライン",
+      connecting: "接続中",
+      pageTitle: "タスクアトラス",
+      graphCapped:
+        "{total}件の隣接ノードのうち{shown}件を表示しています。レンズを使うか、より具体的なノードを開いてください。",
     },
   };
 
@@ -159,6 +197,9 @@
     taskDetail: null,
     inspectorNode: null,
     inspectorError: null,
+    objectFilter: "",
+    health: null,
+    status: "connecting",
     tasks: [],
     graph: null,
     graphView: { x: 0, y: 0, scale: 1 },
@@ -210,6 +251,7 @@
     zoomFit: byId("zoom-fit"),
     zoomLevel: byId("zoom-level"),
     empty: byId("empty"),
+    graphNote: byId("graph-note"),
     crumbs: byId("crumbs"),
     back: byId("back"),
     taskCount: byId("task-count"),
@@ -257,7 +299,30 @@
     }
   };
   const readable = (value) => String(value || "unknown").replace(/_/g, " ");
+  const statusLabel = (value) => {
+    const key = `status_${String(value || "unknown")}`;
+    return UI[state.language][key] || UI.en[key] || readable(value);
+  };
+  const fill = (template, values) =>
+    String(template).replace(/\{(\w+)\}/g, (match, key) =>
+      values[key] === undefined ? match : String(values[key]),
+    );
   const label = (item) => {
+    // The backend computes counted labels ("Affordance · 6") for group nodes.
+    // Keep that count instead of falling back to the bare name.
+    const counted =
+      typeof item?.label === "string" &&
+      item.label.includes(" · ") &&
+      !String(item?.name_en || "").includes(" · ");
+    if (item?.node_type === "Group" || counted) {
+      if (state.language === "ja")
+        return item.label_ja || item.label || item.name_ja || item.id;
+      return (
+        [item.label_en, item.label, item.name_en, item.id].find(
+          (value) => value && !containsJapanese(value),
+        ) || ""
+      );
+    }
     if (state.language === "ja")
       return (
         item?.name_ja ||
@@ -343,6 +408,25 @@
         : "Search object, scene, or task";
     elements.zoomIn.setAttribute("aria-label", text("zoomIn"));
     elements.zoomOut.setAttribute("aria-label", text("zoomOut"));
+    document.title = text("pageTitle");
+    renderStatus();
+  }
+
+  function renderStatus() {
+    if (state.status === "ok") {
+      const count = state.health?.seed_counts?.objects ?? 0;
+      elements.status.textContent =
+        state.language === "ja"
+          ? `${count}${text("objectsReady")}`
+          : `${count} ${text("objectsReady")}`;
+      elements.status.className = "ok";
+    } else if (state.status === "bad") {
+      elements.status.textContent = text("offline");
+      elements.status.className = "bad";
+    } else {
+      elements.status.textContent = text("connecting");
+      elements.status.className = "";
+    }
   }
 
   function renderLanguage() {
@@ -356,6 +440,7 @@
     else if (state.taskDetail) renderTaskInspector(state.taskDetail);
     else if (state.objectDetail) renderObjectInspector(state.objectDetail);
     if (state.graph) renderGraph();
+    renderBreadcrumbs();
     renderExpansionLoops();
   }
 
@@ -454,9 +539,11 @@
         const key = fieldset.dataset.contextKey;
         if (event.target.matches('input[type="checkbox"]')) {
           // A checkbox means the person has declared the list. Never leave it unknown.
-          fieldset.querySelector('input[value="none"]').checked = false;
           fieldset.querySelector('input[value="unknown"]').checked = false;
           state.context[key] = checkedValues(fieldset);
+          // Unchecking the last box leaves an empty declared list: that is "none".
+          fieldset.querySelector('input[value="none"]').checked =
+            state.context[key].length === 0;
         } else {
           const choice = fieldset.querySelector(
             `input[name="${key}"]:checked`,
@@ -473,22 +560,8 @@
     });
   }
 
-  function renderObjects() {
-    const sourceLabels = {
-      google_scanned_objects: "GSO",
-      amazon_berkeley_objects: "ABO",
-      behavior: "BEH",
-      mujoco_scanned_objects: "MJCF",
-      kenney: "Kenney",
-      poly_haven: "PH",
-      poly_pizza: "PP",
-      robocasa: "RC",
-      smithsonian_3d: "SI",
-      replicacad: "R-CAD",
-      ai2thor_procthor: "THOR",
-    };
-    const search = elements.search.value.trim().toLowerCase();
-    const rows = state.objects.filter(
+  function filterObjects(search) {
+    return state.objects.filter(
       (object) =>
         !search ||
         [
@@ -506,6 +579,24 @@
           .filter(Boolean)
           .some((value) => String(value).toLowerCase().includes(search)),
     );
+  }
+
+  function renderObjects() {
+    const sourceLabels = {
+      google_scanned_objects: "GSO",
+      amazon_berkeley_objects: "ABO",
+      behavior: "BEH",
+      mujoco_scanned_objects: "MJCF",
+      kenney: "Kenney",
+      poly_haven: "PH",
+      poly_pizza: "PP",
+      robocasa: "RC",
+      smithsonian_3d: "SI",
+      replicacad: "R-CAD",
+      ai2thor_procthor: "THOR",
+    };
+    const search = state.objectFilter.trim().toLowerCase();
+    const rows = filterObjects(search);
     elements.objectCount.textContent = search
       ? `${rows.length}/${state.objects.length}`
       : String(state.objects.length);
@@ -614,8 +705,8 @@
               )
               .join(" · ");
             return `<button class="task ${task.id === state.selectedTaskId ? "selected" : ""}" data-task-id="${escapeHtml(task.id)}">
-        <span><b>${escapeHtml(label(task))}</b><small>${escapeHtml(task.scene_name_en || task.scene_id || "")}</small></span>
-        <i class="assessment ${escapeHtml(assessment.status)}">${escapeHtml(readable(assessment.status))}</i>
+        <span><b>${escapeHtml(label(task))}</b><small>${escapeHtml((state.language === "ja" && task.scene_name_ja) || task.scene_name_en || task.scene_id || "")}</small></span>
+        <i class="assessment ${escapeHtml(assessment.status)}">${escapeHtml(statusLabel(assessment.status))}</i>
         <small>${escapeHtml(reasons || text("taskHint"))}</small>
       </button>`;
           })
@@ -667,8 +758,10 @@
       ${section(
         state.language === "ja" ? "Atlasの対象範囲" : "Atlas coverage",
         [
-          `${detail.related_task_count || 0} seeded task candidates`,
-          `Concept: ${detail.general_concept?.name_en || object.general_concept_id || "unknown"}`,
+          state.language === "ja"
+            ? `${detail.related_task_count || 0}${text("seededTasks")}`
+            : `${detail.related_task_count || 0} ${text("seededTasks")}`,
+          `${text("concept")}: ${label(detail.general_concept) || object.general_concept_id || text("unknown")}`,
         ],
       )}
       ${granularitySection(object)}
@@ -703,7 +796,7 @@
               .join("")
           : `<small>${claim.source_ids?.length ? `${escapeHtml(text("sourceIds"))}: ${escapeHtml(claim.source_ids.join(", "))}` : escapeHtml(text("noSource"))}</small>`;
         return `<article class="claim">
-        <b>${escapeHtml(readable(claim.claim_type))} · ${escapeHtml(claim.status)}</b>
+        <b>${escapeHtml(readable(claim.claim_type))} · ${escapeHtml(statusLabel(claim.status))}</b>
         <p>${escapeHtml(claim.statement)}</p>
         <small>${escapeHtml(claim.scope || text("scopeUnknown"))}</small>
         <small>${escapeHtml(claim.limitations || text("limitationsUnknown"))}</small>
@@ -737,7 +830,7 @@
             `${readable(reason.kind)}: ${readable(reason.key)}`,
         );
     const procedureMarkup = procedures.length
-      ? `<details open><summary>Proposed procedures (${procedures.length})</summary>
+      ? `<details open><summary>${escapeHtml(text("proposedProcedures"))} (${procedures.length})</summary>
         <div class="procedure ${selectedProcedure ? "" : "selected"}">
           <label><input type="radio" name="procedure" value="" ${selectedProcedure ? "" : "checked"}> ${escapeHtml(text("noProcedureChoice"))}</label>
           <p class="unknown">${escapeHtml(text("noProcedure"))}</p>
@@ -747,8 +840,8 @@
             const procedureAssessment = procedure.assessment || assessment;
             const gaps = assessmentReasons(procedureAssessment);
             return `<div class="procedure ${procedure.id === selectedProcedure?.id ? "selected" : ""}">
-        <label><input type="radio" name="procedure" value="${escapeHtml(procedure.id)}" ${procedure.id === selectedProcedure?.id ? "checked" : ""}> ${escapeHtml(label(procedure))} <small>${escapeHtml(procedure.review_status || "proposed")}</small></label>
-        <p><i class="assessment ${escapeHtml(procedureAssessment.status)}">${escapeHtml(readable(procedureAssessment.status))}</i> <i class="assessment unknown">${escapeHtml(readable(procedureAssessment.execution_status || "unverified"))}</i></p>
+        <label><input type="radio" name="procedure" value="${escapeHtml(procedure.id)}" ${procedure.id === selectedProcedure?.id ? "checked" : ""}> ${escapeHtml(label(procedure))} <small>${escapeHtml(statusLabel(procedure.review_status || "proposed"))}</small></label>
+        <p><i class="assessment ${escapeHtml(procedureAssessment.status)}">${escapeHtml(statusLabel(procedureAssessment.status))}</i> <i class="assessment unknown">${escapeHtml(statusLabel(procedureAssessment.execution_status || "unverified"))}</i></p>
         ${gaps.length ? `<ul class="procedure-gaps">${gaps.map((gap) => `<li>${escapeHtml(gap)}</li>`).join("")}</ul>` : `<p class="unknown">${escapeHtml(text("assessmentMissing"))}</p>`}
         ${procedure.steps?.length ? `<ol>${procedure.steps.map((step) => `<li>${escapeHtml(step.description || step.skill_id)}</li>`).join("")}</ol>` : `<p class="unknown">${escapeHtml(text("noSteps"))}</p>`}
       </div>`;
@@ -767,8 +860,8 @@
     elements.inspectorType.textContent = "TASK";
     elements.inspector.innerHTML = `<h2>${escapeHtml(label(task))}</h2>
       <small>${escapeHtml(task.id)}</small>
-      <p><i class="assessment ${escapeHtml(activeAssessment.status)}">${escapeHtml(readable(activeAssessment.status))}</i>
-      <i class="assessment unknown">${escapeHtml(readable(activeAssessment.execution_status || "unverified"))}</i></p>
+      <p><i class="assessment ${escapeHtml(activeAssessment.status)}">${escapeHtml(statusLabel(activeAssessment.status))}</i>
+      <i class="assessment unknown">${escapeHtml(statusLabel(activeAssessment.execution_status || "unverified"))}</i></p>
       ${section(text("goals"), [...(task.goal_state || []), ...(collection.success_criteria || [])], text("goalMissing"))}
       ${section(text("initial"), task.initial_state || [], text("initialUnknown"))}
       ${granularitySection(task)}
@@ -793,7 +886,7 @@
         ${section(text("reset"), collection.reset, text("unknown"))}
         ${section(text("quality"), collection.quality_checks, text("unknown"))}
         ${section(text("consumables"), collection.consumables, text("unknown"))}
-        <p class="unknown">Time estimates: ${escapeHtml(times)}</p>
+        <p class="unknown">${escapeHtml(text("timeEstimates"))}: ${escapeHtml(times)}</p>
       </section>
       <section><h3>${escapeHtml(text("procedures"))}</h3>${procedureMarkup}</section>
       <section><h3>${escapeHtml(text("claims"))}</h3>${claimMarkup(detail.claims, detail.evidence || detail.sources || [])}</section>
@@ -835,8 +928,11 @@
   function renderExpansionLoops() {
     const loops = state.expansionLoops;
     if (!elements.expansion) return;
-    elements.expansion.hidden = loops.length === 0;
-    if (!loops.length) return;
+    // The loops expand the mustard bottle only; keep the section out of the way
+    // for every other object.
+    elements.expansion.hidden =
+      loops.length === 0 || state.selectedObjectId !== "ycb_006_mustard_bottle";
+    if (elements.expansion.hidden) return;
     const roundIndex = Math.min(state.selectedExpansionRound, loops.length - 1);
     state.selectedExpansionRound = roundIndex;
     const activeLoop = loops[roundIndex];
@@ -846,7 +942,11 @@
       .map((loop, index) => {
         const round =
           loop.iteration ?? loop.round ?? loop.round_index ?? loop.index ?? index + 1;
-        const title = label(loop);
+        const title =
+          (state.language === "ja" && loop.title_ja) ||
+          loop.title ||
+          loop.name_en ||
+          "";
         return `<option value="${index}" ${index === roundIndex ? "selected" : ""}>${escapeHtml(`${text("expansionRound")} ${round}${title ? ` — ${title}` : ""}`)}</option>`;
       })
       .join("")}</select></label>`;
@@ -895,6 +995,10 @@
     await navigateNode(id, node);
   }
 
+  const MIN_SCALE = 0.05;
+  const MAX_SCALE = 4;
+  const MAX_NEIGHBOURS = 120;
+
   function applyGraphView() {
     const { x, y, scale } = state.graphView;
     elements.graph.querySelector(".graph-viewport")?.setAttribute(
@@ -902,8 +1006,8 @@
     );
     elements.zoomLevel.value = `${scale < 0.1 ? (scale * 100).toFixed(1) : Math.round(scale * 100)}%`;
     const empty = !state.graph?.nodes?.length;
-    elements.zoomIn.disabled = empty || scale >= 4;
-    elements.zoomOut.disabled = empty || scale <= 0.001;
+    elements.zoomIn.disabled = empty || scale >= MAX_SCALE;
+    elements.zoomOut.disabled = empty || scale <= MIN_SCALE;
     elements.zoomReset.disabled = empty;
     elements.zoomFit.disabled = empty;
   }
@@ -923,7 +1027,7 @@
   }) {
     if (!state.graph?.nodes?.length || !point) return;
     const view = state.graphView;
-    const scale = Math.min(4, Math.max(0.001, view.scale * factor));
+    const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, view.scale * factor));
     // Keep the world point under the pointer at the same screen position.
     const ratio = scale / view.scale;
     state.graphView = {
@@ -943,7 +1047,7 @@
     const bounds = state.graphBounds;
     if (!bounds) return;
     const { width, height } = state.graphSize;
-    const scale = Math.min(1, Math.max(0.001, Math.min(
+    const scale = Math.min(1, Math.max(MIN_SCALE, Math.min(
       (width - 32) / bounds.width,
       (height - 32) / bounds.height,
     )));
@@ -960,14 +1064,29 @@
     if (!graph?.nodes?.length) {
       elements.graph.innerHTML = "";
       elements.empty.hidden = false;
+      if (elements.graphNote) elements.graphNote.hidden = true;
       state.graphBounds = null;
       applyGraphView();
       renderBreadcrumbs();
       return;
     }
     elements.empty.hidden = true;
-    const nodes = graph.nodes;
-    const root = nodes.find((node) => node.id === graph.center_id) || nodes[0];
+    const root =
+      graph.nodes.find((node) => node.id === graph.center_id) || graph.nodes[0];
+    // Hub nodes can return hundreds of neighbours. Render a stable prefix so the
+    // map stays responsive and explain how to narrow the view.
+    const neighbours = graph.nodes.filter((node) => node.id !== root.id);
+    const capped = neighbours.length > MAX_NEIGHBOURS;
+    const nodes = [root, ...neighbours.slice(0, MAX_NEIGHBOURS)];
+    if (elements.graphNote) {
+      elements.graphNote.hidden = !capped;
+      elements.graphNote.textContent = capped
+        ? fill(text("graphCapped"), {
+            shown: MAX_NEIGHBOURS,
+            total: neighbours.length,
+          })
+        : "";
+    }
     // One SVG unit is one CSS pixel at 100%, keeping labels legible even
     // when a node has many neighbors. The rest of the map remains pannable.
     const width = elements.graph.clientWidth;
@@ -1035,9 +1154,16 @@
     elements.graph.querySelectorAll(".node-label, .node-sub").forEach((node) => {
       const full = node.textContent.trim();
       node.textContent = full;
-      if (node.getComputedTextLength() <= nodeWidth - 24) return;
-      const characters = [...full];
-      while (characters.length > 1 && node.getComputedTextLength() > nodeWidth - 24) {
+      const limit = nodeWidth - 24;
+      const length = node.getComputedTextLength();
+      if (length <= limit) return;
+      // Jump close to the fitting length first, then trim character by character.
+      const characters = [...full].slice(
+        0,
+        Math.max(1, Math.floor([...full].length * (limit / length))),
+      );
+      node.textContent = `${characters.join("")}…`;
+      while (characters.length > 1 && node.getComputedTextLength() > limit) {
         characters.pop();
         node.textContent = `${characters.join("")}…`;
       }
@@ -1057,6 +1183,7 @@
         }
       });
       node.addEventListener("focus", () => {
+        if (state.graphDrag) return;
         const { x, y } = positions.get(node.dataset.nodeId);
         const view = state.graphView;
         const screenX = x * view.scale + view.x;
@@ -1075,7 +1202,7 @@
     elements.crumbs.innerHTML = state.history
       .map(
         (entry, index) =>
-          `<button data-history-index="${index}">${escapeHtml(entry.label)}</button>`,
+          `<button type="button" data-history-index="${index}">${escapeHtml(label(entry.node || { id: entry.id }))}</button>`,
       )
       .join("<span>/</span>");
     elements.crumbs
@@ -1093,29 +1220,34 @@
 
   async function loadGraph(id, pushHistory = true) {
     const version = ++state.graphVersion;
-    const previous = state.graph?.center_id;
-    if (pushHistory && previous && previous !== id) {
-      const previousNode = state.graph.nodes?.find(
-        (node) => node.id === previous,
-      );
-      state.history.push({
-        id: previous,
-        label: label(previousNode || { id: previous }),
-      });
-    }
+    const previousGraph = state.graph;
+    const previous = previousGraph?.center_id;
     try {
       const query = new URLSearchParams(contextQuery());
       query.set("lens", state.lens);
       const graph = await api(
         `/api/nodes/${encodeURIComponent(id)}/neighbors?${query}`,
       );
-      if (version !== state.graphVersion) return;
+      if (version !== state.graphVersion) return false;
+      // Record the previous centre only once the new graph is in hand, so a
+      // failed or superseded load never leaves a stale crumb behind.
+      if (pushHistory && previous && previous !== id) {
+        const previousNode = previousGraph.nodes?.find(
+          (node) => node.id === previous,
+        );
+        state.history.push({
+          id: previous,
+          node: previousNode || { id: previous },
+        });
+      }
       state.graph = graph;
       state.selectedNodeId = id;
       renderGraph({ reset: true });
+      return true;
     } catch (reason) {
       if (version === state.graphVersion)
         renderError(elements.inspector, reason);
+      return false;
     }
   }
 
@@ -1134,10 +1266,12 @@
       knownNode || state.graph?.nodes?.find((candidate) => candidate.id === id);
     if (node?.node_type === "TaskInstance") return selectTask(id);
     if (node?.node_type === "ObjectInstance") return selectObject(id);
-    const version = state.graphVersion + 1;
-    await loadGraph(id);
-    if (version !== state.graphVersion) return;
-    renderGraphNodeInspector(node || { id });
+    const loaded = await loadGraph(id);
+    if (!loaded) return;
+    const resolved =
+      state.graph?.nodes?.find((candidate) => candidate.id === id) ||
+      node || { id };
+    renderGraphNodeInspector(resolved);
   }
 
   async function selectObject(id, { preserveTask = false } = {}) {
@@ -1152,6 +1286,7 @@
     state.selectedNodeId = id;
     state.history = [];
     renderObjects();
+    renderExpansionLoops();
     try {
       const query = contextQuery();
       const [detail, tasks] = await Promise.all([
@@ -1216,9 +1351,19 @@
       );
       link.download = `task-atlas-${state.selectedTaskId}-collection-card.json`;
       link.click();
-      URL.revokeObjectURL(link.href);
+      const url = link.href;
+      setTimeout(() => URL.revokeObjectURL(url), 0);
     } catch (reason) {
-      renderError(elements.inspector, reason);
+      // Keep the task inspector; report the problem next to the button.
+      const download = byId("download");
+      if (!download) return;
+      download.parentElement
+        .querySelectorAll(".download-message")
+        .forEach((node) => node.remove());
+      const message = document.createElement("p");
+      message.className = "message download-message";
+      message.textContent = reason?.message || text("requestError");
+      download.insertAdjacentElement("afterend", message);
     }
   }
 
@@ -1240,6 +1385,7 @@
 
   async function search() {
     const query = elements.search.value.trim();
+    state.objectFilter = elements.search.value;
     if (!query) return renderObjects();
     const exact = state.objects.find((object) =>
       [object.id, object.ycb_id, object.asset_source_id, object.name_en, object.name_ja].some(
@@ -1252,6 +1398,12 @@
       const hit = results[0];
       if (["object", "objectinstance"].includes(hit?.result_type))
         return selectObject(hit.id);
+      // A task or node hit that matches no object should not leave the object
+      // index filtered down to "No matching objects".
+      if (hit && filterObjects(query.toLowerCase()).length === 0) {
+        state.objectFilter = "";
+        renderObjects();
+      }
       if (["task", "taskinstance"].includes(hit?.result_type))
         return selectTask(hit.id);
       if (hit) return navigateNode(hit.id);
@@ -1267,7 +1419,10 @@
       event.preventDefault();
       search();
     });
-    elements.search.addEventListener("input", renderObjects);
+    elements.search.addEventListener("input", () => {
+      state.objectFilter = elements.search.value;
+      renderObjects();
+    });
     elements.language.addEventListener("click", () => {
       state.language = state.language === "en" ? "ja" : "en";
       localStorage.setItem("atlas-lang", state.language);
@@ -1333,7 +1488,13 @@
       const point = graphPoint(event.clientX, event.clientY);
       if (!point) return;
       state.suppressGraphClick = false;
-      state.graphDrag = { id: event.pointerId, start: point, view: { ...state.graphView }, moved: false };
+      state.graphDrag = {
+        id: event.pointerId,
+        pointerType: event.pointerType,
+        start: point,
+        view: { ...state.graphView },
+        moved: false,
+      };
     });
     elements.graph.addEventListener("pointermove", (event) => {
       const drag = state.graphDrag;
@@ -1343,6 +1504,12 @@
       const dx = point.x - drag.start.x;
       const dy = point.y - drag.start.y;
       if (!drag.moved && Math.hypot(dx, dy) < 5) return;
+      // A mostly vertical touch is a page scroll (touch-action: pan-y); let the
+      // browser have it instead of panning the map.
+      if (!drag.moved && drag.pointerType === "touch" && Math.abs(dy) > Math.abs(dx)) {
+        state.graphDrag = null;
+        return;
+      }
       if (!drag.moved) elements.graph.setPointerCapture(event.pointerId);
       drag.moved = true;
       state.suppressGraphClick = true;
@@ -1388,7 +1555,8 @@
     new ResizeObserver(() => {
       if (state.graph && (elements.graph.clientWidth !== state.graphSize.width ||
           elements.graph.clientHeight !== state.graphSize.height)) {
-        renderGraph({ reset: true });
+        // Re-layout for the new size but keep the person's zoom and pan.
+        renderGraph();
       }
     }).observe(elements.graph);
     new ResizeObserver(updateCatalogHeight).observe(document.querySelector("header"));
@@ -1414,16 +1582,17 @@
       };
       renderContextOptions(state.contextOptions);
       renderObjects();
-      elements.status.textContent = `${health.seed_counts.objects} objects ready`;
-      elements.status.className = "ok";
+      state.health = health;
+      state.status = "ok";
+      renderStatus();
       const initial =
         objects.find((object) => object.ycb_id === "006_mustard_bottle") ||
         objects[0];
       if (initial) await selectObject(initial.id);
       loadExpansionLoops();
     } catch (reason) {
-      elements.status.textContent = "Offline";
-      elements.status.className = "bad";
+      state.status = "bad";
+      renderStatus();
       renderError(elements.objects, reason);
       renderError(elements.taskList, reason);
     }

@@ -434,7 +434,8 @@ main {
   border-color: #55dfc788;
   color: var(--teal);
 }
-#zoom-reset {
+#zoom-reset,
+#zoom-fit {
   min-width: auto;
   font-size: 12px;
 }
@@ -600,7 +601,8 @@ main {
   min-width: 0;
   height: clamp(420px, 60dvh, 640px);
   cursor: grab;
-  touch-action: none;
+  /* Vertical swipes scroll the page; horizontal drags and mouse drags pan the map. */
+  touch-action: pan-y pinch-zoom;
   user-select: none;
 }
 .graph-wrap.dragging #graph {
@@ -665,6 +667,18 @@ main {
 }
 #empty[hidden] {
   display: none !important;
+}
+.graph > .graph-note {
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border: 1px solid #ffbd7855;
+  border-radius: 8px;
+  color: #ffd9ac;
+  background: #ffbd7812;
+  font-size: 13px;
+}
+.graph-note[hidden] {
+  display: none;
 }
 .task {
   display: grid;
