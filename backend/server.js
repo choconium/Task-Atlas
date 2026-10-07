@@ -24,23 +24,51 @@ const MIME_TYPES = {
   ".ico": "image/x-icon",
 };
 
-function sendJson(response, status, payload, headers = {}) {
-  const body = JSON.stringify(payload);
+const ALLOWED_METHODS = "GET, HEAD, OPTIONS";
+const CORS_HEADERS = Object.freeze({
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": ALLOWED_METHODS,
+  "Access-Control-Allow-Headers": "Accept, Content-Type",
+});
+
+function isHead(response) {
+  return response.req?.method === "HEAD";
+}
+
+// HEAD responses carry the GET headers (including Content-Length) and no body.
+function sendBody(response, status, body, headers) {
   response.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": "no-store",
-    "Access-Control-Allow-Origin": "*",
+    "Content-Length": Buffer.byteLength(body),
     ...headers,
   });
-  response.end(body);
+  response.end(isHead(response) ? undefined : body);
+}
+
+function sendJson(response, status, payload, headers = {}) {
+  sendBody(response, status, JSON.stringify(payload), {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store",
+    ...CORS_HEADERS,
+    ...headers,
+  });
 }
 
 function sendText(response, status, body, contentType, headers = {}) {
-  response.writeHead(status, {
+  sendBody(response, status, body, {
     "Content-Type": contentType,
+    "Cache-Control": "no-store",
+    ...CORS_HEADERS,
     ...headers,
   });
-  response.end(body);
+}
+
+function sendOptions(response) {
+  response.writeHead(204, { Allow: ALLOWED_METHODS, ...CORS_HEADERS });
+  response.end();
+}
+
+function methodNotAllowed(response, message = "Method not allowed") {
+  sendJson(response, 405, { error: message }, { Allow: ALLOWED_METHODS });
 }
 
 function notFound(response, message = "Not found") {
@@ -65,17 +93,16 @@ function parseLimit(value, fallback = 200) {
   return Math.min(Math.max(parsed, 1), 500);
 }
 
-function serializeError(error) {
-  return error instanceof Error ? error.message : String(error);
-}
-
 function apiHandler(request, response, url, store) {
   const pathname = url.pathname;
+  if (request.method === "OPTIONS") return sendOptions(response);
   const segments = pathname.split("/").filter(Boolean).map(decodeSegment);
   if (segments.some((segment) => segment === null))
     return badRequest(response, "Invalid URL encoding");
+  // HEAD is answered like GET; sendBody drops the payload.
+  const method = request.method === "HEAD" ? "GET" : request.method;
 
-  if (request.method === "GET" && pathname === "/api/health") {
+  if (method === "GET" && pathname === "/api/health") {
     return sendJson(response, 200, {
       ok: true,
       service: "physical-ai-task-atlas",
@@ -95,17 +122,11 @@ function apiHandler(request, response, url, store) {
     });
   }
 
-  if (request.method !== "GET") {
-    return sendJson(
+  if (method !== "GET")
+    return methodNotAllowed(
       response,
-      405,
-      {
-        error:
-          "This MVP exposes read-only APIs. Proposal/review persistence is not implemented.",
-      },
-      { Allow: "GET" },
+      "This MVP exposes read-only APIs. Proposal/review persistence is not implemented.",
     );
-  }
 
   let context;
   try {
@@ -119,12 +140,11 @@ function apiHandler(request, response, url, store) {
   if (pathname === "/api/objects") {
     const query =
       url.searchParams.get("q") || url.searchParams.get("query") || "";
-    const objects = store
-      .listObjects(query)
-      .slice(0, parseLimit(url.searchParams.get("limit"), 200));
+    const limit = parseLimit(url.searchParams.get("limit"), 200);
+    const objects = store.listObjects(query);
     return sendJson(response, 200, {
-      data: objects,
-      meta: { total: objects.length, query },
+      data: objects.slice(0, limit),
+      meta: { total: objects.length, limit, query },
     });
   }
 
@@ -159,12 +179,11 @@ function apiHandler(request, response, url, store) {
       intent_id: url.searchParams.get("intent_id") || "",
       skill_id: url.searchParams.get("skill_id") || "",
     };
-    const tasks = store
-      .listTasks(filters, context)
-      .slice(0, parseLimit(url.searchParams.get("limit"), 200));
+    const limit = parseLimit(url.searchParams.get("limit"), 200);
+    const tasks = store.listTasks(filters, context);
     return sendJson(response, 200, {
-      data: tasks,
-      meta: { total: tasks.length, mode: context.mode },
+      data: tasks.slice(0, limit),
+      meta: { total: tasks.length, limit, mode: context.mode },
     });
   }
 
@@ -279,13 +298,16 @@ function serveStatic(response, pathname, frontendDir) {
   ) {
     return notFound(response, "Invalid static path");
   }
-  if (!fs.existsSync(filepath) || !fs.statSync(filepath).isFile())
-    return notFound(response);
+  if (!fs.existsSync(filepath)) return notFound(response);
+  const stats = fs.statSync(filepath);
+  if (!stats.isFile()) return notFound(response);
   const extension = path.extname(filepath).toLocaleLowerCase();
   response.writeHead(200, {
     "Content-Type": MIME_TYPES[extension] || "application/octet-stream",
+    "Content-Length": stats.size,
     "Cache-Control": "no-cache",
   });
+  if (isHead(response)) return response.end();
   fs.createReadStream(filepath).pipe(response);
 }
 
@@ -299,20 +321,15 @@ function createServer({ store = getDefaultStore(), frontendDir } = {}) {
     try {
       if (requestUrl.pathname === "/api" || requestUrl.pathname.startsWith("/api/"))
         return apiHandler(request, response, requestUrl, store);
-      if (request.method !== "GET")
-        return sendJson(
-          response,
-          405,
-          { error: "Method not allowed" },
-          { Allow: "GET" },
-        );
+      if (request.method === "OPTIONS") return sendOptions(response);
+      if (request.method !== "GET" && request.method !== "HEAD")
+        return methodNotAllowed(response);
       return serveStatic(response, requestUrl.pathname, staticDirectory);
     } catch (error) {
+      // Logged server-side only: error messages can carry filesystem paths.
       console.error(error);
-      return sendJson(response, 500, {
-        error: "Internal server error",
-        detail: serializeError(error),
-      });
+      if (response.headersSent) return response.end();
+      return sendJson(response, 500, { error: "Internal server error" });
     }
   });
 }

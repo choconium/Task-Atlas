@@ -21,6 +21,13 @@ function loadTaskBatches(seedDirectory, { filenames } = {}) {
     "external_objects",
     "evidence",
   ]);
+  // Bundle filename per row id, so consumers can report provenance without
+  // guessing from id prefixes. Planning is additionally indexed by task_id.
+  // Non-enumerable: callers iterate Object.keys(merged) as row arrays.
+  const origins = Object.fromEntries(
+    Object.keys(merged).map((key) => [key, new Map()]),
+  );
+  Object.defineProperty(merged, "origins", { value: origins, enumerable: false });
   if (filenames === undefined && !fs.existsSync(directory)) return merged;
   const bundleFiles = filenames === undefined
     ? fs.readdirSync(directory).filter((name) => name.endsWith(".json")).sort()
@@ -38,6 +45,12 @@ function loadTaskBatches(seedDirectory, { filenames } = {}) {
       if (optionalArrays.has(key) && bundle[key] === undefined) continue;
       if (!Array.isArray(bundle[key])) throw new Error(`${filename}: ${key} must be an array`);
       merged[key].push(...bundle[key]);
+      for (const row of bundle[key]) {
+        if (!row || typeof row !== "object") continue;
+        if (typeof row.id === "string") origins[key].set(row.id, filename);
+        if (key === "planning" && typeof row.task_id === "string")
+          origins[key].set(row.task_id, filename);
+      }
     }
   }
   return merged;

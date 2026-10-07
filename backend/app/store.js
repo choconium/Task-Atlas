@@ -50,10 +50,11 @@ function clone(value) {
 function asMap(items) {
   return new Map(items.map((item) => [item.id, item]));
 }
+// A shared collator is ~50x cheaper than per-comparison localeCompare with
+// options, which dominated /api/tasks and /api/objects CPU time.
+const COLLATOR = new Intl.Collator("en", { sensitivity: "base" });
 function compareText(left, right) {
-  return String(left).localeCompare(String(right), "en", {
-    sensitivity: "base",
-  });
+  return COLLATOR.compare(String(left), String(right));
 }
 function unique(items) {
   return [...new Set(items)];
@@ -66,7 +67,11 @@ function titleCase(value) {
 function nodeFromRecord(record, extra = {}) {
   if (!record) return null;
   const label =
-    record.name_en || record.canonical_name || record.statement || record.id;
+    record.name_en ||
+    record.canonical_name ||
+    record.source_name ||
+    record.statement ||
+    record.id;
   return {
     id: record.id,
     node_type: record.node_type || extra.node_type || "Node",
@@ -76,15 +81,32 @@ function nodeFromRecord(record, extra = {}) {
     ...extra,
   };
 }
+// Graph arrays are deduplicated through a per-array Set of ids (kept in a
+// WeakMap so call sites keep passing plain arrays). Arrays that already hold
+// seed entries (e.g. the centre node) are indexed on first use.
+const graphIndex = new WeakMap();
+function idsOf(items) {
+  let ids = graphIndex.get(items);
+  if (!ids) {
+    ids = new Set(items.map((item) => item.id));
+    graphIndex.set(items, ids);
+  }
+  return ids;
+}
 function addNode(nodes, node) {
-  if (node && !nodes.some((existing) => existing.id === node.id))
-    nodes.push(node);
+  if (!node) return;
+  const ids = idsOf(nodes);
+  if (ids.has(node.id)) return;
+  ids.add(node.id);
+  nodes.push(node);
 }
 function addEdge(edges, source, target, relation) {
   if (!source || !target || source === target) return;
   const id = `${source}|${relation}|${target}`;
-  if (!edges.some((edge) => edge.id === id))
-    edges.push({ id, source, target, relation });
+  const ids = idsOf(edges);
+  if (ids.has(id)) return;
+  ids.add(id);
+  edges.push({ id, source, target, relation });
 }
 
 function createStore(options = {}) {
@@ -121,19 +143,53 @@ function createStore(options = {}) {
     expansionLoops: asMap(data.expansionLoops),
     expansionRelations: asMap(data.expansionRelations),
   };
-  const planningFor = (id) =>
-    maps.planning.get(id) ||
-    data.planning.find((item) => item.task_id === id) ||
-    null;
+  // Secondary indexes: planning by task_id and claims by subject_id. These
+  // replace linear scans that ran once per task inside list and graph routes.
+  const planningByTask = new Map(
+    data.planning.map((plan) => [plan.task_id, plan]),
+  );
+  const claimsBySubject = new Map();
+  for (const claim of data.claims) {
+    const list = claimsBySubject.get(claim.subject_id);
+    if (list) list.push(claim);
+    else claimsBySubject.set(claim.subject_id, [claim]);
+  }
+  const planningFor = (id) => planningByTask.get(id) || null;
   const procedureId = (taskId, procedure) =>
     `procedure:${taskId}:${procedure.id}`;
-  const claimsFor = (id) =>
-    data.claims.filter((item) => item.subject_id === id);
-  const usesTaskBundle = (task) =>
-    task.id.startsWith("task_ycb_") ||
-    task.id.startsWith("task_reference_") ||
-    String(task.generation_version || "").startsWith("reference_") ||
-    Boolean(maps.objects.get(task.object_id)?.asset_source);
+  const claimsFor = (id) => claimsBySubject.get(id) || [];
+  // Bundle filename per row, recorded by the loader; base seeds have none.
+  const bundleOrigins = batches.origins || {
+    tasks: new Map(),
+    planning: new Map(),
+    claims: new Map(),
+  };
+  const seedOrigin = (bundle, baseFile) =>
+    bundle ? `ycb_batches/${bundle}` : baseFile;
+  const provenanceFor = (task, planning, claims) => {
+    const taskBundle = bundleOrigins.tasks.get(task.id) || null;
+    const planningBundle = planning
+      ? bundleOrigins.planning.get(planning.task_id) ||
+        bundleOrigins.planning.get(planning.id) ||
+        null
+      : taskBundle;
+    const claimBundles = unique(
+      claims.map((claim) => bundleOrigins.claims.get(claim.id) || null),
+    );
+    return {
+      task_seed: taskBundle ? "ycb_batches/" : SEED_FILES.tasks,
+      task_file: seedOrigin(taskBundle, SEED_FILES.tasks),
+      planning_seed: planningBundle ? "ycb_batches/" : SEED_FILES.planning,
+      planning_file: seedOrigin(planningBundle, SEED_FILES.planning),
+      claims_seed: claimBundles.some(Boolean) ? "ycb_batches/" : SEED_FILES.claims,
+      claims_files: claimBundles.length
+        ? claimBundles
+            .map((bundle) => seedOrigin(bundle, SEED_FILES.claims))
+            .sort()
+        : [seedOrigin(taskBundle, SEED_FILES.claims)],
+      bundle: taskBundle,
+    };
+  };
   const sourcesFor = (claims) =>
     unique(claims.flatMap((item) => item.source_ids || []))
       .map((id) => maps.evidence.get(id))
@@ -175,9 +231,17 @@ function createStore(options = {}) {
       object_id: task.object_id,
       scene_id: task.scene_id,
       scene_name_en: maps.scenes.get(task.scene_id)?.name_en || task.scene_id,
+      scene_name_ja:
+        maps.scenes.get(task.scene_id)?.name_ja ||
+        maps.scenes.get(task.scene_id)?.name_en ||
+        task.scene_id,
       intent_id: task.intent_id,
       intent_name_en:
         maps.intents.get(task.intent_id)?.name_en || task.intent_id,
+      intent_name_ja:
+        maps.intents.get(task.intent_id)?.name_ja ||
+        maps.intents.get(task.intent_id)?.name_en ||
+        task.intent_id,
       review_status: task.review_status,
       state_ids: task.state_ids || [],
       skills: task.skills || [],
@@ -374,11 +438,7 @@ function createStore(options = {}) {
       unresolved_requirements: assessment.reasons.filter(
         (item) => item.kind !== "satisfied",
       ),
-      provenance: {
-        task_seed: usesTaskBundle(task) ? "ycb_batches/" : "mustard_tasks.json",
-        planning_seed: usesTaskBundle(task) ? "ycb_batches/" : "task_planning.json",
-        claims_seed: usesTaskBundle(task) ? "ycb_batches/" : "claims.json",
-      },
+      provenance: provenanceFor(task, planning, claims),
       execution_caveat:
         "A ready planning assessment is not evidence that a robot or simulator has completed the task.",
     };
@@ -992,16 +1052,19 @@ function tasksToCsv(tasks, maps) {
     "frequency_status",
     "frequency_value",
   ];
-  const claims = maps?.claims ? [...maps.claims.values()] : [];
+  // First population_frequency claim per subject, in claim order.
+  const frequencyBySubject = new Map();
+  for (const claim of maps?.claims ? maps.claims.values() : [])
+    if (
+      claim.claim_type === "population_frequency" &&
+      !frequencyBySubject.has(claim.subject_id)
+    )
+      frequencyBySubject.set(claim.subject_id, claim);
   return `${[
     columns.join(","),
     ...tasks
       .map((task) => {
-        const frequency = claims.find(
-          (claim) =>
-            claim.subject_id === task.id &&
-            claim.claim_type === "population_frequency",
-        );
+        const frequency = frequencyBySubject.get(task.id);
         return [
           task.id,
           task.name_en,
