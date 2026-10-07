@@ -5,6 +5,9 @@
 const fs = require("node:fs");
 const { defaultData } = require("./validate_seed_data");
 
+const USAGE =
+  "Usage: node scripts/report_similar_tasks.js [--min 0.6] [--only <task id prefix>] [draft.json ...]";
+
 const STOPWORDS = new Set(
   "a an and the of to in on onto into from with for its it by at is are be as then".split(" "),
 );
@@ -59,15 +62,42 @@ function similarPairs(tasks, { min = 0.6, only = null } = {}) {
   return pairs.sort((a, b) => b.score - a.score);
 }
 
-function run() {
-  const args = process.argv.slice(2);
+class UsageError extends Error {}
+
+// Parse CLI arguments; throws UsageError on malformed --min / --only.
+function parseArgs(args) {
   const options = { min: 0.6, only: null };
   const drafts = [];
   for (let i = 0; i < args.length; i += 1) {
-    if (args[i] === "--min") options.min = Number(args[++i]);
-    else if (args[i] === "--only") options.only = args[++i];
-    else drafts.push(args[i]);
+    if (args[i] === "--min") {
+      const raw = args[++i];
+      const min = raw === undefined || raw.trim() === "" ? NaN : Number(raw);
+      if (!Number.isFinite(min)) throw new UsageError(`--min expects a finite number, got ${JSON.stringify(raw ?? null)}`);
+      options.min = min;
+    } else if (args[i] === "--only") {
+      const only = args[++i];
+      if (only === undefined || only === "" || only.startsWith("--"))
+        throw new UsageError("--only expects a task id prefix");
+      options.only = only;
+    } else if (args[i].startsWith("--")) {
+      throw new UsageError(`unknown option ${args[i]}`);
+    } else drafts.push(args[i]);
   }
+  return { options, drafts };
+}
+
+function run() {
+  let parsed;
+  try {
+    parsed = parseArgs(process.argv.slice(2));
+  } catch (error) {
+    if (!(error instanceof UsageError)) throw error;
+    console.error(error.message);
+    console.error(USAGE);
+    process.exitCode = 2;
+    return;
+  }
+  const { options, drafts } = parsed;
   const tasks = [...defaultData().tasks];
   for (const draft of drafts)
     tasks.push(...(JSON.parse(fs.readFileSync(draft, "utf8")).tasks || []));
@@ -79,4 +109,4 @@ function run() {
 }
 
 if (require.main === module) run();
-module.exports = { similarPairs };
+module.exports = { similarPairs, parseArgs, UsageError };

@@ -97,8 +97,20 @@ const EXPANSION_BASELINE_NODE_IDS = new Set([
   "scene_kitchen_counter",
 ]);
 
+// Binding keys declared by task_instance.schema.json that are not template roles.
+const SCHEMA_BINDING_KEYS = new Set([
+  "execution_asset_manifest_id",
+  "execution_proxy_required",
+]);
+const WARNING_PRINT_LIMIT = 40;
+
 function readJson(file) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
+}
+const schemaCache = new Map();
+function loadSchema(file) {
+  if (!schemaCache.has(file)) schemaCache.set(file, readJson(path.join(SCHEMA_DIR, file)));
+  return schemaCache.get(file);
 }
 function typeMatches(value, type) {
   if (type === "null") return value === null;
@@ -492,6 +504,7 @@ function validateObjectIdentity(object, at, errors) {
 }
 function validateData(data = defaultData()) {
   const errors = [];
+  const warnings = [];
   const collectionNames = [
     "objects",
     "scenes",
@@ -518,17 +531,14 @@ function validateData(data = defaultData()) {
     planning: "task_planning.schema.json",
     claims: "claim.schema.json",
   };
-  for (const [name, file] of Object.entries(schemas))
+  for (const [name, file] of Object.entries(schemas)) {
+    const schema = loadSchema(file);
     for (const [i, row] of (Array.isArray(data[name])
       ? data[name]
       : []
     ).entries())
-      validateSchema(
-        row,
-        readJson(path.join(SCHEMA_DIR, file)),
-        `${name}[${i}]`,
-        errors,
-      );
+      validateSchema(row, schema, `${name}[${i}]`, errors);
+  }
   const externalAssetIdentities = new Set();
   for (const [i, object] of (Array.isArray(data.objects) ? data.objects : []).entries()) {
     const at = `objects[${i}]`;
@@ -548,7 +558,22 @@ function validateData(data = defaultData()) {
   }
   if (!maps.objects.has("ycb_006_mustard_bottle"))
     errors.push("objects: missing ycb_006_mustard_bottle anchor");
+  // Every external (non-YCB) object should carry a catalog_identity claim.
+  // Kept as a warning here (tests/external-objects.test.js builds probe objects
+  // without one); check_draft.js enforces it as an error for new draft bundles.
+  const identifiedObjects = new Set(
+    (Array.isArray(data.claims) ? data.claims : [])
+      .filter((claim) => claim && claim.claim_type === "catalog_identity")
+      .map((claim) => claim.subject_id),
+  );
+  for (const object of Array.isArray(data.objects) ? data.objects : []) {
+    if (!object || typeof object !== "object" || Array.isArray(object)) continue;
+    if (!Object.hasOwn(object, "ycb_id") && !identifiedObjects.has(object.id))
+      warnings.push(`${object.id}: external object missing catalog_identity claim`);
+  }
   for (const template of Array.isArray(data.templates) ? data.templates : []) {
+    if (!Array.isArray(template.compatible_scenes) || template.compatible_scenes.length === 0)
+      warnings.push(`${template.id}: template declares no compatible_scenes`);
     for (const scene of template.compatible_scenes || [])
       if (!maps.scenes.has(scene))
         errors.push(`${template.id}: unknown scene ${scene}`);
@@ -573,10 +598,27 @@ function validateData(data = defaultData()) {
     for (const skill of task.skills || [])
       if (!maps.skills.has(skill))
         errors.push(`${task.id}: unknown skill ${skill}`);
-    if (typeof task.id === "string" && task.id.startsWith("task_ycb_") && maps.templates.has(task.template_id)) {
-      const roles = maps.templates.get(task.template_id).roles || {};
-      for (const role of Object.keys(task.bindings || {}))
-        if (!Object.hasOwn(roles, role)) errors.push(`${task.id}: undeclared template role ${role}`);
+    const template = maps.templates.get(task.template_id);
+    if (template) {
+      const roles = template.roles || {};
+      const isYcbTask = typeof task.id === "string" && task.id.startsWith("task_ycb_");
+      for (const role of Object.keys(task.bindings || {})) {
+        if (Object.hasOwn(roles, role) || SCHEMA_BINDING_KEYS.has(role)) continue;
+        // Historical contract: task_ycb_* bindings must match template roles exactly.
+        if (isYcbTask) errors.push(`${task.id}: undeclared template role ${role}`);
+        else warnings.push(`${task.id}: binding ${role} is not a declared role of ${task.template_id}`);
+      }
+      const compatibleScenes = Array.isArray(template.compatible_scenes)
+        ? template.compatible_scenes
+        : [];
+      if (
+        compatibleScenes.length > 0 &&
+        maps.scenes.has(task.scene_id) &&
+        !compatibleScenes.includes(task.scene_id)
+      )
+        warnings.push(
+          `${task.id}: scene ${task.scene_id} is not in compatible_scenes of ${task.template_id}`,
+        );
     }
     if ("scores" in task)
       errors.push(`${task.id}: obsolete scores are not allowed`);
@@ -604,6 +646,16 @@ function validateData(data = defaultData()) {
     if (planningByTask.has(plan.task_id))
       errors.push(`${plan.id}: duplicate planning for ${plan.task_id}`);
     planningByTask.set(plan.task_id, plan);
+    const planTask = maps.tasks.get(plan.task_id);
+    if (
+      planTask &&
+      Object.hasOwn(planTask, "generation_version") &&
+      Object.hasOwn(plan, "generation_version") &&
+      planTask.generation_version !== plan.generation_version
+    )
+      warnings.push(
+        `${plan.id}: generation_version ${plan.generation_version} differs from task ${plan.task_id} (${planTask.generation_version})`,
+      );
     validateRequirements(
       plan.requirements,
       `${plan.id}: planning`,
@@ -681,10 +733,19 @@ function validateData(data = defaultData()) {
       )
     )
       errors.push(`${claim.id}: design seed cannot justify supported status`);
-    if (maps.tasks.has(claim.subject_id)) {
+    const subjectTask = maps.tasks.get(claim.subject_id);
+    if (subjectTask) {
       const types = claimTypesByTask.get(claim.subject_id) || new Set();
       types.add(claim.claim_type);
       claimTypesByTask.set(claim.subject_id, types);
+      if (
+        Object.hasOwn(subjectTask, "generation_version") &&
+        Object.hasOwn(claim, "generation_version") &&
+        subjectTask.generation_version !== claim.generation_version
+      )
+        warnings.push(
+          `${claim.id}: generation_version ${claim.generation_version} differs from task ${claim.subject_id} (${subjectTask.generation_version})`,
+        );
     }
   }
   for (const task of Array.isArray(data.tasks) ? data.tasks : [])
@@ -696,10 +757,15 @@ function validateData(data = defaultData()) {
     ])
       if (!claimTypesByTask.get(task.id)?.has(type))
         errors.push(`${task.id}: missing ${type} claim`);
-  return { valid: errors.length === 0, errors };
+  return { valid: errors.length === 0, errors, warnings };
+}
+function printWarnings(warnings, log = console.log, limit = WARNING_PRINT_LIMIT) {
+  for (const warning of warnings.slice(0, limit)) log(`- ${warning}`);
+  if (warnings.length > limit) log(`... and ${warnings.length - limit} more`);
 }
 function run() {
-  const result = validateData();
+  const data = defaultData();
+  const result = validateData(data);
   if (!result.valid) {
     console.error(
       `Seed validation failed with ${result.errors.length} error(s):`,
@@ -708,8 +774,12 @@ function run() {
     process.exitCode = 1;
     return;
   }
-  const data = defaultData();
-  console.log("Seed validation passed.");
+  if (result.warnings.length) {
+    console.log(`Seed validation passed with ${result.warnings.length} warning(s):`);
+    printWarnings(result.warnings);
+  } else {
+    console.log("Seed validation passed.");
+  }
   console.log(`  YCB object records: ${data.objects.filter((object) => object.ycb_id).length}`);
   console.log(`  external object records: ${data.objects.filter((object) => !object.ycb_id).length}`);
   console.log(`  task instances: ${data.tasks.length}`);
@@ -717,4 +787,4 @@ function run() {
   console.log(`  claims: ${data.claims.length}`);
 }
 if (require.main === module) run();
-module.exports = { validateData, defaultData };
+module.exports = { validateData, defaultData, printWarnings, WARNING_PRINT_LIMIT };

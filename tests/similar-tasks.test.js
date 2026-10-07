@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { similarPairs } = require("../scripts/report_similar_tasks");
+const { similarPairs, parseArgs, UsageError } = require("../scripts/report_similar_tasks");
 
 const task = (id, name, goals, intent = "intent_store", scene = "scene_home_kitchen") => ({
   id, name_en: name, goal_state: goals, intent_id: intent, scene_id: scene,
@@ -16,4 +16,24 @@ test("similar-task report ranks paraphrases above unrelated tasks", () => {
     { min: 0.5 },
   );
   assert.deepEqual(pairs.map((pair) => [pair.left, pair.right]), [["task_a", "task_b"]]);
+});
+
+test("similar-task argument parser accepts well-formed options", () => {
+  assert.deepEqual(parseArgs([]), { options: { min: 0.6, only: null }, drafts: [] });
+  assert.deepEqual(parseArgs(["--min", "0.75", "--only", "task_x", "a.json", "b.json"]), {
+    options: { min: 0.75, only: "task_x" },
+    drafts: ["a.json", "b.json"],
+  });
+  assert.equal(parseArgs(["--min", "0"]).options.min, 0);
+});
+
+test("similar-task argument parser rejects a non-numeric or missing --min", () => {
+  for (const args of [["--min", "abc"], ["--min"], ["--min", ""], ["--min", "NaN"], ["--min", "Infinity"]])
+    assert.throws(() => parseArgs(args), (error) => error instanceof UsageError && /--min/.test(error.message), args.join(" "));
+});
+
+test("similar-task argument parser rejects a bare --only and unknown options", () => {
+  assert.throws(() => parseArgs(["--only"]), (error) => error instanceof UsageError && /--only/.test(error.message));
+  assert.throws(() => parseArgs(["--only", "--min", "0.5"]), (error) => error instanceof UsageError && /--only/.test(error.message));
+  assert.throws(() => parseArgs(["--bogus"]), (error) => error instanceof UsageError && /--bogus/.test(error.message));
 });
