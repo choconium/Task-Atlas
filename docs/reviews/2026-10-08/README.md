@@ -64,3 +64,33 @@ on external links, element ids, API response shapes, zoom math and clamping,
 keyboard zoom isolated from the search box, drag-vs-click suppression, static
 path-traversal guard, 400/404 semantics, CSV quoting, manifest and Wrangler
 globs.
+
+## Follow-up commits (same day)
+
+- `frontend/app.js`, `index.html`, `styles.css`: items 1–8 above plus the minor
+  items; neighbours are capped at 120 with a localized notice (`#graph-note`);
+  zoom floor 5 %; breadcrumbs re-label on language toggle; expansion section
+  only for the mustard bottle. Verified with `scripts/ui-probes/final_check.js`
+  (vertical touch swipe over the graph now scrolls the page, 2188 → 2540).
+- `frontend/asset-downloads.js`: YCB archive set re-probed (60 of 77 exist),
+  GSO direct ZIP, ReplicaCAD folder for any path, THOR database note, GitHub
+  folder links for mujoco and robocasa, license host fallback; 21 unit tests.
+- `backend/`: 500 bodies carry no detail; HEAD mirrors GET, OPTIONS → 204 with
+  CORS; provenance from bundle origins (`bundle`, `*_file` fields added;
+  `*_seed` kept for compatibility with existing tests); hoisted collator and
+  task/subject indexes (`/api/tasks` 27.7 → ~11 ms, `/api/objects` 11.3 →
+  0.3 ms); `meta.total` is the pre-slice total; `scene_name_ja` /
+  `intent_name_ja` on task rows; evidence nodes labelled by `source_name`.
+  10 HTTP tests.
+- `scripts/`: the validator returns `warnings` (278 on current data: 74 scene
+  mismatches, 18 templates without `compatible_scenes`, 186 undeclared
+  bindings) without failing; missing `catalog_identity` is a warning in
+  `validate_seed_data.js` because `tests/external-objects.test.js` builds
+  probe objects without claims, and stays an error in `check_draft.js`;
+  `check_draft.js` and `report_similar_tasks.js` reject bad input with exit
+  code 2. 16 tests.
+
+Still open: Worker start-up time grows with each bundle (JSON parse at module
+scope); search ranking; backend reason messages are English-only data; desktop
+wheel over the graph zooms instead of scrolling the page (by design, noted).
+

@@ -1,0 +1,46 @@
+const { chromium, devices } = require("playwright");
+const base = "http://127.0.0.1:3141";
+(async () => {
+  const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1400, height: 900 } });
+  const errs = []; p.on("pageerror", (e) => errs.push(e.message)); p.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
+  await p.goto(base + "/"); await p.waitForSelector("#status.ok"); await p.waitForTimeout(800);
+  await p.locator("#graph .node").nth(3).dblclick({ force: true }); await p.waitForTimeout(900);
+  console.log("dblclick crumbs:", JSON.stringify(await p.textContent("#crumbs")), "buttons:", await p.$$eval("#crumbs button", (x) => x.length));
+  await p.click("#back"); await p.waitForTimeout(600);
+  console.log("group labels:", await p.$$eval("#graph .node .node-label", (x) => x.map((t) => t.textContent.trim()).filter((s) => / · \d/.test(s)).slice(0, 4)));
+  await p.click("summary"); const cb = p.locator('#checks fieldset[data-context-key="capabilities"] input[type=checkbox]').first();
+  await cb.check(); await p.waitForTimeout(500); await cb.uncheck(); await p.waitForTimeout(500);
+  console.log("radio after uncheck:", await p.$$eval('#checks fieldset[data-context-key="capabilities"] input[type=radio]:checked', (x) => x.map((r) => r.value)));
+  await p.click("#zoom-in"); await p.click("#zoom-in"); const z = await p.$eval("#zoom-level", (o) => o.value);
+  await p.setViewportSize({ width: 1200, height: 900 }); await p.waitForTimeout(500);
+  console.log("zoom before/after resize:", z, await p.$eval("#zoom-level", (o) => o.value));
+  for (let i = 0; i < 40; i++) if (!(await p.$eval("#zoom-out", (x) => x.disabled))) await p.click("#zoom-out");
+  console.log("zoom floor:", await p.$eval("#zoom-level", (o) => o.value)); await p.click("#zoom-reset");
+  await p.fill("#search", "skill_grasp"); await p.press("#search", "Enter"); await p.waitForTimeout(1500);
+  console.log("skill_grasp nodes:", await p.$$eval("#graph .node", (x) => x.length), "| note:", (await p.textContent("#graph-note")).trim().slice(0, 70), "| objects listed:", await p.$$eval("#objects button", (x) => x.length));
+  await p.fill("#search", ""); await p.dispatchEvent("#search", "input");
+  await p.click("#language"); await p.waitForTimeout(600);
+  console.log("JA: status", await p.textContent("#status"), "| empty:", await p.textContent("#empty"), "| lens all:", await p.textContent('[data-lens="all"]'), "| title:", await p.title());
+  const jaList = await p.evaluate(() => document.querySelector("#task-list").innerText.split("\n").slice(0, 4).join(" | "));
+  console.log("JA task list:", jaList.slice(0, 160));
+  await p.click("#language");
+  // wine glass download link
+  await p.click('#objects [data-object-id="ycb_023_wine_glass"]'); await p.waitForTimeout(800);
+  console.log("wine glass links:", await p.$$eval("#hero-assets a", (a) => a.map((x) => x.textContent.trim())));
+  await p.click('#objects [data-object-id^="gso_object_"]'); await p.waitForTimeout(800);
+  console.log("GSO links:", await p.$$eval("#hero-assets a", (a) => a.map((x) => x.textContent.trim())));
+  await p.click('#objects [data-object-id^="thor_object_"]'); await p.waitForTimeout(800);
+  console.log("THOR assets text:", (await p.textContent("#hero-assets")).replace(/\s+/g, " ").slice(0, 160), "| expansion hidden:", await p.$eval("#expansion-loops", (e) => e.hidden));
+  await p.close();
+  const ctx = await b.newContext({ ...devices["Pixel 7"] }); const m = await ctx.newPage();
+  await m.goto(base + "/"); await m.waitForSelector("#status.ok"); await m.waitForTimeout(900);
+  await m.evaluate(() => document.querySelector("#graph").scrollIntoView({ block: "center" })); await m.waitForTimeout(300);
+  const y0 = await m.evaluate(() => scrollY); const g = await m.$eval("#graph", (e) => e.getBoundingClientRect());
+  const cdp = await ctx.newCDPSession(m); const x = Math.round(g.x + g.width / 2); let y = Math.round(g.y + g.height / 2);
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x, y }] });
+  for (let i = 0; i < 10; i++) { y -= 25; await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x, y }] }); }
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] }); await m.waitForTimeout(500);
+  console.log("mobile vertical swipe over graph: scrollY", y0, "->", await m.evaluate(() => scrollY), "| transform:", await m.$eval("#graph .graph-viewport", (e) => e.getAttribute("transform")));
+  console.log("errors:", errs.length ? errs : "none");
+  await b.close();
+})();
